@@ -197,6 +197,10 @@
             display: none;
         }
 
+        .mobile-only-btn {
+            display: none !important;
+        }
+
         @media (max-width: 768px) {
             nav {
                 top: 12px;
@@ -213,7 +217,7 @@
                 right: 16px;
                 flex-direction: column;
                 gap: 0;
-                background: rgba(15, 15, 15, 0.92);
+                background: rgba(15, 15, 15, 0.4);
                 backdrop-filter: blur(32px) saturate(180%);
                 -webkit-backdrop-filter: blur(32px) saturate(180%);
                 border: 1px solid rgba(255, 255, 255, 0.12);
@@ -223,7 +227,15 @@
                 z-index: 999;
                 transform: translateY(-10px);
                 opacity: 0;
-                transition: opacity 0.3s ease, transform 0.3s ease;
+                transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            nav.scrolled .nav-links {
+                background: rgba(15, 15, 15, 0.95);
+                backdrop-filter: blur(24px) saturate(180%);
+                -webkit-backdrop-filter: blur(24px) saturate(180%);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
             }
 
             .nav-links.open {
@@ -248,6 +260,18 @@
             .nav-cta .btn {
                 padding: 8px 16px;
                 font-size: 0.82rem;
+            }
+
+            .nav-cta .desktop-only-btn {
+                display: none !important;
+            }
+
+            .mobile-only-btn {
+                display: flex !important;
+                margin-top: 12px;
+                margin-inline: 8px;
+                width: calc(100% - 16px);
+                justify-content: center;
             }
 
             .nav-hamburger {
@@ -1484,9 +1508,24 @@
             <a href="#features">Features</a>
             <a href="#how-it-works">How it works</a>
             <a href="#testimonials">Creator Reviews</a>
+            <a href="/editor" class="btn-nav-start mobile-only-btn">
+                Start
+                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon">
+                    <path clip-rule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                        fill-rule="evenodd"></path>
+                </svg>
+            </a>
         </div>
         <div class="nav-cta">
-            <a href="/editor" class="btn btn-primary">🚀 Start</a>
+            <a href="/editor" class="btn-nav-start desktop-only-btn">
+                Start
+                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon">
+                    <path clip-rule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                        fill-rule="evenodd"></path>
+                </svg>
+            </a>
             <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
@@ -1567,8 +1606,24 @@
         </p>
 
         <div class="hero-ctas animate-fade-up delay-3">
-            <a href="/editor" class="btn btn-primary btn-lg"
-                style="background: var(--orange-grad); padding: 20px 60px; border-radius: 100px;">🚀 Launch Editor</a>
+            <a href="/editor" class="btn-creative" style="--clr: var(--accent)">
+                <span class="btn-creative__icon-wrapper">
+                    <svg viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        class="btn-creative__icon-svg" width="10">
+                        <path
+                            d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
+                            fill="currentColor"></path>
+                    </svg>
+
+                    <svg viewBox="0 0 14 15" fill="none" width="10" xmlns="http://www.w3.org/2000/svg"
+                        class="btn-creative__icon-svg btn-creative__icon-svg--copy">
+                        <path
+                            d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
+                            fill="currentColor"></path>
+                    </svg>
+                </span>
+                Launch Editor
+            </a>
         </div>
 
         <div class="hero-mockup animate-fade-up delay-4">
