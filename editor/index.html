@@ -1,0 +1,5135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Channel Preview — YouTube Asset Preview Tool</title>
+  <link rel="icon" type="image/png" href="../assets/logo-icon.png">
+  <link rel="shortcut icon" href="../assets/logo-icon.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --surface2: #18181f;
+      --surface3: #1e1e28;
+      --border: #2a2a38;
+      --border2: #363648;
+      --accent: #ff4e4e;
+      --accent2: #ff6b35;
+      --accent-glow: rgba(255, 61, 90, 0.2);
+      --green: #22c55e;
+      --blue: #3b82f6;
+      --purple: #a855f7;
+      --yellow: #f59e0b;
+      --text: #f0f0f8;
+      --text2: #9999b0;
+      --text3: #55556a;
+      --safe-color: rgba(34, 197, 94, 0.22);
+      --desktop-color: rgba(59, 130, 246, 0.22);
+      --tv-color: rgba(168, 85, 247, 0.22);
+      --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    [data-theme="light"] {
+      --bg: #f0f0f5;
+      --surface: #ffffff;
+      --surface2: #f7f7fc;
+      --surface3: #eeeef5;
+      --border: #e0e0ec;
+      --border2: #d0d0e0;
+      --accent: #e8002d;
+      --text: #0f0f1a;
+      --text2: #555568;
+      --text3: #aaaabc;
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      --safe-color: rgba(34, 197, 94, 0.15);
+      --desktop-color: rgba(59, 130, 246, 0.15);
+      --tv-color: rgba(168, 85, 247, 0.15);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+      background: var(--bg)
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      display: flex;
+      flex-direction: column
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border2);
+      border-radius: 99px
+    }
+
+    /* ── TOP NAV ── */
+    .topnav {
+      height: 56px;
+      min-height: 56px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 16px;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--text);
+      letter-spacing: -0.3px;
+      white-space: nowrap;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0
+    }
+
+    .logo span {
+      color: var(--accent)
+    }
+
+    .nav-sep {
+      width: 1px;
+      height: 28px;
+      background: var(--border);
+      flex-shrink: 0
+    }
+
+    /* device switcher */
+    .device-switcher {
+      display: flex;
+      gap: 4px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 3px
+    }
+
+    .dev-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 7px;
+      border: none;
+      background: transparent;
+      color: var(--text2);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .18s;
+      white-space: nowrap;
+    }
+
+    .dev-btn svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0
+    }
+
+    .dev-btn.active {
+      background: var(--accent);
+      color: #fff
+    }
+
+    .dev-btn:not(.active):hover {
+      background: var(--surface3);
+      color: var(--text)
+    }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    /* tab switcher */
+    .tab-bar {
+      display: flex;
+      gap: 2px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 3px
+    }
+
+    .tab-btn {
+      padding: 5px 14px;
+      border-radius: 7px;
+      border: none;
+      background: transparent;
+      color: var(--text2);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .18s;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      background: var(--surface3);
+      color: var(--text);
+      border: 1px solid var(--border)
+    }
+
+    .tab-btn:not(.active):hover {
+      color: var(--text)
+    }
+
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .18s;
+      flex-shrink: 0;
+    }
+
+    .icon-btn:hover {
+      border-color: var(--border2);
+      color: var(--text);
+      background: var(--surface3)
+    }
+
+    .icon-btn svg {
+      width: 15px;
+      height: 15px
+    }
+
+    .btn-download {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 16px;
+      border-radius: 8px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .18s;
+      white-space: nowrap;
+    }
+
+    .btn-download:hover {
+      opacity: .9;
+      transform: translateY(-1px)
+    }
+
+    .btn-download svg {
+      width: 14px;
+      height: 14px
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .main {
+      display: flex;
+      flex: 1;
+      overflow: hidden
+    }
+
+    /* ── LEFT SIDEBAR ── */
+    .sidebar-left {
+      width: 240px;
+      min-width: 240px;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      padding: 16px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .sidebar-section:last-child {
+      border-bottom: none
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 12px;
+    }
+
+    /* upload zones */
+    .upload-zone {
+      border: 1.5px dashed var(--border2);
+      border-radius: 10px;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all .2s;
+      background: var(--surface2);
+      margin-bottom: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upload-zone:last-child {
+      margin-bottom: 0
+    }
+
+    .upload-zone:hover {
+      border-color: var(--accent);
+      background: rgba(255, 61, 90, 0.05)
+    }
+
+    .upload-zone.has-image {
+      border-color: var(--green);
+      border-style: solid
+    }
+
+    .upload-zone input[type=file] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer
+    }
+
+    .upload-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: var(--surface3);
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .upload-icon svg {
+      width: 14px;
+      height: 14px;
+      color: var(--text3)
+    }
+
+    .upload-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text2)
+    }
+
+    .upload-sub {
+      font-size: 10px;
+      color: var(--text3)
+    }
+
+    .upload-thumb {
+      width: 100%;
+      height: 40px;
+      border-radius: 6px;
+      object-fit: cover;
+      display: none;
+    }
+
+    .upload-zone.has-image .upload-thumb {
+      display: block
+    }
+
+    .upload-zone.has-image .upload-icon,
+    .upload-zone.has-image .upload-sub {
+      display: none
+    }
+
+    /* toggle rows */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 7px 0;
+    }
+
+    .toggle-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .toggle-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .toggle {
+      width: 36px;
+      height: 20px;
+      border-radius: 99px;
+      background: var(--surface3);
+      border: 1px solid var(--border2);
+      position: relative;
+      cursor: pointer;
+      transition: all .2s;
+      flex-shrink: 0;
+    }
+
+    .toggle.on {
+      background: var(--green);
+      border-color: var(--green)
+    }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform .2s;
+    }
+
+    .toggle.on::after {
+      transform: translateX(16px)
+    }
+
+    /* profile settings */
+    .input-field {
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      outline: none;
+      transition: border-color .18s;
+      margin-bottom: 8px;
+    }
+
+    .input-field:focus {
+      border-color: var(--accent)
+    }
+
+    .input-field::placeholder {
+      color: var(--text3)
+    }
+
+    .field-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text3);
+      letter-spacing: .5px;
+      margin-bottom: 4px;
+      text-transform: uppercase
+    }
+
+    textarea.input-field {
+      resize: none;
+      height: 70px;
+      line-height: 1.5
+    }
+
+    /* ── CANVAS AREA ── */
+    .canvas-area {
+      flex: 1;
+      overflow: auto;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px;
+      gap: 0;
+    }
+
+    /* zoom bar */
+    .zoom-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      align-self: flex-end;
+    }
+
+    .zoom-bar span {
+      font-size: 11px;
+      color: var(--text3);
+      font-family: 'DM Mono', monospace
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 80px;
+      height: 3px;
+      background: var(--border2);
+      border-radius: 99px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+    }
+
+    /* ── YOUTUBE CHANNEL SIMULATION ── */
+    .yt-chrome {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      width: 100%;
+      max-width: 900px;
+      transition: all .3s;
+    }
+
+    .yt-chrome.mobile-mode {
+      max-width: 390px
+    }
+
+    .yt-chrome.tv-mode {
+      max-width: 100%
+    }
+
+    /* YT top bar */
+    .yt-topbar {
+      height: 36px;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+    }
+
+    .yt-dots {
+      display: flex;
+      gap: 5px
+    }
+
+    .yt-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%
+    }
+
+    .yt-dot:nth-child(1) {
+      background: #ff5f57
+    }
+
+    .yt-dot:nth-child(2) {
+      background: #febc2e
+    }
+
+    .yt-dot:nth-child(3) {
+      background: #28c840
+    }
+
+    .yt-url {
+      flex: 1;
+      height: 20px;
+      background: var(--surface3);
+      border-radius: 6px;
+      margin: 0 8px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 10px;
+      color: var(--text3);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* banner area */
+    .banner-wrap {
+      position: relative;
+      width: 100%;
+      background: #1a1a2e;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .banner-wrap:hover::after {
+      content: 'Click to upload banner';
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .banner-wrap.has-banner:hover::after {
+      content: 'Click to change banner';
+    }
+
+    .banner-canvas-wrap {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    }
+
+    #bannerCanvas {
+      width: 100%;
+      height: auto;
+      display: block
+    }
+
+    .banner-input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 10
+    }
+
+    /* overlay guides */
+    .overlay-guide {
+      position: absolute;
+      pointer-events: none;
+      border: 1.5px solid transparent;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      transition: opacity .2s;
+    }
+
+    .overlay-guide.hidden {
+      opacity: 0;
+      pointer-events: none
+    }
+
+    .overlay-guide-label {
+      font-size: 9px;
+      font-weight: 700;
+      font-family: 'DM Mono', monospace;
+      letter-spacing: .5px;
+      padding: 2px 6px;
+      border-radius: 0 0 0 6px;
+      white-space: nowrap;
+    }
+
+    #safeOverlay {
+      background: var(--safe-color);
+      border-color: rgba(34, 197, 94, 0.5)
+    }
+
+    #safeOverlay .overlay-guide-label {
+      background: rgba(34, 197, 94, 0.8);
+      color: #fff
+    }
+
+    #desktopOverlay {
+      background: var(--desktop-color);
+      border-color: rgba(59, 130, 246, 0.5)
+    }
+
+    #desktopOverlay .overlay-guide-label {
+      background: rgba(59, 130, 246, 0.8);
+      color: #fff
+    }
+
+    #tvOverlay {
+      background: var(--tv-color);
+      border-color: rgba(168, 85, 247, 0.5)
+    }
+
+    #tvOverlay .overlay-guide-label {
+      background: rgba(168, 85, 247, 0.8);
+      color: #fff
+    }
+
+    /* channel info bar */
+    .channel-info-bar {
+      padding: 12px 20px;
+      display: flex;
+      align-items: flex-end;
+      gap: 14px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .profile-pic-wrap {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--surface);
+      background: #2a2a3e;
+      flex-shrink: 0;
+      margin-top: -20px;
+      z-index: 2;
+      box-shadow: 0 0 0 2px var(--border);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .profile-pic-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .profile-pic-input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 5;
+      border-radius: 50%
+    }
+
+    .channel-meta {
+      flex: 1;
+      min-width: 0
+    }
+
+    .channel-name {
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Syne', sans-serif;
+      color: var(--text);
+      margin-bottom: 2px
+    }
+
+    .channel-handle {
+      font-size: 11px;
+      color: var(--text2)
+    }
+
+    .channel-subs {
+      font-size: 11px;
+      color: var(--text2)
+    }
+
+    .subscribe-btn {
+      padding: 8px 18px;
+      border-radius: 20px;
+      border: none;
+      background: var(--text);
+      color: var(--bg);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      flex-shrink: 0;
+    }
+
+    /* yt tabs */
+    .yt-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      padding: 0 16px;
+      overflow-x: auto;
+    }
+
+    .yt-tab {
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all .15s;
+    }
+
+    .yt-tab.active {
+      color: var(--text);
+      border-bottom-color: var(--text)
+    }
+
+    .yt-tab:hover:not(.active) {
+      color: var(--text)
+    }
+
+    /* thumbnail grid */
+    .thumb-grid-area {
+      padding: 16px;
+      background: var(--bg)
+    }
+
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px
+    }
+
+    .yt-chrome.mobile-mode .thumb-grid {
+      grid-template-columns: 1fr
+    }
+
+    .yt-chrome.tv-mode .thumb-grid {
+      grid-template-columns: repeat(5, 1fr)
+    }
+
+    .thumb-card {
+      cursor: pointer
+    }
+
+    .thumb-img-wrap {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #2a2a3e;
+      aspect-ratio: 16/9;
+      margin-bottom: 10px;
+    }
+
+    .thumb-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .thumb-duration {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      background: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      font-family: 'DM Mono', monospace;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    .thumb-meta {
+      display: flex;
+      gap: 9px
+    }
+
+    .thumb-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #2a2a3e;
+      flex-shrink: 0;
+      overflow: hidden
+    }
+
+    .thumb-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
+    }
+
+    .thumb-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .thumb-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 3px
+    }
+
+    .thumb-channel {
+      font-size: 11px;
+      color: var(--text2);
+      margin-bottom: 1px
+    }
+
+    .thumb-views {
+      font-size: 11px;
+      color: var(--text3)
+    }
+
+    /* user's card highlight */
+    .thumb-card.user-card .thumb-img-wrap {
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    /* ── TITLE PREVIEW ── */
+    .title-preview-section {
+      width: 100%;
+      max-width: 900px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-top: 20px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .title-section-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .title-section-header h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text)
+    }
+
+    .title-section-header .badge {
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 10px;
+      font-weight: 700;
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .title-input-wrap {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .title-input-row {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    #titleInput {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .18s;
+    }
+
+    #titleInput:focus {
+      border-color: var(--accent)
+    }
+
+    .char-counter {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text2);
+      white-space: nowrap
+    }
+
+    .char-counter.warn {
+      color: var(--yellow)
+    }
+
+    .char-counter.danger {
+      color: var(--accent)
+    }
+
+    .title-previews {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0
+    }
+
+    .title-device-preview {
+      padding: 16px 20px;
+      border-right: 1px solid var(--border)
+    }
+
+    .title-device-preview:last-child {
+      border-right: none
+    }
+
+    .title-device-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text3);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .title-device-label svg {
+      width: 12px;
+      height: 12px
+    }
+
+    .title-rendered {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+      word-break: break-word
+    }
+
+    .title-rendered.mobile-title {
+      font-size: 13px
+    }
+
+    .title-rendered.sidebar-title {
+      font-size: 12px
+    }
+
+    .title-truncated {
+      color: var(--text2)
+    }
+
+    /* ── RIGHT SIDEBAR ── */
+    .sidebar-right {
+      width: 220px;
+      min-width: 220px;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .specs-card {
+      margin: 12px;
+      padding: 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .specs-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 10px
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .spec-row:last-child {
+      border-bottom: none
+    }
+
+    .spec-key {
+      font-size: 10px;
+      color: var(--text3)
+    }
+
+    .spec-val {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--text2);
+      font-weight: 500
+    }
+
+    .privacy-badge {
+      margin: 12px;
+      padding: 10px 12px;
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 10px;
+    }
+
+    .privacy-badge p {
+      font-size: 10px;
+      color: var(--green);
+      line-height: 1.5;
+      font-weight: 500
+    }
+
+    .privacy-badge p::before {
+      content: '🔒 ';
+      font-size: 11px
+    }
+
+    .export-section {
+      padding: 12px;
+      border-top: 1px solid var(--border);
+      margin-top: auto
+    }
+
+    .btn-export {
+      width: 100%;
+      padding: 9px;
+      border-radius: 8px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .18s;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .btn-export:hover {
+      opacity: .9
+    }
+
+    .btn-export.secondary {
+      background: var(--surface3);
+      color: var(--text);
+      border: 1px solid var(--border)
+    }
+
+    .btn-export.secondary:hover {
+      background: var(--surface2)
+    }
+
+    /* ── TV MODE BANNER ── */
+    .tv-banner-info {
+      display: none;
+      padding: 8px 16px;
+      background: rgba(168, 85, 247, 0.1);
+      border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+      font-size: 11px;
+      color: var(--purple);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .yt-chrome.tv-mode .tv-banner-info {
+      display: block
+    }
+
+    /* ── MOBILE DEVICE FRAME ── */
+    .mobile-label {
+      display: none;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text3);
+      text-align: center;
+      padding: 8px;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .yt-chrome.mobile-mode .mobile-label {
+      display: block
+    }
+
+    /* ── PLACEHOLDER THUMBNAILS ── */
+    .placeholder-thumb {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--surface3) 0%, var(--surface2) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .placeholder-thumb svg {
+      width: 24px;
+      height: 24px;
+      color: var(--text3);
+      opacity: .5
+    }
+
+    /* transitions */
+    .yt-chrome,
+    .thumb-grid,
+    .banner-wrap {
+      transition: all .25s cubic-bezier(.4, 0, .2, 1)
+    }
+
+    /* tabs hidden in TV mode */
+    .yt-chrome.tv-mode .yt-tabs,
+    .yt-chrome.tv-mode .thumb-grid-area {
+      display: none
+    }
+
+    .yt-chrome.tv-mode .channel-info-bar {
+      display: none
+    }
+
+    /* animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .thumb-card {
+      animation: fadeIn .3s ease both
+    }
+
+    .thumb-card:nth-child(1) {
+      animation-delay: .05s
+    }
+
+    .thumb-card:nth-child(2) {
+      animation-delay: .1s
+    }
+
+    .thumb-card:nth-child(3) {
+      animation-delay: .15s
+    }
+
+    .thumb-card:nth-child(4) {
+      animation-delay: .2s
+    }
+
+    /* tip tooltip */
+    .tip {
+      font-size: 10px;
+      color: var(--text3);
+      line-height: 1.5;
+      padding: 8px 10px;
+      background: var(--surface2);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-top: 8px;
+    }
+
+    /* device label chip */
+    .device-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      border-radius: 99px;
+      font-size: 10px;
+      font-weight: 700;
+      font-family: 'DM Mono', monospace;
+      border: 1px solid;
+    }
+
+    .device-chip.desktop {
+      color: var(--blue);
+      border-color: rgba(59, 130, 246, 0.3);
+      background: rgba(59, 130, 246, 0.08)
+    }
+
+    .device-chip.mobile {
+      color: var(--green);
+      border-color: rgba(34, 197, 94, 0.3);
+      background: rgba(34, 197, 94, 0.08)
+    }
+
+    .device-chip.tv {
+      color: var(--purple);
+      border-color: rgba(168, 85, 247, 0.3);
+      background: rgba(168, 85, 247, 0.08)
+    }
+
+    /* loading state */
+    .upload-zone.loading {
+      pointer-events: none;
+      opacity: .7
+    }
+
+    /* remove button on uploaded image */
+    .remove-btn {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      font-size: 10px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+    }
+
+    .upload-zone.has-image .remove-btn {
+      display: flex
+    }
+
+    /* Profile pic placeholder icon */
+    .pp-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #2a2a3e, #1a1a2e);
+    }
+
+    .pp-placeholder svg {
+      width: 28px;
+      height: 28px;
+      color: var(--text3)
+    }
+
+    /* ═══════════════════════════════════════════
+       MOBILE UI  (≤768px) — Complete Shell
+    ═══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      html {
+        -webkit-tap-highlight-color: transparent
+      }
+
+      .topnav,
+      .main {
+        display: none !important
+      }
+
+      .mob-shell {
+        display: flex !important
+      }
+    }
+
+    .mob-shell {
+      display: none;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden
+    }
+
+    /* ── Mobile Top Bar ── */
+    .m-topbar {
+      height: 50px;
+      min-height: 50px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      gap: 10px;
+    }
+
+    .m-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: -.3px;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .m-logo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0
+    }
+
+    .m-logo span {
+      color: var(--accent)
+    }
+
+    .m-topbar-r {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .m-ico {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .m-ico svg {
+      width: 15px;
+      height: 15px
+    }
+
+    .m-exp-btn {
+      padding: 6px 12px;
+      border-radius: 7px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .m-exp-btn svg {
+      width: 12px;
+      height: 12px
+    }
+
+    /* ── Tab Bar ── */
+    .m-tabbar {
+      height: 44px;
+      min-height: 44px;
+      flex-shrink: 0;
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 4px;
+      overflow-x: auto;
+    }
+
+    .m-tabbar::-webkit-scrollbar {
+      display: none
+    }
+
+    .m-tab {
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text2);
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: all .15s;
+      flex-shrink: 0;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .m-tab.active {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border)
+    }
+
+    /* ── Scrollable Content ── */
+    .m-content {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding-bottom: 68px
+    }
+
+    /* ── Bottom Nav ── */
+    .m-botnav {
+      height: 60px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: stretch;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 300;
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    .m-navbtn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      border: none;
+      background: transparent;
+      color: var(--text3);
+      font-size: 9px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      cursor: pointer;
+      transition: color .15s;
+    }
+
+    .m-navbtn svg {
+      width: 20px;
+      height: 20px
+    }
+
+    .m-navbtn.m-nav-active {
+      color: var(--accent)
+    }
+
+    /* ── Backdrop + Sheet ── */
+    .m-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .55);
+      z-index: 400;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s;
+    }
+
+    .m-backdrop.show {
+      opacity: 1;
+      pointer-events: all
+    }
+
+    .m-sheet {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 500;
+      background: var(--surface);
+      border-radius: 18px 18px 0 0;
+      border-top: 1px solid var(--border);
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(100%);
+      transition: transform .3s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .m-sheet.show {
+      transform: translateY(0)
+    }
+
+    .m-handle {
+      width: 40px;
+      height: 4px;
+      background: var(--border2);
+      border-radius: 99px;
+      margin: 12px auto 4px;
+      flex-shrink: 0
+    }
+
+    .m-shdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px 12px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0
+    }
+
+    .m-stitle {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px
+    }
+
+    .m-sclose {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--surface3);
+      border: 1px solid var(--border);
+      color: var(--text2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    .m-sbody {
+      overflow-y: auto;
+      padding: 14px 16px;
+      flex: 1
+    }
+
+    /* ── Shared form elements ── */
+    .m-fl {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      color: var(--text3);
+      margin-bottom: 5px
+    }
+
+    .m-fi {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      margin-bottom: 12px
+    }
+
+    .m-fi:focus {
+      border-color: var(--accent)
+    }
+
+    .m-fi::placeholder {
+      color: var(--text3)
+    }
+
+    .m-btn-pri {
+      width: 100%;
+      padding: 11px;
+      border-radius: 9px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .m-btn-sec {
+      width: 100%;
+      padding: 11px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--surface3);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .m-btn-pri svg,
+    .m-btn-sec svg {
+      width: 14px;
+      height: 14px
+    }
+
+    /* ── Upload zone (reuse existing .upload-zone styles) ── */
+
+    /* ── Spec cards ── */
+    .m-spec-card {
+      padding: 12px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 10px
+    }
+
+    .m-spec-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 9px
+    }
+
+    .m-spec-r {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .m-spec-r:last-child {
+      border-bottom: none
+    }
+
+    .m-spec-k {
+      font-size: 10px;
+      color: var(--text3)
+    }
+
+    .m-spec-v {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--text2);
+      font-weight: 500
+    }
+
+    /* ── Channel tab content ── */
+    .m-ch-wrap {
+      padding: 12px
+    }
+
+    .m-dev-row {
+      display: flex;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 3px;
+      gap: 3px;
+      margin-bottom: 12px
+    }
+
+    .m-devbtn {
+      flex: 1;
+      padding: 8px 4px;
+      border-radius: 7px;
+      border: none;
+      background: transparent;
+      color: var(--text2);
+      font-size: 10.5px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      transition: all .15s;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .m-devbtn svg {
+      width: 16px;
+      height: 16px
+    }
+
+    .m-devbtn.active {
+      background: var(--accent);
+      color: #fff
+    }
+
+    .m-yt-scroll {
+      overflow-x: auto;
+      border-radius: 10px;
+      margin-bottom: 12px
+    }
+
+    .m-yt-scroll::-webkit-scrollbar {
+      display: none
+    }
+
+    #mYtChrome {
+      width: calc(100vw - 24px);
+      max-width: 860px
+    }
+
+    #mYtChrome.mobile-mode {
+      width: 375px;
+      max-width: 375px
+    }
+
+    #mYtChrome.tv-mode {
+      width: calc(100vw - 24px);
+      max-width: 100%
+    }
+
+    .m-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px
+    }
+
+    .m-info-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px
+    }
+
+    .m-info-t {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--text3);
+      margin-bottom: 4px
+    }
+
+    .m-info-v {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text2)
+    }
+
+    .m-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 12px
+    }
+
+    .m-box-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 10px
+    }
+
+    /* ── Thumbnail tab ── */
+    .m-thumb-wrap {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .m-slot {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden
+    }
+
+    .m-slot-hd {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .m-slot-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      flex-shrink: 0
+    }
+
+    .m-slot-lbl {
+      font-size: 13px;
+      font-weight: 700;
+      font-family: 'Syne', sans-serif
+    }
+
+    .m-slot-rm {
+      margin-left: auto;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--surface3);
+      border: 1px solid var(--border);
+      color: var(--text2);
+      font-size: 11px;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      display: none
+    }
+
+    .m-slot.mhas {
+      .m-slot-rm {
+        display: block
+      }
+    }
+
+    .m-slot.mhas .m-slot-rm {
+      display: block
+    }
+
+    .m-slot-up {
+      height: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      position: relative;
+      background: var(--surface2);
+      transition: background .18s;
+    }
+
+    .m-slot-up:active {
+      background: var(--surface3)
+    }
+
+    .m-slot-up input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer
+    }
+
+    .m-slot-up svg {
+      width: 30px;
+      height: 30px;
+      color: var(--text3)
+    }
+
+    .m-slot-up span {
+      font-size: 12px;
+      color: var(--text3)
+    }
+
+    .m-slot-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: none
+    }
+
+    .m-slot.mhas .m-slot-img {
+      display: block
+    }
+
+    .m-slot.mhas .m-slot-up {
+      display: none
+    }
+
+    .m-slot-title {
+      padding: 10px 14px;
+      border-top: 1px solid var(--border);
+      background: var(--surface2)
+    }
+
+    .m-slot-fi {
+      width: 100%;
+      padding: 9px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface3);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      outline: none
+    }
+
+    .m-slot-fi:focus {
+      border-color: var(--accent)
+    }
+
+    .m-slot-fi::placeholder {
+      color: var(--text3)
+    }
+
+    /* ── Compare card ── */
+    .m-cmp {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden
+    }
+
+    .m-cmp-hd {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .m-cmp-hd span {
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--text3)
+    }
+
+    .m-cmp-body {
+      padding: 12px 14px
+    }
+
+    .m-cmp-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .m-cmp-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0
+    }
+
+    .m-cmp-thumb {
+      width: 120px;
+      min-width: 120px;
+      height: 68px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--surface3);
+      position: relative;
+      flex-shrink: 0
+    }
+
+    .m-cmp-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .m-cmp-dur {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      background: rgba(0, 0, 0, .85);
+      color: #fff;
+      font-size: 8px;
+      font-weight: 600;
+      font-family: 'DM Mono', monospace;
+      padding: 1px 3px;
+      border-radius: 3px
+    }
+
+    .m-cmp-badge {
+      display: inline-flex;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 700;
+      font-family: 'DM Mono', monospace;
+      margin-bottom: 4px
+    }
+
+    .m-cmp-ttl {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 2px
+    }
+
+    .m-cmp-ch {
+      font-size: 10.5px;
+      color: var(--text2)
+    }
+
+    .m-cmp-views {
+      font-size: 10px;
+      color: var(--text3)
+    }
+
+    /* ── Title tab ── */
+    .m-title-wrap {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .m-title-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden
+    }
+
+    .m-title-hd {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .m-title-hd span {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px
+    }
+
+    .m-ti-wrap {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .m-ti {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      outline: none;
+      resize: none
+    }
+
+    .m-ti:focus {
+      border-color: var(--accent)
+    }
+
+    .m-char-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px
+    }
+
+    .m-char-hint {
+      font-size: 10px;
+      color: var(--text3)
+    }
+
+    .m-char-cnt {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text2)
+    }
+
+    .m-char-cnt.warn {
+      color: var(--yellow)
+    }
+
+    .m-char-cnt.danger {
+      color: var(--accent)
+    }
+
+    .m-dev-prev {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .m-dev-prev:last-child {
+      border-bottom: none
+    }
+
+    .m-dev-lbl {
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 7px
+    }
+
+    .m-dev-lbl svg {
+      width: 12px;
+      height: 12px
+    }
+
+    .m-dev-text {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+      word-break: break-word
+    }
+
+    .m-trunc {
+      color: var(--text2)
+    }
+
+    .m-dev-meta {
+      font-size: 10px;
+      margin-top: 5px
+    }
+
+    .m-tip-row {
+      padding: 10px 12px;
+      background: var(--surface2);
+      border-radius: 9px;
+      margin-bottom: 8px;
+      border-left: 3px solid
+    }
+
+    .m-tip-row:last-child {
+      margin-bottom: 0
+    }
+
+    .m-tip-h {
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 3px
+    }
+
+    .m-tip-p {
+      font-size: 11px;
+      color: var(--text2);
+      line-height: 1.5
+    }
+
+    .m-priv {
+      padding: 10px 12px;
+      background: rgba(34, 197, 94, .08);
+      border: 1px solid rgba(34, 197, 94, .2);
+      border-radius: 9px;
+      margin-bottom: 12px
+    }
+
+    .m-priv p {
+      font-size: 10px;
+      color: var(--green);
+      line-height: 1.5;
+      font-weight: 500
+    }
+
+    /* Shorts preview for mobile — single card centered */
+    .m-shorts-wrap {
+      display: flex;
+      justify-content: center;
+      padding: 16px
+    }
+
+    /* Feed preview thumbnails on mobile — stack vertically */
+    .m-feed-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px
+    }
+
+    .m-feed-hd {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 12px
+    }
+
+    .m-feed-body {
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px
+    }
+
+    .m-feed-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start
+    }
+
+    .m-feed-thumb {
+      width: 140px;
+      min-width: 140px;
+      height: 79px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--surface3);
+      position: relative;
+      flex-shrink: 0
+    }
+
+    .m-feed-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block
+    }
+
+    .m-feed-dur {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      background: rgba(0, 0, 0, .85);
+      color: #fff;
+      font-size: 8.5px;
+      font-weight: 600;
+      font-family: 'DM Mono', monospace;
+      padding: 1px 3px;
+      border-radius: 3px
+    }
+
+    .m-feed-info .m-feed-ttl {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 2px
+    }
+
+    .m-feed-info .m-feed-ch {
+      font-size: 10.5px;
+      color: var(--text2)
+    }
+
+    .m-feed-info .m-feed-views {
+      font-size: 10px;
+      color: var(--text3)
+    }
+
+    .m-size-lbl {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--text3);
+      margin-bottom: 8px;
+      padding-top: 4px
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════ TOP NAV ═══════════════════ -->
+  <nav class="topnav">
+    <a href="/" class="logo">
+      <img src="../assets/logo-full.png" alt="Channel Preview" style="height: 24px; width: auto;">
+    </a>
+    <div class="nav-sep"></div>
+
+    <!-- Device switcher -->
+    <div class="device-switcher" id="deviceSwitcher">
+      <button class="dev-btn active" data-device="desktop" onclick="setDevice('desktop',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="3" width="20" height="14" rx="2" />
+          <path d="M8 21h8m-4-4v4" />
+        </svg>
+        Desktop
+      </button>
+      <button class="dev-btn" data-device="mobile" onclick="setDevice('mobile',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="5" y="2" width="14" height="20" rx="2" />
+          <circle cx="12" cy="17" r="1" />
+        </svg>
+        Mobile
+      </button>
+      <button class="dev-btn" data-device="tv" onclick="setDevice('tv',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="4" width="20" height="15" rx="2" />
+          <path d="M8 21h8M12 19v2" />
+        </svg>
+        TV
+      </button>
+    </div>
+
+    <div class="nav-sep"></div>
+
+    <!-- Tab switcher -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="setTab('channel',this)">Channel</button>
+      <button class="tab-btn" onclick="setTab('thumbnail',this)">Thumbnail</button>
+      <button class="tab-btn" onclick="setTab('title',this)">Title</button>
+    </div>
+
+    <div class="nav-right">
+      <!-- Dark mode toggle -->
+      <button class="icon-btn" onclick="toggleTheme()" title="Toggle theme">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+        </svg>
+      </button>
+      <!-- Reset -->
+      <button class="icon-btn" onclick="resetAll()" title="Reset everything">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12a9 9 0 109-9 9 9 0 00-6.2 2.5L3 8" />
+          <path d="M3 3v5h5" />
+        </svg>
+      </button>
+      <!-- Download -->
+      <button class="btn-download" onclick="exportCanvas()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        Export PNG
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════ MAIN ═══════════════════ -->
+  <div class="main">
+
+    <!-- ══ LEFT SIDEBAR ══ -->
+    <aside class="sidebar-left">
+
+      <!-- Profile Settings -->
+      <div class="sidebar-section">
+        <div class="section-title">Profile</div>
+        <div class="field-label">Channel Name</div>
+        <input class="input-field" id="channelName" type="text" placeholder="Your Channel Name"
+          value="My YouTube Channel" oninput="updateProfile()">
+        <div class="field-label">Handle</div>
+        <input class="input-field" id="channelHandle" type="text" placeholder="@handle" value="@yourchannel"
+          oninput="updateProfile()">
+        <div class="field-label">Subscribers</div>
+        <input class="input-field" id="channelSubs" type="text" placeholder="e.g. 12.5K" value="0"
+          oninput="updateProfile()">
+      </div>
+
+      <!-- Uploads -->
+      <div class="sidebar-section">
+        <div class="section-title">Assets</div>
+
+        <!-- Banner upload -->
+        <div class="upload-zone" id="bannerZone" onclick="document.getElementById('bannerFileInput').click()">
+          <button class="remove-btn" onclick="removeAsset(event,'banner')">×</button>
+          <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="14" rx="2" />
+              <path d="M3 9l4-4 4 4 4-4 4 4" />
+            </svg></div>
+          <div class="upload-label">Banner Image</div>
+          <div class="upload-sub">2560 × 1440 px</div>
+          <img class="upload-thumb" id="bannerThumb" src="" alt="">
+          <input type="file" id="bannerFileInput" accept="image/*" onchange="loadBanner(event)" style="display:none">
+        </div>
+
+        <!-- Profile pic upload -->
+        <div class="upload-zone" id="profileZone" onclick="document.getElementById('profileFileInput').click()">
+          <button class="remove-btn" onclick="removeAsset(event,'profile')">×</button>
+          <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+            </svg></div>
+          <div class="upload-label">Profile Picture</div>
+          <div class="upload-sub">800 × 800 px recommended</div>
+          <img class="upload-thumb" id="profileThumb" src="" alt="">
+          <input type="file" id="profileFileInput" accept="image/*" onchange="loadProfile(event)" style="display:none">
+        </div>
+
+        <!-- Thumbnail upload -->
+        <div class="upload-zone" id="thumbZone" onclick="document.getElementById('thumbFileInput').click()">
+          <button class="remove-btn" onclick="removeAsset(event,'thumb')">×</button>
+          <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="5" width="20" height="14" rx="2" />
+              <circle cx="9" cy="12" r="3" />
+              <path d="M15 9l4 3-4 3V9z" />
+            </svg></div>
+          <div class="upload-label">Video Thumbnail A</div>
+          <div class="upload-sub">1280 × 720 px recommended</div>
+          <img class="upload-thumb" id="thumbPreview" src="" alt="">
+          <input type="file" id="thumbFileInput" accept="image/*" onchange="loadThumbnail(event)" style="display:none">
+        </div>
+
+        <!-- Video Title A -->
+        <div class="field-label" style="margin-top:16px;">Video Title A</div>
+        <textarea class="input-field" id="videoTitle" style="height:60px" placeholder="Enter your video title..."
+          oninput="updateTitle()">How I Built a YouTube Channel From Zero to 100K Subscribers</textarea>
+
+      </div>
+
+      <!-- Overlays -->
+      <div class="sidebar-section">
+        <div class="section-title">Overlay Guides</div>
+        <div class="toggle-row">
+          <span class="toggle-label"><span class="toggle-dot" style="background:#22c55e"></span>Safe Area</span>
+          <div class="toggle on" id="toggleSafe" onclick="toggleOverlay('safe')"></div>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label"><span class="toggle-dot" style="background:#3b82f6"></span>Desktop Zone</span>
+          <div class="toggle" id="toggleDesktop" onclick="toggleOverlay('desktop')"></div>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label"><span class="toggle-dot" style="background:#a855f7"></span>TV Zone</span>
+          <div class="toggle" id="toggleTV" onclick="toggleOverlay('tv')"></div>
+        </div>
+        <div class="tip">
+          Green = visible on all devices.<br>
+          Blue = desktop visible area.<br>
+          Purple = full TV canvas.
+        </div>
+      </div>
+
+
+    </aside>
+
+    <!-- ══ CANVAS AREA ══ -->
+    <main class="canvas-area" id="canvasArea">
+
+      <!-- Zoom controls -->
+      <div class="zoom-bar">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35M8 11h6" />
+        </svg>
+        <input type="range" min="50" max="130" value="100" id="zoomSlider" oninput="applyZoom(this.value)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35M11 8v6M8 11h6" />
+        </svg>
+        <span id="zoomLabel">100%</span>
+      </div>
+
+      <!-- ─── CHANNEL TAB ─── -->
+      <div id="tabChannel" class="tab-content"
+        style="width:100%;max-width:900px;display:flex;flex-direction:column;align-items:center;gap:0">
+
+        <!-- YouTube Chrome -->
+        <div class="yt-chrome" id="ytChrome">
+
+          <!-- Browser chrome bar -->
+          <div class="yt-topbar">
+            <div class="yt-dots">
+              <div class="yt-dot"></div>
+              <div class="yt-dot"></div>
+              <div class="yt-dot"></div>
+            </div>
+            <div class="yt-url">youtube.com/@yourchannel</div>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2">
+              <path d="M3 12a9 9 0 109-9 9 9 0 00-6.2 2.5L3 8" />
+              <path d="M3 3v5h5" />
+            </svg>
+          </div>
+
+          <div class="mobile-label">📱 Mobile View</div>
+          <div class="tv-banner-info">📺 TV View — Full 2560×1440 canvas visible</div>
+
+          <!-- Banner -->
+          <div class="banner-wrap" id="bannerWrap">
+            <div class="banner-canvas-wrap" id="bannerCanvasWrap">
+              <!-- Banner image -->
+              <canvas id="bannerCanvas" width="2560" height="1440"
+                style="width:100%;height:auto;display:block"></canvas>
+              <!-- Overlay guides rendered on top -->
+              <div class="overlay-guide" id="safeOverlay">
+                <div class="overlay-guide-label">SAFE AREA — ALL DEVICES</div>
+              </div>
+              <div class="overlay-guide hidden" id="desktopOverlay">
+                <div class="overlay-guide-label">DESKTOP VIEW</div>
+              </div>
+              <div class="overlay-guide hidden" id="tvOverlay">
+                <div class="overlay-guide-label">TV VIEW</div>
+              </div>
+              <input type="file" class="banner-input" accept="image/*" onchange="loadBanner(event)">
+            </div>
+          </div>
+
+          <!-- Channel Info -->
+          <div class="channel-info-bar">
+            <div class="profile-pic-wrap" id="profileWrap">
+              <div class="pp-placeholder" id="ppPlaceholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                </svg>
+              </div>
+              <img id="profileImg" src="" alt=""
+                style="display:none;width:100%;height:100%;object-fit:cover;border-radius:50%">
+              <input type="file" class="profile-pic-input" accept="image/*" onchange="loadProfile(event)">
+            </div>
+            <div class="channel-meta">
+              <div class="channel-name" id="displayName">My YouTube Channel</div>
+              <div class="channel-handle"><span id="displayHandle">@yourchannel</span> &nbsp;·&nbsp; <span
+                  id="displaySubs">0</span> subscribers</div>
+            </div>
+            <button class="subscribe-btn">Subscribe</button>
+          </div>
+
+          <!-- Tabs -->
+          <div class="yt-tabs">
+            <div class="yt-tab active">Home</div>
+            <div class="yt-tab">Videos</div>
+            <div class="yt-tab">Shorts</div>
+            <div class="yt-tab">Live</div>
+            <div class="yt-tab">Playlists</div>
+            <div class="yt-tab">About</div>
+          </div>
+
+          <!-- Thumbnail grid -->
+          <div class="thumb-grid-area">
+            <div class="thumb-grid" id="thumbGrid"></div>
+          </div>
+
+        </div><!-- /yt-chrome -->
+      </div>
+
+      <!-- ─── THUMBNAIL TAB ─── -->
+      <div id="tabThumbnail" class="tab-content" style="display:none;width:100%;max-width:900px">
+
+        <!-- ORIGINAL THUMBNAIL LAYOUT -->
+        <div
+          style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--card-shadow);margin-bottom:24px">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px">
+            <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">Feed Previews</span>
+            <span style="font-size:10px;color:var(--text3)">See how thumbnail A looks at different sizes</span>
+          </div>
+          <div style="padding:20px;display:flex;flex-direction:column;gap:24px">
+
+            <!-- Large card -->
+            <div>
+              <div
+                style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:12px">
+                Feed Card — Desktop (320×180)</div>
+              <div style="display:flex;gap:16px;align-items:flex-start">
+                <div id="thumbLarge"
+                  style="width:320px;min-width:320px;height:180px;border-radius:10px;overflow:hidden;background:#2a2a3e;position:relative">
+                  <div class="placeholder-thumb" id="thumbLargePlaceholder"><svg viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="1">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <circle cx="9" cy="12" r="3" />
+                      <path d="M15 9l4 3-4 3V9z" />
+                    </svg></div>
+                  <img id="thumbLargeImg" style="display:none;width:100%;height:100%;object-fit:cover" src="" alt="">
+                  <div class="thumb-duration">10:34</div>
+                </div>
+                <div style="flex:1">
+                  <div style="font-size:14px;font-weight:600;color:var(--text);line-height:1.5;margin-bottom:6px"
+                    id="thumbTitleLarge">How I Built a YouTube Channel From Zero to 100K Subscribers
+                  </div>
+                  <div style="font-size:12px;color:var(--text2);margin-bottom:3px" id="thumbChannelLarge">My YouTube
+                    Channel</div>
+                  <div style="font-size:11px;color:var(--text3)">1.2M views &nbsp;·&nbsp; 3 days ago
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Small cards row -->
+            <div>
+              <div
+                style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:12px">
+                Feed Card — Mobile (168×94) &nbsp;·&nbsp; Sidebar (246×138)</div>
+              <div style="display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+                <!-- mobile card -->
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <div
+                    style="width:168px;min-width:168px;height:94px;border-radius:8px;overflow:hidden;background:#2a2a3e;position:relative;flex-shrink:0">
+                    <div class="placeholder-thumb" id="thumbSmPlaceholder"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1" style="width:18px;height:18px">
+                        <rect x="2" y="5" width="20" height="14" rx="2" />
+                      </svg></div>
+                    <img id="thumbSmImg" style="display:none;width:100%;height:100%;object-fit:cover" src="" alt="">
+                    <div class="thumb-duration" style="font-size:9px;padding:1px 4px">10:34</div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size:12px;font-weight:600;color:var(--text);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:160px"
+                      id="thumbTitleSm">How I Built a YouTube Channel From Zero to 100K
+                      Subscribers</div>
+                    <div style="font-size:10px;color:var(--text2);margin-top:3px" id="thumbChannelSm">My YouTube Channel
+                    </div>
+                    <div style="font-size:10px;color:var(--text3)">1.2M views</div>
+                  </div>
+                </div>
+                <!-- sidebar card -->
+                <div style="display:flex;gap:10px;align-items:flex-start">
+                  <div
+                    style="width:246px;min-width:246px;height:138px;border-radius:8px;overflow:hidden;background:#2a2a3e;position:relative;flex-shrink:0">
+                    <div class="placeholder-thumb" id="thumbSidebarPlaceholder"><svg viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1" style="width:20px;height:20px">
+                        <rect x="2" y="5" width="20" height="14" rx="2" />
+                      </svg></div>
+                    <img id="thumbSidebarImg" style="display:none;width:100%;height:100%;object-fit:cover" src=""
+                      alt="">
+                    <div class="thumb-duration">10:34</div>
+                  </div>
+                  <div>
+                    <div
+                      style="font-size:13px;font-weight:600;color:var(--text);line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:160px"
+                      id="thumbTitleSidebar">How I Built a YouTube Channel From Zero to 100K
+                      Subscribers</div>
+                    <div style="font-size:11px;color:var(--text2);margin-top:3px" id="thumbChannelSidebar">My YouTube
+                      Channel</div>
+                    <div style="font-size:11px;color:var(--text3)">1.2M views</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Search result -->
+            <div>
+              <div
+                style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:12px">
+                Search Result Card</div>
+              <div
+                style="display:flex;gap:14px;align-items:flex-start;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px">
+                <div
+                  style="width:246px;min-width:246px;height:138px;border-radius:8px;overflow:hidden;background:#2a2a3e;position:relative;flex-shrink:0">
+                  <div class="placeholder-thumb" id="thumbSearchPlaceholder"><svg viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="1" style="width:20px;height:20px">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                    </svg></div>
+                  <img id="thumbSearchImg" style="display:none;width:100%;height:100%;object-fit:cover" src="" alt="">
+                  <div class="thumb-duration">10:34</div>
+                </div>
+                <div style="flex:1">
+                  <div style="font-size:15px;font-weight:600;color:var(--text);line-height:1.5;margin-bottom:6px"
+                    id="thumbTitleSearch">How I Built a YouTube Channel From Zero to 100K
+                    Subscribers</div>
+                  <div style="font-size:12px;color:var(--text2);margin-bottom:6px" id="thumbChannelSearch">My YouTube
+                    Channel &nbsp;·&nbsp; 1.2M views
+                    &nbsp;·&nbsp; 3 days ago</div>
+                  <div style="font-size:12px;color:var(--text3);line-height:1.5">In this video I share
+                    my complete journey building a YouTube channel from scratch including strategy,
+                    content creation tips, and growth hacks...</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- SHORTS PREVIEW LAYOUT -->
+          <div
+            style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--card-shadow);margin-bottom:24px">
+            <div
+              style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">Shorts Feed (9:16)</span>
+              <span style="font-size:10px;color:var(--text3)">Upload a separate 9:16 vertical thumbnail for
+                Shorts</span>
+            </div>
+            <div
+              style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap">
+              <!-- Shorts dedicated upload + title -->
+              <div style="display:flex;flex-direction:column;gap:10px;min-width:200px;flex:1">
+                <div class="upload-zone" id="shortsUploadZone" style="margin-bottom:0"
+                  onclick="document.getElementById('shortsFileInput').click()">
+                  <button class="remove-btn" onclick="rmShortsThumb(event)">×</button>
+                  <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="5" y="2" width="14" height="20" rx="2" />
+                    </svg></div>
+                  <div class="upload-label">Upload Shorts Thumbnail</div>
+                  <div class="upload-sub">1080 × 1920 px · 9:16 ratio</div>
+                  <img class="upload-thumb" id="shortsUploadThumb" src="" alt="">
+                  <input type="file" id="shortsFileInput" accept="image/*" onchange="loadShortsThumb(event)"
+                    style="display:none">
+                </div>
+                <div>
+                  <div class="field-label">Shorts Title</div>
+                  <input class="input-field" id="shortsTitleInput" type="text" placeholder="Shorts video title…"
+                    style="margin-bottom:0" oninput="syncShortsTitle(this.value)">
+                </div>
+              </div>
+            </div>
+            <div style="padding:20px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap">
+              <!-- Shorts Card 1 -->
+              <div
+                style="width:220px;aspect-ratio:9/16;background:#000;border-radius:12px;overflow:hidden;position:relative;box-shadow:0 10px 30px rgba(0,0,0,0.4)">
+                <div class="placeholder-thumb" id="shortsPlaceholder" style="background:#1a1a2e">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+                    style="width:30px;height:30px">
+                    <rect x="5" y="2" width="14" height="20" rx="2" />
+                  </svg>
+                </div>
+                <img id="shortsImg" style="display:none;width:100%;height:100%;object-fit:cover" src="" alt="">
+
+                <!-- Shorts Overlays -->
+                <div
+                  style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 40%);pointer-events:none">
+                </div>
+
+                <!-- Right Actions -->
+                <div
+                  style="position:absolute;right:10px;bottom:100px;display:flex;flex-direction:column;gap:15px;align-items:center">
+                  <div style="text-align:center">
+                    <div
+                      style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px">
+                      👍</div>
+                    <div style="font-size:10px;color:#fff;margin-top:2px">1.2K</div>
+                  </div>
+                  <div style="text-align:center">
+                    <div
+                      style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px">
+                      💬</div>
+                    <div style="font-size:10px;color:#fff;margin-top:2px">48</div>
+                  </div>
+                  <div style="text-align:center">
+                    <div
+                      style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px">
+                      ↪️</div>
+                    <div style="font-size:10px;color:#fff;margin-top:2px">Share</div>
+                  </div>
+                </div>
+
+                <!-- Bottom Info -->
+                <div style="position:absolute;left:12px;bottom:12px;right:60px">
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                    <div style="width:32px;height:32px;border-radius:50%;background:#333;overflow:hidden"
+                      id="shortsAvatarWrap">
+                      <img src="" style="display:none;width:100%;height:100%;object-fit:cover" class="user-avatar"
+                        alt="">
+                    </div>
+                    <span style="color:#fff;font-size:13px;font-weight:600" id="shortsChannelName">@yourchannel</span>
+                  </div>
+                  <div
+                    style="color:#fff;font-size:13px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden"
+                    id="shortsTitle">Your Video Title</div>
+                </div>
+              </div>
+
+              <!-- Placeholder Shorts for Context -->
+              <div
+                style="width:220px;aspect-ratio:9/16;background:#1a1a2e;border-radius:12px;overflow:hidden;position:relative;opacity:0.4">
+                <div
+                  style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#444">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+                    style="width:40px;height:40px">
+                    <rect x="5" y="2" width="14" height="20" rx="2" />
+                  </svg>
+                </div>
+              </div>
+              <div
+                style="width:220px;aspect-ratio:9/16;background:#1a1a2e;border-radius:12px;overflow:hidden;position:relative;opacity:0.4">
+                <div
+                  style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#444">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+                    style="width:40px;height:40px">
+                    <rect x="5" y="2" width="14" height="20" rx="2" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--card-shadow)">
+            <div
+              style="padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px">
+              <span style="font-family:'Syne',sans-serif;font-weight:700;font-size:14px">Thumbnail Comparison</span>
+              <span style="font-size:10px;color:var(--text3)">Compare up to 3 thumbnails side-by-side</span>
+            </div>
+            <div style="padding:20px;display:grid;grid-template-columns:repeat(3, 1fr);gap:20px">
+
+              <!-- Variant 1 -->
+              <div>
+                <div class="upload-zone" id="thumbZone1" onclick="document.getElementById('thumbFileInput1').click()"
+                  style="margin-bottom:12px">
+                  <button class="remove-btn" onclick="removeThumbVariant(event, 1)">×</button>
+                  <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <circle cx="9" cy="12" r="3" />
+                      <path d="M15 9l4 3-4 3V9z" />
+                    </svg></div>
+                  <div class="upload-label">Upload Option 1</div>
+                  <img class="upload-thumb" id="thumbPreview1" src="" alt="">
+                  <input type="file" id="thumbFileInput1" accept="image/*" onchange="loadThumbVariant(event, 1)"
+                    style="display:none">
+                </div>
+                <textarea class="input-field" id="titleVariant1" style="height:50px;margin-bottom:16px"
+                  placeholder="Video title for Option 1" oninput="updateTitleVariant(1)"></textarea>
+
+                <div
+                  style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:12px">
+                  Desktop Preview</div>
+                <div
+                  style="width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#2a2a3e;position:relative;margin-bottom:10px">
+                  <div class="placeholder-thumb" id="thumbPlaceholderVar1"><svg viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="1">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <circle cx="9" cy="12" r="3" />
+                      <path d="M15 9l4 3-4 3V9z" />
+                    </svg></div>
+                  <img id="thumbImgVar1" style="display:none;width:100%;height:100%;object-fit:cover" src="" alt="">
+                  <div class="thumb-duration">10:34</div>
+                </div>
+                <div style="display:flex;gap:8px">
+                  <div style="width:30px;height:30px;border-radius:50%;background:#2a2a3e;flex-shrink:0;overflow:hidden"
+                    class="var-avatar-wrap">
+                    <img src="" style="display:none;width:100%;height:100%;object-fit:cover" class="user-avatar" alt="">
+                  </div>
+                  <div>
+                    <div
+                      style="font-size:13px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden"
+                      id="titleRenderVar1">Your Video Title</div>
+                    <div style="font-size:11px;color:var(--text2);margin-bottom:2px" class="channel-name-render">My
+                      YouTube Channel</div>
+                    <div style="font-size:11px;color:var(--text3)">1.2M views &nbsp;·&nbsp; 3 days ago</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Variant 2 -->
+              <div>
+                <div class="upload-zone" id="thumbZone2" onclick="document.getElementById('thumbFileInput2').click()"
+                  style="margin-bottom:12px">
+                  <button class="remove-btn" onclick="removeThumbVariant(event, 2)">×</button>
+                  <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <circle cx="9" cy="12" r="3" />
+                      <path d="M15 9l4 3-4 3V9z" />
+                    </svg></div>
+                  <div class="upload-label">Upload Option 2</div>
+                  <img class="upload-thumb" id="thumbPreview2" src="" alt="">
+                  <input type="file" id="thumbFileInput2" accept="image/*" onchange="loadThumbVariant(event, 2)"
+                    style="display:none">
+                </div>
+                <textarea class="input-field" id="titleVariant2" style="height:50px;margin-bottom:16px"
+                  placeholder="Video title for Option 2" oninput="updateTitleVariant(2)"></textarea>
+
+                <div
+                  style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:12px">
+                  Desktop Preview</div>
+                <div
+                  style="width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#2a2a3e;position:relative;margin-bottom:10px">
+                  <div class="placeholder-thumb" id="thumbPlaceholderVar2"><svg viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="1">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <circle cx="9" cy="12" r="3" />
+                      <path d="M15 9l4 3-4 3V9z" />
+                    </svg></div>
+                  <img id="thumbImgVar2" style="display:none;width:100%;height:100%;object-fit:cover" src="" alt="">
+                  <div class="thumb-duration">10:34</div>
+                </div>
+                <div style="display:flex;gap:8px">
+                  <div style="width:30px;height:30px;border-radius:50%;background:#2a2a3e;flex-shrink:0;overflow:hidden"
+                    class="var-avatar-wrap">
+                    <img src="" style="display:none;width:100%;height:100%;object-fit:cover" class="user-avatar" alt="">
+                  </div>
+                  <div>
+                    <div
+                      style="font-size:13px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden"
+                      id="titleRenderVar2">Your Video Title</div>
+                    <div style="font-size:11px;color:var(--text2);margin-bottom:2px" class="channel-name-render">My
+                      YouTube Channel</div>
+                    <div style="font-size:11px;color:var(--text3)">1.2M views &nbsp;·&nbsp; 3 days ago</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Variant 3 -->
+              <div>
+                <div class="upload-zone" id="thumbZone3" onclick="document.getElementById('thumbFileInput3').click()"
+                  style="margin-bottom:12px">
+                  <button class="remove-btn" onclick="removeThumbVariant(event, 3)">×</button>
+                  <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <circle cx="9" cy="12" r="3" />
+                      <path d="M15 9l4 3-4 3V9z" />
+                    </svg></div>
+                  <div class="upload-label">Upload Option 3</div>
+                  <img class="upload-thumb" id="thumbPreview3" src="" alt="">
+                  <input type="file" id="thumbFileInput3" accept="image/*" onchange="loadThumbVariant(event, 3)"
+                    style="display:none">
+                </div>
+                <textarea class="input-field" id="titleVariant3" style="height:50px;margin-bottom:16px"
+                  placeholder="Video title for Option 3" oninput="updateTitleVariant(3)"></textarea>
+
+                <div
+                  style="font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-bottom:12px">
+                  Desktop Preview</div>
+                <div
+                  style="width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#2a2a3e;position:relative;margin-bottom:10px">
+                  <div class="placeholder-thumb" id="thumbPlaceholderVar3"><svg viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="1">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                      <circle cx="9" cy="12" r="3" />
+                      <path d="M15 9l4 3-4 3V9z" />
+                    </svg></div>
+                  <img id="thumbImgVar3" style="display:none;width:100%;height:100%;object-fit:cover" src="" alt="">
+                  <div class="thumb-duration">10:34</div>
+                </div>
+                <div style="display:flex;gap:8px">
+                  <div style="width:30px;height:30px;border-radius:50%;background:#2a2a3e;flex-shrink:0;overflow:hidden"
+                    class="var-avatar-wrap">
+                    <img src="" style="display:none;width:100%;height:100%;object-fit:cover" class="user-avatar" alt="">
+                  </div>
+                  <div>
+                    <div
+                      style="font-size:13px;font-weight:600;color:var(--text);line-height:1.4;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden"
+                      id="titleRenderVar3">Your Video Title</div>
+                    <div style="font-size:11px;color:var(--text2);margin-bottom:2px" class="channel-name-render">My
+                      YouTube Channel</div>
+                    <div style="font-size:11px;color:var(--text3)">1.2M views &nbsp;·&nbsp; 3 days ago</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ─── TITLE TAB ─── -->
+        <div id="tabTitle" class="tab-content" style="display:none;width:100%;max-width:900px">
+          <div class="title-preview-section" style="margin-top:0">
+            <div class="title-section-header">
+              <h3>Title Truncation Preview</h3>
+              <span class="badge">LIVE</span>
+              <span style="font-size:11px;color:var(--text3);margin-left:auto">Type your title and see how it cuts off
+                on
+                each device</span>
+            </div>
+            <div class="title-input-wrap">
+              <div class="title-input-row">
+                <input type="text" id="titleInputMain" placeholder="Enter your video title..." maxlength="100"
+                  value="How I Built a YouTube Channel From Zero to 100K Subscribers"
+                  oninput="updateTitleMain(this.value)"
+                  style="flex:1;padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;outline:none">
+                <span class="char-counter" id="charCounterMain">60 / 100</span>
+              </div>
+            </div>
+            <div class="title-previews">
+              <div class="title-device-preview">
+                <div class="title-device-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" />
+                    <path d="M8 21h8m-4-4v4" />
+                  </svg>
+                  Desktop <span style="color:var(--text3);font-weight:400">~70 chars</span>
+                </div>
+                <div class="title-rendered" id="titleDesktopPreview"></div>
+                <div style="margin-top:8px;font-size:10px;color:var(--text3)" id="titleDesktopCount"></div>
+              </div>
+              <div class="title-device-preview">
+                <div class="title-device-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="5" y="2" width="14" height="20" rx="2" />
+                    <circle cx="12" cy="17" r="1" />
+                  </svg>
+                  Mobile <span style="color:var(--text3);font-weight:400">~40 chars</span>
+                </div>
+                <div class="title-rendered mobile-title" id="titleMobilePreview"></div>
+                <div style="margin-top:8px;font-size:10px;color:var(--text3)" id="titleMobileCount"></div>
+              </div>
+              <div class="title-device-preview">
+                <div class="title-device-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.35-4.35" />
+                  </svg>
+                  Search <span style="color:var(--text3);font-weight:400">~60 chars</span>
+                </div>
+                <div class="title-rendered sidebar-title" id="titleSearchPreview"></div>
+                <div style="margin-top:8px;font-size:10px;color:var(--text3)" id="titleSearchCount"></div>
+              </div>
+            </div>
+
+            <!-- Tips -->
+            <div
+              style="padding:16px 20px;border-top:1px solid var(--border);display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+              <div style="padding:12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)">
+                <div
+                  style="font-size:10px;font-weight:700;color:var(--blue);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px">
+                  Desktop Watch Page</div>
+                <div style="font-size:11px;color:var(--text2);line-height:1.5">Full title shown. Max ~100 chars. Keep
+                  key
+                  info in first 70 for search snippets.</div>
+              </div>
+              <div style="padding:12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)">
+                <div
+                  style="font-size:10px;font-weight:700;color:var(--green);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px">
+                  Mobile Feed</div>
+                <div style="font-size:11px;color:var(--text2);line-height:1.5">Only 2 lines shown. Hook must be in first
+                  40 chars. Front-load your best keywords.</div>
+              </div>
+              <div style="padding:12px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)">
+                <div
+                  style="font-size:10px;font-weight:700;color:var(--accent);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px">
+                  Search Results</div>
+                <div style="font-size:11px;color:var(--text2);line-height:1.5">Snippet cuts at ~60 chars. Place your
+                  primary keyword within the first 60 characters.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </main>
+
+    <!-- ══ RIGHT SIDEBAR ══ -->
+    <aside class="sidebar-right">
+
+      <div class="specs-card">
+        <div class="specs-title">Banner Specs</div>
+        <div class="spec-row"><span class="spec-key">Full Canvas</span><span class="spec-val">2560×1440</span></div>
+        <div class="spec-row"><span class="spec-key">Safe Area</span><span class="spec-val">1546×423</span></div>
+        <div class="spec-row"><span class="spec-key">Desktop</span><span class="spec-val">2560×423</span></div>
+        <div class="spec-row"><span class="spec-key">Mobile</span><span class="spec-val">1546×423</span></div>
+        <div class="spec-row"><span class="spec-key">TV</span><span class="spec-val">2560×1440</span></div>
+      </div>
+
+      <div class="specs-card">
+        <div class="specs-title">Thumbnail Specs</div>
+        <div class="spec-row"><span class="spec-key">Recommended</span><span class="spec-val">1280×720</span></div>
+        <div class="spec-row"><span class="spec-key">Aspect Ratio</span><span class="spec-val">16:9</span></div>
+        <div class="spec-row"><span class="spec-key">Max Size</span><span class="spec-val">2MB</span></div>
+        <div class="spec-row"><span class="spec-key">Format</span><span class="spec-val">JPG/PNG/GIF</span></div>
+      </div>
+
+      <div class="specs-card">
+        <div class="specs-title">Title Limits</div>
+        <div class="spec-row"><span class="spec-key">Max</span><span class="spec-val">100 chars</span></div>
+        <div class="spec-row"><span class="spec-key">Desktop</span><span class="spec-val">~70 chars</span></div>
+        <div class="spec-row"><span class="spec-key">Mobile</span><span class="spec-val">~40 chars</span></div>
+        <div class="spec-row"><span class="spec-key">Search</span><span class="spec-val">~60 chars</span></div>
+      </div>
+
+      <div class="privacy-badge">
+        <p>Your images never leave your device. Everything runs locally in your browser.</p>
+      </div>
+
+      <div class="export-section">
+        <button class="btn-export" onclick="exportCanvas()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Export Banner PNG
+        </button>
+        <button class="btn-export secondary" onclick="exportThumbnail()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="5" width="20" height="14" rx="2" />
+          </svg>
+          Export Thumbnail
+        </button>
+      </div>
+
+    </aside>
+
+  </div><!-- /main -->
+
+
+  <!-- ═══════════════════════════════════════
+       MOBILE SHELL  (hidden on desktop ≥769px)
+  ═══════════════════════════════════════ -->
+  <div class="mob-shell">
+
+    <!-- Top bar -->
+    <header class="m-topbar">
+      <a href="/" class="m-logo">
+        <img src="../assets/logo-full.png" alt="Channel Preview" style="height: 18px; width: auto;">
+      </a>
+      <div class="m-topbar-r">
+        <button class="m-ico" onclick="mToggleTheme()" title="Toggle theme">
+          <svg id="mThemeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+          </svg>
+        </button>
+        <button class="m-exp-btn" onclick="exportCanvas()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Export
+        </button>
+      </div>
+    </header>
+
+    <!-- Tab bar -->
+    <div class="m-tabbar">
+      <button class="m-tab active" onclick="mSetTab('channel',this)">Channel</button>
+      <button class="m-tab" onclick="mSetTab('thumbnail',this)">Thumbnails</button>
+      <button class="m-tab" onclick="mSetTab('title',this)">Title</button>
+    </div>
+
+    <!-- Scrollable content -->
+    <div class="m-content">
+
+      <!-- ═══ CHANNEL TAB ═══ -->
+      <div id="mTabChannel" class="m-ch-wrap">
+
+        <!-- Device switcher -->
+        <div class="m-dev-row">
+          <button class="m-devbtn active" onclick="mSetDevice('desktop',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8m-4-4v4" />
+            </svg>Desktop
+          </button>
+          <button class="m-devbtn" onclick="mSetDevice('mobile',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="2" width="14" height="20" rx="2" />
+              <circle cx="12" cy="17" r="1" />
+            </svg>Mobile
+          </button>
+          <button class="m-devbtn" onclick="mSetDevice('tv',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="4" width="20" height="15" rx="2" />
+              <path d="M8 21h8M12 19v2" />
+            </svg>TV
+          </button>
+        </div>
+
+        <!-- YT Preview (horizontally scrollable) -->
+        <div class="m-yt-scroll">
+          <div class="yt-chrome" id="mYtChrome">
+            <div class="yt-topbar">
+              <div class="yt-dots">
+                <div class="yt-dot"></div>
+                <div class="yt-dot"></div>
+                <div class="yt-dot"></div>
+              </div>
+              <div class="yt-url" id="mYtUrl">youtube.com/@yourchannel</div>
+            </div>
+            <div class="mobile-label">📱 Mobile View</div>
+            <div class="tv-banner-info">📺 TV View — Full 2560×1440 canvas visible</div>
+            <div class="banner-wrap" id="mBannerWrap">
+              <div class="banner-canvas-wrap" id="mBannerCanvasWrap">
+                <canvas id="mBannerCanvas" width="2560" height="423"
+                  style="width:100%;height:auto;display:block"></canvas>
+                <div class="overlay-guide" id="mSafeOverlay">
+                  <div class="overlay-guide-label">SAFE AREA — ALL DEVICES</div>
+                </div>
+                <div class="overlay-guide hidden" id="mDesktopOverlay">
+                  <div class="overlay-guide-label">DESKTOP VIEW</div>
+                </div>
+                <div class="overlay-guide hidden" id="mTvOverlay">
+                  <div class="overlay-guide-label">TV VIEW</div>
+                </div>
+                <input type="file" class="banner-input" accept="image/*" onchange="mLoadBanner(event)">
+              </div>
+            </div>
+            <div class="channel-info-bar">
+              <div class="profile-pic-wrap">
+                <div class="pp-placeholder" id="mPpPh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5">
+                    <circle cx="12" cy="8" r="4" />
+                    <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+                  </svg></div>
+                <img id="mPpImg" src="" alt=""
+                  style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%">
+                <input type="file" class="profile-pic-input" accept="image/*" onchange="mLoadProfile(event)">
+              </div>
+              <div class="channel-meta">
+                <div class="channel-name" id="mDispName">My YouTube Channel</div>
+                <div class="channel-handle"><span id="mDispHandle">@yourchannel</span>&nbsp;·&nbsp;<span
+                    id="mDispSubs">0</span> subscribers</div>
+              </div>
+              <button class="subscribe-btn">Subscribe</button>
+            </div>
+            <div class="yt-tabs">
+              <div class="yt-tab active">Home</div>
+              <div class="yt-tab">Videos</div>
+              <div class="yt-tab">Shorts</div>
+              <div class="yt-tab">About</div>
+            </div>
+            <div class="thumb-grid-area">
+              <div class="thumb-grid" id="mThumbGrid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick spec grid -->
+        <div class="m-info-grid">
+          <div class="m-info-card">
+            <div class="m-info-t">Safe Area</div>
+            <div class="m-info-v">1546 × 423 px</div>
+          </div>
+          <div class="m-info-card">
+            <div class="m-info-t">Full Banner</div>
+            <div class="m-info-v">2560 × 1440 px</div>
+          </div>
+          <div class="m-info-card">
+            <div class="m-info-t">Thumbnail</div>
+            <div class="m-info-v">1280 × 720 px</div>
+          </div>
+          <div class="m-info-card">
+            <div class="m-info-t">Privacy</div>
+            <div class="m-info-v" style="color:var(--green)">100% Local</div>
+          </div>
+        </div>
+
+        <!-- Inline overlay toggles -->
+        <div class="m-box">
+          <div class="m-box-title">Overlay Guides</div>
+          <div class="toggle-row"><span class="toggle-label"><span class="toggle-dot"
+                style="background:#22c55e"></span>Safe Area</span>
+            <div class="toggle on" id="mTglSafe" onclick="mToggleOverlay('safe')"></div>
+          </div>
+          <div class="toggle-row"><span class="toggle-label"><span class="toggle-dot"
+                style="background:#3b82f6"></span>Desktop Zone</span>
+            <div class="toggle" id="mTglDesktop" onclick="mToggleOverlay('desktop')"></div>
+          </div>
+          <div class="toggle-row"><span class="toggle-label"><span class="toggle-dot"
+                style="background:#a855f7"></span>TV Zone</span>
+            <div class="toggle" id="mTglTV" onclick="mToggleOverlay('tv')"></div>
+          </div>
+          <div class="tip" style="margin-top:8px">Green = all devices · Blue = desktop only · Purple = full TV canvas
+          </div>
+        </div>
+
+        <!-- Export -->
+        <button class="m-btn-pri" onclick="exportCanvas()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Export Banner PNG
+        </button>
+      </div><!-- /mTabChannel -->
+
+      <!-- ═══ THUMBNAIL TAB ═══ -->
+      <div id="mTabThumbnail" class="m-thumb-wrap" style="display:none">
+
+        <!-- 3 Upload Slots -->
+        <div class="m-slot" id="mSlot1">
+          <div class="m-slot-hd">
+            <div class="m-slot-num" style="background:var(--accent)">A</div>
+            <div class="m-slot-lbl">Thumbnail A</div><button class="m-slot-rm" onclick="mRmSlot(1)">Remove</button>
+          </div>
+          <div class="m-slot-up"><input type="file" accept="image/*" onchange="mLoadSlot(event,1)"><svg
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="5" width="20" height="14" rx="2" />
+              <circle cx="9" cy="12" r="3" />
+              <path d="M15 9l4 3-4 3V9z" />
+            </svg><span>Tap to upload Thumbnail A</span></div>
+          <img class="m-slot-img" id="mSImg1" src="" alt="">
+          <div class="m-slot-title"><input class="m-slot-fi" id="mSTit1" placeholder="Video title for A…"
+              oninput="mSyncTit(1)"></div>
+        </div>
+        <div class="m-slot" id="mSlot2">
+          <div class="m-slot-hd">
+            <div class="m-slot-num" style="background:var(--blue)">B</div>
+            <div class="m-slot-lbl">Thumbnail B</div><button class="m-slot-rm" onclick="mRmSlot(2)">Remove</button>
+          </div>
+          <div class="m-slot-up"><input type="file" accept="image/*" onchange="mLoadSlot(event,2)"><svg
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="5" width="20" height="14" rx="2" />
+              <circle cx="9" cy="12" r="3" />
+              <path d="M15 9l4 3-4 3V9z" />
+            </svg><span>Tap to upload Thumbnail B</span></div>
+          <img class="m-slot-img" id="mSImg2" src="" alt="">
+          <div class="m-slot-title"><input class="m-slot-fi" id="mSTit2" placeholder="Video title for B…"
+              oninput="mSyncTit(2)"></div>
+        </div>
+        <div class="m-slot" id="mSlot3">
+          <div class="m-slot-hd">
+            <div class="m-slot-num" style="background:var(--green)">C</div>
+            <div class="m-slot-lbl">Thumbnail C</div><button class="m-slot-rm" onclick="mRmSlot(3)">Remove</button>
+          </div>
+          <div class="m-slot-up"><input type="file" accept="image/*" onchange="mLoadSlot(event,3)"><svg
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="5" width="20" height="14" rx="2" />
+              <circle cx="9" cy="12" r="3" />
+              <path d="M15 9l4 3-4 3V9z" />
+            </svg><span>Tap to upload Thumbnail C</span></div>
+          <img class="m-slot-img" id="mSImg3" src="" alt="">
+          <div class="m-slot-title"><input class="m-slot-fi" id="mSTit3" placeholder="Video title for C…"
+              oninput="mSyncTit(3)"></div>
+        </div>
+
+        <!-- Feed preview comparison -->
+        <div class="m-cmp">
+          <div class="m-cmp-hd">Feed Preview <span>— how each thumbnail looks in YouTube</span></div>
+          <div class="m-cmp-body" id="mCmpBody"></div>
+        </div>
+
+        <!-- Shorts section — separate upload + 9:16 preview -->
+        <div class="m-feed-card" style="overflow:visible">
+          <div class="m-feed-hd" style="display:flex;align-items:center;gap:8px">
+            Shorts Thumbnail
+            <span
+              style="padding:2px 7px;border-radius:4px;background:rgba(255,78,78,.15);color:var(--accent);font-size:9px;font-weight:700;font-family:'DM Mono',monospace">9:16</span>
+            <span style="font-size:10px;font-weight:400;color:var(--text3)">Upload a separate vertical thumbnail</span>
+          </div>
+          <div style="padding:12px 14px;display:flex;flex-direction:column;gap:12px">
+
+            <!-- Shorts upload zone -->
+            <div class="upload-zone" id="mShortsZoneThumb" style="margin-bottom:0">
+              <button class="remove-btn" onclick="mRmShorts2(event)">×</button>
+              <div class="upload-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="5" y="2" width="14" height="20" rx="2" />
+                </svg>
+              </div>
+              <div class="upload-label">Tap to upload Shorts Thumbnail</div>
+              <div class="upload-sub">1080 × 1920 px · 9:16</div>
+              <img class="upload-thumb" id="mShortsThumb2" src="" alt="">
+              <input type="file" accept="image/*" onchange="mLoadShorts2(event)">
+            </div>
+
+            <!-- Shorts title input -->
+            <div>
+              <div class="m-fl" style="margin-bottom:5px">Shorts Title</div>
+              <input class="m-slot-fi" id="mShortsTitleInput" type="text" placeholder="Shorts video title…"
+                style="width:100%" oninput="mSyncShortsTitle(this.value)">
+            </div>
+
+            <!-- 9:16 Preview card (like real Shorts feed) -->
+            <div>
+              <div class="m-size-lbl" style="margin-bottom:10px">Live Preview — Shorts Feed</div>
+              <div style="display:flex;gap:14px;align-items:flex-start">
+                <!-- Main Shorts card -->
+                <div
+                  style="width:160px;min-width:160px;aspect-ratio:9/16;background:#000;border-radius:12px;overflow:hidden;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.5);flex-shrink:0">
+                  <div class="placeholder-thumb" id="mShortsPlaceholder"
+                    style="background:linear-gradient(135deg,#1a1a2e,#0f3460)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+                      style="width:28px;height:28px">
+                      <rect x="5" y="2" width="14" height="20" rx="2" />
+                    </svg>
+                  </div>
+                  <img id="mShortsImg" style="display:none;width:100%;height:100%;object-fit:cover" src="" alt="">
+                  <!-- gradient overlay -->
+                  <div
+                    style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 45%);pointer-events:none">
+                  </div>
+                  <!-- right action buttons -->
+                  <div
+                    style="position:absolute;right:8px;bottom:90px;display:flex;flex-direction:column;gap:12px;align-items:center">
+                    <div style="text-align:center">
+                      <div
+                        style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:13px">
+                        👍</div>
+                      <div style="font-size:9px;color:#fff;margin-top:2px">1.2K</div>
+                    </div>
+                    <div style="text-align:center">
+                      <div
+                        style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:13px">
+                        💬</div>
+                      <div style="font-size:9px;color:#fff;margin-top:2px">48</div>
+                    </div>
+                    <div style="text-align:center">
+                      <div
+                        style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:13px">
+                        ↪️</div>
+                      <div style="font-size:9px;color:#fff;margin-top:2px">Share</div>
+                    </div>
+                  </div>
+                  <!-- bottom info -->
+                  <div style="position:absolute;left:10px;bottom:10px;right:44px">
+                    <div style="display:flex;align-items:center;gap:7px;margin-bottom:6px">
+                      <div
+                        style="width:26px;height:26px;border-radius:50%;background:#333;overflow:hidden;flex-shrink:0"
+                        id="mShortsAvWrap">
+                        <img src="" style="display:none;width:100%;height:100%;object-fit:cover" class="user-avatar"
+                          alt="">
+                      </div>
+                      <span style="color:#fff;font-size:11px;font-weight:600" id="mShortsCh">@yourchannel</span>
+                    </div>
+                    <div
+                      style="color:#fff;font-size:11px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden"
+                      id="mShortsTitle">Your Shorts Title</div>
+                  </div>
+                </div>
+
+                <!-- Side info -->
+                <div style="flex:1;padding-top:4px">
+                  <div
+                    style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--text3);margin-bottom:8px">
+                    Shorts feed card</div>
+                  <div style="font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:8px">
+                    This is how your Short appears in the Shorts feed. The thumbnail fills the entire 9:16 frame.
+                  </div>
+                  <div
+                    style="padding:8px 10px;background:var(--surface2);border-radius:8px;border:1px solid var(--border)">
+                    <div
+                      style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3);margin-bottom:4px">
+                      Optimal size</div>
+                    <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text2)">1080 × 1920 px</div>
+                    <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--text2)">Ratio: 9:16</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Feed size previews -->
+        <div class="m-feed-card">
+          <div class="m-feed-hd">Feed Sizes — Thumbnail A</div>
+          <div class="m-feed-body">
+            <div>
+              <div class="m-size-lbl">Desktop 320×180</div>
+              <div class="m-feed-item">
+                <div class="m-feed-thumb" style="width:180px;min-width:180px;height:101px">
+                  <div class="placeholder-thumb" id="mFeedDeskPh"><svg viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="1" style="width:20px;height:20px">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                    </svg></div>
+                  <img id="mFeedDeskImg" style="display:none;width:100%;height:100%;object-fit:cover" src="" alt="">
+                  <div class="m-feed-dur">10:34</div>
+                </div>
+                <div class="m-feed-info">
+                  <div class="m-feed-ttl" id="mFeedDeskTit">How I Built a YouTube Channel From Zero to 100K Subscribers
+                  </div>
+                  <div class="m-feed-ch" id="mFeedDeskCh">My YouTube Channel</div>
+                  <div class="m-feed-views">1.2M views · 3 days ago</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="m-size-lbl">Mobile 168×94</div>
+              <div class="m-feed-item">
+                <div class="m-feed-thumb">
+                  <div class="placeholder-thumb" id="mFeedMobPh"><svg viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="1" style="width:16px;height:16px">
+                      <rect x="2" y="5" width="20" height="14" rx="2" />
+                    </svg></div>
+                  <img id="mFeedMobImg" style="display:none;width:100%;height:100%;object-fit:cover" src="" alt="">
+                  <div class="m-feed-dur">10:34</div>
+                </div>
+                <div class="m-feed-info">
+                  <div class="m-feed-ttl" id="mFeedMobTit">How I Built a YouTube Channel From Zero to 100K Subscribers
+                  </div>
+                  <div class="m-feed-ch" id="mFeedMobCh">My YouTube Channel</div>
+                  <div class="m-feed-views">1.2M views</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /mTabThumbnail -->
+
+      <!-- ═══ TITLE TAB ═══ -->
+      <div id="mTabTitle" class="m-title-wrap" style="display:none">
+        <div class="m-title-card">
+          <div class="m-title-hd">
+            <span>Title Truncation Preview</span>
+            <span class="badge" style="margin-left:6px">LIVE</span>
+          </div>
+          <div class="m-ti-wrap">
+            <textarea class="m-ti" id="mTiInput" rows="3" maxlength="100"
+              oninput="mUpdateTitle(this.value)">How I Built a YouTube Channel From Zero to 100K Subscribers</textarea>
+            <div class="m-char-row"><span class="m-char-hint">Max 100 characters</span><span class="m-char-cnt"
+                id="mCharCnt">60 / 100</span></div>
+          </div>
+          <div class="m-dev-prev">
+            <div class="m-dev-lbl" style="color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <path d="M8 21h8m-4-4v4" />
+              </svg>Desktop · ~70 chars</div>
+            <div class="m-dev-text" id="mTiDesk"></div>
+            <div class="m-dev-meta" id="mTiDeskM"></div>
+          </div>
+          <div class="m-dev-prev">
+            <div class="m-dev-lbl" style="color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <rect x="5" y="2" width="14" height="20" rx="2" />
+                <circle cx="12" cy="17" r="1" />
+              </svg>Mobile · ~40 chars</div>
+            <div class="m-dev-text" id="mTiMob"></div>
+            <div class="m-dev-meta" id="mTiMobM"></div>
+          </div>
+          <div class="m-dev-prev">
+            <div class="m-dev-lbl" style="color:var(--yellow)"><svg viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+              </svg>Search · ~60 chars</div>
+            <div class="m-dev-text" id="mTiSrch"></div>
+            <div class="m-dev-meta" id="mTiSrchM"></div>
+          </div>
+        </div>
+        <!-- Tips -->
+        <div class="m-title-card">
+          <div class="m-title-hd"><span>Tips</span></div>
+          <div style="padding:12px 14px;display:flex;flex-direction:column;gap:8px">
+            <div class="m-tip-row" style="border-left-color:var(--blue)">
+              <div class="m-tip-h" style="color:var(--blue)">Desktop</div>
+              <div class="m-tip-p">Full title visible. Keep key info in first 70 chars for search snippets.</div>
+            </div>
+            <div class="m-tip-row" style="border-left-color:var(--green)">
+              <div class="m-tip-h" style="color:var(--green)">Mobile Feed</div>
+              <div class="m-tip-p">Only 2 lines shown. Hook must be in first 40 chars. Front-load your keywords.</div>
+            </div>
+            <div class="m-tip-row" style="border-left-color:var(--yellow)">
+              <div class="m-tip-h" style="color:var(--yellow)">Search Results</div>
+              <div class="m-tip-p">Snippet cuts at ~60 chars. Put your primary keyword within the first 60 characters.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /mTabTitle -->
+
+    </div><!-- /m-content -->
+
+    <!-- Bottom nav -->
+    <nav class="m-botnav">
+      <button class="m-navbtn" onclick="mOpenSheet('profile')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="8" r="4" />
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+        </svg>Profile
+      </button>
+      <button class="m-navbtn" onclick="mOpenSheet('assets')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="18" height="14" rx="2" />
+          <path d="M3 9l4-4 4 4 4-4 4 4" />
+        </svg>Assets
+      </button>
+      <button class="m-navbtn" onclick="mOpenSheet('guides')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="4" />
+          <line x1="12" y1="2" x2="12" y2="4" />
+          <line x1="12" y1="20" x2="12" y2="22" />
+          <line x1="2" y1="12" x2="4" y2="12" />
+          <line x1="20" y1="12" x2="22" y2="12" />
+        </svg>Guides
+      </button>
+      <button class="m-navbtn" onclick="mOpenSheet('export')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>Export
+      </button>
+      <button class="m-navbtn" onclick="mOpenSheet('specs')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>Specs
+      </button>
+    </nav>
+
+    <!-- Backdrop -->
+    <div class="m-backdrop" id="mBackdrop" onclick="mCloseSheet()"></div>
+
+    <!-- Sheet: Profile -->
+    <div class="m-sheet" id="mShProfile">
+      <div class="m-handle"></div>
+      <div class="m-shdr">
+        <div class="m-stitle">Channel Info</div><button class="m-sclose" onclick="mCloseSheet()">×</button>
+      </div>
+      <div class="m-sbody">
+        <div class="m-fl">Channel Name</div><input class="m-fi" id="mInName" type="text" value="My YouTube Channel"
+          oninput="mSyncProfile()" placeholder="Your Channel Name">
+        <div class="m-fl">Handle</div><input class="m-fi" id="mInHandle" type="text" value="@yourchannel"
+          oninput="mSyncProfile()" placeholder="@handle">
+        <div class="m-fl">Subscribers</div><input class="m-fi" id="mInSubs" type="text" value="0"
+          oninput="mSyncProfile()" placeholder="e.g. 1.24K subscribers">
+        <button class="m-btn-pri" onclick="mCloseSheet()">Done</button>
+      </div>
+    </div>
+
+    <!-- Sheet: Assets -->
+    <div class="m-sheet" id="mShAssets">
+      <div class="m-handle"></div>
+      <div class="m-shdr">
+        <div class="m-stitle">Upload Assets</div><button class="m-sclose" onclick="mCloseSheet()">×</button>
+      </div>
+      <div class="m-sbody">
+        <div class="m-fl" style="margin-bottom:8px">Banner Image (2560×1440)</div>
+        <div class="upload-zone" id="mBannerZone" style="margin-bottom:16px">
+          <button class="remove-btn" onclick="mRmBanner(event)">×</button>
+          <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="14" rx="2" />
+              <path d="M3 9l4-4 4 4 4-4 4 4" />
+            </svg></div>
+          <div class="upload-label">Tap to upload Banner</div>
+          <div class="upload-sub">2560 × 1440 px</div>
+          <img class="upload-thumb" id="mBannerThumb" src="" alt="">
+          <input type="file" accept="image/*" onchange="mLoadBanner(event)">
+        </div>
+        <div class="m-fl" style="margin-bottom:8px">Profile Picture (800×800)</div>
+        <div class="upload-zone" id="mProfileZone">
+          <button class="remove-btn" onclick="mRmProfile(event)">×</button>
+          <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+            </svg></div>
+          <div class="upload-label">Tap to upload Profile Picture</div>
+          <div class="upload-sub">800 × 800 px</div>
+          <img class="upload-thumb" id="mProfileThumb" src="" alt="">
+          <input type="file" accept="image/*" onchange="mLoadProfile(event)">
+        </div>
+        <!-- Thumbnail A quick upload -->
+        <div class="m-fl" style="margin-bottom:8px;margin-top:16px">Video Thumbnail A (1280×720)</div>
+        <div class="upload-zone" id="mThumbZone">
+          <button class="remove-btn" onclick="mRmThumb(event)">×</button>
+          <div class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="5" width="20" height="14" rx="2" />
+              <circle cx="9" cy="12" r="3" />
+              <path d="M15 9l4 3-4 3V9z" />
+            </svg></div>
+          <div class="upload-label">Tap to upload Thumbnail</div>
+          <div class="upload-sub">1280 × 720 px</div>
+          <img class="upload-thumb" id="mThumbThumb" src="" alt="">
+          <input type="file" accept="image/*" onchange="mLoadThumbA(event)">
+        </div>
+        <!-- Video Title input directly in Assets -->
+        <div class="m-fl" style="margin-bottom:5px;margin-top:14px">Video Title</div>
+        <input class="m-fi" id="mAssetTitle" type="text" placeholder="Enter your video title…" style="margin-bottom:4px"
+          oninput="mSyncAssetTitle(this.value)">
+        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Syncs with Title tab and thumbnail previews
+        </div>
+
+        <!-- Shorts Thumbnail upload -->
+        <div class="m-fl" style="margin-bottom:5px;margin-top:14px">Shorts Thumbnail (9:16 vertical)</div>
+        <div class="upload-zone" id="mShortsZone">
+          <button class="remove-btn" onclick="mRmShorts(event)">×</button>
+          <div class="upload-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="2" width="14" height="20" rx="2" />
+            </svg>
+          </div>
+          <div class="upload-label">Tap to upload Shorts Thumbnail</div>
+          <div class="upload-sub">1080 × 1920 px · 9:16 ratio</div>
+          <img class="upload-thumb" id="mShortsThumb" src="" alt="">
+          <input type="file" accept="image/*" onchange="mLoadShortsThumb(event)">
+        </div>
+      </div>
+    </div>
+
+    <!-- Sheet: Guides -->
+    <div class="m-sheet" id="mShGuides">
+      <div class="m-handle"></div>
+      <div class="m-shdr">
+        <div class="m-stitle">Overlay Guides</div><button class="m-sclose" onclick="mCloseSheet()">×</button>
+      </div>
+      <div class="m-sbody">
+        <div class="toggle-row"><span class="toggle-label"><span class="toggle-dot"
+              style="background:#22c55e"></span>Safe Area (1546×423 — all devices)</span>
+          <div class="toggle on" id="mTglSafe2" onclick="mToggleOverlay('safe')"></div>
+        </div>
+        <div class="toggle-row"><span class="toggle-label"><span class="toggle-dot"
+              style="background:#3b82f6"></span>Desktop Zone (2560×423 — desktop only)</span>
+          <div class="toggle" id="mTglDesktop2" onclick="mToggleOverlay('desktop')"></div>
+        </div>
+        <div class="toggle-row"><span class="toggle-label"><span class="toggle-dot" style="background:#a855f7"></span>TV
+            Zone (2560×1440 — full canvas)</span>
+          <div class="toggle" id="mTglTV2" onclick="mToggleOverlay('tv')"></div>
+        </div>
+        <div class="tip" style="margin-top:12px">Place your logo and key text inside the green Safe Area to ensure
+          visibility across all devices.</div>
+      </div>
+    </div>
+
+    <!-- Sheet: Export -->
+    <div class="m-sheet" id="mShExport">
+      <div class="m-handle"></div>
+      <div class="m-shdr">
+        <div class="m-stitle">Export</div><button class="m-sclose" onclick="mCloseSheet()">×</button>
+      </div>
+      <div class="m-sbody">
+        <div class="m-priv">
+          <p>Your images never leave your device. Everything runs locally in your browser.</p>
+        </div>
+        <button class="m-btn-pri" onclick="exportCanvas();mCloseSheet()"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>Export Banner PNG</button>
+        <button class="m-btn-sec" onclick="exportThumbnail();mCloseSheet()"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <rect x="2" y="5" width="20" height="14" rx="2" />
+          </svg>Export Thumbnail A</button>
+        <button class="m-btn-sec" onclick="mExportVar(1);mCloseSheet()"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <rect x="2" y="5" width="20" height="14" rx="2" />
+          </svg>Export Variant Option 1</button>
+        <button class="m-btn-sec" onclick="mExportVar(2);mCloseSheet()"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <rect x="2" y="5" width="20" height="14" rx="2" />
+          </svg>Export Variant Option 2</button>
+        <button class="m-btn-sec" onclick="mExportVar(3);mCloseSheet()"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2">
+            <rect x="2" y="5" width="20" height="14" rx="2" />
+          </svg>Export Variant Option 3</button>
+      </div>
+    </div>
+
+    <!-- Sheet: Specs -->
+    <div class="m-sheet" id="mShSpecs">
+      <div class="m-handle"></div>
+      <div class="m-shdr">
+        <div class="m-stitle">YouTube Specs</div><button class="m-sclose" onclick="mCloseSheet()">×</button>
+      </div>
+      <div class="m-sbody">
+        <div class="m-spec-card">
+          <div class="m-spec-title">Banner</div>
+          <div class="m-spec-r"><span class="m-spec-k">Full Canvas</span><span class="m-spec-v">2560×1440</span></div>
+          <div class="m-spec-r"><span class="m-spec-k">Safe Area</span><span class="m-spec-v">1546×423</span></div>
+          <div class="m-spec-r"><span class="m-spec-k">Desktop</span><span class="m-spec-v">2560×423</span></div>
+          <div class="m-spec-r"><span class="m-spec-k">Mobile</span><span class="m-spec-v">1546×423</span></div>
+          <div class="m-spec-r"><span class="m-spec-k">TV</span><span class="m-spec-v">2560×1440</span></div>
+        </div>
+        <div class="m-spec-card">
+          <div class="m-spec-title">Thumbnail</div>
+          <div class="m-spec-r"><span class="m-spec-k">Recommended</span><span class="m-spec-v">1280×720</span></div>
+          <div class="m-spec-r"><span class="m-spec-k">Ratio</span><span class="m-spec-v">16:9</span></div>
+          <div class="m-spec-r"><span class="m-spec-k">Max File</span><span class="m-spec-v">2MB</span></div>
+          <div class="m-spec-r"><span class="m-spec-k">Format</span><span class="m-spec-v">JPG/PNG/GIF</span></div>
+        </div>
+        <div class="m-spec-card">
+          <div class="m-spec-title">Title Limits</div>
+          <div class="m-spec-r"><span class="m-spec-k">Max</span><span class="m-spec-v">100 chars</span></div>
+          <div class="m-spec-r"><span class="m-spec-k">Desktop</span><span class="m-spec-v">~70 chars</span></div>
+          <div class="m-spec-r"><span class="m-spec-k">Mobile</span><span class="m-spec-v">~40 chars</span></div>
+          <div class="m-spec-r"><span class="m-spec-k">Search</span><span class="m-spec-v">~60 chars</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /mob-shell -->
+
+  <script>
+    // ══════════════════════════════════════════════
+    // STATE
+    // ══════════════════════════════════════════════
+    const state = {
+      device: 'desktop',
+      tab: 'channel',
+      bannerSrc: null,
+      profileSrc: null,
+      thumbSrc: null,
+      thumbVariants: {
+        1: { src: null, title: '' },
+        2: { src: null, title: '' },
+        3: { src: null, title: '' }
+      },
+      overlays: { safe: true, desktop: false, tv: false },
+      zoom: 100,
+      theme: 'dark',
+      channelName: 'My YouTube Channel',
+      channelHandle: '@yourchannel',
+      channelSubs: '0',
+      videoTitle: 'How I Built a YouTube Channel From Zero to 100K Subscribers'
+    };
+
+    // Placeholder thumbnail data
+    const placeholderCards = [
+      { title: 'The Complete Guide to YouTube Growth in 2025', views: '2.1M views', time: '2 weeks ago', dur: '18:42', color: '#1a2a4a' },
+      { title: 'YouTube Algorithm EXPOSED: What Really Works', views: '876K views', time: '1 month ago', dur: '22:15', color: '#2a1a3a' },
+      { title: '10 Thumbnail Mistakes You\'re Making Right Now', views: '445K views', time: '3 weeks ago', dur: '12:08', color: '#1a3a2a' },
+      { title: 'How to Write Titles That Get Clicks (Proven Method)', views: '1.3M views', time: '5 days ago', dur: '09:55', color: '#3a2a1a' },
+      { title: 'Content Batching: Film 30 Videos in 2 Days', views: '234K views', time: '1 week ago', dur: '15:30', color: '#2a1a1a' },
+      { title: 'YouTube SEO Masterclass 2025', views: '567K views', time: '2 months ago', dur: '34:12', color: '#1a3a3a' },
+      { title: 'Why Your Channel Isn\'t Growing (The Real Reason)', views: '789K views', time: '3 days ago', dur: '11:47', color: '#3a1a3a' },
+      { title: 'From Idea to Upload: My Full Video Process', views: '312K views', time: '1 week ago', dur: '27:03', color: '#2a3a1a' }
+    ];
+
+    function saveState() {
+      const dataToSave = { ...state };
+      dataToSave.bannerSrc = null;
+      dataToSave.profileSrc = null;
+      dataToSave.thumbSrc = null;
+      dataToSave.thumbVariants = JSON.parse(JSON.stringify(state.thumbVariants));
+      for (let id in dataToSave.thumbVariants) {
+        dataToSave.thumbVariants[id].src = null;
+      }
+      localStorage.setItem('cp_state', JSON.stringify(dataToSave));
+    }
+
+    function loadState() {
+      const saved = localStorage.getItem('cp_state');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (parsed.channelName) state.channelName = parsed.channelName;
+          if (parsed.channelHandle) state.channelHandle = parsed.channelHandle;
+          if (parsed.channelSubs) state.channelSubs = parsed.channelSubs;
+          if (parsed.videoTitle) state.videoTitle = parsed.videoTitle;
+          if (parsed.theme) state.theme = parsed.theme;
+          if (parsed.device) state.device = parsed.device;
+          if (parsed.tab) state.tab = parsed.tab;
+          if (parsed.zoom) state.zoom = parsed.zoom;
+          if (parsed.overlays) state.overlays = parsed.overlays;
+          if (parsed.thumbVariants) {
+            for (let id in parsed.thumbVariants) {
+              if (state.thumbVariants[id]) {
+                state.thumbVariants[id].title = parsed.thumbVariants[id].title || '';
+              }
+            }
+          }
+          // Apply to inputs
+          document.getElementById('channelName').value = state.channelName;
+          document.getElementById('channelHandle').value = state.channelHandle;
+          document.getElementById('channelSubs').value = state.channelSubs;
+          document.getElementById('videoTitle').value = state.videoTitle;
+          [1, 2, 3].forEach(id => {
+            const el = document.getElementById('titleVariant' + id);
+            if (el) el.value = state.thumbVariants[id].title;
+          });
+          document.documentElement.setAttribute('data-theme', state.theme);
+          // Refresh UI
+          updateProfile();
+          updateTitle();
+          updateOverlays();
+          applyZoom(state.zoom);
+          const tabBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.textContent.toLowerCase() === state.tab);
+          if (tabBtn) setTab(state.tab, tabBtn);
+          const devBtn = Array.from(document.querySelectorAll('.dev-btn')).find(b => b.dataset.device === state.device);
+          if (devBtn) setDevice(state.device, devBtn);
+        } catch (e) {
+          console.error('Error loading state', e);
+        }
+      }
+    }
+
+    // ══════════════════════════════════════════════
+    // INIT
+    // ══════════════════════════════════════════════
+    window.addEventListener('DOMContentLoaded', () => {
+      buildThumbGrid();
+      updateOverlays();
+      updateTitle();
+      updateTitleMain(state.videoTitle);
+      drawBannerCanvas();
+      positionOverlays();
+      window.addEventListener('resize', positionOverlays);
+    });
+
+    // ══════════════════════════════════════════════
+    // THEME
+    // ══════════════════════════════════════════════
+    function toggleTheme() {
+      state.theme = state.theme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', state.theme);
+      saveState();
+      const icon = document.getElementById('themeIcon');
+      if (state.theme === 'light') {
+        icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+      } else {
+        icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+      }
+    }
+
+    // ══════════════════════════════════════════════
+    // DEVICE MODE
+    // ══════════════════════════════════════════════
+    function setDevice(mode, btn) {
+      state.device = mode;
+      document.querySelectorAll('.dev-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const chrome = document.getElementById('ytChrome');
+      chrome.classList.remove('mobile-mode', 'tv-mode');
+      if (mode === 'mobile') chrome.classList.add('mobile-mode');
+      if (mode === 'tv') chrome.classList.add('tv-mode');
+      // Update URL bar
+      chrome.querySelector('.yt-url').textContent = mode === 'tv' ? 'tv.youtube.com' : 'youtube.com/' + state.channelHandle;
+      drawBannerCanvas();
+      setTimeout(positionOverlays, 50);
+      saveState();
+    }
+
+    // ══════════════════════════════════════════════
+    // TABS
+    // ══════════════════════════════════════════════
+    function setTab(tab, btn) {
+      state.tab = tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+      document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).style.display = 'flex';
+      if (tab !== 'channel') {
+        document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).style.flexDirection = 'column';
+      }
+      const switcher = document.getElementById('deviceSwitcher');
+      if (switcher) {
+        if (tab === 'channel') {
+          switcher.style.opacity = '1';
+          switcher.style.pointerEvents = 'auto';
+        } else {
+          switcher.style.opacity = '0.5';
+          switcher.style.pointerEvents = 'none';
+        }
+      }
+      if (tab === 'thumbnail') {
+        updateThumbVariantProfileInfo();
+      }
+      saveState();
+    }
+
+    // ══════════════════════════════════════════════
+    // BANNER CANVAS
+    // ══════════════════════════════════════════════
+    function drawBannerCanvas() {
+      const canvas = document.getElementById('bannerCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = 2560;
+      canvas.height = state.device === 'tv' ? 1440 : 423;
+
+      // Background
+      if (state.bannerSrc) {
+        const img = new Image();
+        img.onload = () => {
+          if (state.device === 'tv') {
+            ctx.drawImage(img, 0, 0, 2560, 1440);
+          } else {
+            // For desktop/mobile: show the horizontal strip
+            // Calculate visible crop from center
+            const srcH = img.naturalHeight;
+            const srcW = img.naturalWidth;
+            const ratio = srcW / 2560;
+            const srcStripH = 423 * ratio;
+            const sy = (srcH - srcStripH) / 2;
+            ctx.drawImage(img, 0, sy, srcW, srcStripH, 0, 0, 2560, 423);
+          }
+          positionOverlays();
+        };
+        img.src = state.bannerSrc;
+      } else {
+        // Gradient placeholder
+        const grad = ctx.createLinearGradient(0, 0, 2560, canvas.height);
+        grad.addColorStop(0, '#1a1a2e');
+        grad.addColorStop(0.5, '#16213e');
+        grad.addColorStop(1, '#0f3460');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 2560, canvas.height);
+        // Placeholder text
+        ctx.fillStyle = 'rgba(255,255,255,0.15)';
+        ctx.font = 'bold 80px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('Click banner to upload', 1280, canvas.height / 2);
+        positionOverlays();
+      }
+    }
+
+    // ══════════════════════════════════════════════
+    // OVERLAY POSITIONING
+    // ══════════════════════════════════════════════
+    function positionOverlays() {
+      const wrap = document.getElementById('bannerCanvasWrap');
+      const w = wrap.offsetWidth;
+      const canvas = document.getElementById('bannerCanvas');
+      const naturalH = canvas.height; // 423 or 1440
+      const naturalW = 2560;
+      const scale = w / naturalW;
+      const dispH = naturalH * scale;
+
+      // Safe area: 1546×423 centred horizontally
+      // In display coords:
+      const safeW = 1546 * scale;
+      const safeH = 423 * scale;
+      const safeX = (w - safeW) / 2;
+
+      if (state.device === 'tv') {
+        // TV: safe area is 1546×423 centred within 2560×1440
+        const tvSafeY = (dispH - safeH) / 2;
+        posGuide('safeOverlay', safeX, tvSafeY, safeW, safeH);
+        posGuide('desktopOverlay', 0, tvSafeY, w, safeH);
+        posGuide('tvOverlay', 0, 0, w, dispH);
+      } else {
+        // Desktop/Mobile: banner strip is 2560×423 displayed
+        posGuide('safeOverlay', safeX, 0, safeW, dispH);
+        posGuide('desktopOverlay', 0, 0, w, dispH);
+        posGuide('tvOverlay', 0, 0, w, dispH);
+      }
+    }
+
+    function posGuide(id, x, y, w, h) {
+      const el = document.getElementById(id);
+      el.style.left = x + 'px';
+      el.style.top = y + 'px';
+      el.style.width = w + 'px';
+      el.style.height = h + 'px';
+    }
+
+    // ══════════════════════════════════════════════
+    // OVERLAYS TOGGLE
+    // ══════════════════════════════════════════════
+    function toggleOverlay(type) {
+      state.overlays[type] = !state.overlays[type];
+      const toggleEl = document.getElementById('toggle' + type.charAt(0).toUpperCase() + type.slice(1));
+      toggleEl.classList.toggle('on', state.overlays[type]);
+      updateOverlays();
+      saveState();
+    }
+
+    function updateOverlays() {
+      const safeEl = document.getElementById('safeOverlay');
+      const desktopEl = document.getElementById('desktopOverlay');
+      const tvEl = document.getElementById('tvOverlay');
+      safeEl.classList.toggle('hidden', !state.overlays.safe);
+      desktopEl.classList.toggle('hidden', !state.overlays.desktop);
+      tvEl.classList.toggle('hidden', !state.overlays.tv);
+    }
+
+    // ══════════════════════════════════════════════
+    // IMAGE LOADING
+    // ══════════════════════════════════════════════
+    function loadBanner(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      state.bannerSrc = url;
+      // sidebar thumb
+      const zone = document.getElementById('bannerZone');
+      zone.classList.add('has-image');
+      const thumb = document.getElementById('bannerThumb');
+      thumb.src = url; thumb.style.display = 'block';
+      // banner wrap
+      document.getElementById('bannerWrap').classList.add('has-banner');
+      drawBannerCanvas();
+    }
+
+    function loadProfile(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      state.profileSrc = url;
+      // sidebar
+      const zone = document.getElementById('profileZone');
+      zone.classList.add('has-image');
+      document.getElementById('profileThumb').src = url;
+      // channel info
+      const img = document.getElementById('profileImg');
+      img.src = url; img.style.display = 'block';
+      document.getElementById('ppPlaceholder').style.display = 'none';
+      // thumbnail cards avatars
+      document.querySelectorAll('.user-avatar').forEach(a => {
+        a.src = url; a.style.display = 'block';
+        a.previousElementSibling && a.previousElementSibling.remove();
+      });
+    }
+
+    function updateThumbVariantProfileInfo() {
+      // update names
+      document.querySelectorAll('.channel-name-render').forEach(el => el.textContent = state.channelName);
+      // update avatars
+      document.querySelectorAll('.var-avatar-wrap .user-avatar, #shortsAvatarWrap .user-avatar').forEach(img => {
+        if (state.profileSrc) {
+          img.src = state.profileSrc;
+          img.style.display = 'block';
+          img.parentElement.style.background = 'transparent';
+        } else {
+          img.style.display = 'none';
+          img.parentElement.style.background = '#2a2a3e';
+        }
+      });
+    }
+
+    function loadThumbVariant(event, id) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      state.thumbVariants[id].src = url;
+
+      const zone = document.getElementById('thumbZone' + id);
+      zone.classList.add('has-image');
+      document.getElementById('thumbPreview' + id).src = url;
+
+      const img = document.getElementById('thumbImgVar' + id);
+      img.src = url;
+      img.style.display = 'block';
+      document.getElementById('thumbPlaceholderVar' + id).style.display = 'none';
+    }
+
+    function removeThumbVariant(e, id) {
+      e.stopPropagation();
+      state.thumbVariants[id].src = null;
+
+      const zone = document.getElementById('thumbZone' + id);
+      zone.classList.remove('has-image');
+      document.getElementById('thumbPreview' + id).src = '';
+
+      const img = document.getElementById('thumbImgVar' + id);
+      img.src = '';
+      img.style.display = 'none';
+      document.getElementById('thumbPlaceholderVar' + id).style.display = 'flex';
+      document.getElementById('thumbFileInput' + id).value = '';
+    }
+
+    function updateTitleVariant(id) {
+      const val = document.getElementById('titleVariant' + id).value;
+      state.thumbVariants[id].title = val;
+      const renderEl = document.getElementById('titleRenderVar' + id);
+      if (val.trim() === '') {
+        renderEl.textContent = 'Your Video Title';
+      } else {
+        renderEl.textContent = val;
+      }
+      saveState();
+    }
+
+    function loadThumbnail(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      state.thumbSrc = url;
+      // sidebar
+      const zone = document.getElementById('thumbZone');
+      zone.classList.add('has-image');
+      document.getElementById('thumbPreview').src = url;
+      // Update all original thumbnail previews
+      updateThumbImages(url);
+      // Rebuild grid to show user's thumb first
+      buildThumbGrid();
+    }
+
+    function updateThumbImages(url) {
+      const ids = ['thumbLargeImg', 'thumbSmImg', 'thumbSidebarImg', 'thumbSearchImg', 'shortsImg'];
+      const placeholders = ['thumbLargePlaceholder', 'thumbSmPlaceholder', 'thumbSidebarPlaceholder', 'thumbSearchPlaceholder', 'shortsPlaceholder'];
+      ids.forEach((id, i) => {
+        const img = document.getElementById(id);
+        if (img) { img.src = url; img.style.display = 'block'; }
+        const ph = document.getElementById(placeholders[i]);
+        if (ph) ph.style.display = 'none';
+      });
+    }
+
+    function removeAsset(e, type) {
+      e.stopPropagation();
+      if (type === 'banner') {
+        state.bannerSrc = null;
+        document.getElementById('bannerZone').classList.remove('has-image');
+        document.getElementById('bannerThumb').src = '';
+        document.getElementById('bannerWrap').classList.remove('has-banner');
+        drawBannerCanvas();
+      } else if (type === 'profile') {
+        state.profileSrc = null;
+        document.getElementById('profileZone').classList.remove('has-image');
+        document.getElementById('profileThumb').src = '';
+        document.getElementById('profileImg').style.display = 'none';
+        document.getElementById('ppPlaceholder').style.display = 'flex';
+      } else if (type === 'thumb') {
+        state.thumbSrc = null;
+        document.getElementById('thumbZone').classList.remove('has-image');
+        document.getElementById('thumbPreview').src = '';
+        const ids = ['thumbLargeImg', 'thumbSmImg', 'thumbSidebarImg', 'thumbSearchImg', 'shortsImg'];
+        ids.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+        const phs = ['thumbLargePlaceholder', 'thumbSmPlaceholder', 'thumbSidebarPlaceholder', 'thumbSearchPlaceholder', 'shortsPlaceholder'];
+        phs.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'flex'; });
+        buildThumbGrid();
+      }
+    }
+
+    // ══════════════════════════════════════════════
+    // PROFILE UPDATE
+    // ══════════════════════════════════════════════
+    function updateProfile() {
+      state.channelName = document.getElementById('channelName').value || 'My YouTube Channel';
+      state.channelHandle = document.getElementById('channelHandle').value || '@yourchannel';
+      state.channelSubs = document.getElementById('channelSubs').value || '0';
+      document.getElementById('displayName').textContent = state.channelName;
+      document.getElementById('displayHandle').textContent = state.channelHandle;
+      document.getElementById('displaySubs').textContent = state.channelSubs;
+      document.getElementById('ytChrome').querySelector('.yt-url').textContent =
+        'youtube.com/' + state.channelHandle;
+      // Update thumbnail card channel names
+      ['thumbChannelLarge', 'thumbChannelSm', 'thumbChannelSidebar', 'thumbChannelSearch', 'shortsChannelName'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = id === 'shortsChannelName' ? state.channelHandle : state.channelName;
+      });
+      updateThumbVariantProfileInfo();
+      buildThumbGrid();
+      saveState();
+    }
+
+    // ══════════════════════════════════════════════
+    // TITLE UPDATE (sidebar)
+    // ══════════════════════════════════════════════
+    function updateTitle() {
+      const val = document.getElementById('videoTitle').value;
+      state.videoTitle = val;
+      if (document.getElementById('titleInputMain')) {
+        document.getElementById('titleInputMain').value = val;
+        updateTitleMain(val);
+      }
+      // Update thumbnail tab titles
+      ['thumbTitleLarge', 'thumbTitleSm', 'thumbTitleSidebar', 'thumbTitleSearch', 'shortsTitle'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.textContent = val || 'Your Video Title';
+      });
+      saveState();
+    }
+
+    // ══════════════════════════════════════════════
+    // TITLE PREVIEW (title tab)
+    // ══════════════════════════════════════════════
+    function updateTitleMain(val) {
+      state.videoTitle = val;
+      const DESKTOP = 70, MOBILE = 40, SEARCH = 60;
+      const len = val.length;
+
+      // char counter
+      const counter = document.getElementById('charCounterMain');
+      if (counter) {
+        counter.textContent = len + ' / 100';
+        counter.className = 'char-counter' + (len > 80 ? ' danger' : len > 60 ? ' warn' : '');
+      }
+
+      function renderTrunc(elId, countId, limit) {
+        const el = document.getElementById(elId);
+        const countEl = document.getElementById(countId);
+        if (!el) return;
+        if (len <= limit) {
+          el.innerHTML = escHtml(val) || '<span style="color:var(--text3);font-style:italic">Start typing your title...</span>';
+          if (countEl) countEl.textContent = len + ' chars — fully visible';
+        } else {
+          const visible = val.substring(0, limit);
+          const hidden = val.substring(limit);
+          el.innerHTML = escHtml(visible) + '<span class="title-truncated">…</span>';
+          if (countEl) countEl.textContent = limit + ' chars visible, ' + (len - limit) + ' hidden';
+        }
+      }
+      renderTrunc('titleDesktopPreview', 'titleDesktopCount', DESKTOP);
+      renderTrunc('titleMobilePreview', 'titleMobileCount', MOBILE);
+      renderTrunc('titleSearchPreview', 'titleSearchCount', SEARCH);
+
+      // Also sync sidebar textarea
+      const sideTitle = document.getElementById('videoTitle');
+      if (sideTitle && sideTitle.value !== val) sideTitle.value = val;
+    }
+
+    function escHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // ══════════════════════════════════════════════
+    // THUMBNAIL GRID
+    // ══════════════════════════════════════════════
+    function buildThumbGrid() {
+      const grid = document.getElementById('thumbGrid');
+      grid.innerHTML = '';
+
+      // First card = user's
+      const userCard = createThumbCard({
+        title: state.videoTitle || 'Your Video Title',
+        views: '— views', time: 'just now', dur: '—:——',
+        color: '#0f0f0f', isUser: true
+      });
+      grid.appendChild(userCard);
+
+      placeholderCards.forEach(data => {
+        grid.appendChild(createThumbCard(data));
+      });
+    }
+
+    function createThumbCard(data) {
+      const card = document.createElement('div');
+      card.className = 'thumb-card' + (data.isUser ? ' user-card' : '');
+
+      const thumbWrap = document.createElement('div');
+      thumbWrap.className = 'thumb-img-wrap';
+
+      if (data.isUser && state.thumbSrc) {
+        const img = document.createElement('img');
+        img.src = state.thumbSrc;
+        img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block';
+        thumbWrap.appendChild(img);
+      } else {
+        // Coloured placeholder
+        const ph = document.createElement('div');
+        ph.style.cssText = `width:100%;height:100%;background:${data.color || '#2a2a3e'};display:flex;align-items:center;justify-content:center`;
+        if (data.isUser) {
+          ph.innerHTML = `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="9" cy="12" r="3"/><path d="M15 9l4 3-4 3V9z"/></svg>`;
+        } else {
+          // Generate a "fake" thumbnail look
+          const colors = ['#ff3d5a22', '#3b82f622', '#22c55e22', '#f59e0b22', '#a855f722'];
+          const c = colors[Math.floor(Math.random() * colors.length)];
+          ph.style.background = `linear-gradient(135deg, ${data.color} 0%, ${data.color}88 100%)`;
+          const inner = document.createElement('div');
+          inner.style.cssText = 'width:90%;height:70%;background:rgba(255,255,255,0.04);border-radius:6px;display:flex;align-items:center;justify-content:center';
+          inner.innerHTML = `<div style="font-size:11px;font-weight:700;color:rgba(255,255,255,0.4);text-align:center;padding:8px;line-height:1.3">${data.title.substring(0, 28)}...</div>`;
+          ph.appendChild(inner);
+        }
+        thumbWrap.appendChild(ph);
+      }
+
+      const dur = document.createElement('div');
+      dur.className = 'thumb-duration';
+      dur.textContent = data.dur;
+      thumbWrap.appendChild(dur);
+
+      const meta = document.createElement('div');
+      meta.className = 'thumb-meta';
+
+      const avWrap = document.createElement('div');
+      avWrap.className = 'thumb-avatar';
+      if (state.profileSrc) {
+        const avImg = document.createElement('img');
+        avImg.src = state.profileSrc;
+        avImg.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%';
+        avImg.className = 'user-avatar';
+        avWrap.appendChild(avImg);
+      } else {
+        avWrap.style.background = data.isUser ? 'var(--accent)' : `hsl(${Math.random() * 360},40%,35%)`;
+      }
+
+      const info = document.createElement('div');
+      info.className = 'thumb-info';
+      info.innerHTML = `
+    <div class="thumb-title">${escHtml(data.title)}</div>
+    <div class="thumb-channel">${escHtml(state.channelName)}</div>
+    <div class="thumb-views">${data.views} · ${data.time}</div>
+  `;
+
+      meta.appendChild(avWrap);
+      meta.appendChild(info);
+      card.appendChild(thumbWrap);
+      card.appendChild(meta);
+      return card;
+    }
+
+    // ══════════════════════════════════════════════
+    // ZOOM
+    // ══════════════════════════════════════════════
+    function applyZoom(val) {
+      state.zoom = val;
+      document.getElementById('zoomLabel').textContent = val + '%';
+      const canvasArea = document.getElementById('canvasArea');
+      // Apply zoom to the content wrapper
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.style.transform = `scale(${val / 100})`;
+        el.style.transformOrigin = 'top center';
+      });
+      setTimeout(positionOverlays, 50);
+      saveState();
+    }
+
+    // ══════════════════════════════════════════════
+    // RESET
+    // ══════════════════════════════════════════════
+    function resetAll() {
+      if (!confirm('Reset everything? All uploads will be cleared.')) return;
+      state.bannerSrc = null; state.profileSrc = null; state.thumbSrc = null;
+      ['bannerZone', 'profileZone', 'thumbZone'].forEach(id => document.getElementById(id).classList.remove('has-image'));
+      document.getElementById('bannerThumb').src = '';
+      document.getElementById('profileThumb').src = '';
+      document.getElementById('thumbPreview').src = '';
+      document.getElementById('profileImg').style.display = 'none';
+      document.getElementById('ppPlaceholder').style.display = 'flex';
+      document.getElementById('channelName').value = 'My YouTube Channel';
+      document.getElementById('channelHandle').value = '@yourchannel';
+      document.getElementById('channelSubs').value = '0';
+      // Reset variants
+      [1, 2, 3].forEach(id => {
+        state.thumbVariants[id] = { src: null, title: '' };
+        document.getElementById('titleVariant' + id).value = '';
+        updateTitleVariant(id);
+        removeThumbVariant(new Event(''), id);
+      });
+      document.getElementById('videoTitle').value = 'How I Built a YouTube Channel From Zero to 100K Subscribers';
+      updateProfile();
+      drawBannerCanvas();
+      buildThumbGrid();
+      const ids = ['thumbLargeImg', 'thumbSmImg', 'thumbSidebarImg', 'thumbSearchImg'];
+      ids.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'none'; });
+      const phs = ['thumbLargePlaceholder', 'thumbSmPlaceholder', 'thumbSidebarPlaceholder', 'thumbSearchPlaceholder'];
+      phs.forEach(id => { const el = document.getElementById(id); if (el) el.style.display = 'flex'; });
+
+      const val = document.getElementById('videoTitle').value;
+      ['thumbTitleLarge', 'thumbTitleSm', 'thumbTitleSidebar', 'thumbTitleSearch', 'shortsTitle'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.textContent = val || 'Your Video Title';
+      });
+      // Shorts reset
+      shortsSrc = null;
+      document.getElementById('shortsChannelName').textContent = state.channelHandle;
+      const shImg = document.getElementById('shortsImg');
+      if (shImg) shImg.style.display = 'none';
+      const shPh = document.getElementById('shortsPlaceholder');
+      if (shPh) shPh.style.display = 'flex';
+      const suz = document.getElementById('shortsUploadZone'); if (suz) suz.classList.remove('has-image');
+      const sut = document.getElementById('shortsUploadThumb'); if (sut) sut.src = '';
+      const sti = document.getElementById('shortsTitleInput'); if (sti) sti.value = '';
+      ['mShortsZone', 'mShortsZoneThumb'].forEach(id => { const e = document.getElementById(id); if (e) e.classList.remove('has-image'); });
+      ['mShortsThumb', 'mShortsThumb2'].forEach(id => { const e = document.getElementById(id); if (e) e.src = ''; });
+      const msi = document.getElementById('mShortsImg'); if (msi) { msi.src = ''; msi.style.display = 'none'; }
+      const msp = document.getElementById('mShortsPlaceholder'); if (msp) msp.style.display = 'flex';
+      const msti = document.getElementById('mShortsTitleInput'); if (msti) msti.value = '';
+      const mat = document.getElementById('mAssetTitle'); if (mat) mat.value = '';
+    }
+
+    // ══════════════════════════════════════════════
+    // EXPORT
+    // ══════════════════════════════════════════════
+    function exportCanvas() {
+      const canvas = document.getElementById('bannerCanvas');
+      const link = document.createElement('a');
+      link.download = 'channel-banner-preview.png';
+      link.href = canvas.toDataURL('image/png', 1.0);
+      link.click();
+    }
+
+    function exportThumbnail() {
+      if (!state.thumbSrc) { alert('Please upload a thumbnail first.'); return; }
+      const offscreen = document.createElement('canvas');
+      offscreen.width = 1280; offscreen.height = 720;
+      const ctx = offscreen.getContext('2d');
+      const img = new Image();
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0, 1280, 720);
+        const link = document.createElement('a');
+        link.download = 'thumbnail-preview.png';
+        link.href = offscreen.toDataURL('image/png', 1.0);
+        link.click();
+      };
+      img.src = state.thumbSrc;
+    }
+
+    // ══════════════════════════════════════════════
+    // DRAG AND DROP on banner
+    // ══════════════════════════════════════════════
+    ['bannerCanvasWrap', 'bannerZone', 'thumbZone', 'profileZone'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('dragover', e => { e.preventDefault(); el.style.borderColor = 'var(--accent)'; });
+      el.addEventListener('dragleave', () => { el.style.borderColor = ''; });
+      el.addEventListener('drop', e => {
+        e.preventDefault(); el.style.borderColor = '';
+        const file = e.dataTransfer.files[0];
+        if (!file || !file.type.startsWith('image/')) return;
+        const fakeEvent = { target: { files: [file] } };
+        if (id === 'bannerCanvasWrap' || id === 'bannerZone') loadBanner(fakeEvent);
+        else if (id === 'profileZone') loadProfile(fakeEvent);
+        else if (id === 'thumbZone') loadThumbnail(fakeEvent);
+      });
+    });
+
+    // Sync titleInputMain with sidebar textarea on title tab
+    document.getElementById('titleInputMain').addEventListener('input', function () {
+      updateTitleMain(this.value);
+    });
+
+    // ══════════════════════════════════════════════
+    // KEYBOARD SHORTCUT
+    // ══════════════════════════════════════════════
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.activeElement.blur();
+      if ((e.metaKey || e.ctrlKey) && e.key === 'd') { e.preventDefault(); toggleTheme(); }
+      if ((e.metaKey || e.ctrlKey) && e.key === 'e') { e.preventDefault(); exportCanvas(); }
+    });
+
+    // Load initial state
+    loadState();
+
+    // ══════════════════════════════════════════════
+    // MOBILE STATE & ALL LOGIC
+    // ══════════════════════════════════════════════
+    const mS = { device: 'desktop', tab: 'channel', sheet: null, touchY: 0 };
+
+    // ── Tab switching ──
+    function mSetTab(name, btn) {
+      mS.tab = name;
+      document.querySelectorAll('.m-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('mTabChannel').style.display = name === 'channel' ? 'block' : 'none';
+      document.getElementById('mTabThumbnail').style.display = name === 'thumbnail' ? 'flex' : 'none';
+      document.getElementById('mTabTitle').style.display = name === 'title' ? 'flex' : 'none';
+      if (name === 'thumbnail') { mRenderCompare(); mSyncFeedPreviews(); }
+    }
+
+    // ── Device switching ──
+    function mSetDevice(mode, btn) {
+      mS.device = mode;
+      document.querySelectorAll('.m-devbtn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const c = document.getElementById('mYtChrome');
+      c.classList.remove('mobile-mode', 'tv-mode');
+      if (mode === 'mobile') c.classList.add('mobile-mode');
+      if (mode === 'tv') c.classList.add('tv-mode');
+      document.getElementById('mYtUrl').textContent = mode === 'tv' ? 'tv.youtube.com' : 'youtube.com/' + state.channelHandle;
+      mDrawBanner();
+      requestAnimationFrame(() => setTimeout(mPosOverlays, 80));
+    }
+
+    // ── Banner canvas ──
+    function mDrawBanner() {
+      const cv = document.getElementById('mBannerCanvas'); if (!cv) return;
+      const ctx = cv.getContext('2d');
+      const mode = mS.device;
+      if (mode === 'tv') { cv.width = 2560; cv.height = 1440; }
+      else if (mode === 'mobile') { cv.width = 1546; cv.height = 423; }
+      else { cv.width = 2560; cv.height = 423; }
+
+      if (state.bannerSrc) {
+        const img = new Image();
+        img.onload = () => {
+          const iw = img.naturalWidth, ih = img.naturalHeight;
+          if (mode === 'tv') {
+            ctx.drawImage(img, 0, 0, 2560, 1440);
+          } else if (mode === 'mobile') {
+            const rat = iw / 2560, sH = 423 * rat, sW = 1546 * rat;
+            const sx = (iw - sW) / 2, sy = (ih - sH) / 2;
+            ctx.drawImage(img, sx, sy, sW, sH, 0, 0, 1546, 423);
+          } else {
+            const rat = iw / 2560, sH = 423 * rat, sy = (ih - sH) / 2;
+            ctx.drawImage(img, 0, sy, iw, sH, 0, 0, 2560, 423);
+          }
+          requestAnimationFrame(mPosOverlays);
+        };
+        img.src = state.bannerSrc;
+      } else {
+        const g = ctx.createLinearGradient(0, 0, cv.width, cv.height);
+        g.addColorStop(0, '#1a1a2e'); g.addColorStop(.5, '#16213e'); g.addColorStop(1, '#0f3460');
+        ctx.fillStyle = g; ctx.fillRect(0, 0, cv.width, cv.height);
+        ctx.fillStyle = 'rgba(255,255,255,.15)';
+        ctx.font = `bold ${mode === 'tv' ? 80 : 50}px sans-serif`;
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText('Tap to upload banner', cv.width / 2, cv.height / 2);
+        requestAnimationFrame(mPosOverlays);
+      }
+    }
+
+    // ── Overlay positioning ──
+    function mPosOverlays() {
+      const wrap = document.getElementById('mBannerCanvasWrap');
+      const cv = document.getElementById('mBannerCanvas');
+      if (!wrap || !cv) return;
+      const dW = wrap.offsetWidth; if (!dW) return;
+      const mode = mS.device, sc = dW / 2560;
+      if (mode === 'mobile') {
+        const dH = 423 * (dW / 1546);
+        mPG('mSafeOverlay', 0, 0, dW, dH);
+        mPG('mDesktopOverlay', 0, 0, dW, dH);
+        mPG('mTvOverlay', 0, 0, dW, dH);
+      } else if (mode === 'desktop') {
+        const dH = 423 * sc, safeW = 1546 * sc, safeX = (dW - safeW) / 2;
+        mPG('mSafeOverlay', safeX, 0, safeW, dH);
+        mPG('mDesktopOverlay', 0, 0, dW, dH);
+        mPG('mTvOverlay', 0, 0, dW, dH);
+      } else {
+        const dH = 1440 * sc, safeW = 1546 * sc, safeH = 423 * sc;
+        const safeX = (dW - safeW) / 2, safeY = (dH - safeH) / 2;
+        mPG('mSafeOverlay', safeX, safeY, safeW, safeH);
+        mPG('mDesktopOverlay', 0, safeY, dW, safeH);
+        mPG('mTvOverlay', 0, 0, dW, dH);
+      }
+    }
+    function mPG(id, x, y, w, h) {
+      const el = document.getElementById(id); if (!el) return;
+      el.style.left = x + 'px'; el.style.top = y + 'px'; el.style.width = w + 'px'; el.style.height = h + 'px';
+    }
+
+    // ── Overlay toggles ──
+    function mToggleOverlay(type) {
+      state.overlays[type] = !state.overlays[type];
+      const map = { safe: ['toggleSafe', 'mTglSafe', 'mTglSafe2'], desktop: ['toggleDesktop', 'mTglDesktop', 'mTglDesktop2'], tv: ['toggleTV', 'mTglTV', 'mTglTV2'] };
+      (map[type] || []).forEach(id => { const e = document.getElementById(id); if (e) e.classList.toggle('on', state.overlays[type]); });
+      updateOverlays();
+      mRenderOverlays();
+      saveState();
+    }
+    function mRenderOverlays() {
+      document.getElementById('mSafeOverlay').classList.toggle('hidden', !state.overlays.safe);
+      document.getElementById('mDesktopOverlay').classList.toggle('hidden', !state.overlays.desktop);
+      document.getElementById('mTvOverlay').classList.toggle('hidden', !state.overlays.tv);
+    }
+
+    // ── Banner load (mobile) ──
+    function mLoadBanner(e) {
+      const f = e.target.files[0]; if (!f) return;
+      const url = URL.createObjectURL(f);
+      state.bannerSrc = url;
+      // desktop sidebar
+      const dZ = document.getElementById('bannerZone'); if (dZ) dZ.classList.add('has-image');
+      const dT = document.getElementById('bannerThumb'); if (dT) { dT.src = url; dT.style.display = 'block'; }
+      const dW2 = document.getElementById('bannerWrap'); if (dW2) dW2.classList.add('has-banner');
+      // mobile zones
+      const mZ = document.getElementById('mBannerZone'); if (mZ) mZ.classList.add('has-image');
+      const mT = document.getElementById('mBannerThumb'); if (mT) mT.src = url;
+      drawBannerCanvas(); mDrawBanner();
+    }
+    function mRmBanner(e) {
+      e.stopPropagation(); state.bannerSrc = null;
+      ['bannerZone', 'mBannerZone'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('has-image'); });
+      const dT = document.getElementById('bannerThumb'); if (dT) dT.src = '';
+      const mT = document.getElementById('mBannerThumb'); if (mT) mT.src = '';
+      const dW2 = document.getElementById('bannerWrap'); if (dW2) dW2.classList.remove('has-banner');
+      drawBannerCanvas(); mDrawBanner();
+    }
+
+    // ── Profile load (mobile) ──
+    function mLoadProfile(e) {
+      const f = e.target.files[0]; if (!f) return;
+      const url = URL.createObjectURL(f);
+      state.profileSrc = url;
+      // desktop
+      const dZ = document.getElementById('profileZone'); if (dZ) dZ.classList.add('has-image');
+      const dT = document.getElementById('profileThumb'); if (dT) dT.src = url;
+      const dI = document.getElementById('profileImg'); if (dI) { dI.src = url; dI.style.display = 'block'; }
+      const dP = document.getElementById('ppPlaceholder'); if (dP) dP.style.display = 'none';
+      // mobile
+      const mZ = document.getElementById('mProfileZone'); if (mZ) mZ.classList.add('has-image');
+      const mT = document.getElementById('mProfileThumb'); if (mT) mT.src = url;
+      const mI = document.getElementById('mPpImg'); if (mI) { mI.src = url; mI.style.display = 'block'; }
+      const mP = document.getElementById('mPpPh'); if (mP) mP.style.display = 'none';
+      document.querySelectorAll('.user-avatar').forEach(a => { a.src = url; a.style.display = 'block'; if (a.previousElementSibling) a.previousElementSibling.remove(); });
+      buildThumbGrid(); mBuildGrid(); mRenderCompare();
+    }
+    function mRmProfile(e) {
+      e.stopPropagation(); state.profileSrc = null;
+      ['profileZone', 'mProfileZone'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('has-image'); });
+      ['profileThumb', 'mProfileThumb'].forEach(id => { const el = document.getElementById(id); if (el) el.src = ''; });
+      const dI = document.getElementById('profileImg'); if (dI) dI.style.display = 'none';
+      const dP = document.getElementById('ppPlaceholder'); if (dP) dP.style.display = 'flex';
+      const mI = document.getElementById('mPpImg'); if (mI) mI.style.display = 'none';
+      const mP = document.getElementById('mPpPh'); if (mP) mP.style.display = 'flex';
+      buildThumbGrid(); mBuildGrid(); mRenderCompare();
+    }
+
+    // ── Thumbnail A (quick upload in Assets sheet) ──
+    function mLoadThumbA(e) {
+      const f = e.target.files[0]; if (!f) return;
+      const url = URL.createObjectURL(f);
+      state.thumbSrc = url;
+      const dZ = document.getElementById('thumbZone'); if (dZ) dZ.classList.add('has-image');
+      const dP = document.getElementById('thumbPreview'); if (dP) dP.src = url;
+      const mZ = document.getElementById('mThumbZone'); if (mZ) mZ.classList.add('has-image');
+      const mP = document.getElementById('mThumbThumb'); if (mP) mP.src = url;
+      // also update slot 1 variant
+      state.thumbVariants[1].src = url;
+      const sZ = document.getElementById('thumbZone1'); if (sZ) sZ.classList.add('has-image');
+      const sP = document.getElementById('thumbPreview1'); if (sP) sP.src = url;
+      const sI = document.getElementById('thumbImgVar1'); if (sI) { sI.src = url; sI.style.display = 'block'; }
+      const sPh = document.getElementById('thumbPlaceholderVar1'); if (sPh) sPh.style.display = 'none';
+      const mS1 = document.getElementById('mSlot1'); if (mS1) mS1.classList.add('mhas');
+      const mI1 = document.getElementById('mSImg1'); if (mI1) mI1.src = url;
+      mSyncFeedPreviews(); buildThumbGrid(); mBuildGrid(); mRenderCompare();
+      // update all thumb images in feed preview
+      ['thumbLargeImg', 'thumbSmImg', 'thumbSidebarImg', 'thumbSearchImg', 'shortsImg'].forEach(id => {
+        const el = document.getElementById(id); if (el) { el.src = url; el.style.display = 'block'; }
+      });
+      ['thumbLargePlaceholder', 'thumbSmPlaceholder', 'thumbSidebarPlaceholder', 'thumbSearchPlaceholder', 'shortsPlaceholder'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.style.display = 'none';
+      });
+    }
+    function mRmThumb(e) {
+      e.stopPropagation(); state.thumbSrc = null;
+      const mZ = document.getElementById('mThumbZone'); if (mZ) mZ.classList.remove('has-image');
+      const mP = document.getElementById('mThumbThumb'); if (mP) mP.src = '';
+      const dZ = document.getElementById('thumbZone'); if (dZ) dZ.classList.remove('has-image');
+      const dP = document.getElementById('thumbPreview'); if (dP) dP.src = '';
+      buildThumbGrid(); mBuildGrid(); mSyncFeedPreviews();
+    }
+
+    // ── Variant slots (mobile) ──
+    function mLoadSlot(e, n) {
+      const f = e.target.files[0]; if (!f) return;
+      const url = URL.createObjectURL(f);
+      state.thumbVariants[n].src = url;
+      const ms = document.getElementById('mSlot' + n); if (ms) ms.classList.add('mhas');
+      const mi = document.getElementById('mSImg' + n); if (mi) mi.src = url;
+      // sync desktop
+      const dz = document.getElementById('thumbZone' + n); if (dz) dz.classList.add('has-image');
+      const dp = document.getElementById('thumbPreview' + n); if (dp) dp.src = url;
+      const di = document.getElementById('thumbImgVar' + n); if (di) { di.src = url; di.style.display = 'block'; }
+      const dph = document.getElementById('thumbPlaceholderVar' + n); if (dph) dph.style.display = 'none';
+      // if slot 1, also update thumbSrc and feed previews
+      if (n === 1) { state.thumbSrc = url; mSyncFeedPreviews(); buildThumbGrid(); mBuildGrid(); }
+      mRenderCompare();
+    }
+    function mRmSlot(n) {
+      state.thumbVariants[n].src = null;
+      const ms = document.getElementById('mSlot' + n); if (ms) ms.classList.remove('mhas');
+      const mi = document.getElementById('mSImg' + n); if (mi) mi.src = '';
+      const dz = document.getElementById('thumbZone' + n); if (dz) dz.classList.remove('has-image');
+      const dp = document.getElementById('thumbPreview' + n); if (dp) dp.src = '';
+      const di = document.getElementById('thumbImgVar' + n); if (di) { di.src = ''; di.style.display = 'none'; }
+      const dph = document.getElementById('thumbPlaceholderVar' + n); if (dph) dph.style.display = 'flex';
+      if (n === 1) { state.thumbSrc = null; mSyncFeedPreviews(); buildThumbGrid(); mBuildGrid(); }
+      mRenderCompare();
+    }
+    function mSyncTit(n) {
+      const val = document.getElementById('mSTit' + n).value;
+      state.thumbVariants[n].title = val;
+      const d = document.getElementById('titleVariant' + n); if (d && d.value !== val) d.value = val;
+      const r = document.getElementById('titleRenderVar' + n); if (r) r.textContent = val || 'Your Video Title';
+      // update sidebar video title if slot 1
+      if (n === 1 && val) {
+        const svt = document.getElementById('videoTitle'); if (svt && svt.value !== val) svt.value = val;
+        state.videoTitle = val;
+        ['thumbTitleLarge', 'thumbTitleSm', 'thumbTitleSidebar', 'thumbTitleSearch', 'shortsTitle'].forEach(id => {
+          const el = document.getElementById(id); if (el) el.textContent = val || 'Your Video Title';
+        });
+        const mfd = document.getElementById('mFeedDeskTit'); if (mfd) mfd.textContent = val;
+        const mfm = document.getElementById('mFeedMobTit'); if (mfm) mfm.textContent = val;
+        const mst = document.getElementById('mShortsTitle'); if (mst) mst.textContent = val;
+      }
+      mRenderCompare();
+    }
+
+    // ── Feed previews sync (Thumbnail A size previews) ──
+    function mSyncFeedPreviews() {
+      // sync asset title field from current state
+      const at = document.getElementById('mAssetTitle'); if (at && at.value !== state.videoTitle) at.value = state.videoTitle || '';
+      const src = state.thumbSrc || (state.thumbVariants[1] && state.thumbVariants[1].src);
+      ['mFeedDeskImg', 'mFeedMobImg'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { if (src) { el.src = src; el.style.display = 'block'; } else { el.src = ''; el.style.display = 'none'; } }
+      });
+      ['mFeedDeskPh', 'mFeedMobPh'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.style.display = src ? 'none' : 'flex';
+      });
+      const ch = state.channelName;
+      ['mFeedDeskCh', 'mFeedMobCh'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = ch; });
+      const tit = state.videoTitle || 'How I Built a YouTube Channel From Zero to 100K Subscribers';
+      ['mFeedDeskTit', 'mFeedMobTit'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = tit; });
+      // shorts
+      const si = document.getElementById('mShortsImg'); const sp = document.getElementById('mShortsPlaceholder');
+      if (si) { if (src) { si.src = src; si.style.display = 'block'; } else { si.src = ''; si.style.display = 'none'; } }
+      if (sp) sp.style.display = src ? 'none' : 'flex';
+      const sn = document.getElementById('mShortsCh'); if (sn) sn.textContent = state.channelHandle;
+      const st = document.getElementById('mShortsTitle'); if (st) st.textContent = state.videoTitle || 'Your Video Title';
+    }
+
+    // ── Compare render ──
+    function mRenderCompare() {
+      const body = document.getElementById('mCmpBody'); if (!body) return;
+      body.innerHTML = '';
+      const cols = ['var(--accent)', 'var(--blue)', 'var(--green)'];
+      const bgs = ['rgba(255,78,78,.13)', 'rgba(59,130,246,.13)', 'rgba(34,197,94,.13)'];
+      const lbls = ['A', 'B', 'C'];
+      [1, 2, 3].forEach(n => {
+        const v = state.thumbVariants[n];
+        const rawTit = document.getElementById('mSTit' + n)?.value || v.title || '';
+        const tit = rawTit || '(no title entered)';
+        const item = document.createElement('div'); item.className = 'm-cmp-item';
+        const thumbHtml = v.src ? `<img src="${v.src}" style="width:100%;height:100%;object-fit:cover;display:block" alt="">` :
+          `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text3)">No image</div>`;
+        const avHtml = state.profileSrc ?
+          `<div style="width:20px;height:20px;border-radius:50%;overflow:hidden;flex-shrink:0"><img src="${state.profileSrc}" style="width:100%;height:100%;object-fit:cover"></div>` :
+          `<div style="width:20px;height:20px;border-radius:50%;background:${cols[n - 1]};flex-shrink:0;opacity:.55"></div>`;
+        item.innerHTML = `<div class="m-cmp-thumb">${thumbHtml}<div class="m-cmp-dur">10:34</div></div>
+          <div><div class="m-cmp-badge" style="background:${bgs[n - 1]};color:${cols[n - 1]}">${lbls[n - 1]}</div>
+          <div class="m-cmp-ttl">${escHtml(tit)}</div>
+          <div style="display:flex;align-items:center;gap:5px;margin-top:3px">${avHtml}<div class="m-cmp-ch">${escHtml(state.channelName)}</div></div>
+          <div class="m-cmp-views">1.2M views · 3 days ago</div></div>`;
+        body.appendChild(item);
+      });
+    }
+
+    // ── Thumb grid (mobile) ──
+    function mBuildGrid() {
+      const grid = document.getElementById('mThumbGrid'); if (!grid) return;
+      grid.innerHTML = '';
+      grid.appendChild(createThumbCard({ title: state.videoTitle || 'Your Video Title', views: '— views', time: 'just now', dur: '—:——', color: '#0f0f0f', isUser: true }));
+      placeholderCards.forEach(d => grid.appendChild(createThumbCard(d)));
+    }
+
+    // ── Profile sync ──
+    function mSyncProfile() {
+      const n = document.getElementById('mInName').value || 'My YouTube Channel';
+      const h = document.getElementById('mInHandle').value || '@yourchannel';
+      const s = document.getElementById('mInSubs').value || '0';
+      state.channelName = n; state.channelHandle = h; state.channelSubs = s;
+      // sync desktop inputs
+      const dn = document.getElementById('channelName'); if (dn) dn.value = n;
+      const dh = document.getElementById('channelHandle'); if (dh) dh.value = h;
+      const ds = document.getElementById('channelSubs'); if (ds) ds.value = s;
+      // update all displays
+      ['displayName', 'mDispName'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = n; });
+      ['displayHandle', 'mDispHandle'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = h; });
+      ['displaySubs', 'mDispSubs'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = s; });
+      const mu = document.getElementById('mYtUrl'); if (mu) mu.textContent = 'youtube.com/' + h;
+      const ytC = document.getElementById('ytChrome'); if (ytC) { const u = ytC.querySelector('.yt-url'); if (u) u.textContent = 'youtube.com/' + h; }
+      ['thumbChannelLarge', 'thumbChannelSm', 'thumbChannelSidebar', 'thumbChannelSearch', 'shortsChannelName'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.textContent = id === 'shortsChannelName' ? h : n;
+      });
+      updateThumbVariantProfileInfo();
+      buildThumbGrid(); mBuildGrid(); mRenderCompare(); mSyncFeedPreviews();
+      // Update shorts channel name
+      ['mShortsCh', 'shortsChannelName'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = h; });
+      saveState();
+    }
+
+    // ── Title preview ──
+    function mUpdateTitle(val) {
+      const len = val.length;
+      const cc = document.getElementById('mCharCnt');
+      if (cc) { cc.textContent = len + ' / 100'; cc.className = 'm-char-cnt' + (len > 80 ? ' danger' : len > 60 ? ' warn' : ''); }
+      function mTr(eId, mId, lim) {
+        const el = document.getElementById(eId), ml = document.getElementById(mId); if (!el) return;
+        if (!val) { el.innerHTML = '<span style="color:var(--text3);font-style:italic">Start typing…</span>'; if (ml) ml.textContent = ''; return; }
+        if (len <= lim) { el.innerHTML = escHtml(val); if (ml) { ml.textContent = len + ' chars — fully visible'; ml.style.color = 'var(--green)'; } }
+        else { el.innerHTML = escHtml(val.substring(0, lim)) + '<span class="m-trunc">…</span>'; if (ml) { ml.textContent = lim + ' visible · ' + (len - lim) + ' hidden'; ml.style.color = 'var(--yellow)'; } }
+      }
+      mTr('mTiDesk', 'mTiDeskM', 70); mTr('mTiMob', 'mTiMobM', 40); mTr('mTiSrch', 'mTiSrchM', 60);
+      // sync desktop
+      state.videoTitle = val;
+      const dt = document.getElementById('titleInputMain'); if (dt && dt.value !== val) dt.value = val;
+      const sv = document.getElementById('videoTitle'); if (sv && sv.value !== val) sv.value = val;
+      updateTitleMain(val);
+      mSyncFeedPreviews();
+    }
+
+    // ── Theme ──
+    function mToggleTheme() {
+      toggleTheme();
+      const mIco = document.getElementById('mThemeIcon'); if (!mIco) return;
+      mIco.innerHTML = state.theme === 'light' ?
+        '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>' :
+        '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+    }
+
+    // ── Sheet ──
+    function mOpenSheet(name) {
+      mCloseSheet();
+      const idMap = { profile: 'mShProfile', assets: 'mShAssets', guides: 'mShGuides', export: 'mShExport', specs: 'mShSpecs' };
+      const sh = document.getElementById(idMap[name]); const bd = document.getElementById('mBackdrop');
+      if (!sh) return;
+      sh.classList.add('show'); bd.classList.add('show'); mS.sheet = sh;
+    }
+    function mCloseSheet() {
+      if (mS.sheet) mS.sheet.classList.remove('show');
+      const bd = document.getElementById('mBackdrop'); if (bd) bd.classList.remove('show');
+      mS.sheet = null;
+    }
+
+    // ── Export variant ──
+    function mExportVar(n) {
+      const src = state.thumbVariants[n].src; if (!src) { alert('Upload Option ' + n + ' first.'); return; }
+      const off = document.createElement('canvas'); off.width = 1280; off.height = 720;
+      const ctx = off.getContext('2d'); const img = new Image();
+      img.onload = () => { ctx.drawImage(img, 0, 0, 1280, 720); const a = document.createElement('a'); a.download = 'thumbnail-option' + n + '.png'; a.href = off.toDataURL('image/png', 1); a.click(); };
+      img.src = src;
+    }
+
+    // ── Swipe to close ──
+    document.addEventListener('touchstart', e => { mS.touchY = e.touches[0].clientY; }, { passive: true });
+    document.addEventListener('touchend', e => { if (!mS.sheet) return; if (e.changedTouches[0].clientY - mS.touchY > 80) mCloseSheet(); }, { passive: true });
+
+
+    // ══════════════════════════════════════════════
+    // SHORTS THUMBNAIL — DESKTOP
+    // ══════════════════════════════════════════════
+    let shortsSrc = null; // separate state for shorts thumbnail
+
+    function loadShortsThumb(event) {
+      const file = event.target.files[0]; if (!file) return;
+      const url = URL.createObjectURL(file);
+      shortsSrc = url;
+      // desktop upload zone
+      const uz = document.getElementById('shortsUploadZone'); if (uz) uz.classList.add('has-image');
+      const ut = document.getElementById('shortsUploadThumb'); if (ut) ut.src = url;
+      // desktop shorts preview card
+      const si = document.getElementById('shortsImg'); if (si) { si.src = url; si.style.display = 'block'; }
+      const sp = document.getElementById('shortsPlaceholder'); if (sp) sp.style.display = 'none';
+      // mobile shorts previews
+      mSyncShortsImage(url);
+    }
+
+    function rmShortsThumb(e) {
+      e.stopPropagation();
+      shortsSrc = null;
+      const uz = document.getElementById('shortsUploadZone'); if (uz) uz.classList.remove('has-image');
+      const ut = document.getElementById('shortsUploadThumb'); if (ut) ut.src = '';
+      const si = document.getElementById('shortsImg'); if (si) { si.src = ''; si.style.display = 'none'; }
+      const sp = document.getElementById('shortsPlaceholder'); if (sp) sp.style.display = 'flex';
+      mSyncShortsImage(null);
+    }
+
+    function syncShortsTitle(val) {
+      // sync to mobile shorts title inputs
+      const msi = document.getElementById('mShortsTitleInput'); if (msi && msi.value !== val) msi.value = val;
+      const mst = document.getElementById('mShortsTitle'); if (mst) mst.textContent = val || 'Your Shorts Title';
+      const dst = document.getElementById('shortsTitle'); if (dst) dst.textContent = val || 'Your Video Title';
+      // also sync shorts channel name display
+      const dsc = document.getElementById('shortsChannelName'); if (dsc) dsc.textContent = state.channelHandle;
+    }
+
+    // ══════════════════════════════════════════════
+    // SHORTS THUMBNAIL — MOBILE (Assets sheet zone)
+    // ══════════════════════════════════════════════
+    function mLoadShortsThumb(event) {
+      const file = event.target.files[0]; if (!file) return;
+      const url = URL.createObjectURL(file);
+      shortsSrc = url;
+      const mz = document.getElementById('mShortsZone'); if (mz) mz.classList.add('has-image');
+      const mt = document.getElementById('mShortsThumb'); if (mt) mt.src = url;
+      // sync desktop zones too
+      const uz = document.getElementById('shortsUploadZone'); if (uz) uz.classList.add('has-image');
+      const ut = document.getElementById('shortsUploadThumb'); if (ut) ut.src = url;
+      const si = document.getElementById('shortsImg'); if (si) { si.src = url; si.style.display = 'block'; }
+      const sp = document.getElementById('shortsPlaceholder'); if (sp) sp.style.display = 'none';
+      mSyncShortsImage(url);
+    }
+    function mRmShorts(e) {
+      e.stopPropagation(); shortsSrc = null;
+      const mz = document.getElementById('mShortsZone'); if (mz) mz.classList.remove('has-image');
+      const mt = document.getElementById('mShortsThumb'); if (mt) mt.src = '';
+      rmShortsThumb({ stopPropagation: () => { } });
+    }
+
+    // mobile Thumbnails tab shorts zone (second zone)
+    function mLoadShorts2(event) {
+      const file = event.target.files[0]; if (!file) return;
+      const url = URL.createObjectURL(file);
+      shortsSrc = url;
+      const mz2 = document.getElementById('mShortsZoneThumb'); if (mz2) mz2.classList.add('has-image');
+      const mt2 = document.getElementById('mShortsThumb2'); if (mt2) mt2.src = url;
+      // sync Assets sheet zone
+      const mz = document.getElementById('mShortsZone'); if (mz) mz.classList.add('has-image');
+      const mt = document.getElementById('mShortsThumb'); if (mt) mt.src = url;
+      // sync desktop
+      const uz = document.getElementById('shortsUploadZone'); if (uz) uz.classList.add('has-image');
+      const ut = document.getElementById('shortsUploadThumb'); if (ut) ut.src = url;
+      const si = document.getElementById('shortsImg'); if (si) { si.src = url; si.style.display = 'block'; }
+      const sp = document.getElementById('shortsPlaceholder'); if (sp) sp.style.display = 'none';
+      mSyncShortsImage(url);
+    }
+    function mRmShorts2(e) {
+      e.stopPropagation(); shortsSrc = null;
+      const mz2 = document.getElementById('mShortsZoneThumb'); if (mz2) mz2.classList.remove('has-image');
+      const mt2 = document.getElementById('mShortsThumb2'); if (mt2) mt2.src = '';
+      mRmShorts({ stopPropagation: () => { } });
+    }
+
+    // central function to push shorts image to all mobile display elements
+    function mSyncShortsImage(url) {
+      ['mShortsImg'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) { if (url) { el.src = url; el.style.display = 'block'; } else { el.src = ''; el.style.display = 'none'; } }
+      });
+      ['mShortsPlaceholder'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.style.display = url ? 'none' : 'flex';
+      });
+    }
+
+    function mSyncShortsTitle(val) {
+      // sync to desktop input
+      const dti = document.getElementById('shortsTitleInput'); if (dti && dti.value !== val) dti.value = val;
+      // sync to Assets sheet input if open
+      const mai = document.getElementById('mAssetTitle');
+      // sync all shorts title displays
+      ['mShortsTitle', 'shortsTitle'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = val || 'Your Shorts Title'; });
+      syncShortsTitle(val);
+    }
+
+    // ══════════════════════════════════════════════
+    // ASSET TITLE INPUT (in Assets sheet)
+    // ══════════════════════════════════════════════
+    function mSyncAssetTitle(val) {
+      state.videoTitle = val;
+      // sync all title fields
+      const vt = document.getElementById('videoTitle'); if (vt && vt.value !== val) vt.value = val;
+      const tm = document.getElementById('titleInputMain'); if (tm && tm.value !== val) tm.value = val;
+      const mti = document.getElementById('mTiInput'); if (mti && mti.value !== val) mti.value = val;
+      // sync slot title 1 if empty
+      const st1 = document.getElementById('mSTit1'); if (st1 && st1.value.trim() === '') st1.value = val;
+      const dt1 = document.getElementById('titleVariant1'); if (dt1 && dt1.value.trim() === '') { dt1.value = val; state.thumbVariants[1].title = val; const r = document.getElementById('titleRenderVar1'); if (r) r.textContent = val; }
+      // update title previews and displays
+      updateTitleMain(val);
+      ['thumbTitleLarge', 'thumbTitleSm', 'thumbTitleSidebar', 'thumbTitleSearch', 'shortsTitle'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = val || 'Your Video Title'; });
+      const mfd = document.getElementById('mFeedDeskTit'); if (mfd) mfd.textContent = val || 'Your Video Title';
+      const mfm = document.getElementById('mFeedMobTit'); if (mfm) mfm.textContent = val || 'Your Video Title';
+      const mst = document.getElementById('mShortsTitle'); if (mst) mst.textContent = val || 'Your Shorts Title';
+      saveState();
+    }
+
+    // ── Mobile init ──
+    function mInit() {
+      mDrawBanner();
+      mPosOverlays();
+      mBuildGrid();
+      mRenderOverlays();
+      mRenderCompare();
+      mSyncFeedPreviews();
+      mUpdateTitle(document.getElementById('mTiInput').value);
+      // Sync profile sheet inputs from state
+      const mn = document.getElementById('mInName'); if (mn) mn.value = state.channelName;
+      const mh = document.getElementById('mInHandle'); if (mh) mh.value = state.channelHandle;
+      const ms2 = document.getElementById('mInSubs'); if (ms2) ms2.value = state.channelSubs;
+      // Sync overlay toggle states
+      const om = { safe: ['mTglSafe', 'mTglSafe2'], desktop: ['mTglDesktop', 'mTglDesktop2'], tv: ['mTglTV', 'mTglTV2'] };
+      Object.keys(om).forEach(k => om[k].forEach(id => { const e = document.getElementById(id); if (e) e.classList.toggle('on', state.overlays[k]); }));
+      // Sync mobile displays with loaded state
+      ['mDispName'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = state.channelName; });
+      ['mDispHandle'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = state.channelHandle; });
+      ['mDispSubs'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = state.channelSubs; });
+      const mu = document.getElementById('mYtUrl'); if (mu) mu.textContent = 'youtube.com/' + state.channelHandle;
+      // Sync slot titles from state
+      [1, 2, 3].forEach(n => { const mt = document.getElementById('mSTit' + n); if (mt && state.thumbVariants[n]) mt.value = state.thumbVariants[n].title || ''; });
+      // Sync asset title input
+      const at = document.getElementById('mAssetTitle'); if (at) at.value = state.videoTitle || '';
+      // Sync shorts channel displays
+      ['mShortsCh', 'shortsChannelName'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = state.channelHandle; });
+      window.addEventListener('resize', mPosOverlays);
+    }
+
+    // Patch desktop updateProfile to also sync mobile displays
+    const _origUpdateProfile = updateProfile;
+    function updateProfile() {
+      _origUpdateProfile();
+      const mn = document.getElementById('mInName'); if (mn) mn.value = state.channelName;
+      const mh = document.getElementById('mInHandle'); if (mh) mh.value = state.channelHandle;
+      const ms2 = document.getElementById('mInSubs'); if (ms2) ms2.value = state.channelSubs;
+      ['mDispName'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = state.channelName; });
+      ['mDispHandle'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = state.channelHandle; });
+      ['mDispSubs'].forEach(id => { const e = document.getElementById(id); if (e) e.textContent = state.channelSubs; });
+      const mu = document.getElementById('mYtUrl'); if (mu) mu.textContent = 'youtube.com/' + state.channelHandle;
+      mBuildGrid(); mRenderCompare(); mSyncFeedPreviews();
+    }
+
+    // Patch desktop toggleOverlay to also sync mobile toggles
+    const _origToggleOverlay = toggleOverlay;
+    function toggleOverlay(type) {
+      _origToggleOverlay(type);
+      const om = { safe: ['mTglSafe', 'mTglSafe2'], desktop: ['mTglDesktop', 'mTglDesktop2'], tv: ['mTglTV', 'mTglTV2'] };
+      (om[type] || []).forEach(id => { const e = document.getElementById(id); if (e) e.classList.toggle('on', state.overlays[type]); });
+      mRenderOverlays();
+    }
+
+    mInit();
+
+  </script>
+</body>
+
+</html>

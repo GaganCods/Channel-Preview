@@ -1,0 +1,2065 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Channel Preview — YouTube Creator Asset Previewer</title>
+    <meta name="description"
+        content="Preview your YouTube banner, profile picture, thumbnails and titles across Desktop, Mobile, Tablet and TV before uploading. Free YouTube channel mockup tool." />
+    <link rel="stylesheet" href="index.css" />
+    <link rel="icon" type="image/png" href="assets/logo-icon.png">
+
+    <style>
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 48px);
+            max-width: 1100px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 24px;
+            /* transparent at top — merges with hero */
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            border: 1px solid transparent;
+            border-radius: 100px;
+            box-shadow: none;
+            transition: background 0.5s ease, border-color 0.5s ease,
+                box-shadow 0.5s ease, top 0.5s ease,
+                backdrop-filter 0.5s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            top: 12px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .nav-logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--orange-grad);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(255, 77, 0, 0.4);
+            flex-shrink: 0;
+        }
+
+        .nav-logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 8px 16px;
+            border-radius: 100px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            border-radius: 0;
+            background: transparent;
+            font-weight: 600;
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        button.nav-hamburger {
+            background: none;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .nav-cta .btn {
+            padding: 9px 20px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-cta .btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: none;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-cta .btn-primary {
+            background: linear-gradient(135deg, #ff4d00, #ff7300);
+            border-color: transparent;
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(255, 77, 0, 0.4);
+        }
+
+        .nav-cta .btn-primary:hover {
+            background: linear-gradient(135deg, #ff6520, #ff8c20);
+            box-shadow: 0 6px 24px rgba(255, 77, 0, 0.5);
+        }
+
+        /* ── HAMBURGER (mobile) ── */
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px;
+            transition: background 0.25s;
+            flex-shrink: 0;
+            z-index: 10;
+        }
+
+        .nav-hamburger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-hamburger span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 4px;
+            transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transform-origin: center;
+        }
+
+        .nav-hamburger.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .nav-hamburger.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .nav-hamburger.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ── MOBILE MENU PANEL ── */
+        .nav-mobile-menu {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                top: 12px;
+                width: calc(100% - 32px);
+                padding: 12px 18px;
+                border-radius: 20px;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 16px;
+                right: 16px;
+                flex-direction: column;
+                gap: 0;
+                background: rgba(15, 15, 15, 0.92);
+                backdrop-filter: blur(32px) saturate(180%);
+                -webkit-backdrop-filter: blur(32px) saturate(180%);
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                border-radius: 20px;
+                padding: 12px 8px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+                z-index: 999;
+                transform: translateY(-10px);
+                opacity: 0;
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .nav-links.open {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+            }
+
+            .nav-links a {
+                padding: 14px 16px;
+                border-radius: 12px;
+                font-size: 1rem;
+                color: rgba(255, 255, 255, 0.85);
+                transition: background 0.2s, color 0.2s;
+            }
+
+            .nav-links a:hover {
+                background: rgba(255, 255, 255, 0.06);
+                color: #fff;
+            }
+
+            .nav-cta .btn {
+                padding: 8px 16px;
+                font-size: 0.82rem;
+            }
+
+            .nav-hamburger {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-logo-text {
+                font-size: 1rem;
+            }
+
+            .nav-cta {
+                gap: 8px;
+            }
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 160px 32px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ── HERO MOCKUP ── */
+        /* ── HERO MOCKUP (YouTube Style) ── */
+        .hero-mockup {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .yt-channel-mock {
+            background: #0f0f0f;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            text-align: left;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+        }
+
+        .mock-banner {
+            width: 100%;
+            height: 180px;
+            background: var(--orange-grad);
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mock-banner::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.02) 10px, rgba(255, 255, 255, 0.02) 20px);
+        }
+
+        .mock-header {
+            padding: 24px 40px;
+            display: flex;
+            align-items: flex-end;
+            gap: 24px;
+            margin-top: -60px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mock-pfp {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            border: 4px solid #0f0f0f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .mock-info {
+            flex-grow: 1;
+            padding-bottom: 8px;
+        }
+
+        .mock-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .mock-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Bio + subscribe (hidden on desktop, visible on mobile mockup) */
+        .mock-bio {
+            display: none;
+            padding: 0 16px 4px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .mock-website {
+            display: none;
+            padding: 0 16px 12px;
+            font-size: 0.82rem;
+            color: #3ea6ff;
+        }
+
+        .mock-subscribe {
+            display: none;
+            margin: 0 16px 16px;
+            padding: 10px 0;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            cursor: default;
+        }
+
+        /* Sort pills (hidden on desktop) */
+        .mock-sort-pills {
+            display: none;
+            padding: 12px 16px;
+            gap: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mock-pill {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            background: transparent;
+            white-space: nowrap;
+        }
+
+        .mock-pill.active {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        .mock-tabs {
+            padding: 0 40px;
+            display: flex;
+            gap: 24px;
+            border-bottom: 1px solid var(--border);
+            margin-top: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .mock-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .mock-tab {
+            padding: 12px 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .mock-tab.active {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .mock-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #fff;
+        }
+
+        .mock-content {
+            padding: 32px 40px;
+        }
+
+        .mock-video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .mock-video-card {
+            background: transparent;
+        }
+
+        .mock-thumb {
+            aspect-ratio: 16/9;
+            background: #1a1a1a;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mock-v-title {
+            font-size: 0.9rem;
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 4px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .mock-v-meta {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ── MOBILE MOCKUP RESPONSIVE ── */
+        @media (max-width: 600px) {
+            .mock-banner {
+                height: 110px;
+            }
+
+            .mock-header {
+                padding: 12px 16px;
+                align-items: center;
+                margin-top: 0;
+                gap: 12px;
+            }
+
+            .mock-pfp {
+                width: 64px;
+                height: 64px;
+                font-size: 1.4rem;
+                border-width: 2px;
+                margin-top: -32px;
+                flex-shrink: 0;
+            }
+
+            .mock-info {
+                padding-bottom: 0;
+            }
+
+            .mock-name {
+                font-size: 1.1rem;
+                margin-bottom: 2px;
+            }
+
+            .mock-meta {
+                font-size: 0.75rem;
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+
+            .mock-bio,
+            .mock-website,
+            .mock-subscribe {
+                display: block;
+            }
+
+            .mock-sort-pills {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scrollbar-width: none;
+            }
+
+            .mock-sort-pills::-webkit-scrollbar {
+                display: none;
+            }
+
+            .mock-tabs {
+                padding: 0 16px;
+                gap: 16px;
+                margin-top: 0;
+            }
+
+            .mock-tab {
+                font-size: 0.82rem;
+                padding: 10px 0;
+            }
+
+            .mock-content {
+                padding: 12px 16px;
+            }
+
+            /* Switch from 3-col grid to list layout */
+            .mock-video-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .mock-video-card {
+                display: grid;
+                grid-template-columns: 140px 1fr;
+                gap: 12px;
+                align-items: start;
+            }
+
+            .mock-thumb {
+                aspect-ratio: 16/9;
+                border-radius: 8px;
+                margin-bottom: 0;
+                width: 100%;
+            }
+
+            .mock-v-title {
+                font-size: 0.82rem;
+                -webkit-line-clamp: 2;
+                line-clamp: 2;
+            }
+
+            .mock-v-meta {
+                font-size: 0.72rem;
+                margin-top: 4px;
+            }
+        }
+
+        .mock-balance {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .mock-chart {
+            height: 120px;
+            margin-top: 15px;
+            background: linear-gradient(0deg, rgba(255, 77, 0, 0.1) 0%, transparent 100%);
+            border-bottom: 2px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mock-chart::after {
+            content: "";
+            position: absolute;
+            top: 20%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .mock-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .mock-item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--bg-hover);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .mock-item-info {
+            flex: 1;
+        }
+
+        .mock-item-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .mock-item-price {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .mock-item-change {
+            font-size: 0.75rem;
+            color: #4CAF50;
+        }
+
+        /* ── TRUSTED BY ── */
+        .trusted-by {
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .trusted-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .trusted-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 40px;
+            opacity: 0.5;
+            filter: grayscale(1);
+        }
+
+        .trusted-logo {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 600px) {
+            .trusted-logos {
+                gap: 16px;
+            }
+
+            .trusted-logo {
+                font-size: 0.78rem;
+                gap: 5px;
+            }
+        }
+
+        /* Device chips */
+        .device-chips {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        /* ── FEATURES / JOURNEY ── */
+        .features {
+            background: transparent;
+            position: relative;
+            padding: 120px 0;
+        }
+
+        .features::before {
+            content: "";
+            position: absolute;
+            top: 20%;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 77, 0, 0.05), transparent 70%);
+            pointer-events: none;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 77, 0, 0.3);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+
+        .feature-card .icon-box {
+            width: 48px;
+            height: 48px;
+            background: rgba(255, 77, 0, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+            margin-bottom: 4px;
+        }
+
+        .feature-card:hover .icon-box {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .feature-card .icon-box svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0;
+            line-height: 1.2;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* ── HOW IT WORKS (Milestone Journey) ── */
+        .how-it-works {
+            padding: 160px 0;
+            background: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .journey-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            padding: 40px 0;
+        }
+
+        /* Central Timeline Line */
+        .journey-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 1px;
+            background: linear-gradient(to bottom,
+                    transparent,
+                    rgba(255, 77, 0, 0.2) 15%,
+                    rgba(255, 77, 0, 0.2) 85%,
+                    transparent);
+            transform: translateX(-50%);
+        }
+
+        .journey-step {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 100px;
+            position: relative;
+        }
+
+        .journey-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .journey-content {
+            width: 42%;
+            background: var(--bg-card);
+            backdrop-filter: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 40px;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .journey-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .journey-content:hover {
+            border-color: rgba(255, 77, 0, 0.3);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .journey-milestone {
+            width: 80px;
+            height: 80px;
+            background: #0a0a0a;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            box-shadow: 0 0 0 10px #030303;
+        }
+
+        .journey-milestone svg {
+            width: 32px;
+            height: 32px;
+        }
+
+        .journey-content h3 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 12px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .journey-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* ── SVG ANIMATIONS ── */
+        @keyframes icon-bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+
+        @keyframes icon-pulse {
+            0% {
+                opacity: 0.4;
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes icon-scan {
+            0% {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes draw-path {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .svg-animate-bounce {
+            animation: icon-bounce 2s infinite ease-in-out;
+        }
+
+        .svg-animate-pulse {
+            animation: icon-pulse 1.5s infinite alternate ease-in-out;
+        }
+
+        .svg-animate-scan {
+            animation: icon-scan 3s infinite linear;
+        }
+
+        @media (max-width: 900px) {
+            .journey-container::before {
+                left: 32px;
+                /* Center with the 64px icon margin area */
+            }
+
+            .journey-step {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                padding-left: 80px;
+                margin-bottom: 60px;
+            }
+
+            .journey-content {
+                width: 100%;
+                padding: 30px;
+                border-radius: 20px;
+            }
+
+            .journey-milestone {
+                left: 32px;
+                width: 52px;
+                height: 52px;
+                box-shadow: 0 0 0 10px #030303;
+            }
+
+            .journey-milestone svg {
+                width: 20px;
+                height: 20px;
+            }
+
+            .journey-spacer {
+                display: none !important;
+            }
+
+            .journey-content h3 {
+                font-size: 1.25rem;
+            }
+        }
+
+        /* ── TESTIMONIALS SECTION ── */
+        .testimonials-section {
+            padding: 160px 0;
+            background: transparent;
+            position: relative;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255, 77, 0, 0.3);
+            background: rgba(255, 255, 255, 0.04);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .quote-icon {
+            color: var(--accent);
+            opacity: 0.5;
+            margin-bottom: -10px;
+        }
+
+        .testimonial-text-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #fff;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: auto;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 77, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .author-meta h4 {
+            font-size: 1rem;
+            color: #fff;
+            margin: 0;
+        }
+
+        .author-meta span {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ── DEVICE PREVIEW SECTION ── */
+        .device-preview-section {
+            background: transparent;
+            padding: 120px 0;
+        }
+
+        .device-frame {
+            background: var(--bg-card);
+            backdrop-filter: var(--glass);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            padding: 40px;
+            box-shadow: var(--shadow-card);
+        }
+
+        /* ── STATS ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border);
+        }
+
+        .stat-item {
+            background: transparent;
+            text-align: center;
+            padding: 80px 40px;
+        }
+
+        .stat-number {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        /* ── CTA REDESIGN ── */
+        .cta-redesign {
+            padding: 120px 0;
+            background: transparent;
+            position: relative;
+        }
+
+        .cta-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 80px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .cta-dots {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 24px 24px;
+            mask-image: linear-gradient(to bottom, black, transparent);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .cta-glow {
+            position: absolute;
+            bottom: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 300px;
+            background: radial-gradient(50% 50% at 50% 50%, rgba(255, 77, 0, 0.15) 0%, transparent 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .cta-title {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: #fff;
+            font-weight: 800;
+        }
+
+        .cta-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 450px;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .cta-btn {
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-btn.primary {
+            background: #fff;
+            color: #000;
+        }
+
+        .cta-btn.secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: #fff;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-testimonial {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stars {
+            color: #ffb800;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-text {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .testimonial-user {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+        }
+
+        .user-name {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .user-role {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 1024px) {
+            .cta-card {
+                grid-template-columns: 1fr;
+                padding: 60px 30px;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .cta-text {
+                margin-inline: auto;
+            }
+
+            .cta-actions {
+                justify-content: center;
+            }
+
+            .cta-testimonial {
+                text-align: left;
+            }
+        }
+
+        /* ── FOOTER REDESIGN ── */
+        .footer-redesign {
+            padding: 120px 40px 40px;
+            background: radial-gradient(125% 125% at 50% 10%, transparent 40%, rgba(249, 115, 22, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-redesign::before {
+            content: "";
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 200px;
+            background: radial-gradient(ellipse 50% 50% at 50% 100%, rgba(249, 115, 22, 0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+        .footer-header {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            text-align: left;
+        }
+
+        .footer-label {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-headline {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            max-width: 800px;
+            color: #fff;
+        }
+
+        .footer-links-row {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .footer-contact {
+            text-align: left;
+        }
+
+        .footer-contact-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .footer-email {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-email:hover {
+            color: var(--accent);
+        }
+
+        .footer-nav-group {
+            display: flex;
+            gap: 48px;
+        }
+
+        .footer-nav-link {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #fff;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-nav-link:hover {
+            opacity: 0.7;
+        }
+
+        .footer-brand-row {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 40px;
+        }
+
+        .footer-large-brand {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2rem, 8vw, 8.5rem);
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            color: #fff;
+            text-align: center;
+            user-select: none;
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-copyright {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-social-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-social-links a {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        .footer-social-links a:hover {
+            color: #fff;
+        }
+
+        @media(max-width: 768px) {
+            .footer-redesign {
+                padding-top: 80px;
+            }
+
+            .footer-links-row {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 60px;
+            }
+
+            .footer-nav-group {
+                gap: 24px;
+                flex-wrap: wrap;
+            }
+
+            .footer-nav-link {
+                font-size: 1rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media(max-width:768px) {
+            nav {
+                padding: 14px 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-item:nth-child(2n) {
+                border-right: none;
+            }
+
+            .stat-item {
+                border-bottom: 1px solid var(--border);
+            }
+
+            .crop-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body style="background-color: #000000;">
+
+    <!-- ── OVERALL SITE BACKGROUND (Copper Forge Glow) ── -->
+    <div
+        style="position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(circle at center, rgba(255, 77, 0, 0.15) 0%, rgba(255, 77, 0, 0.08) 50%, transparent 100%);">
+    </div>
+
+    <!-- ── NAV ── -->
+    <nav id="main-nav">
+        <a class="nav-logo" href="/">
+            <img src="assets/logo-full.png" alt="Channel Preview" style="height: 32px; width: auto;">
+        </a>
+        <div class="nav-links" id="nav-links">
+            <a href="#hero" class="">Home</a>
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How it works</a>
+            <a href="#testimonials">Creator Reviews</a>
+        </div>
+        <div class="nav-cta">
+            <a href="/editor" class="btn btn-primary">🚀 Start</a>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <script>
+        // Scroll: add .scrolled class
+        const mainNav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => {
+            mainNav.classList.toggle('scrolled', window.scrollY > 80);
+        }, { passive: true });
+
+        // Hamburger toggle
+        const hamburger = document.getElementById('nav-hamburger');
+        const navLinks = document.getElementById('nav-links');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            navLinks.classList.toggle('open');
+        });
+
+        // Close menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        const sections = document.querySelectorAll('section[id]');
+        const navAnchorLinks = document.querySelectorAll('.nav-links a');
+
+        // Active nav link highlighting using IntersectionObserver
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute("id");
+
+                    navAnchorLinks.forEach(link => {
+                        link.classList.remove("active");
+
+                        if (link.getAttribute("href") === "#" + id) {
+                            link.classList.add("active");
+                        }
+                    });
+                }
+            });
+        }, {
+            threshold: 0.6
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+
+    <!-- ── HERO ── -->
+    <section id="hero" class="hero">
+        <div class="hero-forge-bg"
+            style="position: absolute; inset: 0; z-index: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(249, 115, 22, 0.25), transparent 70%);">
+        </div>
+
+        <div class="hero-badge animate-fade-up">
+            <span class="badge"
+                style="background: rgba(255, 77, 0, 0.1); border: 1px solid rgba(255, 77, 0, 0.2); color: var(--accent);">V2.0
+                Update — New Previews Available</span>
+        </div>
+
+        <h1 class="animate-fade-up delay-1"
+            style="font-size: clamp(3rem, 7vw, 4.5rem); letter-spacing: -0.04em; font-weight: 800; line-height: 1.1;">
+            Perfect Content. <br />Every Single <span class="accent-text">Time.</span>
+        </h1>
+
+        <p class="animate-fade-up delay-2"
+            style="font-size: 1.15rem; max-width: 600px; opacity: 0.6; margin-bottom: 48px;">
+            Preview your channel assets in minutes. Professional mockups for banners, thumbnails, and profile pictures.
+        </p>
+
+        <div class="hero-ctas animate-fade-up delay-3">
+            <a href="/editor" class="btn btn-primary btn-lg"
+                style="background: var(--orange-grad); padding: 20px 60px; border-radius: 100px;">🚀 Launch Editor</a>
+        </div>
+
+        <div class="hero-mockup animate-fade-up delay-4">
+            <div class="yt-channel-mock">
+                <div class="mock-banner">
+                    <div
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; text-align: center;">
+                        <div
+                            style="font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(1rem, 5vw, 2.8rem); line-height: 0.8; letter-spacing: -0.05em; color: #fff; user-select: none;">
+                            CHANNEL PREVIEW</div>
+                    </div>
+                </div>
+                <div class="mock-header">
+                    <div class="mock-pfp">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            style="width: 50%; height: 50%; color: var(--accent);">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <div class="mock-info">
+                        <div class="mock-name">Channel Preview</div>
+                        <div class="mock-meta">
+                            <span>@ChannelPreview</span>
+                            <span>•</span>
+                            <span>42.5K subscribers</span>
+                            <span>•</span>
+                            <span>12 videos</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bio & subscribe (shown on mobile only) -->
+                <div class="mock-bio">Preview your YouTube channel assets before uploading. No signup required.</div>
+                <div class="mock-website">ChannelPreview.com</div>
+                <div class="mock-subscribe">Subscribe</div>
+                <div class="mock-tabs">
+                    <div class="mock-tab">Home</div>
+                    <div class="mock-tab active">Videos</div>
+                    <div class="mock-tab">Shorts</div>
+                    <div class="mock-tab">Live</div>
+                    <div class="mock-tab">Playlists</div>
+                </div>
+                <!-- Sort pills (shown on mobile only) -->
+                <div class="mock-sort-pills">
+                    <div class="mock-pill">Latest</div>
+                    <div class="mock-pill active">Popular</div>
+                    <div class="mock-pill">Oldest</div>
+                </div>
+                <div class="mock-content">
+                    <div class="mock-video-grid">
+                        <div class="mock-video-card">
+                            <div class="mock-thumb">
+                                <div
+                                    style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); padding:2px 4px; border-radius:4px; font-size:0.7rem;">
+                                    10:24</div>
+                            </div>
+                            <div class="mock-v-info">
+                                <div class="mock-v-title">How to Preview Your YouTube Channel Like a Pro</div>
+                                <div class="mock-v-meta">342K views • 3 days ago</div>
+                            </div>
+                        </div>
+                        <div class="mock-video-card">
+                            <div class="mock-thumb"
+                                style="background: linear-gradient(135deg, var(--accent), #ff7300);">
+                                <div
+                                    style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); padding:2px 4px; border-radius:4px; font-size:0.7rem;">
+                                    15:00</div>
+                            </div>
+                            <div class="mock-v-info">
+                                <div class="mock-v-title">Mastering the Art of Viral Thumbnails</div>
+                                <div class="mock-v-meta">850K views • 1 week ago</div>
+                            </div>
+                        </div>
+                        <div class="mock-video-card">
+                            <div class="mock-thumb">
+                                <div
+                                    style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); padding:2px 4px; border-radius:4px; font-size:0.7rem;">
+                                    8:45</div>
+                            </div>
+                            <div class="mock-v-info">
+                                <div class="mock-v-title">The Secret to Perfect Channel Banners</div>
+                                <div class="mock-v-meta">520K views • 1 month ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── TRUSTED BY ── -->
+    <section class="trusted-by">
+        <div class="container">
+            <div class="trusted-text">Trusted by 40,000+ creators to scale content</div>
+            <div class="trusted-logos">
+                <div class="trusted-logo">◈ Genixus</div>
+                <div class="trusted-logo">⌘ Outriva</div>
+                <div class="trusted-logo">❖ Marbello</div>
+                <div class="trusted-logo">⬟ Starly</div>
+            </div>
+        </div>
+    </section>
+
+    <section
+        style="background: transparent; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="stats-grid" style="background: none; border: none; gap: 0;">
+            <div class="stat-item" style="border-right: 1px solid var(--border);">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Device previews</div>
+            </div>
+            <div class="stat-item" style="border-right: 1px solid var(--border);">
+                <div class="stat-number">3</div>
+                <div class="stat-label">Asset types</div>
+            </div>
+            <div class="stat-item" style="border-right: 1px solid var(--border);">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Free to use</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">⚡</div>
+                <div class="stat-label">Zero Uploads</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FEATURES ── -->
+    <section id="features" class="section">
+        <div class="container">
+            <div style="text-align:center; margin-bottom:100px;">
+                <div class="section-eyebrow">Everything creators need</div>
+                <h2 class="section-title" style="font-size: 2.8rem; letter-spacing: -0.03em;">Your Journey To <span
+                        class="accent-text">Perfect Content</span></h2>
+            </div>
+            <div class="grid-3" style="gap: 24px;">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                            <line x1="8" y1="21" x2="16" y2="21"></line>
+                            <line x1="12" y1="17" x2="12" y2="21"></line>
+                        </svg>
+                    </div>
+                    <h3>Banner Mastery</h3>
+                    <p>Preview how your banner crops across Desktop, TV, and Mobile with pixel-perfect safe zone guides.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <h3>Profile Sync</h3>
+                    <p>Ensure your profile picture and banner complement each other perfectly. See the overlap in
+                        real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                    </div>
+                    <h3>Multi-Feed Testing</h3>
+                    <p>Critique your thumbnails in Home, Sidebar, and Mobile feeds simultaneously to maximize CTR.</p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 7V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3"></path>
+                            <path d="M9 12l2 2 4-4"></path>
+                            <path d="M20 17v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3"></path>
+                            <line x1="12" y1="22" x2="12" y2="12"></line>
+                        </svg>
+                    </div>
+                    <h3>Smart Truncation</h3>
+                    <p>Never guess where your title will cut off. Test your titles across every device before you
+                        publish.</p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                    </div>
+                    <h3>Instant Export</h3>
+                    <p>Download your final assets optimized for YouTube's requirements with a single click. No sign-up
+                        needed.</p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                    </div>
+                    <h3>Absolute Privacy</h3>
+                    <p>Everything runs locally in your browser. Your images never touch our servers. Total creator
+                        privacy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── HOW IT WORKS (Milestone Journey) ── -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div style="text-align:center; margin-bottom:100px;">
+                <div class="section-eyebrow">The Creator Journey</div>
+                <h2 class="section-title" style="font-size: 3.2rem; letter-spacing: -0.04em;">How It <span
+                        class="accent-text">Works</span></h2>
+                <p class="section-subtitle" style="margin: 0 auto; opacity: 0.6;">A professional workflow for
+                    high-impact content creators.</p>
+            </div>
+
+            <div class="journey-container">
+                <!-- Step 1 -->
+                <div class="journey-step">
+                    <div class="journey-content">
+                        <h3>Drop Assets</h3>
+                        <p>Upload your banner and thumbnails instantly. Our high-performance engine processes your
+                            assets locally for maximum privacy.</p>
+                    </div>
+                    <div class="journey-milestone">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" class="svg-animate-bounce">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <path d="M12 8v8" style="stroke: var(--accent);" />
+                            <path d="M8 12l4 4 4-4" style="stroke: var(--accent);" />
+                        </svg>
+                    </div>
+                    <div class="journey-spacer" style="width: 42%;"></div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="journey-step">
+                    <div class="journey-content">
+                        <h3>Precision Preview</h3>
+                        <p>Toggle between Desktop, Mobile, and Tablet. See exactly how your artwork adapts across the
+                            entire YouTube ecosystem.</p>
+                    </div>
+                    <div class="journey-milestone">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                            <line x1="8" y1="21" x2="16" y2="21" />
+                            <line x1="12" y1="17" x2="12" y2="21" />
+                            <path d="M5 8h14" class="svg-animate-scan"
+                                style="stroke: var(--accent); stroke-width: 1.5; opacity: 0.5;" />
+                        </svg>
+                    </div>
+                    <div class="journey-spacer" style="width: 42%;"></div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="journey-step">
+                    <div class="journey-content">
+                        <h3>Safe Zone Alignment</h3>
+                        <p>Never let critical text get cut off again. Our smart overlays highlight safe zones for every
+                            device type in real-time.</p>
+                    </div>
+                    <div class="journey-milestone">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 7V5a2 2 0 0 1 2-2h2" class="svg-animate-pulse" style="stroke: var(--accent);" />
+                            <path d="M17 3h2a2 2 0 0 1 2 2v2" class="svg-animate-pulse"
+                                style="stroke: var(--accent);" />
+                            <path d="M21 17v2a2 2 0 0 1-2 2h-2" class="svg-animate-pulse"
+                                style="stroke: var(--accent);" />
+                            <path d="M7 21H5a2 2 0 0 1-2-2v-2" class="svg-animate-pulse"
+                                style="stroke: var(--accent);" />
+                            <circle cx="12" cy="12" r="1" fill="currentColor" />
+                        </svg>
+                    </div>
+                    <div class="journey-spacer" style="width: 42%;"></div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="journey-step">
+                    <div class="journey-content">
+                        <h3>Optimized Export</h3>
+                        <p>Download your final assets optimized for YouTube's requirements. Ready for immediate upload
+                            to your channel.</p>
+                    </div>
+                    <div class="journey-milestone">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" style="stroke: var(--accent);" />
+                            <line x1="12" y1="15" x2="12" y2="3" style="stroke: var(--accent);" />
+                        </svg>
+                    </div>
+                    <div class="journey-spacer" style="width: 42%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── TESTIMONIALS ── -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div style="text-align:center; margin-bottom:80px;">
+                <div class="section-eyebrow">User Love</div>
+                <h2 class="section-title" style="font-size: 2.8rem; letter-spacing: -0.03em;">What <span
+                        class="accent-text">Creators Say</span> About Channel Preview</h2>
+                <p class="section-subtitle" style="margin: 0 auto; opacity: 0.6;">Creators use Channel Preview to test
+                    their YouTube banners, thumbnails, and channel layouts before uploading. Here’s what early users say
+                    about the tool.</p>
+            </div>
+
+            <div class="grid-3" style="gap: 32px;">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C15.4647 8 15.017 8.44772 15.017 9V12C15.017 12.5523 14.5693 13 14.017 13H12.017V21H14.017ZM6.017 21L6.017 18C6.017 16.8954 6.91243 16 8.017 16H11.017C11.5693 16 12.017 15.5523 12.017 15V9C12.017 8.44772 11.5693 8 11.017 8H8.017C7.46472 8 7.017 8.44772 7.017 9V12C7.017 12.5523 6.56928 13 6.017 13H4.017V21H6.017Z" />
+                        </svg>
+                    </div>
+                    <p class="testimonial-text-content">“Channel Preview helped me fix my YouTube banner in minutes. I
+                        could finally see the safe area and how it looks on mobile before uploading. This tool saves a
+                        lot of time for YouTube creators.”</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">AM</div>
+                        <div class="author-meta">
+                            <h4>Alex M.</h4>
+                            <span>YouTube Creator</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C15.4647 8 15.017 8.44772 15.017 9V12C15.017 12.5523 14.5693 13 14.017 13H12.017V21H14.017ZM6.017 21L6.017 18C6.017 16.8954 6.91243 16 8.017 16H11.017C11.5693 16 12.017 15.5523 12.017 15V9C12.017 8.44772 11.5693 8 11.017 8H8.017C7.46472 8 7.017 8.44772 7.017 9V12C7.017 12.5523 6.56928 13 6.017 13H4.017V21H6.017Z" />
+                        </svg>
+                    </div>
+                    <p class="testimonial-text-content">“I always struggled with banner cropping on YouTube. With
+                        Channel Preview I can test my channel banner, profile picture, and thumbnails instantly. It’s
+                        one of the most useful YouTube creator tools I’ve used.”</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">DR</div>
+                        <div class="author-meta">
+                            <h4>Daniel R.</h4>
+                            <span>Content Creator</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="quote-icon">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C15.4647 8 15.017 8.44772 15.017 9V12C15.017 12.5523 14.5693 13 14.017 13H12.017V21H14.017ZM6.017 21L6.017 18C6.017 16.8954 6.91243 16 8.017 16H11.017C11.5693 16 12.017 15.5523 12.017 15V9C12.017 8.44772 11.5693 8 11.017 8H8.017C7.46472 8 7.017 8.44772 7.017 9V12C7.017 12.5523 6.56928 13 6.017 13H4.017V21H6.017Z" />
+                        </svg>
+                    </div>
+                    <p class="testimonial-text-content">“The best thing about Channel Preview is that everything runs in
+                        the browser. No signup, no uploads, just instant YouTube Channel Preview. Perfect for designers
+                        and creators.”</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SL</div>
+                        <div class="author-meta">
+                            <h4>Sarah L.</h4>
+                            <span>Graphic Designer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA SECTION ── -->
+    <section class="cta-redesign">
+        <div class="container">
+            <div class="cta-card">
+                <div class="cta-content">
+                    <h2 class="cta-title">Shape Your Digital <br>Channel Today</h2>
+                    <p class="cta-text">Thousands of creators have already made the move to professional previews. What
+                        are you waiting for?</p>
+                    <div class="cta-actions">
+                        <a href="/editor" class="cta-btn primary">Start Previewing</a>
+                    </div>
+                </div>
+                <div class="cta-testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">"ChannelPreview has completely changed my workflow. I no longer have to
+                        guess how my banner will look on mobile. It's perfectly cropped every single time."</p>
+                    <div class="testimonial-user">
+                        <img src="https://ui-avatars.com/api/?name=James+Cooper&background=ff4d00&color=fff"
+                            alt="James Cooper" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">James Cooper</div>
+                            <div class="user-role">YouTube Creator</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer-redesign">
+        <div class="footer-header">
+            <div class="footer-label"><span>✦</span> Contact Us</div>
+            <h2 class="footer-headline">Looking to maximize your content potential?</h2>
+        </div>
+
+        <div class="footer-links-row">
+            <div class="footer-contact">
+                <div class="footer-contact-label">Contact us at:</div>
+                <a href="mailto:hello@ChannelPreview.com" class="footer-email">hello@ChannelPreview.com
+                    <span>↗</span></a>
+            </div>
+            <div class="footer-nav-group">
+                <a href="#features" class="footer-nav-link">Features</a>
+                <a href="#how-it-works" class="footer-nav-link">How It Works</a>
+                <a href="/editor" class="footer-nav-link">Banner</a>
+                <a href="/editor" class="footer-nav-link">Thumbnails</a>
+            </div>
+        </div>
+
+        <div class="footer-brand-row">
+            <div class="footer-large-brand">CHANNEL PREVIEW</div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-copyright">© 2026 CHANNEL PREVIEW. ALL RIGHTS RESERVED.</div>
+            <div class="footer-social-links">
+                <a href="#">Twitter</a>
+                <a href="#">Discord</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Animate on scroll
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.style.opacity = '1';
+                    e.target.style.transform = 'translateY(0)';
+                    fadeObserver.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.08 });
+
+        document.querySelectorAll('.feature-card, .journey-step, .stat-item, .cta-card').forEach((el, i) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(24px)';
+            el.style.transition = `opacity 0.5s ease ${i * 0.07}s, transform 0.5s ease ${i * 0.07}s`;
+            fadeObserver.observe(el);
+        });
+
+        // Animate delayed elements on load
+        document.querySelectorAll('.delay-1,.delay-2,.delay-3,.delay-4').forEach(el => {
+            el.style.opacity = '0';
+        });
+
+        // Device chip interaction
+        document.querySelectorAll('.chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
