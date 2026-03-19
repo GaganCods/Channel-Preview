@@ -4,6 +4,21 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&display=swap');
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent; /* Disable blue overlay */
+    font-family: var(--font-body);
+}
+a, button, img {
+    -webkit-tap-highlight-color: transparent; /* Ensure no overlay on interactive elements */
+}
+a:active, button:active {
+    outline: none; /* Prevent active outline */
+    background: none; /* Remove background changes */
+}
+
 /* ── Tokens ── */
 :root {
   --bg-primary: #030303;
