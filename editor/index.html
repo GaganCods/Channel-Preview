@@ -2506,7 +2506,7 @@
   <!-- ═══════════════════ TOP NAV ═══════════════════ -->
   <nav class="topnav">
     <a href="/" class="logo">
-      <img src="../assets/logo-full.png" alt="Channel Preview" style="height: 24px; width: auto;">
+      <img id="desktopLogo" src="../assets/logo-full.png" alt="Channel Preview" style="height: 24px; width: auto;">
     </a>
     <div class="nav-sep"></div>
 
@@ -3309,7 +3309,7 @@
     <!-- Top bar -->
     <header class="m-topbar">
       <a href="/" class="m-logo">
-        <img src="../assets/logo-full.png" alt="Channel Preview" style="height: 18px; width: auto;">
+        <img id="mobileLogo" src="../assets/logo-full.png" alt="Channel Preview" style="height: 18px; width: auto;">
       </a>
       <div class="m-topbar-r">
         <button class="m-ico" onclick="mToggleTheme()" title="Toggle theme">
@@ -4047,6 +4047,7 @@
             if (el) el.value = state.thumbVariants[id].title;
           });
           document.documentElement.setAttribute('data-theme', state.theme);
+          updateLogos();
           // Refresh UI
           updateProfile();
           updateTitle();
@@ -4073,15 +4074,25 @@
       drawBannerCanvas();
       positionOverlays();
       window.addEventListener('resize', positionOverlays);
+      updateLogos();
     });
 
     // ══════════════════════════════════════════════
     // THEME
     // ══════════════════════════════════════════════
+    function updateLogos() {
+      const dtLogo = document.getElementById('desktopLogo');
+      const mLogo = document.getElementById('mobileLogo');
+      const src = state.theme === 'light' ? '../assets/black-logo.png' : '../assets/logo-full.png';
+      if (dtLogo) dtLogo.src = src;
+      if (mLogo) mLogo.src = src;
+    }
+
     function toggleTheme() {
       state.theme = state.theme === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', state.theme);
       saveState();
+      updateLogos();
       const icon = document.getElementById('themeIcon');
       if (state.theme === 'light') {
         icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
