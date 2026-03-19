@@ -11,6 +11,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
   <style>
     :root {
       --bg: #0a0a0f;
@@ -2364,6 +2365,139 @@
       margin-bottom: 8px;
       padding-top: 4px
     }
+
+    /* ── CROP MODAL ── */
+    .crop-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 9999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .crop-modal.show {
+      display: flex;
+    }
+
+    .crop-panel {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 90%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .crop-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .crop-body {
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--surface);
+      position: relative;
+    }
+
+    .crop-container-wrap {
+      width: 100%;
+      max-height: 60vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .crop-container-wrap img {
+      max-width: 100%;
+      max-height: 60vh;
+      display: block;
+    }
+
+    .crop-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      background: var(--surface2);
+    }
+
+    .crop-btn {
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      border: none;
+    }
+
+    .crop-btn.cancel {
+      background: var(--surface3);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .crop-btn.cancel:hover {
+      background: var(--border);
+    }
+
+    .crop-btn.done {
+      background: var(--text);
+      color: var(--bg);
+    }
+
+    .crop-btn.done:hover {
+      opacity: 0.9;
+    }
+
+    /* Circular crop override */
+    .cropper-view-box,
+    .cropper-face {
+      border-radius: 0;
+      transition: border-radius 0.2s;
+    }
+
+    .is-profile .cropper-view-box,
+    .is-profile .cropper-face {
+      border-radius: 50%;
+    }
+
+    /* Banner guides inside cropper */
+    .crop-guide {
+      position: absolute;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      pointer-events: none;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 4px;
+      box-sizing: border-box;
+      z-index: 10;
+    }
+
+    .crop-guide-label {
+      background: rgba(255, 255, 255, 0.8);
+      color: #000;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
   </style>
 </head>
 
@@ -3025,6 +3159,7 @@
             </div>
           </div>
         </div>
+      </div>
 
         <!-- ─── TITLE TAB ─── -->
         <div id="tabTitle" class="tab-content" style="display:none;width:100%;max-width:900px">
@@ -3866,12 +4001,7 @@
     const placeholderCards = [
       { title: 'The Complete Guide to YouTube Growth in 2025', views: '2.1M views', time: '2 weeks ago', dur: '18:42', color: '#1a2a4a' },
       { title: 'YouTube Algorithm EXPOSED: What Really Works', views: '876K views', time: '1 month ago', dur: '22:15', color: '#2a1a3a' },
-      { title: '10 Thumbnail Mistakes You\'re Making Right Now', views: '445K views', time: '3 weeks ago', dur: '12:08', color: '#1a3a2a' },
-      { title: 'How to Write Titles That Get Clicks (Proven Method)', views: '1.3M views', time: '5 days ago', dur: '09:55', color: '#3a2a1a' },
-      { title: 'Content Batching: Film 30 Videos in 2 Days', views: '234K views', time: '1 week ago', dur: '15:30', color: '#2a1a1a' },
-      { title: 'YouTube SEO Masterclass 2025', views: '567K views', time: '2 months ago', dur: '34:12', color: '#1a3a3a' },
-      { title: 'Why Your Channel Isn\'t Growing (The Real Reason)', views: '789K views', time: '3 days ago', dur: '11:47', color: '#3a1a3a' },
-      { title: 'From Idea to Upload: My Full Video Process', views: '312K views', time: '1 week ago', dur: '27:03', color: '#2a3a1a' }
+      { title: '10 Thumbnail Mistakes You\'re Making Right Now', views: '445K views', time: '3 weeks ago', dur: '12:08', color: '#1a3a2a' }
     ];
 
     function saveState() {
@@ -4012,42 +4142,52 @@
     function drawBannerCanvas() {
       const canvas = document.getElementById('bannerCanvas');
       const ctx = canvas.getContext('2d');
-      canvas.width = 2560;
-      canvas.height = state.device === 'tv' ? 1440 : 423;
+      const mode = state.device;
+      
+      if (mode === 'tv') { canvas.width = 2560; canvas.height = 1440; }
+      else if (mode === 'mobile') { canvas.width = 1546; canvas.height = 423; }
+      else { canvas.width = 2560; canvas.height = 423; }
 
       // Background
       if (state.bannerSrc) {
         const img = new Image();
         img.onload = () => {
-          if (state.device === 'tv') {
+          const iw = img.naturalWidth;
+          const ih = img.naturalHeight;
+          if (mode === 'tv') {
             ctx.drawImage(img, 0, 0, 2560, 1440);
-          } else {
-            // For desktop/mobile: show the horizontal strip
-            // Calculate visible crop from center
-            const srcH = img.naturalHeight;
-            const srcW = img.naturalWidth;
-            const ratio = srcW / 2560;
+          } else if (mode === 'mobile') {
+            // For mobile: show the 1546x423 safe area
+            const ratio = iw / 2560;
             const srcStripH = 423 * ratio;
-            const sy = (srcH - srcStripH) / 2;
-            ctx.drawImage(img, 0, sy, srcW, srcStripH, 0, 0, 2560, 423);
+            const srcStripW = 1546 * ratio;
+            const sy = (ih - srcStripH) / 2;
+            const sx = (iw - srcStripW) / 2;
+            ctx.drawImage(img, sx, sy, srcStripW, srcStripH, 0, 0, 1546, 423);
+          } else {
+            // For desktop: show the horizontal strip
+            const ratio = iw / 2560;
+            const srcStripH = 423 * ratio;
+            const sy = (ih - srcStripH) / 2;
+            ctx.drawImage(img, 0, sy, iw, srcStripH, 0, 0, 2560, 423);
           }
           positionOverlays();
         };
         img.src = state.bannerSrc;
       } else {
         // Gradient placeholder
-        const grad = ctx.createLinearGradient(0, 0, 2560, canvas.height);
+        const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
         grad.addColorStop(0, '#1a1a2e');
         grad.addColorStop(0.5, '#16213e');
         grad.addColorStop(1, '#0f3460');
         ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, 2560, canvas.height);
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         // Placeholder text
         ctx.fillStyle = 'rgba(255,255,255,0.15)';
-        ctx.font = 'bold 80px sans-serif';
+        ctx.font = `bold ${mode === 'tv' ? 80 : 50}px sans-serif`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText('Click banner to upload', 1280, canvas.height / 2);
+        ctx.fillText('Click banner to upload', canvas.width / 2, canvas.height / 2);
         positionOverlays();
       }
     }
@@ -4058,26 +4198,28 @@
     function positionOverlays() {
       const wrap = document.getElementById('bannerCanvasWrap');
       const w = wrap.offsetWidth;
-      const canvas = document.getElementById('bannerCanvas');
-      const naturalH = canvas.height; // 423 or 1440
-      const naturalW = 2560;
-      const scale = w / naturalW;
-      const dispH = naturalH * scale;
 
-      // Safe area: 1546×423 centred horizontally
-      // In display coords:
-      const safeW = 1546 * scale;
-      const safeH = 423 * scale;
-      const safeX = (w - safeW) / 2;
-
-      if (state.device === 'tv') {
-        // TV: safe area is 1546×423 centred within 2560×1440
+      if (state.device === 'mobile') {
+        const scale = w / 1546;
+        const dispH = 423 * scale;
+        posGuide('safeOverlay', 0, 0, w, dispH);
+        posGuide('desktopOverlay', 0, 0, w, dispH);
+        posGuide('tvOverlay', 0, 0, w, dispH);
+      } else if (state.device === 'tv') {
+        const scale = w / 2560;
+        const dispH = 1440 * scale;
+        const safeW = 1546 * scale;
+        const safeH = 423 * scale;
+        const safeX = (w - safeW) / 2;
         const tvSafeY = (dispH - safeH) / 2;
         posGuide('safeOverlay', safeX, tvSafeY, safeW, safeH);
         posGuide('desktopOverlay', 0, tvSafeY, w, safeH);
         posGuide('tvOverlay', 0, 0, w, dispH);
       } else {
-        // Desktop/Mobile: banner strip is 2560×423 displayed
+        const scale = w / 2560;
+        const dispH = 423 * scale;
+        const safeW = 1546 * scale;
+        const safeX = (w - safeW) / 2;
         posGuide('safeOverlay', safeX, 0, safeW, dispH);
         posGuide('desktopOverlay', 0, 0, w, dispH);
         posGuide('tvOverlay', 0, 0, w, dispH);
@@ -4113,41 +4255,175 @@
     }
 
     // ══════════════════════════════════════════════
+    // MODAL & CROPPER LOGIC
+    // ══════════════════════════════════════════════
+    let cropper = null;
+    let currentCropType = null; // 'banner' or 'profile'
+    let currentUploadEvent = null;
+
+    function initCropper(url, type) {
+      const img = document.getElementById('cropImage');
+      img.src = url;
+      currentCropType = type;
+      document.getElementById('cropModalTitle').textContent = type === 'banner' ? 'Customise banner art' : 'Customise picture';
+      document.getElementById('cropModal').classList.add('show');
+
+      const wrap = document.getElementById('cropContainerBox');
+      if (type === 'profile') {
+        wrap.classList.add('is-profile');
+        document.getElementById('cropGuideTv').style.display = 'none';
+        document.getElementById('cropGuideDesktop').style.display = 'none';
+        document.getElementById('cropGuideSafe').style.display = 'none';
+      } else {
+        wrap.classList.remove('is-profile');
+      }
+
+      if (cropper) cropper.destroy();
+      img.onload = () => {
+        cropper = new Cropper(img, {
+          aspectRatio: type === 'banner' ? 16 / 9 : 1,
+          viewMode: 1,
+          dragMode: 'move',
+          autoCropArea: 1,
+          restore: false,
+          guides: true,
+          center: true,
+          highlight: false,
+          cropBoxMovable: true,
+          cropBoxResizable: true,
+          toggleDragModeOnDblclick: false,
+          ready: function () {
+            if (type === 'banner') {
+              updateBannerGuides();
+            }
+          },
+          crop: function () {
+            if (type === 'banner') {
+              updateBannerGuides();
+            }
+          }
+        });
+      };
+    }
+
+    function updateBannerGuides() {
+      if (!cropper) return;
+      const cropBoxData = cropper.getCropBoxData();
+
+      const tvGuide = document.getElementById('cropGuideTv');
+      const desktopGuide = document.getElementById('cropGuideDesktop');
+      const safeGuide = document.getElementById('cropGuideSafe');
+
+      tvGuide.style.display = 'flex';
+      desktopGuide.style.display = 'flex';
+      safeGuide.style.display = 'flex';
+
+      const cropW = cropBoxData.width;
+      const cropH = cropBoxData.height;
+      const cropLeft = cropBoxData.left;
+      const cropTop = cropBoxData.top;
+
+      tvGuide.style.left = cropLeft + 'px';
+      tvGuide.style.top = cropTop + 'px';
+      tvGuide.style.width = cropW + 'px';
+      tvGuide.style.height = cropH + 'px';
+
+      const deskH = cropH * (423 / 1440);
+      const deskTop = cropTop + (cropH - deskH) / 2;
+      desktopGuide.style.left = cropLeft + 'px';
+      desktopGuide.style.top = deskTop + 'px';
+      desktopGuide.style.width = cropW + 'px';
+      desktopGuide.style.height = deskH + 'px';
+
+      const safeW = cropW * (1546 / 2560);
+      const safeLeft = cropLeft + (cropW - safeW) / 2;
+      safeGuide.style.left = safeLeft + 'px';
+      safeGuide.style.top = deskTop + 'px';
+      safeGuide.style.width = safeW + 'px';
+      safeGuide.style.height = deskH + 'px';
+    }
+
+    function closeCropModal() {
+      document.getElementById('cropModal').classList.remove('show');
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+      if (currentUploadEvent && currentUploadEvent.target) {
+        currentUploadEvent.target.value = '';
+      }
+      document.getElementById('cropGuideTv').style.display = 'none';
+      document.getElementById('cropGuideDesktop').style.display = 'none';
+      document.getElementById('cropGuideSafe').style.display = 'none';
+    }
+
+    function applyCrop() {
+      if (!cropper) return;
+      cropper.getCroppedCanvas().toBlob((blob) => {
+        const url = URL.createObjectURL(blob);
+        if (currentCropType === 'banner') {
+          finalizeBannerLoad(url);
+        } else if (currentCropType === 'profile') {
+          finalizeProfileLoad(url);
+        }
+        closeCropModal();
+      });
+    }
+
+    // ══════════════════════════════════════════════
     // IMAGE LOADING
     // ══════════════════════════════════════════════
     function loadBanner(event) {
       const file = event.target.files[0];
       if (!file) return;
+      currentUploadEvent = event;
       const url = URL.createObjectURL(file);
+      initCropper(url, 'banner');
+    }
+
+    function finalizeBannerLoad(url) {
       state.bannerSrc = url;
-      // sidebar thumb
-      const zone = document.getElementById('bannerZone');
-      zone.classList.add('has-image');
-      const thumb = document.getElementById('bannerThumb');
-      thumb.src = url; thumb.style.display = 'block';
-      // banner wrap
-      document.getElementById('bannerWrap').classList.add('has-banner');
+      const dZ = document.getElementById('bannerZone'); if (dZ) dZ.classList.add('has-image');
+      const dT = document.getElementById('bannerThumb'); if (dT) { dT.src = url; dT.style.display = 'block'; }
+      const dW2 = document.getElementById('bannerWrap'); if (dW2) dW2.classList.add('has-banner');
+      
+      const mZ = document.getElementById('mBannerZone'); if (mZ) mZ.classList.add('has-image');
+      const mT = document.getElementById('mBannerThumb'); if (mT) mT.src = url;
+      
       drawBannerCanvas();
+      if (typeof mDrawBanner === 'function') mDrawBanner();
     }
 
     function loadProfile(event) {
       const file = event.target.files[0];
       if (!file) return;
+      currentUploadEvent = event;
       const url = URL.createObjectURL(file);
+      initCropper(url, 'profile');
+    }
+
+    function finalizeProfileLoad(url) {
       state.profileSrc = url;
-      // sidebar
-      const zone = document.getElementById('profileZone');
-      zone.classList.add('has-image');
-      document.getElementById('profileThumb').src = url;
-      // channel info
-      const img = document.getElementById('profileImg');
-      img.src = url; img.style.display = 'block';
-      document.getElementById('ppPlaceholder').style.display = 'none';
-      // thumbnail cards avatars
+      const dZ = document.getElementById('profileZone'); if (dZ) dZ.classList.add('has-image');
+      const dT = document.getElementById('profileThumb'); if (dT) dT.src = url;
+      const dI = document.getElementById('profileImg'); if (dI) { dI.src = url; dI.style.display = 'block'; }
+      const dP = document.getElementById('ppPlaceholder'); if (dP) dP.style.display = 'none';
+      
+      const mZ = document.getElementById('mProfileZone'); if (mZ) mZ.classList.add('has-image');
+      const mT = document.getElementById('mProfileThumb'); if (mT) mT.src = url;
+      const mI = document.getElementById('mPpImg'); if (mI) { mI.src = url; mI.style.display = 'block'; }
+      const mP = document.getElementById('mPpPh'); if (mP) mP.style.display = 'none';
+      
       document.querySelectorAll('.user-avatar').forEach(a => {
         a.src = url; a.style.display = 'block';
         a.previousElementSibling && a.previousElementSibling.remove();
       });
+      
+      if (typeof buildThumbGrid === 'function') {
+        buildThumbGrid();
+        mBuildGrid();
+        mRenderCompare();
+      }
     }
 
     function updateThumbVariantProfileInfo() {
@@ -4676,17 +4952,11 @@
     // ── Banner load (mobile) ──
     function mLoadBanner(e) {
       const f = e.target.files[0]; if (!f) return;
+      currentUploadEvent = e;
       const url = URL.createObjectURL(f);
-      state.bannerSrc = url;
-      // desktop sidebar
-      const dZ = document.getElementById('bannerZone'); if (dZ) dZ.classList.add('has-image');
-      const dT = document.getElementById('bannerThumb'); if (dT) { dT.src = url; dT.style.display = 'block'; }
-      const dW2 = document.getElementById('bannerWrap'); if (dW2) dW2.classList.add('has-banner');
-      // mobile zones
-      const mZ = document.getElementById('mBannerZone'); if (mZ) mZ.classList.add('has-image');
-      const mT = document.getElementById('mBannerThumb'); if (mT) mT.src = url;
-      drawBannerCanvas(); mDrawBanner();
+      initCropper(url, 'banner');
     }
+
     function mRmBanner(e) {
       e.stopPropagation(); state.bannerSrc = null;
       ['bannerZone', 'mBannerZone'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('has-image'); });
@@ -4699,21 +4969,11 @@
     // ── Profile load (mobile) ──
     function mLoadProfile(e) {
       const f = e.target.files[0]; if (!f) return;
+      currentUploadEvent = e;
       const url = URL.createObjectURL(f);
-      state.profileSrc = url;
-      // desktop
-      const dZ = document.getElementById('profileZone'); if (dZ) dZ.classList.add('has-image');
-      const dT = document.getElementById('profileThumb'); if (dT) dT.src = url;
-      const dI = document.getElementById('profileImg'); if (dI) { dI.src = url; dI.style.display = 'block'; }
-      const dP = document.getElementById('ppPlaceholder'); if (dP) dP.style.display = 'none';
-      // mobile
-      const mZ = document.getElementById('mProfileZone'); if (mZ) mZ.classList.add('has-image');
-      const mT = document.getElementById('mProfileThumb'); if (mT) mT.src = url;
-      const mI = document.getElementById('mPpImg'); if (mI) { mI.src = url; mI.style.display = 'block'; }
-      const mP = document.getElementById('mPpPh'); if (mP) mP.style.display = 'none';
-      document.querySelectorAll('.user-avatar').forEach(a => { a.src = url; a.style.display = 'block'; if (a.previousElementSibling) a.previousElementSibling.remove(); });
-      buildThumbGrid(); mBuildGrid(); mRenderCompare();
+      initCropper(url, 'profile');
     }
+
     function mRmProfile(e) {
       e.stopPropagation(); state.profileSrc = null;
       ['profileZone', 'mProfileZone'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('has-image'); });
@@ -5130,6 +5390,35 @@
     mInit();
 
   </script>
+
+  <!-- ═══════════════════ CROP MODAL ═══════════════════ -->
+  <div id="cropModal" class="crop-modal">
+    <div class="crop-panel">
+      <div class="crop-header" id="cropModalTitle">Customise picture</div>
+      <div class="crop-body">
+        <div class="crop-container-wrap" id="cropContainerBox">
+          <img id="cropImage" src="">
+          
+          <!-- Guides, only shown when banner -->
+          <div id="cropGuideTv" class="crop-guide" style="display:none; inset: 0;">
+            <div class="crop-guide-label">Viewable on TV</div>
+          </div>
+          <div id="cropGuideDesktop" class="crop-guide" style="display:none;">
+            <div class="crop-guide-label">Viewable on desktop</div>
+          </div>
+          <div id="cropGuideSafe" class="crop-guide" style="display:none;">
+            <div class="crop-guide-label">Viewable on all devices</div>
+          </div>
+        </div>
+      </div>
+      <div class="crop-footer">
+        <button class="crop-btn cancel" onclick="closeCropModal()">Cancel</button>
+        <button class="crop-btn done" onclick="applyCrop()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
 </body>
 
 </html>

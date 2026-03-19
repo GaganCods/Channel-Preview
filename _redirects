@@ -4,8 +4,3 @@
 # 301 redirects: old .html URLs → clean URLs
 /editor.html    /editor    301
 /index.html     /          301
-
-# Rewrites: serve tool pages directly (no URL change)
-/tools/banner-preview     /tools/banner-preview/index.html     200
-/tools/thumbnail-preview  /tools/thumbnail-preview/index.html  200
-/tools/title-preview      /tools/title-preview/index.html      200
