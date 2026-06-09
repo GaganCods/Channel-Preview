@@ -14,6 +14,8 @@ const ROOT = __dirname;
 // ── 301 Redirect: .html URLs → clean URLs ──────────────────────────
 app.get('/editor.html', (req, res) => res.redirect(301, '/editor'));
 app.get('/index.html', (req, res) => res.redirect(301, '/'));
+app.get('/youtube-banner-preview.html', (req, res) => res.redirect(301, '/youtube-banner-preview'));
+app.get('/youtube-thumbnail-preview.html', (req, res) => res.redirect(301, '/youtube-thumbnail-preview'));
 
 // ── Static assets (CSS, JS, images) ───────────────────────────────
 app.use(express.static(ROOT));
@@ -21,6 +23,44 @@ app.use(express.static(ROOT));
 // ── Clean URL: /editor → serve editor/index.html ──────────────────
 app.get('/editor', (req, res) => {
     res.sendFile(path.join(ROOT, 'editor', 'index.html'));
+});
+
+// ── Clean URLs: Blog & Resource Center ─────────────────────────────
+app.get('/blog', (req, res) => {
+    res.sendFile(path.join(ROOT, 'blog', 'index.html'));
+});
+
+app.get('/blog/:slug', (req, res) => {
+    res.sendFile(path.join(ROOT, 'blog', req.params.slug, 'index.html'));
+});
+
+app.get('/category/:slug', (req, res) => {
+    res.sendFile(path.join(ROOT, 'category', req.params.slug, 'index.html'));
+});
+
+app.get('/author/:slug', (req, res) => {
+    res.sendFile(path.join(ROOT, 'author', req.params.slug, 'index.html'));
+});
+
+// ── Clean URLs: SEO Pages ─────────────────────────────────────────
+app.get('/youtube-banner-preview', (req, res) => {
+    res.sendFile(path.join(ROOT, 'youtube-banner-preview', 'index.html'));
+});
+
+app.get('/youtube-thumbnail-preview', (req, res) => {
+    res.sendFile(path.join(ROOT, 'youtube-thumbnail-preview', 'index.html'));
+});
+
+app.get('/youtube-profile-picture-preview', (req, res) => {
+    res.sendFile(path.join(ROOT, 'youtube-profile-picture-preview', 'index.html'));
+});
+
+app.get('/youtube-banner-safe-area', (req, res) => {
+    res.sendFile(path.join(ROOT, 'youtube-banner-safe-area', 'index.html'));
+});
+
+app.get('/youtube-title-preview', (req, res) => {
+    res.sendFile(path.join(ROOT, 'youtube-title-preview', 'index.html'));
 });
 
 // ── Root: / → serve index.html ────────────────────────────────────

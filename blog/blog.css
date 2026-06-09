@@ -1,0 +1,905 @@
+/* ============================================================
+   CREATOR RESOURCE CENTER — Blog & Article Styles
+   ============================================================ */
+
+/* ── Page Hero (shared across blog / category pages) ── */
+.page-hero {
+    min-height: 48vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* top padding must clear the floating pill nav (top:16px + ~64px height + 50px breathing room) */
+    padding: 130px 32px 60px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.page-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 70% 55% at 50% 0%,
+        rgba(255, 77, 0, 0.18), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Ensure all direct children of .page-hero sit above the bg */
+.page-hero > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* ── Page H1 & Subtitle ── */
+.page-h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+}
+
+.page-subtitle {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 580px;
+    line-height: 1.6;
+    margin: 0 auto 24px;
+}
+
+/* ── Breadcrumb ── */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.breadcrumb a {
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent);
+}
+
+.breadcrumb span {
+    color: rgba(255, 255, 255, 0.35);
+}
+
+/* ── Blog Articles Area ── */
+.blog-articles-area {
+    min-width: 0; /* prevent grid blowout */
+}
+
+/* ── Article page main wrapper
+   The article <main class="container"> uses inline padding-top:140px.
+   We override it on smaller screens so the fixed nav never overlaps content. ── */
+.container.article-page {
+    padding-top: 140px;
+    padding-bottom: 120px;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    /* Inline style takes precedence, so we target the element more specifically.
+       The nav collapses to ~68px tall on mobile (top:12px + height). We give 90px buffer. */
+    .container.article-page {
+        padding-top: 108px !important;
+        padding-bottom: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container.article-page {
+        padding-top: 96px !important;
+        padding-bottom: 64px;
+    }
+}
+
+/* ── Responsive page hero ── */
+@media (max-width: 768px) {
+    .page-hero {
+        padding: 110px 20px 48px;
+        min-height: 40vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-hero {
+        padding: 100px 16px 40px;
+        min-height: 35vh;
+    }
+}
+
+/* ── Blog Grid Layouts ── */
+.blog-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    margin-top: 48px;
+}
+
+@media (max-width: 1024px) {
+    .blog-layout-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+}
+
+/* ── Blog Cards (Glassmorphism) ── */
+.blog-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: all var(--transition);
+}
+
+.blog-card:hover {
+    border-color: rgba(255, 77, 0, 0.25);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+    background: var(--bg-hover);
+}
+
+.blog-card-visual {
+    width: 100%;
+    aspect-ratio: 16/9;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #121212 0%, #1c1c1c 100%);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Accent visual gradients based on categories */
+.blog-card-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.15;
+    background: radial-gradient(circle at center, var(--accent) 0%, transparent 70%);
+    transition: opacity 0.3s ease;
+}
+
+.blog-card:hover .blog-card-visual::before {
+    opacity: 0.3;
+}
+
+.blog-card-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 2;
+}
+
+.blog-card-icon-preview {
+    font-size: 3rem;
+    position: relative;
+    z-index: 1;
+    opacity: 0.8;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.blog-card:hover .blog-card-icon-preview {
+    transform: scale(1.1) rotate(2deg);
+}
+
+.blog-card-content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.blog-card-meta {
+    display: flex;
+    gap: 12px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+.blog-card-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.blog-card-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.blog-card-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+}
+
+.blog-card-footer span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.blog-card-footer span::after {
+    content: '→';
+    transition: transform 0.2s ease;
+}
+
+.blog-card:hover .blog-card-footer span::after {
+    transform: translateX(4px);
+}
+
+/* ── Featured Article Layout ── */
+.blog-featured {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 77, 0, 0.02) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    margin-bottom: 40px;
+    transition: all var(--transition);
+}
+
+.blog-featured:hover {
+    border-color: rgba(255, 77, 0, 0.35);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 77, 0, 0.05) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.blog-featured-visual {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0d0d0d 0%, #151515 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+}
+
+.blog-featured-visual::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 70% 50%, rgba(255, 77, 0, 0.2) 0%, transparent 65%);
+}
+
+.blog-featured-content {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.blog-featured-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.3;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.blog-featured-desc {
+    color: var(--text-secondary);
+    font-size: 0.98rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+@media (max-width: 768px) {
+    .blog-featured {
+        grid-column: span 1;
+        grid-template-columns: 1fr;
+    }
+    .blog-featured-content {
+        padding: 24px;
+    }
+}
+
+/* ── Interactive Filters & Search ── */
+.blog-controls-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+}
+
+.blog-search-wrap {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+}
+
+.blog-search-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 14px 24px 14px 52px;
+    color: #fff;
+    font-size: 0.95rem;
+    font-family: inherit;
+    transition: all 0.3s;
+}
+
+.blog-search-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 20px rgba(255, 77, 0, 0.15);
+}
+
+.blog-search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+    transition: color 0.3s;
+}
+
+.blog-search-input:focus + .blog-search-icon {
+    color: var(--accent);
+}
+
+.blog-filters-scroll {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    padding-bottom: 4px;
+}
+
+.blog-filters-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.blog-filter-chip {
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.25s;
+}
+
+.blog-filter-chip:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--border-hover);
+    color: #fff;
+}
+
+.blog-filter-chip.active {
+    background: rgba(255, 77, 0, 0.15);
+    border-color: var(--accent);
+    color: var(--accent);
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(255, 77, 0, 0.1);
+}
+
+/* ── Sidebar Widgets ── */
+.blog-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.sidebar-widget {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+}
+
+.sidebar-widget-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Related Tools Widget */
+.sidebar-tool-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid transparent;
+    margin-bottom: 12px;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.sidebar-tool-link:last-child {
+    margin-bottom: 0;
+}
+
+.sidebar-tool-link:hover {
+    background: rgba(255, 77, 0, 0.05);
+    border-color: rgba(255, 77, 0, 0.2);
+    transform: translateX(4px);
+}
+
+.sidebar-tool-icon {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 77, 0, 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: var(--accent);
+}
+
+.sidebar-tool-link:hover .sidebar-tool-icon {
+    background: var(--accent);
+    color: #fff;
+}
+
+.sidebar-tool-name {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+.sidebar-tool-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* Popular Articles Widget */
+.sidebar-popular-item {
+    display: block;
+    margin-bottom: 16px;
+    text-decoration: none;
+    transition: transform 0.2s;
+}
+
+.sidebar-popular-item:last-child {
+    margin-bottom: 0;
+}
+
+.sidebar-popular-item:hover {
+    transform: translateX(4px);
+}
+
+.sidebar-popular-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1.45;
+    margin-bottom: 4px;
+    transition: color 0.2s;
+}
+
+.sidebar-popular-item:hover .sidebar-popular-title {
+    color: var(--accent);
+}
+
+.sidebar-popular-meta {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+/* Monetization: Newsletter Widget */
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.newsletter-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #fff;
+    font-size: 0.88rem;
+    font-family: inherit;
+    transition: all 0.3s;
+}
+
+.newsletter-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(255, 77, 0, 0.1);
+}
+
+.newsletter-btn {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.newsletter-btn:hover {
+    background: #ff6520;
+}
+
+/* Monetization: Sponsored/Ad Banner Slot */
+.ad-slot-sidebar {
+    background: linear-gradient(135deg, rgba(255, 77, 0, 0.08) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px dashed rgba(255, 77, 0, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.ad-label {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+}
+
+.ad-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.ad-text {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.ad-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-hover);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.ad-btn:hover {
+    border-color: var(--accent);
+    background: rgba(255, 77, 0, 0.1);
+}
+
+
+/* ── Article Template Specifics ── */
+.article-header {
+    margin-bottom: 40px;
+}
+
+.article-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+}
+
+.article-author-link {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.article-author-link:hover {
+    color: var(--accent);
+}
+
+.article-featured-visual {
+    width: 100%;
+    aspect-ratio: 21/9;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(255, 77, 0, 0.2) 0%, rgba(10, 10, 10, 0.8) 100%);
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.article-featured-visual-icon {
+    font-size: 5rem;
+    z-index: 1;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+}
+
+@media (max-width: 768px) {
+    .article-featured-visual {
+        aspect-ratio: 16/9;
+    }
+    .article-featured-visual-icon {
+        font-size: 3.5rem;
+    }
+}
+
+/* Table of Contents */
+.toc-widget {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    position: sticky;
+    top: 100px;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.toc-item a {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    line-height: 1.4;
+    transition: color 0.2s;
+}
+
+.toc-item a:hover {
+    color: var(--accent);
+}
+
+/* Related Tool Promotion Card */
+.tool-promo-card {
+    background: linear-gradient(135deg, rgba(255, 77, 0, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 77, 0, 0.3);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    margin: 48px 0;
+}
+
+.tool-promo-title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.tool-promo-desc {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Author Profile Summary at Bottom */
+.author-profile-card {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin-top: 60px;
+    align-items: center;
+}
+
+.author-card-avatar {
+    width: 100px;
+    height: 110px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #111;
+}
+
+.author-card-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.author-card-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.author-card-role {
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+}
+
+.author-card-bio {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+    .author-profile-card {
+        grid-template-columns: 1fr;
+        text-align: center;
+        justify-items: center;
+        padding: 24px;
+    }
+}
+
+/* Recommendation footer */
+.related-articles-section {
+    border-top: 1px solid var(--border);
+    padding-top: 60px;
+    margin-top: 80px;
+}
+
+/* ============================================================
+   CLICKABLE CARDS & TOOL PROMOTION BUTTON REDESIGN
+   ============================================================ */
+
+/* Make the entire blog cards and featured articles clickable */
+.blog-card,
+.blog-featured {
+    position: relative;
+    cursor: pointer;
+}
+
+.blog-card-title a::after,
+.blog-featured-title a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+}
+
+/* Smooth color transition for titles when cards are hovered */
+.blog-card-title a,
+.blog-featured-title a {
+    transition: color 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.blog-card:hover .blog-card-title a,
+.blog-featured:hover .blog-featured-title a {
+    color: var(--accent);
+}
+
+/* Style the button inside blogs pages tool promotion card section */
+.tool-promo-card .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 32px !important;
+    border-radius: 100px !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem;
+    color: #fff !important;
+    background-image: linear-gradient(135deg, #ff4d00 0%, #ff7300 50%, #ff4d00 100%);
+    background-size: 200% auto;
+    background-position: left center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(255, 77, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                background-position 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: pointer;
+    text-decoration: none !important;
+    position: relative;
+    z-index: 12;
+}
+
+.tool-promo-card .btn-primary::after {
+    content: '→';
+    font-weight: 800;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.tool-promo-card .btn-primary:hover {
+    transform: translateY(-3px);
+    background-position: right center;
+    box-shadow: 0 8px 25px rgba(255, 77, 0, 0.45), 0 0 0 4px rgba(255, 77, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.tool-promo-card .btn-primary:hover::after {
+    transform: translateX(4px);
+}
+
+.tool-promo-card .btn-primary:active {
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: 0 4px 12px rgba(255, 77, 0, 0.35);
+}
+
+/* Card Hover Triggers for Featured Card's Button */
+.blog-featured:hover .btn-creative {
+  background-color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), inset 0 -18px 25px -10px crimson;
+}
+
+.blog-featured:hover .btn-creative .btn-creative__icon-wrapper {
+  color: #000;
+}
+
+.blog-featured:hover .btn-creative .btn-creative__icon-svg:first-child {
+  transition: transform 0.3s ease-in-out;
+  transform: translate(150%, -150%);
+}
+
+.blog-featured:hover .btn-creative .btn-creative__icon-svg--copy {
+  transition: transform 0.3s ease-in-out 0.1s;
+  transform: translate(0);
+}

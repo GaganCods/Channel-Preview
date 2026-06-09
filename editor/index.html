@@ -2,42 +2,23 @@
 <html lang="en" data-theme="dark">
 
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-5L25CH4L');</script>
-<!-- End Google Tag Manager -->
-  
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GNBHX95JLB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-GNBHX95JLB');
-</script>
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Channel Preview — YouTube Asset Preview Tool</title>
+  <link rel="canonical" href="https://channelpreview.vercel.app/editor" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Channel Preview — YouTube Asset Preview Tool" />
+  <meta property="og:description" content="Free YouTube asset preview tool. Test banner safe areas, thumbnail CTR, profile pictures, and title truncations." />
+  <meta property="og:url" content="https://channelpreview.vercel.app/editor" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://channelpreview.vercel.app/assets/og-image.png" />
   <link rel="icon" type="image/png" href="../assets/logo-icon.png">
   <link rel="shortcut icon" href="../assets/logo-icon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
-
-
-  
   <style>
-
-
-
-    
     :root {
       --bg: #0a0a0f;
       --surface: #111118;
@@ -80,15 +61,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       --tv-color: rgba(168, 85, 247, 0.15);
     }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: transparent;
-}
-
-
-    
     *,
     *::before,
     *::after {
@@ -2399,151 +2371,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       margin-bottom: 8px;
       padding-top: 4px
     }
-
-    /* ── CROP MODAL ── */
-    .crop-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 9999;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .crop-modal.show {
-      display: flex;
-    }
-
-    .crop-panel {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      width: 90%;
-      max-width: 800px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .crop-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border);
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--text);
-    }
-
-    .crop-body {
-      padding: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: var(--surface);
-      position: relative;
-    }
-
-    .crop-container-wrap {
-      width: 100%;
-      max-height: 60vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-
-    .crop-container-wrap img {
-      max-width: 100%;
-      max-height: 60vh;
-      display: block;
-    }
-
-    .crop-footer {
-      padding: 16px 20px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      justify-content: flex-end;
-      gap: 12px;
-      background: var(--surface2);
-    }
-
-    .crop-btn {
-      padding: 8px 20px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      border: none;
-    }
-
-    .crop-btn.cancel {
-      background: var(--surface3);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .crop-btn.cancel:hover {
-      background: var(--border);
-    }
-
-    .crop-btn.done {
-      background: var(--text);
-      color: var(--bg);
-    }
-
-    .crop-btn.done:hover {
-      opacity: 0.9;
-    }
-
-    /* Circular crop override */
-    .cropper-view-box,
-    .cropper-face {
-      border-radius: 0;
-      transition: border-radius 0.2s;
-    }
-
-    .is-profile .cropper-view-box,
-    .is-profile .cropper-face {
-      border-radius: 50%;
-    }
-
-    /* Banner guides inside cropper */
-    .crop-guide {
-      position: absolute;
-      border: 1.5px solid rgba(255, 255, 255, 0.4);
-      pointer-events: none;
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-      padding: 4px;
-      box-sizing: border-box;
-      z-index: 10;
-    }
-
-    .crop-guide-label {
-      background: rgba(255, 255, 255, 0.8);
-      color: #000;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 10px;
-      white-space: nowrap;
-    }
   </style>
 </head>
 
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5L25CH4L"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
+  <!-- ═══════════════════ TOP NAV ═══════════════════ -->
   <nav class="topnav">
     <a href="/" class="logo">
-      <img id="desktopLogo" src="../assets/logo-full.png" alt="Channel Preview" style="height: 24px; width: auto;">
+      <img src="../assets/logo-full.png" alt="Channel Preview" style="height: 24px; width: auto;">
     </a>
     <div class="nav-sep"></div>
 
@@ -3346,7 +3182,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- Top bar -->
     <header class="m-topbar">
       <a href="/" class="m-logo">
-        <img id="mobileLogo" src="../assets/logo-full.png" alt="Channel Preview" style="height: 18px; width: auto;">
+        <img src="../assets/logo-full.png" alt="Channel Preview" style="height: 18px; width: auto;">
       </a>
       <div class="m-topbar-r">
         <button class="m-ico" onclick="mToggleTheme()" title="Toggle theme">
@@ -4084,7 +3920,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             if (el) el.value = state.thumbVariants[id].title;
           });
           document.documentElement.setAttribute('data-theme', state.theme);
-          updateLogos();
           // Refresh UI
           updateProfile();
           updateTitle();
@@ -4111,25 +3946,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       drawBannerCanvas();
       positionOverlays();
       window.addEventListener('resize', positionOverlays);
-      updateLogos();
     });
 
     // ══════════════════════════════════════════════
     // THEME
     // ══════════════════════════════════════════════
-    function updateLogos() {
-      const dtLogo = document.getElementById('desktopLogo');
-      const mLogo = document.getElementById('mobileLogo');
-      const src = state.theme === 'light' ? '../assets/black-logo.png' : '../assets/logo-full.png';
-      if (dtLogo) dtLogo.src = src;
-      if (mLogo) mLogo.src = src;
-    }
-
     function toggleTheme() {
       state.theme = state.theme === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', state.theme);
       saveState();
-      updateLogos();
       const icon = document.getElementById('themeIcon');
       if (state.theme === 'light') {
         icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
@@ -4190,52 +4015,42 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     function drawBannerCanvas() {
       const canvas = document.getElementById('bannerCanvas');
       const ctx = canvas.getContext('2d');
-      const mode = state.device;
-      
-      if (mode === 'tv') { canvas.width = 2560; canvas.height = 1440; }
-      else if (mode === 'mobile') { canvas.width = 1546; canvas.height = 423; }
-      else { canvas.width = 2560; canvas.height = 423; }
+      canvas.width = 2560;
+      canvas.height = state.device === 'tv' ? 1440 : 423;
 
       // Background
       if (state.bannerSrc) {
         const img = new Image();
         img.onload = () => {
-          const iw = img.naturalWidth;
-          const ih = img.naturalHeight;
-          if (mode === 'tv') {
+          if (state.device === 'tv') {
             ctx.drawImage(img, 0, 0, 2560, 1440);
-          } else if (mode === 'mobile') {
-            // For mobile: show the 1546x423 safe area
-            const ratio = iw / 2560;
-            const srcStripH = 423 * ratio;
-            const srcStripW = 1546 * ratio;
-            const sy = (ih - srcStripH) / 2;
-            const sx = (iw - srcStripW) / 2;
-            ctx.drawImage(img, sx, sy, srcStripW, srcStripH, 0, 0, 1546, 423);
           } else {
-            // For desktop: show the horizontal strip
-            const ratio = iw / 2560;
+            // For desktop/mobile: show the horizontal strip
+            // Calculate visible crop from center
+            const srcH = img.naturalHeight;
+            const srcW = img.naturalWidth;
+            const ratio = srcW / 2560;
             const srcStripH = 423 * ratio;
-            const sy = (ih - srcStripH) / 2;
-            ctx.drawImage(img, 0, sy, iw, srcStripH, 0, 0, 2560, 423);
+            const sy = (srcH - srcStripH) / 2;
+            ctx.drawImage(img, 0, sy, srcW, srcStripH, 0, 0, 2560, 423);
           }
           positionOverlays();
         };
         img.src = state.bannerSrc;
       } else {
         // Gradient placeholder
-        const grad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        const grad = ctx.createLinearGradient(0, 0, 2560, canvas.height);
         grad.addColorStop(0, '#1a1a2e');
         grad.addColorStop(0.5, '#16213e');
         grad.addColorStop(1, '#0f3460');
         ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillRect(0, 0, 2560, canvas.height);
         // Placeholder text
         ctx.fillStyle = 'rgba(255,255,255,0.15)';
-        ctx.font = `bold ${mode === 'tv' ? 80 : 50}px sans-serif`;
+        ctx.font = 'bold 80px sans-serif';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText('Click banner to upload', canvas.width / 2, canvas.height / 2);
+        ctx.fillText('Click banner to upload', 1280, canvas.height / 2);
         positionOverlays();
       }
     }
@@ -4246,28 +4061,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     function positionOverlays() {
       const wrap = document.getElementById('bannerCanvasWrap');
       const w = wrap.offsetWidth;
+      const canvas = document.getElementById('bannerCanvas');
+      const naturalH = canvas.height; // 423 or 1440
+      const naturalW = 2560;
+      const scale = w / naturalW;
+      const dispH = naturalH * scale;
 
-      if (state.device === 'mobile') {
-        const scale = w / 1546;
-        const dispH = 423 * scale;
-        posGuide('safeOverlay', 0, 0, w, dispH);
-        posGuide('desktopOverlay', 0, 0, w, dispH);
-        posGuide('tvOverlay', 0, 0, w, dispH);
-      } else if (state.device === 'tv') {
-        const scale = w / 2560;
-        const dispH = 1440 * scale;
-        const safeW = 1546 * scale;
-        const safeH = 423 * scale;
-        const safeX = (w - safeW) / 2;
+      // Safe area: 1546×423 centred horizontally
+      // In display coords:
+      const safeW = 1546 * scale;
+      const safeH = 423 * scale;
+      const safeX = (w - safeW) / 2;
+
+      if (state.device === 'tv') {
+        // TV: safe area is 1546×423 centred within 2560×1440
         const tvSafeY = (dispH - safeH) / 2;
         posGuide('safeOverlay', safeX, tvSafeY, safeW, safeH);
         posGuide('desktopOverlay', 0, tvSafeY, w, safeH);
         posGuide('tvOverlay', 0, 0, w, dispH);
       } else {
-        const scale = w / 2560;
-        const dispH = 423 * scale;
-        const safeW = 1546 * scale;
-        const safeX = (w - safeW) / 2;
+        // Desktop/Mobile: banner strip is 2560×423 displayed
         posGuide('safeOverlay', safeX, 0, safeW, dispH);
         posGuide('desktopOverlay', 0, 0, w, dispH);
         posGuide('tvOverlay', 0, 0, w, dispH);
@@ -4303,175 +4116,41 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     }
 
     // ══════════════════════════════════════════════
-    // MODAL & CROPPER LOGIC
-    // ══════════════════════════════════════════════
-    let cropper = null;
-    let currentCropType = null; // 'banner' or 'profile'
-    let currentUploadEvent = null;
-
-    function initCropper(url, type) {
-      const img = document.getElementById('cropImage');
-      img.src = url;
-      currentCropType = type;
-      document.getElementById('cropModalTitle').textContent = type === 'banner' ? 'Customise banner art' : 'Customise picture';
-      document.getElementById('cropModal').classList.add('show');
-
-      const wrap = document.getElementById('cropContainerBox');
-      if (type === 'profile') {
-        wrap.classList.add('is-profile');
-        document.getElementById('cropGuideTv').style.display = 'none';
-        document.getElementById('cropGuideDesktop').style.display = 'none';
-        document.getElementById('cropGuideSafe').style.display = 'none';
-      } else {
-        wrap.classList.remove('is-profile');
-      }
-
-      if (cropper) cropper.destroy();
-      img.onload = () => {
-        cropper = new Cropper(img, {
-          aspectRatio: type === 'banner' ? 16 / 9 : 1,
-          viewMode: 1,
-          dragMode: 'move',
-          autoCropArea: 1,
-          restore: false,
-          guides: true,
-          center: true,
-          highlight: false,
-          cropBoxMovable: true,
-          cropBoxResizable: true,
-          toggleDragModeOnDblclick: false,
-          ready: function () {
-            if (type === 'banner') {
-              updateBannerGuides();
-            }
-          },
-          crop: function () {
-            if (type === 'banner') {
-              updateBannerGuides();
-            }
-          }
-        });
-      };
-    }
-
-    function updateBannerGuides() {
-      if (!cropper) return;
-      const cropBoxData = cropper.getCropBoxData();
-
-      const tvGuide = document.getElementById('cropGuideTv');
-      const desktopGuide = document.getElementById('cropGuideDesktop');
-      const safeGuide = document.getElementById('cropGuideSafe');
-
-      tvGuide.style.display = 'flex';
-      desktopGuide.style.display = 'flex';
-      safeGuide.style.display = 'flex';
-
-      const cropW = cropBoxData.width;
-      const cropH = cropBoxData.height;
-      const cropLeft = cropBoxData.left;
-      const cropTop = cropBoxData.top;
-
-      tvGuide.style.left = cropLeft + 'px';
-      tvGuide.style.top = cropTop + 'px';
-      tvGuide.style.width = cropW + 'px';
-      tvGuide.style.height = cropH + 'px';
-
-      const deskH = cropH * (423 / 1440);
-      const deskTop = cropTop + (cropH - deskH) / 2;
-      desktopGuide.style.left = cropLeft + 'px';
-      desktopGuide.style.top = deskTop + 'px';
-      desktopGuide.style.width = cropW + 'px';
-      desktopGuide.style.height = deskH + 'px';
-
-      const safeW = cropW * (1546 / 2560);
-      const safeLeft = cropLeft + (cropW - safeW) / 2;
-      safeGuide.style.left = safeLeft + 'px';
-      safeGuide.style.top = deskTop + 'px';
-      safeGuide.style.width = safeW + 'px';
-      safeGuide.style.height = deskH + 'px';
-    }
-
-    function closeCropModal() {
-      document.getElementById('cropModal').classList.remove('show');
-      if (cropper) {
-        cropper.destroy();
-        cropper = null;
-      }
-      if (currentUploadEvent && currentUploadEvent.target) {
-        currentUploadEvent.target.value = '';
-      }
-      document.getElementById('cropGuideTv').style.display = 'none';
-      document.getElementById('cropGuideDesktop').style.display = 'none';
-      document.getElementById('cropGuideSafe').style.display = 'none';
-    }
-
-    function applyCrop() {
-      if (!cropper) return;
-      cropper.getCroppedCanvas().toBlob((blob) => {
-        const url = URL.createObjectURL(blob);
-        if (currentCropType === 'banner') {
-          finalizeBannerLoad(url);
-        } else if (currentCropType === 'profile') {
-          finalizeProfileLoad(url);
-        }
-        closeCropModal();
-      });
-    }
-
-    // ══════════════════════════════════════════════
     // IMAGE LOADING
     // ══════════════════════════════════════════════
     function loadBanner(event) {
       const file = event.target.files[0];
       if (!file) return;
-      currentUploadEvent = event;
       const url = URL.createObjectURL(file);
-      initCropper(url, 'banner');
-    }
-
-    function finalizeBannerLoad(url) {
       state.bannerSrc = url;
-      const dZ = document.getElementById('bannerZone'); if (dZ) dZ.classList.add('has-image');
-      const dT = document.getElementById('bannerThumb'); if (dT) { dT.src = url; dT.style.display = 'block'; }
-      const dW2 = document.getElementById('bannerWrap'); if (dW2) dW2.classList.add('has-banner');
-      
-      const mZ = document.getElementById('mBannerZone'); if (mZ) mZ.classList.add('has-image');
-      const mT = document.getElementById('mBannerThumb'); if (mT) mT.src = url;
-      
+      // sidebar thumb
+      const zone = document.getElementById('bannerZone');
+      zone.classList.add('has-image');
+      const thumb = document.getElementById('bannerThumb');
+      thumb.src = url; thumb.style.display = 'block';
+      // banner wrap
+      document.getElementById('bannerWrap').classList.add('has-banner');
       drawBannerCanvas();
-      if (typeof mDrawBanner === 'function') mDrawBanner();
     }
 
     function loadProfile(event) {
       const file = event.target.files[0];
       if (!file) return;
-      currentUploadEvent = event;
       const url = URL.createObjectURL(file);
-      initCropper(url, 'profile');
-    }
-
-    function finalizeProfileLoad(url) {
       state.profileSrc = url;
-      const dZ = document.getElementById('profileZone'); if (dZ) dZ.classList.add('has-image');
-      const dT = document.getElementById('profileThumb'); if (dT) dT.src = url;
-      const dI = document.getElementById('profileImg'); if (dI) { dI.src = url; dI.style.display = 'block'; }
-      const dP = document.getElementById('ppPlaceholder'); if (dP) dP.style.display = 'none';
-      
-      const mZ = document.getElementById('mProfileZone'); if (mZ) mZ.classList.add('has-image');
-      const mT = document.getElementById('mProfileThumb'); if (mT) mT.src = url;
-      const mI = document.getElementById('mPpImg'); if (mI) { mI.src = url; mI.style.display = 'block'; }
-      const mP = document.getElementById('mPpPh'); if (mP) mP.style.display = 'none';
-      
+      // sidebar
+      const zone = document.getElementById('profileZone');
+      zone.classList.add('has-image');
+      document.getElementById('profileThumb').src = url;
+      // channel info
+      const img = document.getElementById('profileImg');
+      img.src = url; img.style.display = 'block';
+      document.getElementById('ppPlaceholder').style.display = 'none';
+      // thumbnail cards avatars
       document.querySelectorAll('.user-avatar').forEach(a => {
         a.src = url; a.style.display = 'block';
         a.previousElementSibling && a.previousElementSibling.remove();
       });
-      
-      if (typeof buildThumbGrid === 'function') {
-        buildThumbGrid();
-        mBuildGrid();
-        mRenderCompare();
-      }
     }
 
     function updateThumbVariantProfileInfo() {
@@ -5000,11 +4679,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // ── Banner load (mobile) ──
     function mLoadBanner(e) {
       const f = e.target.files[0]; if (!f) return;
-      currentUploadEvent = e;
       const url = URL.createObjectURL(f);
-      initCropper(url, 'banner');
+      state.bannerSrc = url;
+      // desktop sidebar
+      const dZ = document.getElementById('bannerZone'); if (dZ) dZ.classList.add('has-image');
+      const dT = document.getElementById('bannerThumb'); if (dT) { dT.src = url; dT.style.display = 'block'; }
+      const dW2 = document.getElementById('bannerWrap'); if (dW2) dW2.classList.add('has-banner');
+      // mobile zones
+      const mZ = document.getElementById('mBannerZone'); if (mZ) mZ.classList.add('has-image');
+      const mT = document.getElementById('mBannerThumb'); if (mT) mT.src = url;
+      drawBannerCanvas(); mDrawBanner();
     }
-
     function mRmBanner(e) {
       e.stopPropagation(); state.bannerSrc = null;
       ['bannerZone', 'mBannerZone'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('has-image'); });
@@ -5017,11 +4702,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     // ── Profile load (mobile) ──
     function mLoadProfile(e) {
       const f = e.target.files[0]; if (!f) return;
-      currentUploadEvent = e;
       const url = URL.createObjectURL(f);
-      initCropper(url, 'profile');
+      state.profileSrc = url;
+      // desktop
+      const dZ = document.getElementById('profileZone'); if (dZ) dZ.classList.add('has-image');
+      const dT = document.getElementById('profileThumb'); if (dT) dT.src = url;
+      const dI = document.getElementById('profileImg'); if (dI) { dI.src = url; dI.style.display = 'block'; }
+      const dP = document.getElementById('ppPlaceholder'); if (dP) dP.style.display = 'none';
+      // mobile
+      const mZ = document.getElementById('mProfileZone'); if (mZ) mZ.classList.add('has-image');
+      const mT = document.getElementById('mProfileThumb'); if (mT) mT.src = url;
+      const mI = document.getElementById('mPpImg'); if (mI) { mI.src = url; mI.style.display = 'block'; }
+      const mP = document.getElementById('mPpPh'); if (mP) mP.style.display = 'none';
+      document.querySelectorAll('.user-avatar').forEach(a => { a.src = url; a.style.display = 'block'; if (a.previousElementSibling) a.previousElementSibling.remove(); });
+      buildThumbGrid(); mBuildGrid(); mRenderCompare();
     }
-
     function mRmProfile(e) {
       e.stopPropagation(); state.profileSrc = null;
       ['profileZone', 'mProfileZone'].forEach(id => { const el = document.getElementById(id); if (el) el.classList.remove('has-image'); });
@@ -5438,35 +5133,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     mInit();
 
   </script>
-
-  <!-- ═══════════════════ CROP MODAL ═══════════════════ -->
-  <div id="cropModal" class="crop-modal">
-    <div class="crop-panel">
-      <div class="crop-header" id="cropModalTitle">Customise picture</div>
-      <div class="crop-body">
-        <div class="crop-container-wrap" id="cropContainerBox">
-          <img id="cropImage" src="">
-          
-          <!-- Guides, only shown when banner -->
-          <div id="cropGuideTv" class="crop-guide" style="display:none; inset: 0;">
-            <div class="crop-guide-label">Viewable on TV</div>
-          </div>
-          <div id="cropGuideDesktop" class="crop-guide" style="display:none;">
-            <div class="crop-guide-label">Viewable on desktop</div>
-          </div>
-          <div id="cropGuideSafe" class="crop-guide" style="display:none;">
-            <div class="crop-guide-label">Viewable on all devices</div>
-          </div>
-        </div>
-      </div>
-      <div class="crop-footer">
-        <button class="crop-btn cancel" onclick="closeCropModal()">Cancel</button>
-        <button class="crop-btn done" onclick="applyCrop()">Done</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
 </body>
 
 </html>

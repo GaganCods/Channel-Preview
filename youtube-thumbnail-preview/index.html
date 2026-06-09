@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube Thumbnail Preview Tool – Test CTR Across Devices | Channel Preview</title>
+    <meta name="description" content="Free YouTube thumbnail preview tool. Upload your thumbnail and instantly see how it looks in search results, sidebar, home feed, and mobile. Maximize CTR before uploading. No sign-up needed." />
+    <link rel="canonical" href="https://channelpreview.vercel.app/youtube-thumbnail-preview" />
+    <link rel="stylesheet" href="/index.css" />
+    <link rel="icon" type="image/png" href="/assets/logo-icon.png">
+
+    <meta property="og:title" content="YouTube Thumbnail Preview Tool – Test CTR Across Devices" />
+    <meta property="og:description" content="Preview your YouTube thumbnail in search, sidebar, home feed, and mobile. Free tool by Channel Preview." />
+    <meta property="og:url" content="https://channelpreview.vercel.app/youtube-thumbnail-preview" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://channelpreview.vercel.app/assets/og-image.png" />
+
+    <!-- FAQ Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is the recommended YouTube thumbnail size?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The recommended YouTube thumbnail size is 1280 × 720 pixels with a 16:9 aspect ratio. Maximum file size is 2MB. Accepted formats are JPG, PNG, GIF, or BMP."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I check if my thumbnail looks good on mobile?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Upload your thumbnail in this Channel Preview tool and switch to Mobile Feed view. You'll see your thumbnail at the actual size it appears on mobile — approximately 168×94 pixels. If text is unreadable at this size, redesign before publishing."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What makes a high CTR YouTube thumbnail?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "High-CTR thumbnails typically feature a clear focal point (usually a face with strong emotion), bold contrasting text (3–5 words), a bright or unexpected color palette, and a visual that creates curiosity. The thumbnail should be legible at approximately 200×113px."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What size does YouTube display thumbnails in search results?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "In YouTube desktop search results, thumbnails appear at approximately 360×202px. On mobile search, they appear at around 168×94px. In the sidebar (Up Next panel), they show at approximately 168×94px."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Should I add text to my YouTube thumbnail?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes — thumbnails with bold, short text (3–5 words) consistently outperform text-free thumbnails. Use high-contrast colors, thick fonts, and ensure readability at 200px wide."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://channelpreview.vercel.app" },
+            { "@type": "ListItem", "position": 2, "name": "YouTube Thumbnail Preview", "item": "https://channelpreview.vercel.app/youtube-thumbnail-preview" }
+        ]
+    }
+    </script>
+
+    <style>
+        /* ── NAV ── */
+        nav { position:fixed;top:16px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:1200px;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:transparent;backdrop-filter:none;border:1px solid transparent;border-radius:100px;box-shadow:none;transition:background 0.5s ease,border-color 0.5s ease,box-shadow 0.5s ease,top 0.5s ease; }
+        nav.scrolled { background:rgba(255,255,255,0.07);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-color:rgba(255,255,255,0.12);box-shadow:0 8px 32px rgba(0,0,0,0.3);top:12px; }
+        .nav-logo { display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0; }
+        .nav-cta a { display:inline-flex;align-items:center;gap:8px;padding:9px 20px;background:var(--accent);color:#fff;border-radius:100px;font-size:0.88rem;font-weight:600;text-decoration:none;transition:all 0.3s ease;box-shadow:0 4px 16px rgba(255,77,0,0.3); }
+        .nav-cta a:hover { background:#ff6520;box-shadow:0 6px 24px rgba(255,77,0,0.4);transform:translateY(-1px); }
+
+        /* ── HERO ── */
+        .page-hero { min-height:52vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 32px 60px;position:relative;overflow:hidden; }
+        .page-hero-bg { position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(249,115,22,0.18), transparent 70%);pointer-events:none; }
+        .breadcrumb { display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--text-muted);margin-bottom:24px; }
+        .breadcrumb a { color:var(--text-muted);transition:color 0.2s; }
+        .breadcrumb a:hover { color:var(--accent); }
+        .page-h1 { font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:#fff;letter-spacing:-0.04em;line-height:1.05;margin-bottom:20px;font-family:'Outfit',sans-serif; }
+        .page-subtitle { font-size:1.1rem;color:rgba(255,255,255,0.6);max-width:580px;margin:0 auto 40px;line-height:1.6; }
+
+        /* ── TOOL ── */
+        .tool-section { padding: 0 0 80px; }
+        .tool-wrap { background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:24px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.6); }
+
+        /* Two-column layout: left=controls, right=preview */
+        .tool-body {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 520px;
+        }
+
+        /* Controls sidebar */
+        .controls-sidebar {
+            padding: 28px 24px;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .ctrl-section-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .upload-btn {
+            display:inline-flex;align-items:center;gap:8px;padding:12px 18px;
+            background:var(--accent);color:#fff;border-radius:12px;font-size:0.88rem;
+            font-weight:600;cursor:pointer;border:none;transition:all 0.3s ease;
+            box-shadow:0 4px 16px rgba(255,77,0,0.3);width:100%;justify-content:center;
+        }
+        .upload-btn:hover { background:#ff6520;transform:translateY(-1px); }
+
+        .ctrl-input {
+            width: 100%;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+            margin-top: 8px;
+        }
+        .ctrl-input:focus { border-color: var(--accent); }
+        .ctrl-input::placeholder { color: var(--text-muted); }
+
+        .ctrl-label { font-size: 0.82rem; color: var(--text-secondary); font-weight: 500; }
+
+        .feed-tabs { display:flex;gap:4px;flex-wrap:wrap;margin-top:8px; }
+        .feed-tab {
+            padding: 6px 12px; border-radius: 8px; font-size:0.78rem;
+            font-weight:500; color:var(--text-muted); cursor:pointer; border:none;
+            background:rgba(255,255,255,0.04); border:1px solid var(--border);
+            transition:all 0.2s ease;
+        }
+        .feed-tab:hover { color:#fff;border-color:rgba(255,255,255,0.2); }
+        .feed-tab.active { background:rgba(255,77,0,0.15);border-color:rgba(255,77,0,0.4);color:var(--accent); }
+
+        .icon-btn {
+            display:inline-flex;align-items:center;gap:6px;padding:10px 16px;width:100%;
+            justify-content:center;background:rgba(255,255,255,0.06);border:1px solid var(--border);
+            border-radius:10px;font-size:0.82rem;color:var(--text-secondary);
+            cursor:pointer;transition:all 0.2s ease;font-weight:500;
+        }
+        .icon-btn:hover { background:rgba(255,255,255,0.1);color:#fff; }
+
+        /* Preview panel */
+        .preview-panel {
+            padding: 28px;
+            background: #080808;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Drop zone */
+        .drop-zone-thumb {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 16/9;
+            border: 2px dashed rgba(255,255,255,0.15);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .drop-zone-thumb.dragover { border-color:var(--accent);background:rgba(255,77,0,0.05); }
+        .drop-zone-thumb:hover { border-color:rgba(255,255,255,0.3); }
+
+        /* Feed previews */
+        .feed-preview-wrap { width:100%;display:none;flex-direction:column;gap:20px; }
+        .feed-preview-wrap.visible { display:flex; }
+
+        /* Desktop search feed */
+        .yt-feed-desktop {
+            background: #0f0f0f;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+        .yt-feed-header {
+            padding: 12px 16px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            font-weight: 500;
+        }
+
+        /* Search result card */
+        .search-result-card {
+            display: flex;
+            gap: 14px;
+            padding: 14px 16px;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.15s;
+        }
+        .search-result-card:last-child { border-bottom: none; }
+        .search-result-card:hover { background: rgba(255,255,255,0.02); }
+
+        .thumb-img-wrap {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #1a1a2e;
+        }
+        .thumb-img-wrap img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .thumb-duration {
+            position: absolute;
+            bottom: 4px; right: 4px;
+            background: rgba(0,0,0,0.85);
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 600;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .search-result-meta h4 { font-size:0.88rem;color:#fff;margin-bottom:5px;line-height:1.35;font-weight:500; }
+        .search-result-meta .meta-sub { font-size:0.72rem;color:var(--text-muted); }
+
+        /* Mobile feed */
+        .mobile-feed-wrap {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            padding-bottom: 4px;
+        }
+        .mobile-feed-wrap::-webkit-scrollbar { display: none; }
+
+        .mobile-video-card {
+            flex-shrink: 0;
+            width: 175px;
+        }
+        .mobile-video-card .thumb-img-wrap {
+            width: 175px;
+            height: 98px;
+            margin-bottom: 8px;
+        }
+        .mobile-video-card h5 { font-size:0.72rem;color:#fff;line-height:1.3;margin-bottom:3px; overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical; }
+        .mobile-video-card .meta-sub { font-size:0.62rem;color:var(--text-muted); }
+
+        /* Sidebar feed */
+        .sidebar-card {
+            display:flex;gap:10px;align-items:flex-start;
+        }
+        .sidebar-card .thumb-img-wrap { width:120px;height:68px; }
+        .sidebar-card h5 { font-size:0.78rem;color:#fff;line-height:1.3;margin-bottom:3px; overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical; }
+        .sidebar-card .meta-sub { font-size:0.65rem;color:var(--text-muted); }
+
+        /* Specs & tips */
+        .specs-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:48px; }
+        .spec-card { background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;transition:all 0.3s ease; }
+        .spec-card:hover { border-color:rgba(255,77,0,0.3);transform:translateY(-4px); }
+        .spec-device { font-size:0.78rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px; }
+        .spec-size { font-size:1.4rem;font-weight:800;color:#fff;font-family:'Outfit',sans-serif;margin-bottom:8px;letter-spacing:-0.02em; }
+        .spec-note { font-size:0.85rem;color:var(--text-muted);line-height:1.4; }
+
+        .tips-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px; }
+        .tip-card { background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:28px 24px;transition:all 0.3s ease; }
+        .tip-card:hover { border-color:rgba(255,77,0,0.2);transform:translateY(-4px); }
+        .tip-icon { font-size:1.8rem;margin-bottom:16px; }
+        .tip-card h3 { font-size:1rem;font-weight:700;color:#fff;margin-bottom:10px; }
+        .tip-card p { font-size:0.88rem;color:var(--text-secondary);line-height:1.6; }
+
+        .how-steps { display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px; }
+        .how-step { background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:32px 28px; }
+        .step-number { width:44px;height:44px;background:rgba(255,77,0,0.1);border:1px solid rgba(255,77,0,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;color:var(--accent);font-family:'Outfit',sans-serif;margin-bottom:20px; }
+        .how-step h3 { font-size:1.15rem;color:#fff;margin-bottom:12px; }
+        .how-step p { font-size:0.95rem;color:var(--text-secondary);line-height:1.6; }
+
+        /* Responsive */
+        @media (max-width:900px) {
+            .tool-body { grid-template-columns:1fr; }
+            .controls-sidebar { border-right:none;border-bottom:1px solid var(--border); }
+            .tips-grid { grid-template-columns:1fr 1fr; }
+            .how-steps { grid-template-columns:1fr; }
+        }
+        @media (max-width:640px) {
+            .tips-grid { grid-template-columns:1fr; }
+            .specs-grid { grid-template-columns:1fr 1fr; }
+            .page-hero { padding:110px 20px 50px; }
+        }
+        @media (max-width:480px) { .specs-grid { grid-template-columns:1fr; } }
+    </style>
+</head>
+
+<body style="background-color:#030303;">
+    <div style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at center,rgba(255,77,0,0.1) 0%,transparent 70%);"></div>
+
+    <nav id="main-nav">
+        <a class="nav-logo" href="/"><img src="/assets/logo-full.png" alt="Channel Preview" style="height:30px;width:auto;"></a>
+        <div class="nav-cta"><a href="/editor">Full Editor →</a></div>
+    </nav>
+    <script>
+        const nav = document.getElementById('main-nav');
+        window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+    </script>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <div class="page-hero-bg"></div>
+        <div class="breadcrumb"><a href="/">Home</a><span>›</span><span>YouTube Thumbnail Preview</span></div>
+        <h1 class="page-h1">YouTube Thumbnail<br><span class="accent-text">Preview Tool</span></h1>
+        <p class="page-subtitle">
+            Upload your thumbnail and instantly see how it looks in Desktop Search, Sidebar,
+            Mobile Feed, and Home Feed. Optimize CTR before publishing — free & instant.
+        </p>
+    </section>
+
+    <!-- TOOL -->
+    <section class="tool-section">
+        <div class="container">
+            <div class="tool-wrap">
+                <div class="tool-body">
+                    <!-- Controls sidebar -->
+                    <div class="controls-sidebar">
+                        <!-- Upload -->
+                        <div>
+                            <div class="ctrl-section-label">Upload</div>
+                            <label class="upload-btn" for="thumb-file-input">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                Upload Thumbnail
+                            </label>
+                            <input type="file" id="thumb-file-input" accept="image/*" style="display:none;">
+                        </div>
+
+                        <!-- Video details -->
+                        <div>
+                            <div class="ctrl-section-label">Video Details</div>
+                            <div class="ctrl-label">Video Title</div>
+                            <input class="ctrl-input" type="text" id="video-title" placeholder="Your video title..." maxlength="100" value="How I Grew My Channel to 100K Subscribers">
+                            <div class="ctrl-label" style="margin-top:12px;">Channel Name</div>
+                            <input class="ctrl-input" type="text" id="channel-name" placeholder="Channel name..." maxlength="50" value="Channel Preview">
+                            <div class="ctrl-label" style="margin-top:12px;">Views</div>
+                            <input class="ctrl-input" type="text" id="view-count" placeholder="e.g. 342K" maxlength="20" value="342K">
+                            <div class="ctrl-label" style="margin-top:12px;">Duration</div>
+                            <input class="ctrl-input" type="text" id="duration" placeholder="e.g. 12:34" maxlength="10" value="12:34">
+                        </div>
+
+                        <!-- Feed type -->
+                        <div>
+                            <div class="ctrl-section-label">Feed Type</div>
+                            <div class="feed-tabs">
+                                <button class="feed-tab active" data-feed="desktop-search" onclick="switchFeed(this)">🖥️ Desktop</button>
+                                <button class="feed-tab" data-feed="sidebar" onclick="switchFeed(this)">▶️ Sidebar</button>
+                                <button class="feed-tab" data-feed="mobile" onclick="switchFeed(this)">📱 Mobile</button>
+                                <button class="feed-tab" data-feed="home" onclick="switchFeed(this)">🏠 Home Feed</button>
+                            </div>
+                        </div>
+
+                        <!-- Export -->
+                        <div style="margin-top:auto;">
+                            <button class="icon-btn" onclick="exportThumb()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                Export Preview PNG
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Preview panel -->
+                    <div class="preview-panel" id="preview-panel">
+                        <!-- Drop zone -->
+                        <div class="drop-zone-thumb" id="drop-zone-thumb" onclick="document.getElementById('thumb-file-input').click()">
+                            <div style="font-size:2.5rem;">🎬</div>
+                            <div style="font-size:1rem;color:var(--text-secondary);font-weight:500;">Click or drag your thumbnail here</div>
+                            <div style="font-size:0.82rem;color:var(--text-muted);">1280 × 720 px · Max 2MB · JPG, PNG, GIF, BMP</div>
+                        </div>
+
+                        <!-- Feed previews -->
+                        <div class="feed-preview-wrap" id="feed-preview-wrap">
+
+                            <!-- Desktop Search -->
+                            <div id="feed-desktop-search">
+                                <div class="yt-feed-desktop">
+                                    <div class="yt-feed-header">🖥️ Desktop Search Result — ~360×202px display</div>
+                                    <div class="search-result-card">
+                                        <div class="thumb-img-wrap" style="width:200px;height:113px;">
+                                            <img id="thumb-desktop-1" src="" alt="thumbnail preview">
+                                            <div class="thumb-duration" id="dur-desktop-1">12:34</div>
+                                        </div>
+                                        <div class="search-result-meta">
+                                            <h4 id="title-desktop-1">How I Grew My Channel to 100K Subscribers</h4>
+                                            <div class="meta-sub" id="meta-desktop-1">Channel Preview · 342K views · 3 days ago</div>
+                                            <div class="meta-sub" style="margin-top:6px;color:var(--text-muted);font-size:0.7rem;">Learn the exact strategies used to grow a YouTube channel from 0 to 100K subscribers...</div>
+                                        </div>
+                                    </div>
+                                    <div class="search-result-card" style="opacity:0.45;">
+                                        <div class="thumb-img-wrap" style="width:200px;height:113px;background:#1a1a2e;"></div>
+                                        <div class="search-result-meta">
+                                            <h4 style="font-size:0.88rem;color:rgba(255,255,255,0.5);">Competitor Video Title Here</h4>
+                                            <div class="meta-sub">OtherChannel · 1.2M views</div>
+                                        </div>
+                                    </div>
+                                    <div class="search-result-card" style="opacity:0.3;">
+                                        <div class="thumb-img-wrap" style="width:200px;height:113px;background:#111;"></div>
+                                        <div class="search-result-meta">
+                                            <h4 style="font-size:0.88rem;color:rgba(255,255,255,0.4);">Another Result Here</h4>
+                                            <div class="meta-sub">SomeChannel · 234K views</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Sidebar -->
+                            <div id="feed-sidebar" style="display:none;">
+                                <div class="yt-feed-desktop">
+                                    <div class="yt-feed-header">▶️ Sidebar / Up Next — ~168×94px display</div>
+                                    <div style="padding:12px 16px;display:flex;flex-direction:column;gap:12px;">
+                                        <div class="sidebar-card">
+                                            <div class="thumb-img-wrap">
+                                                <img id="thumb-sidebar-1" src="" alt="thumbnail preview">
+                                                <div class="thumb-duration" id="dur-sidebar-1">12:34</div>
+                                            </div>
+                                            <div>
+                                                <h5 id="title-sidebar-1">How I Grew My Channel to 100K Subscribers</h5>
+                                                <div class="meta-sub" id="ch-sidebar-1">Channel Preview</div>
+                                                <div class="meta-sub">342K views</div>
+                                            </div>
+                                        </div>
+                                        <div class="sidebar-card" style="opacity:0.4;">
+                                            <div class="thumb-img-wrap" style="background:#1a1a2e;"></div>
+                                            <div><h5 style="color:rgba(255,255,255,0.5);">Related Video Title</h5><div class="meta-sub">Other Channel</div></div>
+                                        </div>
+                                        <div class="sidebar-card" style="opacity:0.25;">
+                                            <div class="thumb-img-wrap" style="background:#111;"></div>
+                                            <div><h5 style="color:rgba(255,255,255,0.3);">Another Video Here</h5><div class="meta-sub">Some Channel</div></div>
+                                        </div>
+                                        <div class="sidebar-card" style="opacity:0.15;">
+                                            <div class="thumb-img-wrap" style="background:#0a0a0a;"></div>
+                                            <div><h5 style="color:rgba(255,255,255,0.2);">Video Four</h5><div class="meta-sub">Channel</div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mobile Feed -->
+                            <div id="feed-mobile" style="display:none;">
+                                <div class="yt-feed-desktop">
+                                    <div class="yt-feed-header">📱 Mobile Feed — ~168×94px display</div>
+                                    <div style="padding:12px 16px;">
+                                        <!-- Mobile list view -->
+                                        <div style="display:flex;flex-direction:column;gap:14px;">
+                                            <div style="display:flex;gap:10px;align-items:flex-start;">
+                                                <div class="thumb-img-wrap" style="width:140px;height:79px;flex-shrink:0;">
+                                                    <img id="thumb-mobile-1" src="" alt="thumbnail preview">
+                                                    <div class="thumb-duration" id="dur-mobile-1">12:34</div>
+                                                </div>
+                                                <div>
+                                                    <div style="font-size:0.78rem;color:#fff;line-height:1.35;margin-bottom:4px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;" id="title-mobile-1">How I Grew My Channel to 100K Subscribers</div>
+                                                    <div style="font-size:0.65rem;color:var(--text-muted);" id="meta-mobile-1">Channel Preview · 342K views</div>
+                                                </div>
+                                            </div>
+                                            <div style="display:flex;gap:10px;align-items:flex-start;opacity:0.4;">
+                                                <div class="thumb-img-wrap" style="width:140px;height:79px;flex-shrink:0;background:#1a1a2e;"></div>
+                                                <div><div style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.35;">Related Video Title That Is Quite Long</div><div style="font-size:0.65rem;color:var(--text-muted);">Other Channel · 1.2M views</div></div>
+                                            </div>
+                                            <div style="display:flex;gap:10px;align-items:flex-start;opacity:0.25;">
+                                                <div class="thumb-img-wrap" style="width:140px;height:79px;flex-shrink:0;background:#111;"></div>
+                                                <div><div style="font-size:0.78rem;color:rgba(255,255,255,0.3);line-height:1.35;">Another Mobile Result</div><div style="font-size:0.65rem;color:var(--text-muted);">Some Channel</div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Home Feed -->
+                            <div id="feed-home" style="display:none;">
+                                <div class="yt-feed-desktop">
+                                    <div class="yt-feed-header">🏠 Home Feed — ~210×118px display</div>
+                                    <div style="padding:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+                                        <div>
+                                            <div class="thumb-img-wrap" style="width:100%;aspect-ratio:16/9;margin-bottom:8px;">
+                                                <img id="thumb-home-1" src="" alt="thumbnail preview">
+                                                <div class="thumb-duration" id="dur-home-1">12:34</div>
+                                            </div>
+                                            <div style="font-size:0.78rem;color:#fff;line-height:1.3;margin-bottom:4px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;" id="title-home-1">How I Grew My Channel to 100K Subscribers</div>
+                                            <div style="font-size:0.65rem;color:var(--text-muted);" id="meta-home-1">Channel Preview · 342K views</div>
+                                        </div>
+                                        <div style="opacity:0.4;">
+                                            <div style="width:100%;aspect-ratio:16/9;margin-bottom:8px;background:#1a1a2e;border-radius:8px;"></div>
+                                            <div style="font-size:0.78rem;color:rgba(255,255,255,0.5);line-height:1.3;margin-bottom:4px;">Competitor Thumbnail</div>
+                                            <div style="font-size:0.65rem;color:var(--text-muted);">Other Channel</div>
+                                        </div>
+                                        <div style="opacity:0.25;">
+                                            <div style="width:100%;aspect-ratio:16/9;margin-bottom:8px;background:#111;border-radius:8px;"></div>
+                                            <div style="font-size:0.78rem;color:rgba(255,255,255,0.3);line-height:1.3;margin-bottom:4px;">Another Video</div>
+                                            <div style="font-size:0.65rem;color:var(--text-muted);">Some Channel</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECS -->
+    <section style="padding:80px 0;border-top:1px solid var(--border);">
+        <div class="container">
+            <div style="text-align:center;">
+                <div class="section-eyebrow">Thumbnail Dimensions</div>
+                <h2 class="section-title" style="font-size:2.4rem;letter-spacing:-0.03em;">How YouTube Shows<br><span class="accent-text">Your Thumbnail</span></h2>
+                <p class="section-subtitle" style="margin:0 auto;opacity:0.6;">Your thumbnail is displayed at many different sizes across YouTube.</p>
+            </div>
+            <div class="specs-grid">
+                <div class="spec-card">
+                    <div class="spec-device">📤 Upload Spec</div>
+                    <div class="spec-size">1280 × 720</div>
+                    <div class="spec-note">Recommended. 16:9 ratio. Max 2MB. JPG, PNG, GIF, BMP accepted.</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-device">🔍 Desktop Search</div>
+                    <div class="spec-size">~360 × 202</div>
+                    <div class="spec-note">Medium size. Text should be readable. Facial expressions clearly visible.</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-device">📱 Mobile Search</div>
+                    <div class="spec-size">~168 × 94</div>
+                    <div class="spec-note">Smallest context. Ensure main subject fills the frame at this size.</div>
+                </div>
+                <div class="spec-card">
+                    <div class="spec-device">▶️ Sidebar / Up Next</div>
+                    <div class="spec-size">~168 × 94</div>
+                    <div class="spec-note">Side-by-side with competitor thumbnails. Stand out with bold contrast.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUICK TIPS -->
+    <section style="padding:80px 0;">
+        <div class="container">
+            <div style="text-align:center;">
+                <div class="section-eyebrow">Quick Tips</div>
+                <h2 class="section-title" style="font-size:2.2rem;letter-spacing:-0.03em;">Thumbnail<br><span class="accent-text">Best Practices</span></h2>
+            </div>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">😮</div>
+                    <h3>Use Strong Emotions</h3>
+                    <p>Faces showing extreme emotion — surprise, excitement, concern — consistently outperform neutral expressions in CTR.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">✏️</div>
+                    <h3>3–5 Words of Bold Text</h3>
+                    <p>Short, thick-font text with high contrast adds context and curiosity. Must remain readable at 200px wide.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🎯</div>
+                    <h3>One Clear Focal Point</h3>
+                    <p>Thumbnails with a single dominant subject are processed faster. If viewers can't tell what it's about in 1 second, redesign.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🎨</div>
+                    <h3>Attention-Grabbing Colors</h3>
+                    <p>Yellow, orange, red, and cyan stand out in YouTube's gray interface. Avoid colors that blend with the background.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">📐</div>
+                    <h3>Test at Small Sizes</h3>
+                    <p>Switch to Mobile view in this tool. If text is unreadable at 168×94px, it needs to be larger or removed.</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🔄</div>
+                    <h3>Stay Consistent</h3>
+                    <p>Returning viewers should recognize your thumbnails instantly. Consistent color palette, font, and style build trust.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section style="padding:0 0 80px;">
+        <div class="container">
+            <div style="text-align:center;margin-bottom:60px;">
+                <div class="section-eyebrow">3 Steps</div>
+                <h2 class="section-title" style="font-size:2.4rem;letter-spacing:-0.03em;">How to Preview Your<br><span class="accent-text">YouTube Thumbnail</span></h2>
+            </div>
+            <div class="how-steps">
+                <div class="how-step">
+                    <div class="step-number">1</div>
+                    <h3>Upload Your Thumbnail</h3>
+                    <p>Click "Upload Thumbnail" or drag your image into the preview panel. Works with JPG, PNG, and other formats — nothing is sent to any server.</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-number">2</div>
+                    <h3>Switch Feed Views</h3>
+                    <p>Use the feed tabs to see your thumbnail in Desktop Search, Sidebar, Mobile Feed, and Home Feed contexts at realistic sizes.</p>
+                </div>
+                <div class="how-step">
+                    <div class="step-number">3</div>
+                    <h3>Optimize and Publish</h3>
+                    <p>If text reads well and your subject is clear at small sizes, you're ready. If not, iterate in your design tool before publishing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEO CONTENT -->
+    <section class="seo-content">
+        <div class="prose">
+            <h2>Why Your YouTube Thumbnail Is Your Most Important Asset</h2>
+            <p>No single element has more impact on your video's performance than its thumbnail. YouTube's algorithm surfaces thousands of videos per search query — your thumbnail is what makes viewers click yours. An improvement of even 1–2% in click-through rate (CTR) can dramatically increase your views.</p>
+            <p>The challenge is that thumbnails look different in every placement context. A thumbnail that looks great in YouTube Studio might appear cluttered at 168×94px on mobile. This is why previewing across contexts before publishing is essential.</p>
+
+            <h2>YouTube Thumbnail Size: Complete Specifications</h2>
+            <ul>
+                <li><strong>Recommended resolution:</strong> 1280 × 720 pixels</li>
+                <li><strong>Minimum width:</strong> 640 pixels</li>
+                <li><strong>Aspect ratio:</strong> 16:9 (widescreen)</li>
+                <li><strong>Maximum file size:</strong> 2MB</li>
+                <li><strong>Formats accepted:</strong> JPG, PNG, GIF, BMP</li>
+            </ul>
+
+            <h2>What Makes a High-CTR YouTube Thumbnail</h2>
+            <h3>Faces with strong emotion perform best</h3>
+            <p>Human faces attract attention. Specifically, faces showing extreme emotion — surprise, excitement, concern, joy — consistently outperform neutral expression thumbnails. The emotion creates a hook that makes viewers want to find out what happened.</p>
+
+            <h3>3–5 words of bold, contrasting text</h3>
+            <p>Thumbnails with text consistently outperform those without in most niches. Key rules: use a maximum of 3–5 words, use thick/bold fonts, and ensure the text color sharply contrasts with the background. The text needs to be readable at 200px wide.</p>
+
+            <h2>Common Thumbnail Mistakes to Avoid</h2>
+            <ul>
+                <li><strong>Text too small:</strong> If you can't read the text at 200px wide, neither can mobile viewers.</li>
+                <li><strong>Too many elements:</strong> Cluttered thumbnails are harder to process. Remove everything that doesn't contribute to the core message.</li>
+                <li><strong>Low contrast:</strong> Thumbnails must have strong contrast to be readable at small sizes.</li>
+                <li><strong>Not previewing before uploading:</strong> Always preview at actual display sizes using this tool before publishing.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="faq-header">
+            <div class="section-eyebrow">FAQ</div>
+            <h2 style="font-size:2.2rem;letter-spacing:-0.03em;color:#fff;">Frequently Asked<br><span class="accent-text">Questions</span></h2>
+        </div>
+        <div id="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">What is the recommended YouTube thumbnail size?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
+                <div class="faq-answer"><div class="faq-answer-content">The recommended YouTube thumbnail size is <strong>1280 × 720 pixels</strong> at a 16:9 ratio. Maximum file size is 2MB. Accepted formats are JPG, PNG, GIF, and BMP. Always upload at full resolution so YouTube has a high-quality source to scale down.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">How do I check if my thumbnail looks good on mobile?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
+                <div class="faq-answer"><div class="faq-answer-content">Upload your thumbnail in this tool and switch to the Mobile feed view. This shows your thumbnail at approximately 168×94 pixels — the actual size on mobile search. If your text is unreadable or your subject is unclear, redesign before publishing.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">What makes a high CTR YouTube thumbnail?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
+                <div class="faq-answer"><div class="faq-answer-content">High-CTR thumbnails share these traits: a single clear focal point (often a face with strong emotion), bold text in 3–5 words with high contrast, attention-grabbing colors (yellow, orange, red, cyan), and a design that creates curiosity. Always preview at small sizes.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">What size does YouTube display thumbnails in search results?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
+                <div class="faq-answer"><div class="faq-answer-content">Desktop search results show thumbnails at roughly <strong>360×202 pixels</strong>. Mobile search shows them at approximately <strong>168×94 pixels</strong>. The sidebar (Up Next panel) also shows at ~168×94px. This tool simulates all of them.</div></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Should I add text to my YouTube thumbnail?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
+                <div class="faq-answer"><div class="faq-answer-content">Yes, in most niches. Bold, short text (3–5 words) adds context and creates curiosity. Use thick fonts with strong contrast — text needs to be readable at 200px wide. Avoid thin fonts, long sentences, or colors that blend with the background.</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RELATED TOOLS -->
+    <section class="internal-links">
+        <div class="section-eyebrow">Related Tools</div>
+        <h2 style="font-size:2rem;letter-spacing:-0.02em;color:#fff;margin-bottom:8px;">More YouTube Preview Tools</h2>
+        <p style="color:var(--text-muted);font-size:0.95rem;">Complete your channel review before going live.</p>
+        <div class="links-grid">
+            <a href="/youtube-banner-preview" class="link-card"><div style="font-size:2rem;margin-bottom:12px;">🖼️</div><h4>Banner Preview</h4><p>Test how your YouTube banner crops on Desktop, Mobile, and TV.</p></a>
+            <a href="/youtube-profile-picture-preview" class="link-card"><div style="font-size:2rem;margin-bottom:12px;">👤</div><h4>Profile Picture Preview</h4><p>See how your profile photo looks on channel pages, search, and comments.</p></a>
+            <a href="/youtube-title-preview" class="link-card"><div style="font-size:2rem;margin-bottom:12px;">✏️</div><h4>Title Preview</h4><p>Test where YouTube truncates your video title on different devices.</p></a>
+            <a href="/youtube-banner-safe-area" class="link-card"><div style="font-size:2rem;margin-bottom:12px;">📐</div><h4>Safe Area Guide</h4><p>Learn the YouTube banner safe zone system with diagrams and templates.</p></a>
+        </div>
+        <div style="margin-top:40px;">
+            <a href="/editor" class="btn-creative" style="--clr:var(--accent)">
+                <span class="btn-creative__icon-wrapper"><svg viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="btn-creative__icon-svg" width="10"><path d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z" fill="currentColor"></path></svg><svg viewBox="0 0 14 15" fill="none" width="10" xmlns="http://www.w3.org/2000/svg" class="btn-creative__icon-svg btn-creative__icon-svg--copy"><path d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z" fill="currentColor"></path></svg></span>
+                Open Full Channel Preview Editor
+            </a>
+        </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer-redesign">
+        <!-- Top CTA Section (Glassmorphism Card) -->
+        <div class="footer-cta-card">
+            <div class="footer-cta-content">
+                <h2 class="footer-cta-title">Preview Before You Publish</h2>
+                <p class="footer-cta-desc">Test your YouTube banners, thumbnails, profile pictures, and titles before uploading.</p>
+            </div>
+            <div class="footer-cta-actions">
+                <a href="/editor" class="footer-cta-btn primary">Start Preview</a>
+                <a href="/#features" class="footer-cta-btn secondary">Explore Tools</a>
+            </div>
+        </div>
+
+        <!-- Middle Footer (4-column layout) -->
+        <div class="footer-grid-container">
+            <!-- Column 1: Brand & Badges -->
+            <div class="footer-col brand-col">
+                <a class="footer-brand" href="/">
+                    <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 28px; width: auto;">
+                </a>
+                <p class="footer-brand-desc">Creator-focused tools that help you preview YouTube banners, thumbnails, profile pictures, and titles before publishing.</p>
+                <div class="footer-trust-badges">
+                    <div class="footer-badge">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>No Sign-Up Required</span>
+                    </div>
+                    <div class="footer-badge">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>Privacy Friendly</span>
+                    </div>
+                    <div class="footer-badge">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span>100% Browser Based</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: Tools -->
+            <div class="footer-col">
+                <h3>Tools</h3>
+                <ul class="footer-links">
+                    <li><a href="/youtube-banner-preview">Banner Preview</a></li>
+                    <li><a href="/youtube-thumbnail-preview" style="color:var(--accent);">Thumbnail Preview</a></li>
+                    <li><a href="/youtube-profile-picture-preview">PFP Preview</a></li>
+                    <li><a href="/youtube-title-preview">Title Preview</a></li>
+                    <li><a href="/youtube-banner-safe-area">Safe Area Guide</a></li>
+                    <li><a href="/editor">Editor</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Company -->
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/founder">Founder</a></li>
+                    <li><a href="mailto:hello@ChannelPreview.com">Contact</a></li>
+                    <li><a href="/privacy-policy">Privacy Policy</a></li>
+                    <li><a href="/privacy-policy#terms">Terms</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 4: Resources -->
+            <div class="footer-col">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="/#">Blog</a></li>
+                    <li><a href="/#faq">FAQ</a></li>
+                    <li><a href="/youtube-banner-safe-area">YouTube Banner Size</a></li>
+                    <li><a href="/youtube-thumbnail-preview">Thumbnail Guide</a></li>
+                    <li><a href="/#">Creator Resources</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Trust Strip Section -->
+        <div class="footer-trust-strip">
+            <div class="trust-item">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+                <span>Built for Creators Worldwide</span>
+            </div>
+            <div class="trust-item">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                </svg>
+                <span>100% Browser Based</span>
+            </div>
+            <div class="trust-item">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <span>Images Never Leave Your Device</span>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom-bar">
+            <div class="footer-copyright">
+                © 2026 Channel Preview. All Rights Reserved.
+            </div>
+            
+            <!-- Social Buttons -->
+            <div class="footer-socials">
+                <a href="https://www.youtube.com/@thegaganpratap" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                        <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/thegaganpratap/" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+                <a href="https://www.linkedin.com/in/gagan-pratap/" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                </a>
+                <a href="https://twitter.com/thegaganpratap_" class="social-btn" aria-label="Twitter" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                    </svg>
+                </a>
+            </div>
+            
+            <div class="footer-legal-links">
+                <a href="/privacy-policy">Privacy</a>
+                <a href="/privacy-policy#terms">Terms</a>
+                <a href="mailto:hello@ChannelPreview.com">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ── STATE ──
+        let currentFeed = 'desktop-search';
+        let thumbDataUrl = null;
+
+        const THUMB_IDS = {
+            'desktop-search': ['thumb-desktop-1'],
+            'sidebar': ['thumb-sidebar-1'],
+            'mobile': ['thumb-mobile-1'],
+            'home': ['thumb-home-1'],
+        };
+
+        // ── FILE INPUT ──
+        document.getElementById('thumb-file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) loadThumb(file);
+        });
+
+        // Drag & drop on preview panel
+        const panel = document.getElementById('preview-panel');
+        const dz = document.getElementById('drop-zone-thumb');
+        dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.classList.add('dragover'); });
+        dz.addEventListener('dragleave', () => dz.classList.remove('dragover'));
+        dz.addEventListener('drop', (e) => {
+            e.preventDefault(); dz.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) loadThumb(file);
+        });
+
+        function loadThumb(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                thumbDataUrl = e.target.result;
+                // Apply to all thumb img elements
+                ['thumb-desktop-1','thumb-sidebar-1','thumb-mobile-1','thumb-home-1'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.src = thumbDataUrl;
+                });
+                document.getElementById('drop-zone-thumb').style.display = 'none';
+                document.getElementById('feed-preview-wrap').classList.add('visible');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ── FEED SWITCHING ──
+        function switchFeed(btn) {
+            document.querySelectorAll('.feed-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
+            currentFeed = btn.dataset.feed;
+            ['desktop-search','sidebar','mobile','home'].forEach(f => {
+                const el = document.getElementById('feed-' + f);
+                if (el) el.style.display = (f === currentFeed) ? 'block' : 'none';
+            });
+        }
+
+        // ── LIVE INPUT UPDATES ──
+        function syncMeta() {
+            const title = document.getElementById('video-title').value || 'Your Video Title';
+            const channel = document.getElementById('channel-name').value || 'Your Channel';
+            const views = document.getElementById('view-count').value || '0';
+            const dur = document.getElementById('duration').value || '0:00';
+
+            // Desktop
+            const td1 = document.getElementById('title-desktop-1');
+            const md1 = document.getElementById('meta-desktop-1');
+            const dd1 = document.getElementById('dur-desktop-1');
+            if (td1) td1.textContent = title;
+            if (md1) md1.textContent = `${channel} · ${views} views · 3 days ago`;
+            if (dd1) dd1.textContent = dur;
+
+            // Sidebar
+            const ts1 = document.getElementById('title-sidebar-1');
+            const cs1 = document.getElementById('ch-sidebar-1');
+            const ds1 = document.getElementById('dur-sidebar-1');
+            if (ts1) ts1.textContent = title;
+            if (cs1) cs1.textContent = channel;
+            if (ds1) ds1.textContent = dur;
+
+            // Mobile
+            const tm1 = document.getElementById('title-mobile-1');
+            const mm1 = document.getElementById('meta-mobile-1');
+            const dm1 = document.getElementById('dur-mobile-1');
+            if (tm1) tm1.textContent = title;
+            if (mm1) mm1.textContent = `${channel} · ${views} views`;
+            if (dm1) dm1.textContent = dur;
+
+            // Home
+            const th1 = document.getElementById('title-home-1');
+            const mh1 = document.getElementById('meta-home-1');
+            const dh1 = document.getElementById('dur-home-1');
+            if (th1) th1.textContent = title;
+            if (mh1) mh1.textContent = `${channel} · ${views} views`;
+            if (dh1) dh1.textContent = dur;
+        }
+
+        ['video-title','channel-name','view-count','duration'].forEach(id => {
+            document.getElementById(id).addEventListener('input', syncMeta);
+        });
+        syncMeta();
+
+        // ── EXPORT ──
+        function exportThumb() {
+            if (!thumbDataUrl) { alert('Please upload a thumbnail first.'); return; }
+            // Export current feed view as PNG via canvas
+            const feedEl = document.getElementById('feed-' + currentFeed);
+            if (!feedEl) return;
+            // Simple export: just the thumbnail image with current view label
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+                const link = document.createElement('a');
+                link.download = 'youtube-thumbnail-preview.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            };
+            img.src = thumbDataUrl;
+        }
+
+        // ── FAQ ──
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.faq-item');
+                const answer = item.querySelector('.faq-answer');
+                const isOpen = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('active'); i.querySelector('.faq-answer').style.maxHeight=null; i.querySelector('.faq-question').setAttribute('aria-expanded','false'); });
+                if (!isOpen) { item.classList.add('active'); answer.style.maxHeight=answer.scrollHeight+'px'; btn.setAttribute('aria-expanded','true'); }
+            });
+        });
+
+        const obs = new IntersectionObserver(e => e.forEach(el => { if(el.isIntersecting){el.target.style.opacity='1';el.target.style.transform='translateY(0)';obs.unobserve(el.target);} }), {threshold:0.08});
+        document.querySelectorAll('.spec-card,.how-step,.tip-card,.link-card,.faq-item').forEach((el,i) => { el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition=`opacity 0.5s ease ${i*0.04}s,transform 0.5s ease ${i*0.04}s`;obs.observe(el); });
+    </script>
+</body>
+</html>
