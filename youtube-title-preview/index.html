@@ -5,13 +5,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>YouTube Title Preview Tool – Test Truncation on Desktop & Mobile | Channel Preview</title>
-    <meta name="description" content="Free YouTube title preview tool. Type your video title and instantly see where it gets cut off in Desktop Search, Mobile, Sidebar, and Home Feed. Optimize CTR with better front-loaded titles." />
+    <meta name="description"
+        content="Free YouTube title preview tool. Type your video title and instantly see where it gets cut off in Desktop Search, Mobile, Sidebar, and Home Feed. Optimize CTR with better front-loaded titles." />
     <link rel="canonical" href="https://channelpreview.vercel.app/youtube-title-preview" />
     <link rel="stylesheet" href="/index.css" />
     <link rel="icon" type="image/png" href="/assets/logo-icon.png">
 
     <meta property="og:title" content="YouTube Title Preview Tool – Test Truncation on Desktop & Mobile" />
-    <meta property="og:description" content="Preview your YouTube video title truncation on Desktop, Mobile, and Sidebar before publishing. Free tool by Channel Preview." />
+    <meta property="og:description"
+        content="Preview your YouTube video title truncation on Desktop, Mobile, and Sidebar before publishing. Free tool by Channel Preview." />
     <meta property="og:url" content="https://channelpreview.vercel.app/youtube-title-preview" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://channelpreview.vercel.app/assets/og-image.png" />
@@ -77,23 +79,75 @@
     </script>
 
     <style>
-        nav { position:fixed;top:16px;left:50%;transform:translateX(-50%);width:calc(100% - 48px);max-width:1200px;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:transparent;backdrop-filter:none;border:1px solid transparent;border-radius:100px;box-shadow:none;transition:background 0.5s ease,border-color 0.5s ease,box-shadow 0.5s ease,top 0.5s ease; }
-        nav.scrolled { background:rgba(255,255,255,0.07);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border-color:rgba(255,255,255,0.12);box-shadow:0 8px 32px rgba(0,0,0,0.3);top:12px; }
-        .nav-logo { display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0; }
-        .nav-cta a { display:inline-flex;align-items:center;gap:8px;padding:9px 20px;background:var(--accent);color:#fff;border-radius:100px;font-size:0.88rem;font-weight:600;text-decoration:none;transition:all 0.3s ease;box-shadow:0 4px 16px rgba(255,77,0,0.3); }
-        .nav-cta a:hover { background:#ff6520;box-shadow:0 6px 24px rgba(255,77,0,0.4);transform:translateY(-1px); }
 
-        .page-hero { min-height:52vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 32px 60px;position:relative;overflow:hidden; }
-        .page-hero-bg { position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(249,115,22,0.18), transparent 70%);pointer-events:none; }
-        .breadcrumb { display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--text-muted);margin-bottom:24px; }
-        .breadcrumb a { color:var(--text-muted);transition:color 0.2s; }
-        .breadcrumb a:hover { color:var(--accent); }
-        .page-h1 { font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:#fff;letter-spacing:-0.04em;line-height:1.05;margin-bottom:20px;font-family:'Outfit',sans-serif; }
-        .page-subtitle { font-size:1.1rem;color:rgba(255,255,255,0.6);max-width:580px;margin:0 auto 40px;line-height:1.6; }
+
+        .page-hero {
+            min-height: 52vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 130px 32px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(249, 115, 22, 0.18), transparent 70%);
+            pointer-events: none;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        .page-h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 580px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
 
         /* ── TOOL ── */
-        .tool-section { padding: 0 0 80px; }
-        .tool-wrap { background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:24px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.6); }
+        .tool-section {
+            padding: 0 0 80px;
+        }
+
+        .tool-wrap {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+        }
 
         .tool-body {
             display: grid;
@@ -109,17 +163,42 @@
             gap: 20px;
         }
 
-        .ctrl-section-label { font-size:0.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px; }
-
-        .title-input-wrap { position:relative; }
-        .title-input {
-            width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);
-            border-radius:12px;padding:14px 16px;font-size:1rem;color:#fff;
-            font-family:'Inter',sans-serif;outline:none;transition:border-color 0.3s ease;
-            resize:none;min-height:100px;line-height:1.5;
+        .ctrl-section-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
         }
-        .title-input:focus { border-color:var(--accent); }
-        .title-input::placeholder { color:var(--text-muted); }
+
+        .title-input-wrap {
+            position: relative;
+        }
+
+        .title-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-size: 1rem;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.3s ease;
+            resize: none;
+            min-height: 100px;
+            line-height: 1.5;
+        }
+
+        .title-input:focus {
+            border-color: var(--accent);
+        }
+
+        .title-input::placeholder {
+            color: var(--text-muted);
+        }
 
         .char-counter {
             display: flex;
@@ -127,45 +206,131 @@
             align-items: center;
             margin-top: 8px;
         }
-        .char-count { font-size:0.82rem;color:var(--text-muted); }
-        .char-count.warn { color:#ffb800; }
-        .char-count.over { color:#ff4444; }
-        .char-bar-wrap {
-            flex:1; margin-left:12px;
-            height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;
+
+        .char-count {
+            font-size: 0.82rem;
+            color: var(--text-muted);
         }
-        .char-bar { height:100%;width:0%;background:var(--accent);border-radius:2px;transition:width 0.2s,background 0.2s; }
+
+        .char-count.warn {
+            color: #ffb800;
+        }
+
+        .char-count.over {
+            color: #ff4444;
+        }
+
+        .char-bar-wrap {
+            flex: 1;
+            margin-left: 12px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .char-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: width 0.2s, background 0.2s;
+        }
 
         .ctrl-input {
-            width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);
-            border-radius:10px;padding:10px 14px;font-size:0.88rem;color:#fff;
-            font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s;margin-top:8px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+            margin-top: 8px;
         }
-        .ctrl-input:focus { border-color:var(--accent); }
-        .ctrl-input::placeholder { color:var(--text-muted); }
-        .ctrl-label { font-size:0.82rem;color:var(--text-secondary);font-weight:500; }
 
-        .feed-tabs { display:flex;gap:4px;flex-wrap:wrap;margin-top:8px; }
-        .feed-tab {
-            padding:6px 12px;border-radius:8px;font-size:0.78rem;font-weight:500;
-            color:var(--text-muted);cursor:pointer;border:none;
-            background:rgba(255,255,255,0.04);border:1px solid var(--border);
-            transition:all 0.2s ease;
+        .ctrl-input:focus {
+            border-color: var(--accent);
         }
-        .feed-tab:hover { color:#fff;border-color:rgba(255,255,255,0.2); }
-        .feed-tab.active { background:rgba(255,77,0,0.15);border-color:rgba(255,77,0,0.4);color:var(--accent); }
+
+        .ctrl-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .ctrl-label {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .feed-tabs {
+            display: flex;
+            gap: 4px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .feed-tab {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            border: none;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .feed-tab:hover {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .feed-tab.active {
+            background: rgba(255, 77, 0, 0.15);
+            border-color: rgba(255, 77, 0, 0.4);
+            color: var(--accent);
+        }
 
         /* Smart suggestions */
         .suggestions-box {
-            background: rgba(255,77,0,0.06);
-            border: 1px solid rgba(255,77,0,0.18);
+            background: rgba(255, 77, 0, 0.06);
+            border: 1px solid rgba(255, 77, 0, 0.18);
             border-radius: 12px;
             padding: 14px;
         }
-        .suggestions-box h4 { font-size:0.78rem;font-weight:700;color:var(--accent);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.06em; }
-        .suggestion-item { display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:0.78rem;color:var(--text-secondary);line-height:1.4; }
-        .suggestion-item:last-child { margin-bottom:0; }
-        .suggestion-icon { flex-shrink:0;margin-top:1px; }
+
+        .suggestions-box h4 {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .suggestion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .suggestion-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .suggestion-icon {
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
 
         /* Preview panel */
         .preview-panel {
@@ -175,47 +340,121 @@
             flex-direction: column;
             gap: 16px;
             overflow-y: auto;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+        }
+
+        .preview-panel.dragover {
+            border-color: var(--accent);
+            background: rgba(255, 77, 0, 0.05) !important;
+        }
+
+        .upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 18px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(255, 77, 0, 0.3);
+            width: 100%;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
+        .upload-btn:hover {
+            background: #ff6520;
+            transform: translateY(-1px);
         }
 
         .preview-ctx {
             background: #0f0f0f;
-            border: 1px solid rgba(255,255,255,0.06);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 14px;
             padding: 18px 16px;
             transition: border-color 0.2s;
         }
-        .preview-ctx:hover { border-color:rgba(255,77,0,0.2); }
+
+        .preview-ctx:hover {
+            border-color: rgba(255, 77, 0, 0.2);
+        }
 
         .preview-ctx-label {
-            font-size:0.7rem;font-weight:700;color:var(--accent);
-            text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 14px;
         }
 
-        .preview-ctx-row { display:flex;gap:12px;align-items:flex-start; }
+        .preview-ctx-row {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
 
         .preview-thumb {
-            border-radius:8px;background:linear-gradient(135deg,#1a1a2e,#16213e);
-            flex-shrink:0;aspect-ratio:16/9;position:relative;overflow:hidden;
-        }
-        .preview-thumb-duration {
-            position:absolute;bottom:3px;right:3px;background:rgba(0,0,0,0.85);
-            color:#fff;font-size:0.55rem;font-weight:600;padding:1px 4px;border-radius:2px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            flex-shrink: 0;
+            aspect-ratio: 16/9;
+            position: relative;
+            overflow: hidden;
         }
 
-        .preview-meta { flex:1;min-width:0; }
+        .preview-thumb-duration {
+            position: absolute;
+            bottom: 3px;
+            right: 3px;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            font-size: 0.55rem;
+            font-weight: 600;
+            padding: 1px 4px;
+            border-radius: 2px;
+        }
+
+        .preview-meta {
+            flex: 1;
+            min-width: 0;
+        }
 
         /* Title text with highlight for truncated portion */
         .preview-title-text {
-            font-size:0.9rem;color:#fff;line-height:1.35;font-weight:500;
-            overflow:hidden;word-break:break-word;
-        }
-        .title-visible { color:#fff; }
-        .title-truncated { color:rgba(255,255,255,0.35);position:relative; }
-        .title-truncated::after {
-            content:'...';color:rgba(255,100,50,0.8);
+            font-size: 0.9rem;
+            color: #fff;
+            line-height: 1.35;
+            font-weight: 500;
+            overflow: hidden;
+            word-break: break-word;
         }
 
-        .preview-sub-meta { font-size:0.72rem;color:var(--text-muted);margin-top:5px; }
+        .title-visible {
+            color: #fff;
+        }
+
+        .title-truncated {
+            color: rgba(255, 255, 255, 0.35);
+            position: relative;
+        }
+
+        .title-truncated::after {
+            content: '...';
+            color: rgba(255, 100, 50, 0.8);
+        }
+
+        .preview-sub-meta {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
 
         /* Character limit indicator */
         .limit-ruler {
@@ -223,61 +462,269 @@
             gap: 0;
             margin-top: 12px;
             padding: 10px 14px;
-            background: rgba(255,255,255,0.03);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
             font-size: 0.72rem;
             align-items: center;
             gap: 10px;
         }
-        .limit-dot { width:8px;height:8px;border-radius:50%;flex-shrink:0; }
-        .limit-label { color:var(--text-muted); }
-        .limit-val { font-weight:600; }
 
-        .specs-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:48px; }
-        .spec-card { background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;transition:all 0.3s ease; }
-        .spec-card:hover { border-color:rgba(255,77,0,0.3);transform:translateY(-4px); }
-        .spec-device { font-size:0.78rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px; }
-        .spec-size { font-size:1.4rem;font-weight:800;color:#fff;font-family:'Outfit',sans-serif;margin-bottom:8px;letter-spacing:-0.02em; }
-        .spec-note { font-size:0.85rem;color:var(--text-muted);line-height:1.4; }
+        .limit-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
 
-        .tips-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px; }
-        .tip-card { background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:28px 24px;transition:all 0.3s ease; }
-        .tip-card:hover { border-color:rgba(255,77,0,0.2);transform:translateY(-4px); }
-        .tip-icon { font-size:1.8rem;margin-bottom:16px; }
-        .tip-card h3 { font-size:1rem;font-weight:700;color:#fff;margin-bottom:10px; }
-        .tip-card p { font-size:0.88rem;color:var(--text-secondary);line-height:1.6; }
+        .limit-label {
+            color: var(--text-muted);
+        }
 
-        .how-steps { display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px; }
-        .how-step { background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:32px 28px; }
-        .step-number { width:44px;height:44px;background:rgba(255,77,0,0.1);border:1px solid rgba(255,77,0,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;color:var(--accent);font-family:'Outfit',sans-serif;margin-bottom:20px; }
-        .how-step h3 { font-size:1.15rem;color:#fff;margin-bottom:12px; }
-        .how-step p { font-size:0.95rem;color:var(--text-secondary);line-height:1.6; }
+        .limit-val {
+            font-weight: 600;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .spec-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            transition: all 0.3s ease;
+        }
+
+        .spec-card:hover {
+            border-color: rgba(255, 77, 0, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .spec-device {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .spec-size {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .spec-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .tip-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px 24px;
+            transition: all 0.3s ease;
+        }
+
+        .tip-card:hover {
+            border-color: rgba(255, 77, 0, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .tip-icon {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        .tip-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .tip-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .how-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px 28px;
+        }
+
+        .step-number {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 77, 0, 0.1);
+            border: 1px solid rgba(255, 77, 0, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .how-step h3 {
+            font-size: 1.15rem;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .how-step p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
 
         @media (max-width:900px) {
-            .tool-body { grid-template-columns:1fr; }
-            .controls-sidebar { border-right:none;border-bottom:1px solid var(--border); }
-            .tips-grid { grid-template-columns:1fr 1fr; }
-            .how-steps { grid-template-columns:1fr; }
+            .tool-body {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .how-steps {
+                grid-template-columns: 1fr;
+            }
         }
+
         @media (max-width:640px) {
-            .tips-grid { grid-template-columns:1fr; }
-            .specs-grid { grid-template-columns:1fr 1fr; }
-            .page-hero { padding:110px 20px 50px; }
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .page-hero {
+                padding: 110px 20px 50px;
+            }
         }
-        @media (max-width:480px) { .specs-grid { grid-template-columns:1fr; } }
+
+        @media (max-width:480px) {
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
 <body style="background-color:#030303;">
-    <div style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at center,rgba(255,77,0,0.1) 0%,transparent 70%);"></div>
+    <div
+        style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at center,rgba(255,77,0,0.1) 0%,transparent 70%);">
+    </div>
 
+    <!-- ── NAV ── -->
     <nav id="main-nav">
-        <a class="nav-logo" href="/"><img src="/assets/logo-full.png" alt="Channel Preview" style="height:30px;width:auto;"></a>
-        <div class="nav-cta"><a href="/editor">Full Editor →</a></div>
+        <a class="nav-logo" href="/">
+            <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 32px; width: auto;">
+        </a>
+        <div class="nav-links" id="nav-links">
+            <a href="/youtube-banner-preview">Banner Preview</a>
+            <a href="/youtube-thumbnail-preview">Thumbnails</a>
+            <a href="/youtube-profile-picture-preview">Profile Picture</a>
+            <a href="/youtube-title-preview">Title Preview</a>
+            <a href="/youtube-video-detail-preview">Watch Page</a>
+            <a href="/blog">Blogs</a>
+            <a href="/editor" class="btn-nav-start mobile-only-btn">
+                Try Free
+                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon" style="width: 20px; height: 20px;">
+                    <path clip-rule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                        fill-rule="evenodd"></path>
+                </svg>
+            </a>
+        </div>
+        <div class="nav-cta">
+            <a href="/editor" class="btn desktop-only-btn"
+                style="padding:9px 20px;border-radius:100px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;text-decoration:none;">
+                Try Free →
+            </a>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </nav>
     <script>
-        const nav = document.getElementById('main-nav');
-        window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+        // Scroll: add .scrolled class
+        const mainNav = document.getElementById('main-nav');
+        if (mainNav) {
+            window.addEventListener('scroll', () => {
+                mainNav.classList.toggle('scrolled', window.scrollY > 80);
+            }, { passive: true });
+        }
+
+        // Hamburger toggle
+        const hamburger = document.getElementById('nav-hamburger');
+        const navLinks = document.getElementById('nav-links');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navLinks.classList.toggle('open');
+            });
+
+            // Close menu when a link is clicked
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
+                });
+            });
+        }
+
+        // Highlight active link based on pathname
+        const currentPath = window.location.pathname;
+        const navAnchorLinks = document.querySelectorAll('.nav-links a');
+        navAnchorLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath || (href === '/' && currentPath === '') || (currentPath === '/' && href === '/')) {
+                link.classList.add('active');
+            } else if (href && href !== '/' && currentPath.startsWith(href)) {
+                link.classList.add('active');
+            }
+        });
     </script>
 
     <!-- HERO -->
@@ -301,12 +748,9 @@
                         <div>
                             <div class="ctrl-section-label">Your Video Title</div>
                             <div class="title-input-wrap">
-                                <textarea
-                                    class="title-input"
-                                    id="title-input"
+                                <textarea class="title-input" id="title-input"
                                     placeholder="Type your YouTube video title here..."
-                                    maxlength="100"
-                                >How I Grew My YouTube Channel to 100K Subscribers in 6 Months</textarea>
+                                    maxlength="100">How I Grew My YouTube Channel to 100K Subscribers in 6 Months</textarea>
                             </div>
                             <div class="char-counter">
                                 <span class="char-count" id="char-count">62 / 100</span>
@@ -316,21 +760,47 @@
                             </div>
                         </div>
 
+                        <!-- Thumbnail Upload -->
+                        <div>
+                            <div class="ctrl-section-label">Thumbnail Image</div>
+                            <label class="upload-btn" for="thumb-file-input">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                                Upload Thumbnail
+                            </label>
+                            <input type="file" id="thumb-file-input" accept="image/*" style="display:none;">
+                            <div id="thumb-status"
+                                style="margin-top:8px;font-size:0.75rem;color:var(--text-muted);display:none;align-items:center;justify-content:space-between;gap:8px;background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:8px;border:1px solid var(--border);">
+                                <span id="thumb-filename"
+                                    style="text-overflow:ellipsis;overflow:hidden;white-space:nowrap;max-width:140px;"></span>
+                                <button id="btn-remove-thumb"
+                                    style="background:transparent;border:none;color:#ff4444;cursor:pointer;font-size:0.75rem;font-weight:600;padding:2px 4px;border-radius:4px;transition:background 0.2s;">Remove</button>
+                            </div>
+                        </div>
+
                         <div>
                             <div class="ctrl-section-label">Video Details</div>
                             <div class="ctrl-label">Channel Name</div>
-                            <input class="ctrl-input" type="text" id="channel-name" placeholder="Channel name..." maxlength="50" value="Channel Preview">
+                            <input class="ctrl-input" type="text" id="channel-name" placeholder="Channel name..."
+                                maxlength="50" value="Channel Preview">
                             <div class="ctrl-label" style="margin-top:10px;">View Count</div>
-                            <input class="ctrl-input" type="text" id="view-count" placeholder="e.g. 342K" maxlength="20" value="342K">
+                            <input class="ctrl-input" type="text" id="view-count" placeholder="e.g. 342K" maxlength="20"
+                                value="342K">
                             <div class="ctrl-label" style="margin-top:10px;">Duration</div>
-                            <input class="ctrl-input" type="text" id="duration-input" placeholder="e.g. 12:34" maxlength="10" value="12:34">
+                            <input class="ctrl-input" type="text" id="duration-input" placeholder="e.g. 12:34"
+                                maxlength="10" value="12:34">
                         </div>
 
                         <!-- Smart suggestions -->
                         <div class="suggestions-box" id="suggestions-box">
                             <h4>💡 Title Analysis</h4>
                             <div id="suggestions-content">
-                                <div class="suggestion-item"><span class="suggestion-icon">✅</span><span>Good length for desktop search (~60–70 chars ideal)</span></div>
+                                <div class="suggestion-item"><span class="suggestion-icon">✅</span><span>Good length for
+                                        desktop search (~60–70 chars ideal)</span></div>
                             </div>
                         </div>
 
@@ -338,9 +808,21 @@
                         <div>
                             <div class="ctrl-section-label">Cutoff Limits</div>
                             <div style="display:flex;flex-direction:column;gap:8px;">
-                                <div class="limit-ruler"><div class="limit-dot" style="background:var(--accent);"></div><span class="limit-label">Mobile / Sidebar:</span><span class="limit-val" style="color:var(--accent);">~50 chars</span></div>
-                                <div class="limit-ruler"><div class="limit-dot" style="background:#ffb800;"></div><span class="limit-label">Desktop Search:</span><span class="limit-val" style="color:#ffb800;">~65 chars</span></div>
-                                <div class="limit-ruler"><div class="limit-dot" style="background:#4CAF50;"></div><span class="limit-label">YouTube max:</span><span class="limit-val" style="color:#4CAF50;">100 chars</span></div>
+                                <div class="limit-ruler">
+                                    <div class="limit-dot" style="background:var(--accent);"></div><span
+                                        class="limit-label">Mobile / Sidebar:</span><span class="limit-val"
+                                        style="color:var(--accent);">~50 chars</span>
+                                </div>
+                                <div class="limit-ruler">
+                                    <div class="limit-dot" style="background:#ffb800;"></div><span
+                                        class="limit-label">Desktop Search:</span><span class="limit-val"
+                                        style="color:#ffb800;">~65 chars</span>
+                                </div>
+                                <div class="limit-ruler">
+                                    <div class="limit-dot" style="background:#4CAF50;"></div><span
+                                        class="limit-label">YouTube max:</span><span class="limit-val"
+                                        style="color:#4CAF50;">100 chars</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -352,13 +834,17 @@
                         <div class="preview-ctx">
                             <div class="preview-ctx-label">🖥️ Desktop Search Result (~60–70 chars visible)</div>
                             <div class="preview-ctx-row">
-                                <div class="preview-thumb" style="width:180px;">
+                                <div class="preview-thumb" id="thumb-preview-d" style="width:180px;">
                                     <div class="preview-thumb-duration" id="dur-d">12:34</div>
                                 </div>
                                 <div class="preview-meta">
                                     <div class="preview-title-text" id="preview-desktop"></div>
-                                    <div class="preview-sub-meta" id="meta-desktop">Channel Preview · 342K views · 3 days ago</div>
-                                    <div style="font-size:0.7rem;color:var(--text-muted);margin-top:6px;line-height:1.4;opacity:0.7;">Discover the exact step-by-step strategy for growing your YouTube channel and reaching your first 100K...</div>
+                                    <div class="preview-sub-meta" id="meta-desktop">Channel Preview · 342K views · 3
+                                        days ago</div>
+                                    <div
+                                        style="font-size:0.7rem;color:var(--text-muted);margin-top:6px;line-height:1.4;opacity:0.7;">
+                                        Discover the exact step-by-step strategy for growing your YouTube channel and
+                                        reaching your first 100K...</div>
                                 </div>
                             </div>
                         </div>
@@ -367,12 +853,14 @@
                         <div class="preview-ctx">
                             <div class="preview-ctx-label">📱 Mobile Search (~45–55 chars visible)</div>
                             <div class="preview-ctx-row">
-                                <div class="preview-thumb" style="width:110px;">
+                                <div class="preview-thumb" id="thumb-preview-m" style="width:110px;">
                                     <div class="preview-thumb-duration" id="dur-m">12:34</div>
                                 </div>
                                 <div class="preview-meta">
-                                    <div class="preview-title-text" style="font-size:0.78rem;" id="preview-mobile"></div>
-                                    <div class="preview-sub-meta" style="font-size:0.65rem;" id="meta-mobile">Channel Preview · 342K views</div>
+                                    <div class="preview-title-text" style="font-size:0.78rem;" id="preview-mobile">
+                                    </div>
+                                    <div class="preview-sub-meta" style="font-size:0.65rem;" id="meta-mobile">Channel
+                                        Preview · 342K views</div>
                                 </div>
                             </div>
                         </div>
@@ -381,12 +869,14 @@
                         <div class="preview-ctx">
                             <div class="preview-ctx-label">▶️ Sidebar / Up Next (~45–52 chars visible)</div>
                             <div class="preview-ctx-row">
-                                <div class="preview-thumb" style="width:130px;">
+                                <div class="preview-thumb" id="thumb-preview-s" style="width:130px;">
                                     <div class="preview-thumb-duration" id="dur-s">12:34</div>
                                 </div>
                                 <div class="preview-meta">
-                                    <div class="preview-title-text" style="font-size:0.82rem;" id="preview-sidebar"></div>
-                                    <div class="preview-sub-meta" style="font-size:0.68rem;" id="meta-sidebar">Channel Preview</div>
+                                    <div class="preview-title-text" style="font-size:0.82rem;" id="preview-sidebar">
+                                    </div>
+                                    <div class="preview-sub-meta" style="font-size:0.68rem;" id="meta-sidebar">Channel
+                                        Preview</div>
                                 </div>
                             </div>
                         </div>
@@ -396,21 +886,30 @@
                             <div class="preview-ctx-label">🏠 Home Feed (~55–65 chars visible)</div>
                             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:4px;">
                                 <div>
-                                    <div class="preview-thumb" style="width:100%;aspect-ratio:16/9;margin-bottom:8px;">
+                                    <div class="preview-thumb" id="thumb-preview-h"
+                                        style="width:100%;aspect-ratio:16/9;margin-bottom:8px;">
                                         <div class="preview-thumb-duration" id="dur-h">12:34</div>
                                     </div>
                                     <div class="preview-title-text" style="font-size:0.75rem;" id="preview-home"></div>
-                                    <div class="preview-sub-meta" style="font-size:0.62rem;margin-top:4px;" id="meta-home">Channel Preview · 342K views</div>
+                                    <div class="preview-sub-meta" style="font-size:0.62rem;margin-top:4px;"
+                                        id="meta-home">Channel Preview · 342K views</div>
                                 </div>
                                 <div style="opacity:0.4;">
-                                    <div style="width:100%;aspect-ratio:16/9;background:#1a1a2e;border-radius:8px;margin-bottom:8px;"></div>
-                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Competitor Video Title Here</div>
-                                    <div style="font-size:0.62rem;color:var(--text-muted);margin-top:4px;">Other Channel · 1.2M views</div>
+                                    <div
+                                        style="width:100%;aspect-ratio:16/9;background:#1a1a2e;border-radius:8px;margin-bottom:8px;">
+                                    </div>
+                                    <div style="font-size:0.75rem;color:rgba(255,255,255,0.5);">Competitor Video Title
+                                        Here</div>
+                                    <div style="font-size:0.62rem;color:var(--text-muted);margin-top:4px;">Other Channel
+                                        · 1.2M views</div>
                                 </div>
                                 <div style="opacity:0.2;">
-                                    <div style="width:100%;aspect-ratio:16/9;background:#111;border-radius:8px;margin-bottom:8px;"></div>
+                                    <div
+                                        style="width:100%;aspect-ratio:16/9;background:#111;border-radius:8px;margin-bottom:8px;">
+                                    </div>
                                     <div style="font-size:0.75rem;color:rgba(255,255,255,0.3);">Another Video</div>
-                                    <div style="font-size:0.62rem;color:var(--text-muted);margin-top:4px;">Some Channel</div>
+                                    <div style="font-size:0.62rem;color:var(--text-muted);margin-top:4px;">Some Channel
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -426,14 +925,17 @@
         <div class="container">
             <div style="text-align:center;">
                 <div class="section-eyebrow">Character Limits</div>
-                <h2 class="section-title" style="font-size:2.4rem;letter-spacing:-0.03em;">Title Truncation<br><span class="accent-text">By Placement</span></h2>
-                <p class="section-subtitle" style="margin:0 auto;opacity:0.6;">YouTube shows different amounts of your title depending on where it's displayed.</p>
+                <h2 class="section-title" style="font-size:2.4rem;letter-spacing:-0.03em;">Title Truncation<br><span
+                        class="accent-text">By Placement</span></h2>
+                <p class="section-subtitle" style="margin:0 auto;opacity:0.6;">YouTube shows different amounts of your
+                    title depending on where it's displayed.</p>
             </div>
             <div class="specs-grid">
                 <div class="spec-card">
                     <div class="spec-device">📄 YouTube Maximum</div>
                     <div class="spec-size">100 chars</div>
-                    <div class="spec-note">Hard limit. Anything beyond 100 characters is rejected by YouTube Studio.</div>
+                    <div class="spec-note">Hard limit. Anything beyond 100 characters is rejected by YouTube Studio.
+                    </div>
                 </div>
                 <div class="spec-card">
                     <div class="spec-device">🖥️ Desktop Search</div>
@@ -448,7 +950,8 @@
                 <div class="spec-card">
                     <div class="spec-device">▶️ Sidebar / Up Next</div>
                     <div class="spec-size">~50 chars</div>
-                    <div class="spec-note">Competitive placement — your video competes for the next click with what was just watched.</div>
+                    <div class="spec-note">Competitive placement — your video competes for the next click with what was
+                        just watched.</div>
                 </div>
             </div>
         </div>
@@ -459,38 +962,45 @@
         <div class="container">
             <div style="text-align:center;">
                 <div class="section-eyebrow">Quick Tips</div>
-                <h2 class="section-title" style="font-size:2.2rem;letter-spacing:-0.03em;">Title Writing<br><span class="accent-text">Best Practices</span></h2>
+                <h2 class="section-title" style="font-size:2.2rem;letter-spacing:-0.03em;">Title Writing<br><span
+                        class="accent-text">Best Practices</span></h2>
             </div>
             <div class="tips-grid">
                 <div class="tip-card">
                     <div class="tip-icon">🎯</div>
                     <h3>Front-Load Your Hook</h3>
-                    <p>Put the most compelling part of your title in the first 50 characters. If it's going to be cut, the cut should come after the core message.</p>
+                    <p>Put the most compelling part of your title in the first 50 characters. If it's going to be cut,
+                        the cut should come after the core message.</p>
                 </div>
                 <div class="tip-card">
                     <div class="tip-icon">🔍</div>
                     <h3>Lead with Your Keyword</h3>
-                    <p>YouTube weights earlier keywords more heavily for search ranking. Put your target keyword at the beginning — not buried at the end.</p>
+                    <p>YouTube weights earlier keywords more heavily for search ranking. Put your target keyword at the
+                        beginning — not buried at the end.</p>
                 </div>
                 <div class="tip-card">
                     <div class="tip-icon">❓</div>
                     <h3>Create a Curiosity Gap</h3>
-                    <p>The most-clicked titles contain unresolved tension: "I tried this for 30 days — here's what happened." The gap makes viewers want to click to resolve it.</p>
+                    <p>The most-clicked titles contain unresolved tension: "I tried this for 30 days — here's what
+                        happened." The gap makes viewers want to click to resolve it.</p>
                 </div>
                 <div class="tip-card">
                     <div class="tip-icon">🔢</div>
                     <h3>Use Specific Numbers</h3>
-                    <p>"5 thumbnail mistakes that kill CTR" consistently outperforms vague titles like "Common thumbnail mistakes." Specificity creates credibility.</p>
+                    <p>"5 thumbnail mistakes that kill CTR" consistently outperforms vague titles like "Common thumbnail
+                        mistakes." Specificity creates credibility.</p>
                 </div>
                 <div class="tip-card">
                     <div class="tip-icon">⚠️</div>
                     <h3>Don't Over-Promise</h3>
-                    <p>Clickbait titles that don't deliver increase abandonment rate. YouTube's algorithm tracks satisfaction — high clicks + low watch time gets penalized.</p>
+                    <p>Clickbait titles that don't deliver increase abandonment rate. YouTube's algorithm tracks
+                        satisfaction — high clicks + low watch time gets penalized.</p>
                 </div>
                 <div class="tip-card">
                     <div class="tip-icon">📏</div>
                     <h3>Target 50–70 Characters</h3>
-                    <p>This range gives space for your keyword and hook while staying visible across all placements. Test every title in this tool before publishing.</p>
+                    <p>This range gives space for your keyword and hook while staying visible across all placements.
+                        Test every title in this tool before publishing.</p>
                 </div>
             </div>
         </div>
@@ -501,23 +1011,27 @@
         <div class="container">
             <div style="text-align:center;margin-bottom:60px;">
                 <div class="section-eyebrow">3 Steps</div>
-                <h2 class="section-title" style="font-size:2.4rem;letter-spacing:-0.03em;">How to Preview Your<br><span class="accent-text">YouTube Title</span></h2>
+                <h2 class="section-title" style="font-size:2.4rem;letter-spacing:-0.03em;">How to Preview Your<br><span
+                        class="accent-text">YouTube Title</span></h2>
             </div>
             <div class="how-steps">
                 <div class="how-step">
                     <div class="step-number">1</div>
                     <h3>Type Your Title</h3>
-                    <p>Type or paste your video title into the input box above. The character counter and bar show you how close you are to the limits.</p>
+                    <p>Type or paste your video title into the input box above. The character counter and bar show you
+                        how close you are to the limits.</p>
                 </div>
                 <div class="how-step">
                     <div class="step-number">2</div>
                     <h3>See Where It Cuts</h3>
-                    <p>The preview instantly shows you where YouTube truncates your title in Desktop Search, Mobile, Sidebar, and Home Feed — with the cut-off portion dimmed.</p>
+                    <p>The preview instantly shows you where YouTube truncates your title in Desktop Search, Mobile,
+                        Sidebar, and Home Feed — with the cut-off portion dimmed.</p>
                 </div>
                 <div class="how-step">
                     <div class="step-number">3</div>
                     <h3>Refine and Publish</h3>
-                    <p>If the truncated portion contains your hook, rewrite to front-load it. When the visible part alone is compelling, you're ready to publish.</p>
+                    <p>If the truncated portion contains your hook, rewrite to front-load it. When the visible part
+                        alone is compelling, you're ready to publish.</p>
                 </div>
             </div>
         </div>
@@ -527,8 +1041,12 @@
     <section class="seo-content">
         <div class="prose">
             <h2>Why Your YouTube Title Gets Cut Off (And How to Fix It)</h2>
-            <p>YouTube allows up to 100 characters in a video title, but very few viewers will ever see all 100. In search results, YouTube truncates titles that exceed the available display space. The practical safe limit across all contexts is around <strong>50 characters</strong>.</p>
-            <p>This matters because a title cut at a bad point can completely undermine your hook. "How I Went From 0 to 100K Subscribers by Doing This One..." is a worse viewer experience than "How I Hit 100K Subs with One Simple Change." Both may have the same total length, but the second never gets awkwardly truncated.</p>
+            <p>YouTube allows up to 100 characters in a video title, but very few viewers will ever see all 100. In
+                search results, YouTube truncates titles that exceed the available display space. The practical safe
+                limit across all contexts is around <strong>50 characters</strong>.</p>
+            <p>This matters because a title cut at a bad point can completely undermine your hook. "How I Went From 0 to
+                100K Subscribers by Doing This One..." is a worse viewer experience than "How I Hit 100K Subs with One
+                Simple Change." Both may have the same total length, but the second never gets awkwardly truncated.</p>
 
             <h2>YouTube Title Character Limits by Context</h2>
             <ul>
@@ -538,17 +1056,24 @@
                 <li><strong>Sidebar / Up Next panel:</strong> ~50 characters before truncation</li>
                 <li><strong>Home feed (desktop):</strong> ~55–65 characters</li>
             </ul>
-            <p>The practical recommendation: <strong>keep your most important content within the first 50 characters</strong> to guarantee it's visible everywhere.</p>
+            <p>The practical recommendation: <strong>keep your most important content within the first 50
+                    characters</strong> to guarantee it's visible everywhere.</p>
 
             <h2>How to Write YouTube Titles That Maximize CTR</h2>
             <h3>Front-load your keyword</h3>
-            <p>Put your target keyword as early in the title as possible. YouTube's algorithm weights earlier keywords more heavily for search ranking, and viewers scanning search results see the keyword before any potential truncation.</p>
+            <p>Put your target keyword as early in the title as possible. YouTube's algorithm weights earlier keywords
+                more heavily for search ranking, and viewers scanning search results see the keyword before any
+                potential truncation.</p>
 
             <h3>Create curiosity or tension</h3>
-            <p>The most-clicked YouTube titles contain an unresolved tension that the video promises to resolve. "I followed YouTube's best practices for 30 days — here's what happened" creates a curiosity gap that "YouTube best practices guide" doesn't.</p>
+            <p>The most-clicked YouTube titles contain an unresolved tension that the video promises to resolve. "I
+                followed YouTube's best practices for 30 days — here's what happened" creates a curiosity gap that
+                "YouTube best practices guide" doesn't.</p>
 
             <h2>YouTube Title SEO: How Titles Affect Search Ranking</h2>
-            <p>Your video title is the single most important on-page SEO signal on YouTube. YouTube uses it to understand what your video is about and match it to search queries. For SEO, your primary target keyword should appear in the title, ideally in the first half.</p>
+            <p>Your video title is the single most important on-page SEO signal on YouTube. YouTube uses it to
+                understand what your video is about and match it to search queries. For SEO, your primary target keyword
+                should appear in the title, ideally in the first half.</p>
         </div>
     </section>
 
@@ -556,28 +1081,74 @@
     <section class="faq-section">
         <div class="faq-header">
             <div class="section-eyebrow">FAQ</div>
-            <h2 style="font-size:2.2rem;letter-spacing:-0.03em;color:#fff;">Frequently Asked<br><span class="accent-text">Questions</span></h2>
+            <h2 style="font-size:2.2rem;letter-spacing:-0.03em;color:#fff;">Frequently Asked<br><span
+                    class="accent-text">Questions</span></h2>
         </div>
         <div>
             <div class="faq-item">
-                <button class="faq-question" aria-expanded="false">How many characters can a YouTube title be?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
-                <div class="faq-answer"><div class="faq-answer-content">YouTube allows up to <strong>100 characters</strong> in a video title. However, search results typically display only 60–70 characters on desktop and 45–55 on mobile before truncating with "...". Keep your most important hook and keyword within the first 50 characters.</div></div>
+                <button class="faq-question" aria-expanded="false">How many characters can a YouTube title be?<span
+                        class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span></button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">YouTube allows up to <strong>100 characters</strong> in a video
+                        title. However, search results typically display only 60–70 characters on desktop and 45–55 on
+                        mobile before truncating with "...". Keep your most important hook and keyword within the first
+                        50 characters.</div>
+                </div>
             </div>
             <div class="faq-item">
-                <button class="faq-question" aria-expanded="false">Where does YouTube cut off titles in search results?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
-                <div class="faq-answer"><div class="faq-answer-content">Desktop search results truncate at ~60–70 characters. Mobile search truncates at ~45–55 characters. The sidebar (Up Next) truncates at ~50 characters. The actual cutoff varies slightly based on font rendering, but the safe approach is to complete your core message within 50 characters.</div></div>
+                <button class="faq-question" aria-expanded="false">Where does YouTube cut off titles in search
+                    results?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span></button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">Desktop search results truncate at ~60–70 characters. Mobile search
+                        truncates at ~45–55 characters. The sidebar (Up Next) truncates at ~50 characters. The actual
+                        cutoff varies slightly based on font rendering, but the safe approach is to complete your core
+                        message within 50 characters.</div>
+                </div>
             </div>
             <div class="faq-item">
-                <button class="faq-question" aria-expanded="false">How do I write a YouTube title that won't get cut off?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
-                <div class="faq-answer"><div class="faq-answer-content">Front-load your title: put the most compelling part of your hook and your primary keyword within the first 50 characters. If your title is going to be cut, make sure the cut happens after the core message is complete — not in the middle of the most important phrase. Use the title preview tool above to test before publishing.</div></div>
+                <button class="faq-question" aria-expanded="false">How do I write a YouTube title that won't get cut
+                    off?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span></button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">Front-load your title: put the most compelling part of your hook and
+                        your primary keyword within the first 50 characters. If your title is going to be cut, make sure
+                        the cut happens after the core message is complete — not in the middle of the most important
+                        phrase. Use the title preview tool above to test before publishing.</div>
+                </div>
             </div>
             <div class="faq-item">
-                <button class="faq-question" aria-expanded="false">Do YouTube titles affect SEO?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
-                <div class="faq-answer"><div class="faq-answer-content">Yes — your title is the most important on-page SEO signal for YouTube search. Include your target keyword naturally in the title, ideally in the first half. A well-written title improves both search ranking and click-through rate. Avoid keyword stuffing — natural, readable titles outperform keyword-jammed ones.</div></div>
+                <button class="faq-question" aria-expanded="false">Do YouTube titles affect SEO?<span
+                        class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span></button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">Yes — your title is the most important on-page SEO signal for
+                        YouTube search. Include your target keyword naturally in the title, ideally in the first half. A
+                        well-written title improves both search ranking and click-through rate. Avoid keyword stuffing —
+                        natural, readable titles outperform keyword-jammed ones.</div>
+                </div>
             </div>
             <div class="faq-item">
-                <button class="faq-question" aria-expanded="false">How long should a YouTube title be for SEO?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span></button>
-                <div class="faq-answer"><div class="faq-answer-content">Aim for <strong>50–70 characters</strong> for most videos. This gives space for your keyword and hook while staying within the visible range for most placements. Shorter than 40 characters often misses keyword and hook opportunities. Longer than 70 risks truncating the most important part on mobile.</div></div>
+                <button class="faq-question" aria-expanded="false">How long should a YouTube title be for SEO?<span
+                        class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span></button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">Aim for <strong>50–70 characters</strong> for most videos. This
+                        gives space for your keyword and hook while staying within the visible range for most
+                        placements. Shorter than 40 characters often misses keyword and hook opportunities. Longer than
+                        70 risks truncating the most important part on mobile.</div>
+                </div>
             </div>
         </div>
     </section>
@@ -588,14 +1159,40 @@
         <h2 style="font-size:2rem;letter-spacing:-0.02em;color:#fff;margin-bottom:8px;">More YouTube Preview Tools</h2>
         <p style="color:var(--text-muted);font-size:0.95rem;">Complete your channel review before going live.</p>
         <div class="links-grid">
-            <a href="/youtube-banner-preview" class="link-card"><div style="font-size:2rem;margin-bottom:12px;">🖼️</div><h4>Banner Preview</h4><p>Test how your YouTube banner crops on Desktop, Mobile, and TV.</p></a>
-            <a href="/youtube-thumbnail-preview" class="link-card"><div style="font-size:2rem;margin-bottom:12px;">🎬</div><h4>Thumbnail Preview</h4><p>Preview your thumbnail in search results, sidebar, and mobile feed.</p></a>
-            <a href="/youtube-profile-picture-preview" class="link-card"><div style="font-size:2rem;margin-bottom:12px;">👤</div><h4>Profile Picture Preview</h4><p>See how your channel icon looks at every size YouTube displays.</p></a>
-            <a href="/youtube-banner-safe-area" class="link-card"><div style="font-size:2rem;margin-bottom:12px;">📐</div><h4>Safe Area Guide</h4><p>Learn the YouTube banner safe zone with diagrams and templates.</p></a>
+            <a href="/youtube-banner-preview" class="link-card">
+                <div style="font-size:2rem;margin-bottom:12px;">🖼️</div>
+                <h4>Banner Preview</h4>
+                <p>Test how your YouTube banner crops on Desktop, Mobile, and TV.</p>
+            </a>
+            <a href="/youtube-thumbnail-preview" class="link-card">
+                <div style="font-size:2rem;margin-bottom:12px;">🎬</div>
+                <h4>Thumbnail Preview</h4>
+                <p>Preview your thumbnail in search results, sidebar, and mobile feed.</p>
+            </a>
+            <a href="/youtube-profile-picture-preview" class="link-card">
+                <div style="font-size:2rem;margin-bottom:12px;">👤</div>
+                <h4>Profile Picture Preview</h4>
+                <p>See how your channel icon looks at every size YouTube displays.</p>
+            </a>
+            <a href="/youtube-banner-safe-area" class="link-card">
+                <div style="font-size:2rem;margin-bottom:12px;">📐</div>
+                <h4>Safe Area Guide</h4>
+                <p>Learn the YouTube banner safe zone with diagrams and templates.</p>
+            </a>
         </div>
         <div style="margin-top:40px;">
             <a href="/editor" class="btn-creative" style="--clr:var(--accent)">
-                <span class="btn-creative__icon-wrapper"><svg viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="btn-creative__icon-svg" width="10"><path d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z" fill="currentColor"></path></svg><svg viewBox="0 0 14 15" fill="none" width="10" xmlns="http://www.w3.org/2000/svg" class="btn-creative__icon-svg btn-creative__icon-svg--copy"><path d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z" fill="currentColor"></path></svg></span>
+                <span class="btn-creative__icon-wrapper"><svg viewBox="0 0 14 15" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" class="btn-creative__icon-svg" width="10">
+                        <path
+                            d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
+                            fill="currentColor"></path>
+                    </svg><svg viewBox="0 0 14 15" fill="none" width="10" xmlns="http://www.w3.org/2000/svg"
+                        class="btn-creative__icon-svg btn-creative__icon-svg--copy">
+                        <path
+                            d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
+                            fill="currentColor"></path>
+                    </svg></span>
                 Open Full Channel Preview Editor
             </a>
         </div>
@@ -607,7 +1204,8 @@
         <div class="footer-cta-card">
             <div class="footer-cta-content">
                 <h2 class="footer-cta-title">Preview Before You Publish</h2>
-                <p class="footer-cta-desc">Test your YouTube banners, thumbnails, profile pictures, and titles before uploading.</p>
+                <p class="footer-cta-desc">Test your YouTube banners, thumbnails, profile pictures, and titles before
+                    uploading.</p>
             </div>
             <div class="footer-cta-actions">
                 <a href="/editor" class="footer-cta-btn primary">Start Preview</a>
@@ -622,22 +1220,26 @@
                 <a class="footer-brand" href="/">
                     <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 28px; width: auto;">
                 </a>
-                <p class="footer-brand-desc">Creator-focused tools that help you preview YouTube banners, thumbnails, profile pictures, and titles before publishing.</p>
+                <p class="footer-brand-desc">Creator-focused tools that help you preview YouTube banners, thumbnails,
+                    profile pictures, and titles before publishing.</p>
                 <div class="footer-trust-badges">
                     <div class="footer-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>No Sign-Up Required</span>
                     </div>
                     <div class="footer-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>Privacy Friendly</span>
                     </div>
                     <div class="footer-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>100% Browser Based</span>
@@ -686,15 +1288,19 @@
         <!-- Trust Strip Section -->
         <div class="footer-trust-strip">
             <div class="trust-item">
-                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    <path
+                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                    </path>
                 </svg>
                 <span>Built for Creators Worldwide</span>
             </div>
             <div class="trust-item">
-                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
                     <line x1="8" y1="21" x2="16" y2="21"></line>
                     <line x1="12" y1="17" x2="12" y2="21"></line>
@@ -702,7 +1308,8 @@
                 <span>100% Browser Based</span>
             </div>
             <div class="trust-item">
-                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
                 <span>Images Never Leave Your Device</span>
@@ -714,35 +1321,45 @@
             <div class="footer-copyright">
                 © 2026 Channel Preview. All Rights Reserved.
             </div>
-            
+
             <!-- Social Buttons -->
             <div class="footer-socials">
-                <a href="https://www.youtube.com/@thegaganpratap" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener">
+                <a href="https://www.youtube.com/@thegaganpratap" class="social-btn" aria-label="YouTube"
+                    target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                        <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+                        <path
+                            d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z">
+                        </path>
                     </svg>
                 </a>
-                <a href="https://www.instagram.com/thegaganpratap/" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <a href="https://www.instagram.com/thegaganpratap/" class="social-btn" aria-label="Instagram"
+                    target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" width="18" height="18">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                     </svg>
                 </a>
-                <a href="https://www.linkedin.com/in/gagan-pratap/" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <a href="https://www.linkedin.com/in/gagan-pratap/" class="social-btn" aria-label="LinkedIn"
+                    target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" width="18" height="18">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                         <rect x="2" y="9" width="4" height="12"></rect>
                         <circle cx="4" cy="4" r="2"></circle>
                     </svg>
                 </a>
-                <a href="https://twitter.com/thegaganpratap_" class="social-btn" aria-label="Twitter" target="_blank" rel="noopener">
+                <a href="https://twitter.com/thegaganpratap_" class="social-btn" aria-label="Twitter" target="_blank"
+                    rel="noopener">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                        </path>
                     </svg>
                 </a>
             </div>
-            
+
             <div class="footer-legal-links">
                 <a href="/privacy-policy">Privacy</a>
                 <a href="/privacy-policy#terms">Terms</a>
@@ -755,18 +1372,94 @@
         // ── TRUNCATION LIMITS ──
         const LIMITS = {
             desktop: 65,
-            mobile:  52,
+            mobile: 52,
             sidebar: 48,
-            home:    60,
+            home: 60,
         };
 
         // ── ELEMENTS ──
-        const titleInput    = document.getElementById('title-input');
-        const charCountEl   = document.getElementById('char-count');
-        const charBarEl     = document.getElementById('char-bar');
-        const channelInput  = document.getElementById('channel-name');
-        const viewsInput    = document.getElementById('view-count');
-        const durInput      = document.getElementById('duration-input');
+        const titleInput = document.getElementById('title-input');
+        const charCountEl = document.getElementById('char-count');
+        const charBarEl = document.getElementById('char-bar');
+        const channelInput = document.getElementById('channel-name');
+        const viewsInput = document.getElementById('view-count');
+        const durInput = document.getElementById('duration-input');
+
+        // Thumbnail elements
+        const fileInput = document.getElementById('thumb-file-input');
+        const thumbStatus = document.getElementById('thumb-status');
+        const thumbFilename = document.getElementById('thumb-filename');
+        const removeBtn = document.getElementById('btn-remove-thumb');
+        const previewPanel = document.getElementById('preview-panel');
+
+        const previewThumbs = [
+            document.getElementById('thumb-preview-d'),
+            document.getElementById('thumb-preview-m'),
+            document.getElementById('thumb-preview-s'),
+            document.getElementById('thumb-preview-h')
+        ];
+
+        let thumbDataUrl = null;
+
+        function loadThumb(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                thumbDataUrl = e.target.result;
+                applyThumb(thumbDataUrl);
+                thumbFilename.textContent = `Selected: ${file.name}`;
+                thumbStatus.style.display = 'flex';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function applyThumb(dataUrl) {
+            previewThumbs.forEach(el => {
+                if (el) {
+                    el.style.backgroundImage = `url(${dataUrl})`;
+                    el.style.backgroundSize = 'cover';
+                    el.style.backgroundPosition = 'center';
+                }
+            });
+        }
+
+        function removeThumb() {
+            thumbDataUrl = null;
+            fileInput.value = '';
+            thumbStatus.style.display = 'none';
+            previewThumbs.forEach(el => {
+                if (el) {
+                    el.style.backgroundImage = '';
+                    el.style.backgroundSize = '';
+                    el.style.backgroundPosition = '';
+                }
+            });
+        }
+
+        // File input change
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) loadThumb(file);
+        });
+
+        // Remove button click
+        removeBtn.addEventListener('click', removeThumb);
+
+        // Drag & drop handlers on preview panel
+        previewPanel.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            previewPanel.classList.add('dragover');
+        });
+        previewPanel.addEventListener('dragleave', () => {
+            previewPanel.classList.remove('dragover');
+        });
+        previewPanel.addEventListener('drop', (e) => {
+            e.preventDefault();
+            previewPanel.classList.remove('dragover');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                loadThumb(file);
+            }
+        });
 
         // Render a title with truncation highlight
         function renderTitle(el, fullTitle, limit) {
@@ -775,21 +1468,21 @@
                 el.innerHTML = `<span class="title-visible">${escHtml(fullTitle)}</span>`;
             } else {
                 const visible = fullTitle.slice(0, limit);
-                const hidden  = fullTitle.slice(limit);
+                const hidden = fullTitle.slice(limit);
                 el.innerHTML = `<span class="title-visible">${escHtml(visible)}</span><span class="title-truncated">${escHtml(hidden)}</span>`;
             }
         }
 
         function escHtml(str) {
-            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         }
 
         function updatePreviews() {
             const title = titleInput.value || '';
-            const len   = title.length;
+            const len = title.length;
             const channel = channelInput.value || 'Channel Preview';
-            const views   = viewsInput.value || '0';
-            const dur     = durInput.value || '0:00';
+            const views = viewsInput.value || '0';
+            const dur = durInput.value || '0:00';
 
             // Char counter
             charCountEl.textContent = `${len} / 100`;
@@ -799,9 +1492,9 @@
 
             // Previews
             renderTitle(document.getElementById('preview-desktop'), title || 'Your title will appear here...', LIMITS.desktop);
-            renderTitle(document.getElementById('preview-mobile'),  title || 'Your title...', LIMITS.mobile);
+            renderTitle(document.getElementById('preview-mobile'), title || 'Your title...', LIMITS.mobile);
             renderTitle(document.getElementById('preview-sidebar'), title || 'Your title...', LIMITS.sidebar);
-            renderTitle(document.getElementById('preview-home'),    title || 'Your title...', LIMITS.home);
+            renderTitle(document.getElementById('preview-home'), title || 'Your title...', LIMITS.home);
 
             // Meta
             const metaD = document.getElementById('meta-desktop');
@@ -814,7 +1507,7 @@
             if (metaH) metaH.textContent = `${channel} · ${views} views`;
 
             // Durations
-            ['dur-d','dur-m','dur-s','dur-h'].forEach(id => {
+            ['dur-d', 'dur-m', 'dur-s', 'dur-h'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.textContent = dur;
             });
@@ -880,13 +1573,14 @@
                 const item = btn.closest('.faq-item');
                 const answer = item.querySelector('.faq-answer');
                 const isOpen = item.classList.contains('active');
-                document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('active'); i.querySelector('.faq-answer').style.maxHeight=null; i.querySelector('.faq-question').setAttribute('aria-expanded','false'); });
-                if (!isOpen) { item.classList.add('active'); answer.style.maxHeight=answer.scrollHeight+'px'; btn.setAttribute('aria-expanded','true'); }
+                document.querySelectorAll('.faq-item').forEach(i => { i.classList.remove('active'); i.querySelector('.faq-answer').style.maxHeight = null; i.querySelector('.faq-question').setAttribute('aria-expanded', 'false'); });
+                if (!isOpen) { item.classList.add('active'); answer.style.maxHeight = answer.scrollHeight + 'px'; btn.setAttribute('aria-expanded', 'true'); }
             });
         });
 
-        const obs = new IntersectionObserver(e => e.forEach(el => { if(el.isIntersecting){el.target.style.opacity='1';el.target.style.transform='translateY(0)';obs.unobserve(el.target);} }), {threshold:0.08});
-        document.querySelectorAll('.spec-card,.how-step,.tip-card,.link-card,.faq-item').forEach((el,i) => { el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition=`opacity 0.5s ease ${i*0.04}s,transform 0.5s ease ${i*0.04}s`;obs.observe(el); });
+        const obs = new IntersectionObserver(e => e.forEach(el => { if (el.isIntersecting) { el.target.style.opacity = '1'; el.target.style.transform = 'translateY(0)'; obs.unobserve(el.target); } }), { threshold: 0.08 });
+        document.querySelectorAll('.spec-card,.how-step,.tip-card,.link-card,.faq-item').forEach((el, i) => { el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.style.transition = `opacity 0.5s ease ${i * 0.04}s,transform 0.5s ease ${i * 0.04}s`; obs.observe(el); });
     </script>
 </body>
+
 </html>

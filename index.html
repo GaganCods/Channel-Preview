@@ -19,302 +19,6 @@
     <link rel="icon" type="image/png" href="assets/logo-icon.png">
 
     <style>
-        /* ── NAV ── */
-        nav {
-            position: fixed;
-            top: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 48px);
-            max-width: 1200px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 24px;
-            /* transparent at top — merges with hero */
-            background: transparent;
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
-            border: 1px solid transparent;
-            border-radius: 100px;
-            box-shadow: none;
-            transition: background 0.5s ease, border-color 0.5s ease,
-                box-shadow 0.5s ease, top 0.5s ease,
-                backdrop-filter 0.5s ease;
-        }
-
-        nav.scrolled {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border-color: rgba(255, 255, 255, 0.18);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-            top: 12px;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-
-        .nav-logo-icon {
-            width: 32px;
-            height: 32px;
-            background: var(--orange-grad);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.95rem;
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(255, 77, 0, 0.4);
-            flex-shrink: 0;
-        }
-
-        .nav-logo-text {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: -0.02em;
-            color: #fff;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .nav-links a {
-            font-size: 0.88rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.7);
-            padding: 8px 14px;
-            border-radius: 100px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            white-space: nowrap;
-        }
-
-        @media (min-width: 769px) and (max-width: 1100px) {
-            .nav-links {
-                position: static;
-                transform: none;
-                margin: 0 auto;
-                gap: 12px;
-            }
-
-            .nav-links a {
-                padding: 6px 10px;
-                font-size: 0.82rem;
-            }
-
-            .nav-logo img {
-                height: 26px !important;
-            }
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .nav-links a.active {
-            color: var(--accent);
-            border-bottom: 2px solid var(--accent);
-            border-radius: 0;
-            background: transparent;
-            font-weight: 600;
-        }
-
-        .nav-cta {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-shrink: 0;
-        }
-
-        button.nav-hamburger {
-            background: none;
-            border: none;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .nav-cta .btn {
-            padding: 9px 20px;
-            border-radius: 100px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.15);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .nav-cta .btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: none;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-        }
-
-        .nav-cta .btn-primary {
-            background: linear-gradient(135deg, #ff4d00, #ff7300);
-            border-color: transparent;
-            color: #fff;
-            box-shadow: 0 4px 16px rgba(255, 77, 0, 0.4);
-        }
-
-        .nav-cta .btn-primary:hover {
-            background: linear-gradient(135deg, #ff6520, #ff8c20);
-            box-shadow: 0 6px 24px rgba(255, 77, 0, 0.5);
-        }
-
-        /* ── HAMBURGER (mobile) ── */
-        .nav-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 8px;
-            transition: background 0.25s;
-            flex-shrink: 0;
-            z-index: 10;
-        }
-
-        .nav-hamburger:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-hamburger span {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 4px;
-            transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-            transform-origin: center;
-        }
-
-        .nav-hamburger.open span:nth-child(1) {
-            transform: translateY(7px) rotate(45deg);
-        }
-
-        .nav-hamburger.open span:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-
-        .nav-hamburger.open span:nth-child(3) {
-            transform: translateY(-7px) rotate(-45deg);
-        }
-
-        /* ── MOBILE MENU PANEL ── */
-        .nav-mobile-menu {
-            display: none;
-        }
-
-        .mobile-only-btn {
-            display: none !important;
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                top: 12px;
-                width: calc(100% - 32px);
-                padding: 12px 18px;
-                border-radius: 20px;
-            }
-
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 80px;
-                left: 16px;
-                right: 16px;
-                flex-direction: column;
-                gap: 0;
-                background: rgba(15, 15, 15, 0.4);
-                backdrop-filter: blur(32px) saturate(180%);
-                -webkit-backdrop-filter: blur(32px) saturate(180%);
-                border: 1px solid rgba(255, 255, 255, 0.12);
-                border-radius: 20px;
-                padding: 12px 8px;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-                z-index: 999;
-                transform: translateY(-10px);
-                opacity: 0;
-                transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            }
-
-            nav.scrolled .nav-links {
-                background: rgba(15, 15, 15, 0.95);
-                backdrop-filter: blur(24px) saturate(180%);
-                -webkit-backdrop-filter: blur(24px) saturate(180%);
-                border: 1px solid rgba(255, 255, 255, 0.15);
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            }
-
-            .nav-links.open {
-                display: flex;
-                transform: translateY(0);
-                opacity: 1;
-            }
-
-            .nav-links a {
-                padding: 14px 16px;
-                border-radius: 12px;
-                font-size: 1rem;
-                color: rgba(255, 255, 255, 0.85);
-                transition: background 0.2s, color 0.2s;
-            }
-
-            .nav-links a:hover {
-                background: rgba(255, 255, 255, 0.06);
-                color: #fff;
-            }
-
-            .nav-cta .btn {
-                padding: 8px 16px;
-                font-size: 0.82rem;
-            }
-
-            .nav-cta .desktop-only-btn {
-                display: none !important;
-            }
-
-            .mobile-only-btn {
-                display: flex !important;
-                margin-top: 12px;
-                margin-inline: 8px;
-                width: calc(100% - 16px);
-                justify-content: center;
-            }
-
-            .nav-hamburger {
-                display: flex;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-logo-text {
-                font-size: 1rem;
-            }
-
-            .nav-cta {
-                gap: 8px;
-            }
-        }
-
         /* ── HERO ── */
         .hero {
             min-height: 100vh;
@@ -342,7 +46,7 @@
             background: #0f0f0f;
             border: 1px solid var(--border);
             border-radius: 24px;
-            overflow: hidden;
+            overflow: visible;
             text-align: left;
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
         }
@@ -353,6 +57,8 @@
             background: var(--orange-grad);
             position: relative;
             border-bottom: 1px solid var(--border);
+            border-top-left-radius: 23px;
+            border-top-right-radius: 23px;
         }
 
         .mock-banner::after {
@@ -396,6 +102,11 @@
             color: #fff;
             margin-bottom: 4px;
             font-family: 'Outfit', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .yt-channel-mock .mock-info:hover .mock-name {
+            color: var(--accent-bright) !important;
         }
 
         .mock-meta {
@@ -1491,16 +1202,16 @@
         /* Tooltip style */
         .hotspot-tooltip {
             position: absolute;
-            z-index: 100;
-            background: rgba(10, 10, 10, 0.95);
+            z-index: 1000;
+            background: #0a0a0a;
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 10px;
             padding: 10px 14px;
             width: 200px;
             font-size: 0.8rem;
             color: #fff;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
             pointer-events: none;
             opacity: 0;
             transform: translateY(10px);
@@ -1521,7 +1232,8 @@
             display: block;
         }
 
-        .mock-hotspot:hover .hotspot-tooltip {
+        .mock-hotspot:hover .hotspot-tooltip,
+        .mock-hotspot:hover + .hotspot-tooltip {
             opacity: 1;
             transform: translateY(0);
         }
@@ -1566,12 +1278,12 @@
         .thumb-hotspot:hover .hotspot-pulse {
             transform: translate(-50%, -50%) scale(1);
         }
-        .thumb-hotspot .hotspot-tooltip {
+        .thumb-hotspot + .hotspot-tooltip {
             bottom: calc(100% + 10px);
             left: 0;
             transform: translateY(10px);
         }
-        .thumb-hotspot:hover .hotspot-tooltip {
+        .thumb-hotspot:hover + .hotspot-tooltip {
             transform: translateY(0);
         }
 
@@ -1735,11 +1447,17 @@
             font-size: 0.6rem;
             color: rgba(255, 255, 255, 0.3);
             transition: color 0.3s ease, transform 0.3s ease;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            pointer-events: none;
+            z-index: 2;
         }
 
         .thumb-hotspot:hover .play-btn-overlay {
             color: #ff5a0a;
-            transform: scale(1.2);
+            transform: translate(-50%, -50%) scale(1.2);
         }
 
         .ctr-badge {
@@ -1830,7 +1548,7 @@
 
         .mock-hotspot.active-cycle.thumb-hotspot .play-btn-overlay {
             color: #ff5a0a;
-            transform: scale(1.2);
+            transform: translate(-50%, -50%) scale(1.2);
         }
 
         .mock-hotspot.active-cycle.thumb-hotspot .ctr-badge {
@@ -1843,7 +1561,8 @@
         }
 
         /* Show tooltips during cycle */
-        .mock-hotspot.active-cycle .hotspot-tooltip {
+        .mock-hotspot.active-cycle .hotspot-tooltip,
+        .mock-hotspot.active-cycle + .hotspot-tooltip {
             opacity: 1;
         }
 
@@ -1852,12 +1571,101 @@
         }
 
         .mock-hotspot.active-cycle.pfp-hotspot .hotspot-tooltip,
-        .mock-hotspot.active-cycle.thumb-hotspot .hotspot-tooltip {
+        .mock-hotspot.active-cycle.thumb-hotspot + .hotspot-tooltip {
             transform: translateY(0);
         }
 
         .mock-hotspot.active-cycle.title-hotspot .hotspot-tooltip {
             transform: translateY(0);
+        }
+
+        /* ── HERO MOCKUP HOTSPOTS OVERRIDES ── */
+        .yt-channel-mock .banner-hotspot .mobile-safe-outline {
+            width: 60.4%;
+            height: 100%;
+            left: 19.8%;
+            top: 0;
+            border-radius: 0;
+            border: 1px dashed rgba(255, 90, 10, 0.5);
+            background: rgba(255, 90, 10, 0.03);
+            transform: scale(1);
+        }
+        .yt-channel-mock .banner-hotspot:hover .mobile-safe-outline,
+        .yt-channel-mock .banner-hotspot.active-cycle .mobile-safe-outline {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        .yt-channel-mock .pfp-hotspot:hover,
+        .yt-channel-mock .pfp-hotspot.active-cycle {
+            border-color: #ff5a0a;
+        }
+        .yt-channel-mock .pfp-hotspot svg {
+            width: 50%;
+            height: 50%;
+            color: var(--accent);
+            transition: color 0.3s ease;
+        }
+        .yt-channel-mock .pfp-hotspot:hover svg,
+        .yt-channel-mock .pfp-hotspot.active-cycle svg {
+            color: #ff5a0a !important;
+        }
+
+        .yt-channel-mock .thumb-hotspot:hover,
+        .yt-channel-mock .thumb-hotspot.active-cycle {
+            border-color: rgba(255, 90, 10, 0.6);
+        }
+        
+        .yt-channel-mock .mock-thumb .play-btn-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.4);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .yt-channel-mock .thumb-hotspot:hover .play-btn-overlay,
+        .yt-channel-mock .thumb-hotspot.active-cycle .play-btn-overlay {
+            color: #ff5a0a !important;
+            transform: translate(-50%, -50%) scale(1.2) !important;
+        }
+
+        .yt-channel-mock .mock-thumb .ctr-badge {
+            position: absolute;
+            bottom: 8px;
+            left: 8px;
+            right: auto;
+            background: #ff5a0a;
+            color: #fff;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            opacity: 0;
+            transform: translateY(5px);
+            transition: all 0.3s ease;
+        }
+        .yt-channel-mock .thumb-hotspot:hover .ctr-badge,
+        .yt-channel-mock .thumb-hotspot.active-cycle .ctr-badge {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .yt-channel-mock .title-hotspot:hover .mock-v-title,
+        .yt-channel-mock .title-hotspot.active-cycle .mock-v-title {
+            color: #ff8540;
+        }
+
+        .yt-channel-mock .title-hotspot .hotspot-tooltip {
+            left: 0;
+            right: auto;
+        }
+
+        .yt-channel-mock .title-hotspot .hotspot-pulse {
+            right: 10px;
+            top: 25px;
         }
 
         /* ── RESPONSIVE REDESIGN CTA ── */
@@ -1985,6 +1793,208 @@
                 align-items: flex-start;
             }
         }
+
+        /* ── FOUNDER SECTION ── */
+        .founder-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 36px;
+            padding: 64px;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+            text-align: left;
+        }
+
+        .founder-card:hover {
+            border-color: rgba(255, 90, 10, 0.3);
+            box-shadow: 
+                0 40px 100px rgba(0, 0, 0, 0.8),
+                0 0 60px rgba(255, 90, 10, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform: translateY(-6px);
+        }
+
+        @media (max-width: 900px) {
+            .founder-card {
+                gap: 40px;
+                padding: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .founder-card {
+                grid-template-columns: 1fr;
+                padding: 44px 28px;
+                text-align: center;
+                gap: 36px;
+            }
+        }
+
+        .founder-avatar {
+            width: 240px;
+            height: 280px;
+            border-radius: 28px;
+            background: rgba(20, 20, 20, 0.8);
+            overflow: hidden;
+            position: relative;
+            padding: 3px;
+            background-image: linear-gradient(135deg, #ff4d00 0%, #ff8f48 50%, rgba(255, 255, 255, 0.08) 100%);
+            box-shadow:
+                0 0 30px rgba(255, 90, 10, 0.15),
+                0 20px 40px rgba(0, 0, 0, 0.5);
+            flex-shrink: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .founder-avatar:hover {
+            box-shadow:
+                0 0 50px rgba(255, 90, 10, 0.45),
+                0 24px 50px rgba(0, 0, 0, 0.6);
+            background-image: linear-gradient(135deg, #ff6b1a 0%, #ffa366 50%, rgba(255, 255, 255, 0.15) 100%);
+            transform: scale(1.02);
+        }
+
+        .founder-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            border-radius: 25px;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .founder-avatar:hover img {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .founder-avatar {
+                margin: 0 auto;
+                width: 200px;
+                height: 233px;
+            }
+        }
+
+        .founder-role {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            background: rgba(255, 77, 0, 0.08);
+            border: 1px solid rgba(255, 77, 0, 0.18);
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #ff7a30;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .founder-card h3 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 12px;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        .founder-card p {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.75;
+            max-width: 600px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 768px) {
+            .founder-card p {
+                margin-inline: auto;
+            }
+        }
+
+        .secondary-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 36px;
+            background: rgba(255, 255, 255, 0.07);
+            color: #fff;
+            border-radius: 100px;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .secondary-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .secondary-btn:hover svg {
+            transform: translateX(4px);
+        }
+
+        .founder-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 32px !important;
+            border-radius: 100px !important;
+            font-weight: 700 !important;
+            font-size: 0.95rem;
+            color: #fff !important;
+            background-image: linear-gradient(135deg, #ff4d00 0%, #ff7300 50%, #ff4d00 100%);
+            background-size: 200% auto;
+            background-position: left center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(255, 77, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                        background-position 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none !important;
+            position: relative;
+            z-index: 12;
+            width: fit-content;
+        }
+
+        .founder-btn::after {
+            content: '→';
+            font-weight: 800;
+            margin-left: 4px;
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .founder-btn:hover {
+            transform: translateY(-3px);
+            background-position: right center;
+            box-shadow: 0 8px 25px rgba(255, 77, 0, 0.45), 0 0 0 4px rgba(255, 77, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .founder-btn:hover::after {
+            transform: translateX(4px);
+        }
+
+        .founder-btn:active {
+            transform: translateY(-1px) scale(0.98);
+            box-shadow: 0 4px 12px rgba(255, 77, 0, 0.35);
+        }
     </style>
 </head>
 
@@ -1998,17 +2008,18 @@
     <!-- ── NAV ── -->
     <nav id="main-nav">
         <a class="nav-logo" href="/">
-            <img src="assets/logo-full.png" alt="Channel Preview" style="height: 32px; width: auto;">
+            <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 32px; width: auto;">
         </a>
         <div class="nav-links" id="nav-links">
             <a href="/youtube-banner-preview">Banner Preview</a>
             <a href="/youtube-thumbnail-preview">Thumbnails</a>
             <a href="/youtube-profile-picture-preview">Profile Picture</a>
             <a href="/youtube-title-preview">Title Preview</a>
+            <a href="/youtube-video-detail-preview">Watch Page</a>
             <a href="/blog">Blogs</a>
             <a href="/editor" class="btn-nav-start mobile-only-btn">
                 Try Free
-                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon">
+                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon" style="width: 20px; height: 20px;">
                     <path clip-rule="evenodd"
                         d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
                         fill-rule="evenodd"></path>
@@ -2017,7 +2028,7 @@
         </div>
         <div class="nav-cta">
             <a href="/editor" class="btn desktop-only-btn"
-                style="padding:9px 20px;border-radius:100px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;">
+                style="padding:9px 20px;border-radius:100px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;text-decoration:none;">
                 Try Free →
             </a>
             <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
@@ -2030,50 +2041,40 @@
     <script>
         // Scroll: add .scrolled class
         const mainNav = document.getElementById('main-nav');
-        window.addEventListener('scroll', () => {
-            mainNav.classList.toggle('scrolled', window.scrollY > 80);
-        }, { passive: true });
+        if (mainNav) {
+            window.addEventListener('scroll', () => {
+                mainNav.classList.toggle('scrolled', window.scrollY > 80);
+            }, { passive: true });
+        }
 
         // Hamburger toggle
         const hamburger = document.getElementById('nav-hamburger');
         const navLinks = document.getElementById('nav-links');
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('open');
-            navLinks.classList.toggle('open');
-        });
-
-        // Close menu when a link is clicked
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('open');
-                navLinks.classList.remove('open');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navLinks.classList.toggle('open');
             });
-        });
 
-        const sections = document.querySelectorAll('section[id]');
+            // Close menu when a link is clicked
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
+                });
+            });
+        }
+
+        // Highlight active link based on pathname
+        const currentPath = window.location.pathname;
         const navAnchorLinks = document.querySelectorAll('.nav-links a');
-
-        // Active nav link highlighting using IntersectionObserver
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute("id");
-
-                    navAnchorLinks.forEach(link => {
-                        link.classList.remove("active");
-
-                        if (link.getAttribute("href") === "#" + id) {
-                            link.classList.add("active");
-                        }
-                    });
-                }
-            });
-        }, {
-            threshold: 0.6
-        });
-
-        sections.forEach(section => {
-            observer.observe(section);
+        navAnchorLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath || (href === '/' && currentPath === '') || (currentPath === '/' && href === '/')) {
+                link.classList.add('active');
+            } else if (href && href !== '/' && currentPath.startsWith(href)) {
+                link.classList.add('active');
+            }
         });
     </script>
 
@@ -2125,7 +2126,9 @@
         <!-- ── UPLOAD EMPTY STATE (animated) ── -->
         <div class="animate-fade-up delay-4" style="width:100%;max-width:720px;margin-top:40px;">
             <div class="upload-state-wrapper" id="hero-upload-state" onclick="window.location.href='/editor'">
-                <span class="upload-state-icon" id="upload-icon">🖼️</span>
+                <span class="upload-state-icon" id="upload-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:2.5rem;height:2.5rem;color:var(--accent);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                </span>
                 <div class="upload-state-title" id="upload-title">Drop your banner here</div>
                 <ul class="upload-checklist">
                     <li>Check mobile safe area visibility</li>
@@ -2139,24 +2142,39 @@
 
         <div class="hero-mockup animate-fade-up delay-4">
             <div class="yt-channel-mock">
-                <div class="mock-banner">
+                <!-- Banner Hotspot -->
+                <div class="mock-banner mock-hotspot banner-hotspot" data-tool="banner" onclick="window.location.href='/youtube-banner-preview'">
+                    <div class="hotspot-pulse"></div>
                     <div
-                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; text-align: center;">
+                        style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: auto; max-width: 90%; text-align: center; padding: 12px 28px; background: rgba(0,0,0,0.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.35);">
                         <div
-                            style="font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(1rem, 5vw, 2.8rem); line-height: 0.8; letter-spacing: -0.05em; color: #fff; user-select: none;">
+                            style="font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(1.2rem, 5vw, 2.8rem); line-height: 1.0; letter-spacing: -0.05em; color: #fff; user-select: none; text-shadow: 0 2px 8px rgba(0,0,0,0.3);">
                             CHANNEL PREVIEW</div>
+                    </div>
+                    <!-- Mobile Safe Area outline inside the banner -->
+                    <div class="mobile-safe-outline">
+                        <span class="safe-label">Mobile Safe Area</span>
+                    </div>
+                    <div class="hotspot-tooltip">
+                        <strong>YouTube Banner</strong>
+                        <span>Click to test desktop & mobile safe areas</span>
                     </div>
                 </div>
                 <div class="mock-header">
-                    <div class="mock-pfp">
+                    <!-- Profile Picture Hotspot -->
+                    <div class="mock-pfp mock-hotspot pfp-hotspot" data-tool="pfp" onclick="window.location.href='/youtube-profile-picture-preview'">
+                        <div class="hotspot-pulse"></div>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round"
-                            style="width: 50%; height: 50%; color: var(--accent);">
+                            stroke-linecap="round" stroke-linejoin="round">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
+                        <div class="hotspot-tooltip">
+                            <strong>Profile Picture</strong>
+                            <span>Preview circular crop guidelines</span>
+                        </div>
                     </div>
-                    <div class="mock-info">
+                    <div class="mock-info" onclick="window.location.href='/youtube-profile-picture-preview'" style="cursor: pointer;">
                         <div class="mock-name">Channel Preview</div>
                         <div class="mock-meta">
                             <span>@ChannelPreview</span>
@@ -2186,14 +2204,31 @@
                 </div>
                 <div class="mock-content">
                     <div class="mock-video-grid">
-                        <div class="mock-video-card">
-                            <div class="mock-thumb">
+                        <div class="mock-video-card" style="position: relative;">
+                            <!-- Thumbnail Hotspot -->
+                            <div class="mock-thumb mock-hotspot thumb-hotspot" data-tool="thumbnail" onclick="window.location.href='/youtube-thumbnail-preview'">
+                                <div class="hotspot-pulse"></div>
                                 <div
-                                    style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); padding:2px 4px; border-radius:4px; font-size:0.7rem;">
+                                    style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); padding:2px 4px; border-radius:4px; font-size:0.7rem; z-index: 1;">
                                     10:24</div>
+                                <span class="play-btn-overlay">▶</span>
+                                <div class="ctr-badge">CTR 8.9%</div>
+                            </div>
+                            <!-- Tooltip moved out of mock-thumb to prevent clipping -->
+                            <div class="hotspot-tooltip thumb-tooltip-adjust">
+                                <strong>Thumbnail Preview</strong>
+                                <span>Compare CTR potential & do Blur/Grid tests</span>
                             </div>
                             <div class="mock-v-info">
-                                <div class="mock-v-title">How to Preview Your YouTube Channel Like a Pro</div>
+                                <!-- Title Hotspot -->
+                                <div class="mock-hotspot title-hotspot" data-tool="title" onclick="window.location.href='/youtube-title-preview'">
+                                    <div class="hotspot-pulse"></div>
+                                    <div class="mock-v-title">How to Preview Your YouTube Channel Like a Pro</div>
+                                    <div class="hotspot-tooltip">
+                                        <strong>Title Truncation</strong>
+                                        <span>Find exactly where YouTube truncates text</span>
+                                    </div>
+                                </div>
                                 <div class="mock-v-meta">342K views • 3 days ago</div>
                             </div>
                         </div>
@@ -2223,6 +2258,13 @@
                     </div>
                 </div>
             </div>
+            <!-- Active hotspot label indicator -->
+            <div class="mockup-indicator hero-mockup-indicator" style="margin: 20px auto 0; width: fit-content;">
+                <span class="indicator-icon" style="display:inline-flex;align-items:center;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </span>
+                <span class="indicator-text">Hover elements to see what you can test</span>
+            </div>
         </div>
     </section>
 
@@ -2231,10 +2273,22 @@
         <div class="container">
             <div class="trusted-text">Trusted by 40,000+ creators to scale content</div>
             <div class="trusted-logos">
-                <div class="trusted-logo">◈ Genixus</div>
-                <div class="trusted-logo">⌘ Outriva</div>
-                <div class="trusted-logo">❖ Marbello</div>
-                <div class="trusted-logo">⬟ Starly</div>
+                <div class="trusted-logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/></svg>
+                    Genixus
+                </div>
+                <div class="trusted-logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><circle cx="12" cy="12" r="10"/><line x1="14.31" y1="8" x2="20.05" y2="17.94"/><line x1="9.69" y1="8" x2="21.17" y2="8"/><line x1="7.38" y1="12" x2="13.12" y2="2.06"/><line x1="9.69" y1="16" x2="3.95" y2="6.06"/><line x1="14.31" y1="16" x2="2.83" y2="16"/><line x1="16.62" y1="12" x2="10.88" y2="21.94"/></svg>
+                    Outriva
+                </div>
+                <div class="trusted-logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    Marbello
+                </div>
+                <div class="trusted-logo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    Starly
+                </div>
             </div>
         </div>
     </section>
@@ -2255,7 +2309,9 @@
                 <div class="stat-label">Free to use</div>
             </div>
             <div class="stat-item">
-                <div class="stat-number">⚡</div>
+                <div class="stat-number" style="display:flex;align-items:center;justify-content:center;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:2.5rem;height:2.5rem;color:var(--accent);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                </div>
                 <div class="stat-label">Zero Uploads</div>
             </div>
         </div>
@@ -2495,6 +2551,56 @@
 
                     <a href="/youtube-title-preview" class="btn-tool-cta">Open Tool</a>
                 </div>
+
+                <!-- Tool Card 5: Watch Page Preview -->
+                <div class="tool-card" onclick="window.location.href='/youtube-video-detail-preview'">
+                    <div class="tool-card-top">
+                        <div class="tool-icon-wrapper">
+                            <!-- Play Screen Icon -->
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tool-svg-icon">
+                                <polygon points="23 7 16 12 23 17 23 7"/>
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="tool-card-title">Watch Page Tester</h3>
+                    </div>
+
+                    <!-- CSS/SVG Visual Mockup for Watch Page Tester -->
+                    <div class="tool-card-visual watch-visual" style="padding: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 14px; height: 100px;">
+                        <div class="mini-watch-frame" style="width: 110px; background: #0f0f0f; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; padding: 4px; display: flex; flex-direction: column; gap: 4px;">
+                            <div class="mini-player-bar" style="aspect-ratio: 16/9; width: 100%; background: linear-gradient(135deg, #ff4d00, #ff7300); border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                                <span style="font-size: 0.6rem; color: #fff;">▶</span>
+                            </div>
+                            <div class="mini-details-bar" style="display: flex; flex-direction: column; gap: 2px;">
+                                <div style="height: 3px; width: 90%; background: rgba(255, 255, 255, 0.3); border-radius: 1px;"></div>
+                                <div style="height: 2px; width: 60%; background: rgba(255, 255, 255, 0.15); border-radius: 1px;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="tool-card-desc">Simulate a full YouTube watch page environment. Test video overlays, comments, descriptions, and recommendation grids.</p>
+                    
+                    <ul class="tool-features-list">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Video Player Mock</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Sidebar Recommendations</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Comment Simulation</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Visual Blur & Safe Zone Tests</span>
+                        </li>
+                    </ul>
+
+                    <a href="/youtube-video-detail-preview" class="btn-tool-cta">Open Tool</a>
+                </div>
             </div>
 
             <!-- Bottom CTA -->
@@ -2715,24 +2821,29 @@
             <div class="examples-grid">
                 <!-- Gaming Banner -->
                 <a href="/youtube-banner-preview" class="example-card" style="text-decoration:none;">
-                    <div class="example-banner-preview"
-                        style="background:linear-gradient(135deg,#0d0d1a 0%,#1a0533 40%,#2d0a4f 70%,#1a0d2e 100%);">
-                        <div
-                            style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
-                            <div
-                                style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(0.9rem,3vw,1.4rem);color:#fff;letter-spacing:-0.02em;text-shadow:0 0 20px rgba(147,51,234,0.8);">
-                                ⚡ NEXUS GAMING</div>
-                            <div
-                                style="font-size:0.65rem;color:rgba(147,51,234,0.8);font-weight:600;letter-spacing:0.15em;text-transform:uppercase;">
-                                LIVE EVERY FRIDAY</div>
-                        </div>
-                        <div
-                            style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(147,51,234,0.04) 60px,rgba(147,51,234,0.04) 61px);pointer-events:none;">
+                    <div class="example-banner-preview" style="background:linear-gradient(135deg,#0d0d1a 0%,#1a0533 40%,#2d0a4f 70%,#1a0d2e 100%);">
+                        <!-- Animated grid lines background -->
+                        <div style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(147,51,234,0.05) 60px,rgba(147,51,234,0.05) 61px);pointer-events:none;"></div>
+                        <!-- Glowing orb -->
+                        <div style="position:absolute;right:-20px;top:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(147,51,234,0.3),transparent 70%);filter:blur(20px);pointer-events:none;"></div>
+                        <!-- Banner content -->
+                        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(147,51,234,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                                <div style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(0.9rem,3vw,1.4rem);color:#fff;letter-spacing:-0.02em;text-shadow:0 0 20px rgba(147,51,234,0.6);">NEXUS GAMING</div>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:6px;">
+                                <span style="width:5px;height:5px;background:#9333ea;border-radius:50%;display:inline-block;box-shadow:0 0 6px #9333ea;"></span>
+                                <div style="font-size:0.6rem;color:rgba(167,101,255,0.9);font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">LIVE EVERY FRIDAY</div>
+                            </div>
                         </div>
                         <div class="safe-zone-overlay"></div>
                     </div>
                     <div class="example-card-body">
-                        <span class="example-tag">🎮 Gaming Channel</span>
+                        <span class="example-tag" style="display:inline-flex;align-items:center;gap:6px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><polygon points="10 9 10 15 15 12 10 9" fill="currentColor" stroke="none"/></svg>
+                            Gaming Channel
+                        </span>
                         <h4>Dark Gradient Gaming Banner</h4>
                         <p>Deep purple tones with centered branding — logo stays sharp in the mobile safe zone.</p>
                         <span class="example-cta">Preview this style →</span>
@@ -2740,53 +2851,61 @@
                 </a>
                 <!-- Podcast Banner -->
                 <a href="/youtube-banner-preview" class="example-card" style="text-decoration:none;">
-                    <div class="example-banner-preview"
-                        style="background:linear-gradient(135deg,#0a1628 0%,#1e3a5f 50%,#0f2340 100%);">
-                        <div
-                            style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
-                            <div
-                                style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(0.85rem,2.8vw,1.3rem);color:#fff;letter-spacing:-0.02em;">
-                                🎙️ THE DAILY BRIEF</div>
-                            <div
-                                style="font-size:0.6rem;color:rgba(59,130,246,0.9);font-weight:600;letter-spacing:0.15em;text-transform:uppercase;">
-                                EVERY WEEKDAY · 20 MIN</div>
-                        </div>
-                        <div
-                            style="position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(59,130,246,0.15);transform:translateY(-50%);">
+                    <div class="example-banner-preview" style="background:linear-gradient(135deg,#0a1628 0%,#1e3a5f 50%,#0f2340 100%);">
+                        <!-- Subtle horizontal lines -->
+                        <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 20px,rgba(59,130,246,0.04) 20px,rgba(59,130,246,0.04) 21px);pointer-events:none;"></div>
+                        <!-- Blue glow -->
+                        <div style="position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);width:160px;height:80px;background:radial-gradient(circle,rgba(59,130,246,0.2),transparent 70%);filter:blur(20px);pointer-events:none;"></div>
+                        <!-- Banner content -->
+                        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(96,165,250,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+                                <div style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(0.85rem,2.8vw,1.3rem);color:#fff;letter-spacing:-0.02em;">THE DAILY BRIEF</div>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:6px;">
+                                <span style="width:5px;height:5px;background:#60a5fa;border-radius:50%;display:inline-block;"></span>
+                                <div style="font-size:0.58rem;color:rgba(96,165,250,0.9);font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">EVERY WEEKDAY · 20 MIN</div>
+                            </div>
                         </div>
                         <div class="safe-zone-overlay"></div>
                     </div>
                     <div class="example-card-body">
-                        <span class="example-tag">🎙️ Podcast Channel</span>
+                        <span class="example-tag" style="display:inline-flex;align-items:center;gap:6px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                            Podcast Channel
+                        </span>
                         <h4>Minimal Blue Podcast Banner</h4>
-                        <p>Clean minimalist design — schedule information visible in the center safe area on all
-                            screens.</p>
+                        <p>Clean minimalist design — schedule information visible in the center safe area on all screens.</p>
                         <span class="example-cta">Preview this style →</span>
                     </div>
                 </a>
                 <!-- Education Banner -->
                 <a href="/youtube-banner-preview" class="example-card" style="text-decoration:none;">
-                    <div class="example-banner-preview"
-                        style="background:linear-gradient(135deg,#0a1a0a 0%,#0d2b0d 50%,#1a3d1a 100%);">
-                        <div
-                            style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:4px;">
-                            <div
-                                style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(0.85rem,2.8vw,1.25rem);color:#fff;letter-spacing:-0.02em;">
-                                📚 CODE WITH MAYA</div>
-                            <div
-                                style="font-size:0.6rem;color:rgba(34,197,94,0.9);font-weight:600;letter-spacing:0.15em;text-transform:uppercase;">
-                                TUTORIALS · EVERY TUESDAY</div>
-                        </div>
-                        <div
-                            style="position:absolute;inset:0;background:radial-gradient(circle at 80% 50%,rgba(34,197,94,0.08),transparent 50%);pointer-events:none;">
+                    <div class="example-banner-preview" style="background:linear-gradient(135deg,#0a1a0a 0%,#0d2b0d 50%,#1a3d1a 100%);">
+                        <!-- Circuit-like dot grid -->
+                        <div style="position:absolute;inset:0;background:radial-gradient(rgba(34,197,94,0.08) 1px,transparent 1px);background-size:18px 18px;pointer-events:none;"></div>
+                        <!-- Green glow -->
+                        <div style="position:absolute;right:-10px;top:50%;transform:translateY(-50%);width:140px;height:140px;background:radial-gradient(circle,rgba(34,197,94,0.15),transparent 70%);filter:blur(20px);pointer-events:none;"></div>
+                        <!-- Banner content -->
+                        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(34,197,94,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                                <div style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(0.85rem,2.8vw,1.25rem);color:#fff;letter-spacing:-0.02em;">CODE WITH MAYA</div>
+                            </div>
+                            <div style="display:flex;align-items:center;gap:6px;">
+                                <span style="width:5px;height:5px;background:#22c55e;border-radius:50%;display:inline-block;box-shadow:0 0 6px #22c55e;"></span>
+                                <div style="font-size:0.58rem;color:rgba(34,197,94,0.9);font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">TUTORIALS · EVERY TUESDAY</div>
+                            </div>
                         </div>
                         <div class="safe-zone-overlay"></div>
                     </div>
                     <div class="example-card-body">
-                        <span class="example-tag">📚 Education Channel</span>
+                        <span class="example-tag" style="display:inline-flex;align-items:center;gap:6px;">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                            Education Channel
+                        </span>
                         <h4>Dark Green Education Banner</h4>
-                        <p>Subject matter identity with upload schedule — both elements fit neatly in the mobile safe
-                            zone.</p>
+                        <p>Subject matter identity with upload schedule — both elements fit neatly in the mobile safe zone.</p>
                         <span class="example-cta">Preview this style →</span>
                     </div>
                 </a>
@@ -2892,6 +3011,36 @@
         </div>
     </section>
 
+    <!-- ── FOUNDER (THE PERSON BEHIND IT) ── -->
+    <section id="founder-preview" class="section scroll-reveal" style="border-top: 1px solid var(--border); padding: 100px 0; background: transparent; position: relative;">
+        <!-- Decorative Ambient Radial Glow behind the founder card -->
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(255, 77, 0, 0.07) 0%, transparent 70%); pointer-events: none; filter: blur(60px); z-index: 0;"></div>
+        
+        <div class="container" style="max-width: 1100px; position: relative; z-index: 1;">
+            <div style="text-align: center; margin-bottom: 56px;">
+                <span class="section-eyebrow" style="margin-bottom: 16px;">The Person Behind It</span>
+                <h2 class="section-title">Meet the <span class="accent-text">Founder</span></h2>
+            </div>
+
+            <div class="founder-card">
+                <div class="founder-avatar">
+                    <img src="assets/Gagan.png" alt="Gagan Pratap — Founder of Channel Preview"
+                        onerror="this.parentElement.style.backgroundImage='linear-gradient(135deg,#ff4d00,#ff7300)'; this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<span style=\'font-size:3.5rem;font-weight:900;color:#fff;font-family:Outfit,sans-serif;display:flex;align-items:center;justify-content:center;height:100%\'>GP</span>')">
+                </div>
+                <div>
+                    <div class="founder-role">Founder & Creator</div>
+                    <h3>Gagan Pratap</h3>
+                    <p>Designer, creator, and developer focused on building tools that help content creators work
+                        smarter and publish with confidence. Channel Preview was born from firsthand frustration with
+                        banner crops and thumbnail guesswork — and a belief that creators deserve better tools.</p>
+                    <a href="/founder" class="founder-btn">
+                        Know More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ── LATEST CREATOR RESOURCES ── -->
     <section class="section" style="border-top: 1px solid var(--border); background: transparent; position: relative;">
         <div class="container">
@@ -2906,7 +3055,9 @@
                 <!-- Article Card 1 -->
                 <div class="card"
                     style="display: flex; flex-direction: column; height: 100%; border-radius: var(--radius-lg);">
-                    <div style="font-size: 2.5rem; margin-bottom: 16px;">📐</div>
+                    <div style="width:52px;height:52px;background:rgba(255,77,0,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--accent);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    </div>
                     <div
                         style="font-size: 0.78rem; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">
                         YouTube Banners</div>
@@ -2924,7 +3075,9 @@
                 <!-- Article Card 2 -->
                 <div class="card"
                     style="display: flex; flex-direction: column; height: 100%; border-radius: var(--radius-lg);">
-                    <div style="font-size: 2.5rem; margin-bottom: 16px;">📱</div>
+                    <div style="width:52px;height:52px;background:rgba(255,77,0,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--accent);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    </div>
                     <div
                         style="font-size: 0.78rem; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">
                         YouTube Banners</div>
@@ -2941,7 +3094,9 @@
                 <!-- Article Card 3 -->
                 <div class="card"
                     style="display: flex; flex-direction: column; height: 100%; border-radius: var(--radius-lg);">
-                    <div style="font-size: 2.5rem; margin-bottom: 16px;">🖼️</div>
+                    <div style="width:52px;height:52px;background:rgba(255,77,0,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--accent);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    </div>
                     <div
                         style="font-size: 0.78rem; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">
                         Thumbnails</div>
@@ -3186,6 +3341,7 @@
                     <li><a href="/youtube-thumbnail-preview">Thumbnail Preview</a></li>
                     <li><a href="/youtube-profile-picture-preview">PFP Preview</a></li>
                     <li><a href="/youtube-title-preview">Title Preview</a></li>
+                    <li><a href="/youtube-video-detail-preview">Watch Page Preview</a></li>
                     <li><a href="/youtube-banner-safe-area">Safe Area Guide</a></li>
                     <li><a href="/editor">Editor</a></li>
                 </ul>
@@ -3332,11 +3488,16 @@
             const title = document.getElementById('upload-title');
             if (!icon || !title) return;
 
+            const svgImage = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:2.5rem;height:2.5rem;color:var(--accent);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`;
+            const svgUpload = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:2.5rem;height:2.5rem;color:var(--accent);"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>`;
+            const svgSettings = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:2.5rem;height:2.5rem;color:var(--accent);"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`;
+            const svgCheck = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:2.5rem;height:2.5rem;color:#22c55e;"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+
             const stages = [
-                { icon: '🖼️', text: 'Drop your banner here', duration: 3200 },
-                { icon: '⬆️', text: 'Uploading...', duration: 1200 },
-                { icon: '⚙️', text: 'Rendering Preview...', duration: 1400 },
-                { icon: '✅', text: 'Preview Ready!', duration: 2000 },
+                { icon: svgImage, text: 'Drop your banner here', duration: 3200 },
+                { icon: svgUpload, text: 'Uploading...', duration: 1200 },
+                { icon: svgSettings, text: 'Rendering Preview...', duration: 1400 },
+                { icon: svgCheck, text: 'Preview Ready!', duration: 2000 },
             ];
 
             let idx = 0;
@@ -3347,7 +3508,7 @@
                 icon.style.opacity = '0';
                 title.style.opacity = '0';
                 setTimeout(() => {
-                    icon.textContent = s.icon;
+                    icon.innerHTML = s.icon;
                     title.textContent = s.text;
                     icon.style.opacity = '1';
                     title.style.opacity = '1';
@@ -3384,9 +3545,11 @@
 
         // ── Interactive CTA Mockup cycle ──
         (function() {
-            const hotspots = document.querySelectorAll('.mock-hotspot');
-            const indicatorText = document.querySelector('.mockup-indicator .indicator-text');
-            const indicatorIcon = document.querySelector('.mockup-indicator .indicator-icon');
+            const wrapper = document.querySelector('.premium-cta-mockup-wrapper');
+            if (!wrapper) return;
+            const hotspots = wrapper.querySelectorAll('.mock-hotspot');
+            const indicatorText = wrapper.querySelector('.mockup-indicator .indicator-text');
+            const indicatorIcon = wrapper.querySelector('.mockup-indicator .indicator-icon');
             if (!hotspots.length || !indicatorText) return;
 
             const toolDescriptions = {
@@ -3431,6 +3594,83 @@
             // Initial state
             activateHotspot(0);
             startCycle();
+
+            hotspots.forEach((hotspot, idx) => {
+                hotspot.addEventListener('mouseenter', () => {
+                    isUserHovering = true;
+                    stopCycle();
+                    
+                    // Show current hovered tool description in the indicator
+                    const tool = hotspot.getAttribute('data-tool');
+                    if (toolDescriptions[tool]) {
+                        indicatorText.innerText = toolDescriptions[tool].text;
+                        indicatorIcon.innerText = toolDescriptions[tool].icon;
+                    }
+                });
+
+                hotspot.addEventListener('mouseleave', () => {
+                    isUserHovering = false;
+                    currentIdx = idx;
+                    startCycle();
+                });
+            });
+        })();
+
+        // ── Interactive Hero Mockup cycle ──
+        (function() {
+            const wrapper = document.querySelector('.hero-mockup');
+            if (!wrapper) return;
+            const hotspots = wrapper.querySelectorAll('.mock-hotspot');
+            const indicatorText = wrapper.querySelector('.hero-mockup-indicator .indicator-text');
+            const indicatorIcon = wrapper.querySelector('.hero-mockup-indicator .indicator-icon');
+            if (!hotspots.length || !indicatorText) return;
+
+            const toolDescriptions = {
+                'banner': { text: 'Testing Banner Safe Areas (Desktop/Mobile/TV)', icon: '🖼️' },
+                'pfp': { text: 'Previewing Circular Profile Picture Crop', icon: '👤' },
+                'thumbnail': { text: 'Testing Thumbnail CTR Potential & Blur Test', icon: '🎬' },
+                'title': { text: 'Testing Title Truncation across devices', icon: '✏️' }
+            };
+
+            let cycleInterval;
+            let currentIdx = 0;
+            let isUserHovering = false;
+
+            function activateHotspot(idx) {
+                hotspots.forEach((h, i) => {
+                    if (i === idx) {
+                        h.classList.add('active-cycle');
+                        const tool = h.getAttribute('data-tool');
+                        if (toolDescriptions[tool]) {
+                            indicatorText.innerText = toolDescriptions[tool].text;
+                            indicatorIcon.innerText = toolDescriptions[tool].icon;
+                        }
+                    } else {
+                        h.classList.remove('active-cycle');
+                    }
+                });
+            }
+
+            // Start cycle with slightly different offset so both do not cycle exactly simultaneously
+            setTimeout(() => {
+                startCycle();
+            }, 1000);
+
+            function startCycle() {
+                cycleInterval = setInterval(() => {
+                    if (isUserHovering) return;
+                    currentIdx = (currentIdx + 1) % hotspots.length;
+                    activateHotspot(currentIdx);
+                }, 3000);
+            }
+
+            function stopCycle() {
+                clearInterval(cycleInterval);
+                hotspots.forEach(h => h.classList.remove('active-cycle'));
+            }
+
+            // Initial state
+            activateHotspot(0);
 
             hotspots.forEach((hotspot, idx) => {
                 hotspot.addEventListener('mouseenter', () => {

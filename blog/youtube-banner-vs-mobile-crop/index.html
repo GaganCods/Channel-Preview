@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouTube Banner vs Mobile Crop Explained | Channel Preview</title>
-    <meta name="description" content="Discover how YouTube crops banners on mobile vs TV screens. Read about aspect ratios, dimensions percentage mappings, and guide positioning rules.">
+    <meta name="description"
+        content="Discover how YouTube crops banners on mobile vs TV screens. Read about aspect ratios, dimensions percentage mappings, and guide positioning rules.">
     <link rel="canonical" href="https://channelpreview.vercel.app/blog/youtube-banner-vs-mobile-crop" />
     <link rel="stylesheet" href="/index.css" />
     <link rel="stylesheet" href="/blog/blog.css" />
@@ -14,14 +16,16 @@
     <meta property="og:type" content="article">
     <meta property="og:url" content="https://channelpreview.vercel.app/blog/youtube-banner-vs-mobile-crop">
     <meta property="og:title" content="YouTube Banner vs Mobile Crop: Visual Differences Explained">
-    <meta property="og:description" content="A detailed comparison of how YouTube banners adapt between Mobile and TV. Learn why your artwork gets cropped and how to fix it.">
+    <meta property="og:description"
+        content="A detailed comparison of how YouTube banners adapt between Mobile and TV. Learn why your artwork gets cropped and how to fix it.">
     <meta property="og:image" content="https://channelpreview.vercel.app/assets/og-image.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://channelpreview.vercel.app/blog/youtube-banner-vs-mobile-crop">
     <meta property="twitter:title" content="YouTube Banner vs Mobile Crop: Visual Differences Explained">
-    <meta property="twitter:description" content="A detailed comparison of how YouTube banners adapt between Mobile and TV. Learn why your artwork gets cropped and how to fix it.">
+    <meta property="twitter:description"
+        content="A detailed comparison of how YouTube banners adapt between Mobile and TV. Learn why your artwork gets cropped and how to fix it.">
     <meta property="twitter:image" content="https://channelpreview.vercel.app/assets/og-image.png">
 
     <!-- JSON-LD Article Schema -->
@@ -50,9 +54,11 @@
     }
     </script>
 </head>
+
 <body style="background-color: #030303;">
     <!-- Background Glow -->
-    <div style="position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    <div
+        style="position: fixed; inset: 0; z-index: 0; pointer-events: none;
         background: radial-gradient(circle at center, rgba(255, 77, 0, 0.08) 0%, rgba(255, 77, 0, 0.04) 60%, transparent 100%);">
     </div>
 
@@ -66,16 +72,23 @@
             <a href="/youtube-thumbnail-preview">Thumbnails</a>
             <a href="/youtube-profile-picture-preview">Profile Picture</a>
             <a href="/youtube-title-preview">Title Preview</a>
+            <a href="/youtube-video-detail-preview">Watch Page</a>
             <a href="/blog">Blogs</a>
-            <a href="/editor" class="mobile-only-btn" style="display:none;padding:12px 20px;background:linear-gradient(135deg,#ff4d00,#ff7300);color:#fff;border-radius:100px;font-weight:700;font-size:0.95rem;text-align:center;">
-                Try Free →
+            <a href="/editor" class="btn-nav-start mobile-only-btn">
+                Try Free
+                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon" style="width: 20px; height: 20px;">
+                    <path clip-rule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                        fill-rule="evenodd"></path>
+                </svg>
             </a>
         </div>
         <div class="nav-cta">
-            <a href="/editor" class="desktop-only-btn" style="padding:9px 20px;border-radius:100px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;text-decoration:none;">
+            <a href="/editor" class="btn desktop-only-btn"
+                style="padding:9px 20px;border-radius:100px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;text-decoration:none;">
                 Try Free →
             </a>
-            <button class="nav-hamburger" id="nav-toggle" aria-label="Toggle Menu">
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -84,19 +97,21 @@
     </nav>
 
     <!-- ARTICLE WRAPPER -->
-    <main class="container" style="position: relative; z-index: 1; padding-top: 140px; padding-bottom: 120px;">
-        
+    <main class="container article-page">
+
         <!-- Breadcrumb -->
         <nav class="breadcrumb">
-            <a href="/">Home</a><span>›</span><a href="/blog">Blog</a><span>›</span><a href="/category/banner">YouTube Banners</a><span>›</span><span>Banner vs Mobile Crop</span>
+            <a href="/">Home</a><span>›</span><a href="/blog">Blog</a><span>›</span><a href="/category/banner">YouTube
+                Banners</a><span>›</span><span>Banner vs Mobile Crop</span>
         </nav>
 
         <div class="blog-layout-grid">
-            
+
             <!-- Left: Article Content -->
             <div class="blog-articles-area">
                 <article class="article-header">
-                    <h1 class="page-h1" style="font-size: 2.6rem; line-height: 1.15; margin-bottom: 16px;">YouTube Banner vs Mobile Crop: Visual Differences Explained</h1>
+                    <h1 class="page-h1" style="font-size: 2.6rem; line-height: 1.15; margin-bottom: 16px;">YouTube
+                        Banner vs Mobile Crop: Visual Differences Explained</h1>
                     <div class="article-meta-row">
                         <span>By <a href="/author/gagan-pratap" class="article-author-link">Gagan Pratap</a></span>
                         <span>·</span>
@@ -113,9 +128,14 @@
 
                 <!-- Introduction -->
                 <div class="prose">
-                    <p>It is one of the most frustrating aspects of building a YouTube brand: you spend hours designing a beautiful 2560 × 1440 px banner, export it, and upload it to YouTube. But when you load your channel page on your iPhone or Android device, all your details on the left and right sides are completely missing.</p>
-                    
-                    <p>Why does this happen? The answer lies in how YouTube scales and crops your banner file across TVs, desktop computers, tablets, and mobile phones. Let's compare these visual layout crops side-by-side.</p>
+                    <p>It is one of the most frustrating aspects of building a YouTube brand: you spend hours designing
+                        a beautiful 2560 × 1440 px banner, export it, and upload it to YouTube. But when you load your
+                        channel page on your iPhone or Android device, all your details on the left and right sides are
+                        completely missing.</p>
+
+                    <p>Why does this happen? The answer lies in how YouTube scales and crops your banner file across
+                        TVs, desktop computers, tablets, and mobile phones. Let's compare these visual layout crops
+                        side-by-side.</p>
 
                     <!-- Table of Contents -->
                     <h2 id="toc">Table of Contents</h2>
@@ -128,17 +148,24 @@
 
                     <!-- Section 1 -->
                     <h2 id="sizing-logic">1. The Mathematics Behind YouTube's Cropping</h2>
-                    <p>YouTube's channel page is completely responsive. Rather than requesting creators to upload four separate graphics, the platform requires one large <code>2560 × 1440 pixels</code> master file.</p>
-                    <p>YouTube then acts as a cookie-cutter: it displays different geometric strips of this master image. Let's look at the mathematical percentages of what is visible:</p>
+                    <p>YouTube's channel page is completely responsive. Rather than requesting creators to upload four
+                        separate graphics, the platform requires one large <code>2560 × 1440 pixels</code> master file.
+                    </p>
+                    <p>YouTube then acts as a cookie-cutter: it displays different geometric strips of this master
+                        image. Let's look at the mathematical percentages of what is visible:</p>
                     <ul>
                         <li><strong>TV View:</strong> Displays <strong>100%</strong> of your uploaded canvas.</li>
-                        <li><strong>Desktop View:</strong> Displays only <strong>29.37%</strong> of the canvas height (a center strip of 423px). The top and bottom 508px are completely cropped out.</li>
-                        <li><strong>Mobile View:</strong> Displays only <strong>17.74%</strong> of the total canvas area. It crops 508px off the top and bottom, AND crops 507px off both the left and right sides.</li>
+                        <li><strong>Desktop View:</strong> Displays only <strong>29.37%</strong> of the canvas height (a
+                            center strip of 423px). The top and bottom 508px are completely cropped out.</li>
+                        <li><strong>Mobile View:</strong> Displays only <strong>17.74%</strong> of the total canvas
+                            area. It crops 508px off the top and bottom, AND crops 507px off both the left and right
+                            sides.</li>
                     </ul>
 
                     <!-- Section 2 -->
                     <h2 id="side-by-side">2. Mobile vs. TV: Sizing Comparison</h2>
-                    <p>Consider this side-by-side comparison table to understand the massive differences in visual real estate:</p>
+                    <p>Consider this side-by-side comparison table to understand the massive differences in visual real
+                        estate:</p>
                     <table>
                         <thead>
                             <tr>
@@ -173,22 +200,33 @@
                     <!-- Tool Promotion Card -->
                     <div class="tool-promo-card">
                         <h3 class="tool-promo-title">Try the Banner Safe Area Guide Tool</h3>
-                        <p class="tool-promo-desc">Check your banner crops before publishing. Upload your graphic and toggle between Mobile, Desktop, and TV views with our interactive guide boxes overlay.</p>
-                        <a href="/youtube-banner-safe-area" class="btn-primary" style="text-decoration: none; padding: 12px 24px; border-radius: 100px; font-weight: 600;">Check Banner Safe Area</a>
+                        <p class="tool-promo-desc">Check your banner crops before publishing. Upload your graphic and
+                            toggle between Mobile, Desktop, and TV views with our interactive guide boxes overlay.</p>
+                        <a href="/youtube-banner-safe-area" class="btn-primary"
+                            style="text-decoration: none; padding: 12px 24px; border-radius: 100px; font-weight: 600;">Check
+                            Banner Safe Area</a>
                     </div>
 
                     <!-- Section 3 -->
                     <h2 id="cropping-errors">3. Common Visual Crop Positioning Errors</h2>
                     <p>Avoid these layout trapdoors when placing elements on your 2560×1440 canvas:</p>
                     <ul>
-                        <li><strong>Corner Logos:</strong> Do not place your primary channel logo in the corners. They will display fine on TV, but will be completely cropped on desktop, tablet, and mobile.</li>
-                        <li><strong>Extreme Left/Right Details:</strong> Place contact emails, social links, or schedules near the center. If you place them beyond the 1546px central width, mobile visitors (which represent over 70% of viewers) will never see them.</li>
-                        <li><strong>Uncentered Offsets:</strong> Ensure your design templates are aligned to the exact vertical center (Y = 719.5px). If your horizontal strip is even 20px too high or low, YouTube's desktop cutter will cut it off center.</li>
+                        <li><strong>Corner Logos:</strong> Do not place your primary channel logo in the corners. They
+                            will display fine on TV, but will be completely cropped on desktop, tablet, and mobile.</li>
+                        <li><strong>Extreme Left/Right Details:</strong> Place contact emails, social links, or
+                            schedules near the center. If you place them beyond the 1546px central width, mobile
+                            visitors (which represent over 70% of viewers) will never see them.</li>
+                        <li><strong>Uncentered Offsets:</strong> Ensure your design templates are aligned to the exact
+                            vertical center (Y = 719.5px). If your horizontal strip is even 20px too high or low,
+                            YouTube's desktop cutter will cut it off center.</li>
                     </ul>
 
                     <!-- Section 4 -->
                     <h2 id="visual-testing">4. Testing Your Banner Layout Prior to Uploading</h2>
-                    <p>Do not upload draft designs directly to YouTube to check cropping. This causes your channel page to look broken or amateurish to active visitors during testing. Instead, use a browser-based preview checker like Channel Preview. It runs locally and overlays the crop boundaries on your file instantly in real-time.</p>
+                    <p>Do not upload draft designs directly to YouTube to check cropping. This causes your channel page
+                        to look broken or amateurish to active visitors during testing. Instead, use a browser-based
+                        preview checker like Channel Preview. It runs locally and overlays the crop boundaries on your
+                        file instantly in real-time.</p>
                 </div>
 
                 <!-- FAQ SECTION -->
@@ -196,21 +234,26 @@
                     <div class="faq-header" style="text-align: left; margin-bottom: 24px;">
                         <h2 style="font-size: 1.8rem; font-weight: 800; color: #fff;">Frequently Asked Questions</h2>
                     </div>
-                    
+
                     <div class="faq-item">
-                        <button class="faq-question">Why does mobile crop my banner so much? <span class="faq-icon">▼</span></button>
+                        <button class="faq-question">Why does mobile crop my banner so much? <span
+                                class="faq-icon">▼</span></button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                Mobile phone displays have narrow aspect ratios. To fit your banner inside the channel header without taking up the entire screen, YouTube crops the sides and vertical space, showing only the center 1546 × 423 px region.
+                                Mobile phone displays have narrow aspect ratios. To fit your banner inside the channel
+                                header without taking up the entire screen, YouTube crops the sides and vertical space,
+                                showing only the center 1546 × 423 px region.
                             </div>
                         </div>
                     </div>
 
                     <div class="faq-item">
-                        <button class="faq-question">How can I preview both layouts easily? <span class="faq-icon">▼</span></button>
+                        <button class="faq-question">How can I preview both layouts easily? <span
+                                class="faq-icon">▼</span></button>
                         <div class="faq-answer">
                             <div class="faq-answer-content">
-                                You can use Channel Preview's free browser tool. It immediately generates mockups showing desktop, mobile, and TV views with safe area guide boxes.
+                                You can use Channel Preview's free browser tool. It immediately generates mockups
+                                showing desktop, mobile, and TV views with safe area guide boxes.
                             </div>
                         </div>
                     </div>
@@ -224,7 +267,9 @@
                     <div>
                         <div class="author-card-name">Gagan Pratap</div>
                         <div class="author-card-role">Founder, Channel Preview</div>
-                        <p class="author-card-bio">Gagan Pratap is a digital creator and developer. He founded Channel Preview to build simple, visual optimization utilities that help creators design better channel assets and boost their subscriber rates.</p>
+                        <p class="author-card-bio">Gagan Pratap is a digital creator and developer. He founded Channel
+                            Preview to build simple, visual optimization utilities that help creators design better
+                            channel assets and boost their subscriber rates.</p>
                     </div>
                 </div>
 
@@ -234,14 +279,18 @@
                     <div class="grid-2">
                         <a href="/blog/youtube-banner-safe-area" style="text-decoration: none; color: inherit;">
                             <div class="blog-card" style="padding: 20px; border-radius: 12px; height: auto;">
-                                <h4 style="color: #fff; font-size: 1rem; margin-bottom: 8px;">YouTube Banner Safe Area Explained</h4>
-                                <p style="font-size: 0.82rem; color: var(--text-secondary); margin: 0;">Learn the mobile margins and layout crop positions.</p>
+                                <h4 style="color: #fff; font-size: 1rem; margin-bottom: 8px;">YouTube Banner Safe Area
+                                    Explained</h4>
+                                <p style="font-size: 0.82rem; color: var(--text-secondary); margin: 0;">Learn the mobile
+                                    margins and layout crop positions.</p>
                             </div>
                         </a>
                         <a href="/blog/youtube-banner-size" style="text-decoration: none; color: inherit;">
                             <div class="blog-card" style="padding: 20px; border-radius: 12px; height: auto;">
-                                <h4 style="color: #fff; font-size: 1rem; margin-bottom: 8px;">YouTube Banner Size Guide</h4>
-                                <p style="font-size: 0.82rem; color: var(--text-secondary); margin: 0;">Perfect dimensions breakdown for all platforms and formats.</p>
+                                <h4 style="color: #fff; font-size: 1rem; margin-bottom: 8px;">YouTube Banner Size Guide
+                                </h4>
+                                <p style="font-size: 0.82rem; color: var(--text-secondary); margin: 0;">Perfect
+                                    dimensions breakdown for all platforms and formats.</p>
                             </div>
                         </a>
                     </div>
@@ -253,7 +302,9 @@
             <aside class="blog-sidebar">
                 <!-- Table of Contents Sticky -->
                 <div class="toc-widget">
-                    <h3 style="font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">In This Guide</h3>
+                    <h3
+                        style="font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                        In This Guide</h3>
                     <ul class="toc-list">
                         <li class="toc-item"><a href="#sizing-logic">1. Cropping Mathematics</a></li>
                         <li class="toc-item"><a href="#side-by-side">2. Mobile vs. TV sizes</a></li>
@@ -274,7 +325,8 @@
                 <a class="footer-brand" href="/">
                     <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 28px; width: auto;">
                 </a>
-                <p class="footer-brand-desc">Creator-focused tools that help you preview YouTube banners, thumbnails, profile pictures, and titles before publishing.</p>
+                <p class="footer-brand-desc">Creator-focused tools that help you preview YouTube banners, thumbnails,
+                    profile pictures, and titles before publishing.</p>
             </div>
             <div class="footer-col">
                 <h3>Tools</h3>
@@ -316,20 +368,43 @@
     </footer>
 
     <script>
-        // Hamburger Menu toggle
-        const navToggle = document.getElementById('nav-toggle');
+        // Scroll: add .scrolled class
+        const mainNav = document.getElementById('main-nav');
+        if (mainNav) {
+            window.addEventListener('scroll', () => {
+                mainNav.classList.toggle('scrolled', window.scrollY > 60);
+            }, { passive: true });
+        }
+
+        // Hamburger toggle
+        const hamburger = document.getElementById('nav-hamburger');
         const navLinks = document.getElementById('nav-links');
-        if (navToggle) {
-            navToggle.addEventListener('click', () => {
-                navToggle.classList.toggle('open');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
                 navLinks.classList.toggle('open');
             });
+
+            // Close menu when a link is clicked
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
+                });
+            });
         }
-        // Nav background scrolled effect
-        const nav = document.getElementById('main-nav');
-        window.addEventListener('scroll', () => {
-            nav.classList.toggle('scrolled', window.scrollY > 40);
-        }, { passive: true });
+
+        // Highlight active link based on pathname
+        const currentPath = window.location.pathname;
+        const navAnchorLinks = document.querySelectorAll('.nav-links a');
+        navAnchorLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath || (href === '/' && currentPath === '') || (currentPath === '/' && href === '/')) {
+                link.classList.add('active');
+            } else if (href && href !== '/' && currentPath.startsWith(href)) {
+                link.classList.add('active');
+            }
+        });
 
         // FAQ accordion toggle
         const faqItems = document.querySelectorAll('.faq-item');
@@ -350,4 +425,5 @@
         });
     </script>
 </body>
+
 </html>

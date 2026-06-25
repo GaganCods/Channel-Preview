@@ -1,0 +1,2695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube Video Watch Page Preview Tool | Test CTR & Safe Areas | Free</title>
+    <meta name="description"
+        content="Free YouTube video watch page preview tool. Test your thumbnail CTR, title truncation, safe areas, comment cropping, and recommended feeds before uploading." />
+    <link rel="canonical" href="https://channelpreview.vercel.app/youtube-video-detail-preview" />
+    <link rel="stylesheet" href="/index.css" />
+    <link rel="icon" type="image/png" href="/assets/logo-icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="YouTube Video Watch Page Preview Tool | Test CTR & Safe Areas" />
+    <meta property="og:description"
+        content="Preview your YouTube video detail page, video player, recommended sidebar, and title truncation on Desktop, Mobile, and Tablet before publishing. Free tool." />
+    <meta property="og:url" content="https://channelpreview.vercel.app/youtube-video-detail-preview" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://channelpreview.vercel.app/assets/og-image.png" />
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://channelpreview.vercel.app" },
+            { "@type": "ListItem", "position": 2, "name": "YouTube Watch Page Preview", "item": "https://channelpreview.vercel.app/youtube-video-detail-preview" }
+        ]
+    }
+    </script>
+
+    <style>
+
+
+        .page-hero {
+            min-height: 48vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 130px 32px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(249, 115, 22, 0.18), transparent 70%);
+            pointer-events: none;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        .page-h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 580px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        /* ── TOOL MAIN ── */
+        .tool-section {
+            padding: 0 0 80px;
+        }
+
+        .tool-wrap {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7);
+        }
+
+        .tool-container {
+            width: 100%;
+            max-width: 1550px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .tool-body {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            min-height: 700px;
+            transition: grid-template-columns 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .tool-body.collapsed-sidebar {
+            grid-template-columns: 0px 1fr;
+        }
+
+        .tool-body.collapsed-sidebar .controls-sidebar {
+            overflow: hidden;
+            padding: 0;
+            border-right: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .controls-sidebar {
+            transition: opacity 0.3s, padding 0.35s;
+        }
+
+        .sidebar-toggle-icon {
+            transition: transform 0.3s;
+        }
+
+        .tool-body.collapsed-sidebar .sidebar-toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Controls sidebar */
+        .controls-sidebar {
+            padding: 28px 24px;
+            border-right: 1px solid var(--border);
+            background: rgba(10, 10, 10, 0.5);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-height: 950px;
+            overflow-y: auto;
+        }
+
+        .ctrl-section-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 6px;
+        }
+
+        .upload-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: rgba(255, 77, 0, 0.1);
+            border: 1px dashed rgba(255, 77, 0, 0.4);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .upload-btn:hover {
+            background: rgba(255, 77, 0, 0.18);
+            border-color: var(--accent-bright);
+        }
+
+        .ctrl-label {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .ctrl-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+            margin-bottom: 14px;
+        }
+
+        .ctrl-input:focus {
+            border-color: var(--accent);
+        }
+
+        .ctrl-textarea {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.88rem;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+            resize: vertical;
+            min-height: 70px;
+            margin-bottom: 14px;
+        }
+
+        .ctrl-textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .char-counter {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: -10px;
+            margin-bottom: 14px;
+        }
+
+        /* Mode & Filter Tabs */
+        .option-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .option-tab {
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .option-tab:hover {
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .option-tab.active {
+            background: rgba(255, 77, 0, 0.15);
+            border-color: rgba(255, 77, 0, 0.4);
+            color: var(--accent);
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            margin-bottom: 10px;
+            user-select: none;
+        }
+
+        .checkbox-label input {
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        /* ── PREVIEW BOARD ── */
+        .preview-board {
+            background: #080808;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        /* Device Frame Simulators */
+        .device-simulator {
+            width: 100%;
+            transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            background: #0f0f0f;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            padding: 0;
+            overflow: hidden;
+        }
+
+        /* Desktop view styling */
+        .device-simulator.desktop-mode {
+            max-width: 1320px;
+        }
+
+        /* Theater Mode styles */
+        .desktop-mode.theater-active .yt-watch-grid {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            grid-template-rows: auto auto;
+            gap: 24px;
+            padding: 0 0 24px;
+        }
+
+        .desktop-mode.theater-active .main-column-wrap {
+            display: contents;
+        }
+
+        .desktop-mode.theater-active .yt-player-container {
+            grid-column: 1 / span 2;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 21/9;
+            border-radius: 0;
+        }
+
+        .desktop-mode.theater-active .yt-video-details {
+            grid-column: 1;
+            padding-left: 24px;
+        }
+
+        .desktop-mode.theater-active .yt-sidebar-section {
+            grid-column: 2;
+            padding-right: 24px;
+            margin-top: 16px;
+        }
+
+        /* CTR Badge outside recommended items */
+        .ctr-badge-out {
+            background: rgba(255, 90, 10, 0.12);
+            color: #ff5a0a;
+            border: 1px solid rgba(255, 90, 10, 0.25);
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            width: fit-content;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        /* Crop modal styles */
+        #pfp-crop-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            padding: 16px;
+        }
+
+        .crop-modal-content {
+            background: #212121;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 540px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.9);
+            position: relative;
+            overflow: hidden;
+            font-family: "Roboto", Arial, sans-serif;
+        }
+
+        .crop-modal-header {
+            padding: 24px 24px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .crop-modal-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #fff;
+            margin: 0;
+        }
+
+        .crop-modal-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #181818;
+            min-height: 380px;
+        }
+
+        .crop-workspace {
+            position: relative;
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #crop-image-preview {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .crop-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .crop-box {
+            position: absolute;
+            border: 2px solid #3ea6ff;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
+            cursor: move;
+            pointer-events: auto;
+            box-sizing: border-box;
+            touch-action: none;
+        }
+
+        .crop-circle-guide {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 1px dashed rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            box-sizing: border-box;
+        }
+
+        .crop-handle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border: 1px solid #000;
+            pointer-events: auto;
+            box-sizing: border-box;
+            touch-action: none;
+        }
+
+        .crop-handle::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+        }
+
+        .handle-tl {
+            top: -5px;
+            left: -5px;
+            cursor: nwse-resize;
+        }
+
+        .handle-tr {
+            top: -5px;
+            right: -5px;
+            cursor: nesw-resize;
+        }
+
+        .handle-bl {
+            bottom: -5px;
+            left: -5px;
+            cursor: nesw-resize;
+        }
+
+        .handle-br {
+            bottom: -5px;
+            right: -5px;
+            cursor: nwse-resize;
+        }
+
+        .crop-modal-footer {
+            padding: 12px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: #212121;
+        }
+
+        .crop-btn {
+            padding: 0 16px;
+            height: 36px;
+            border-radius: 18px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s, color 0.2s;
+            font-family: inherit;
+        }
+
+        .crop-btn.cancel {
+            background: transparent;
+            color: #3ea6ff;
+        }
+
+        .crop-btn.cancel:hover {
+            background: rgba(62, 166, 255, 0.15);
+        }
+
+        .crop-btn.apply {
+            background: #f1f1f1;
+            color: #0f0f0f;
+        }
+
+        .crop-btn.apply:hover {
+            background: #d9d9d9;
+        }
+
+        /* Mobile view styling */
+        .device-simulator.mobile-mode {
+            max-width: 410px;
+            border-radius: 36px;
+            border: 10px solid #1f1f1f;
+        }
+
+        /* Tablet view styling */
+        .device-simulator.tablet-mode {
+            max-width: 768px;
+            border-radius: 28px;
+            border: 12px solid #282828;
+        }
+
+        /* Watch Page Representation */
+        .yt-watch-layout {
+            color: #f1f1f1;
+            font-family: 'Roboto', 'Inter', sans-serif;
+            background: #0f0f0f;
+            min-height: 500px;
+            width: 100%;
+        }
+
+        /* Grid layout for Desktop watch page */
+        .desktop-mode .yt-watch-grid {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 24px;
+            padding: 24px;
+        }
+
+        .tablet-mode .yt-watch-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .mobile-mode .yt-watch-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 0 0 20px;
+        }
+
+        /* Video Player Wrapper */
+        .yt-player-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .mobile-mode .yt-player-container {
+            border-radius: 0;
+            /* sticky top edge on mobile */
+        }
+
+        .yt-mock-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .yt-mock-canvas-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #181c2b 0%, #0d0d1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .yt-player-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+            padding: 10px 16px;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .yt-player-container:hover .yt-player-controls {
+            opacity: 1;
+        }
+
+        .yt-progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .yt-progress-filled {
+            height: 100%;
+            width: 32%;
+            background: #ff0000;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .yt-progress-filled::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: -4px;
+            width: 12px;
+            height: 12px;
+            background: #ff0000;
+            border-radius: 50%;
+        }
+
+        .yt-controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            font-size: 0.82rem;
+        }
+
+        .yt-ctrl-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .yt-ctrl-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .yt-ctrl-icon {
+            cursor: pointer;
+            opacity: 0.85;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .yt-ctrl-icon:hover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        /* Safe zone overlay grid lines */
+        .watch-safe-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 8;
+            display: none;
+        }
+
+        .watch-safe-overlay.active {
+            display: block;
+        }
+
+        .safe-banner-annotations {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            right: 10%;
+            height: 15%;
+            border: 1.5px dashed #ffb800;
+            background: rgba(255, 184, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.62rem;
+            font-weight: 700;
+            color: #ffb800;
+            text-transform: uppercase;
+        }
+
+        .safe-player-controls-line {
+            position: absolute;
+            bottom: 48px;
+            left: 0;
+            right: 0;
+            border-top: 1.5px dashed #00e5ff;
+            background: rgba(0, 229, 255, 0.03);
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.62rem;
+            font-weight: 700;
+            color: #00e5ff;
+            text-transform: uppercase;
+        }
+
+        /* Video Details Content */
+        .yt-video-details {
+            margin-top: 16px;
+        }
+
+        .yt-video-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: #fff;
+            margin-bottom: 10px;
+            word-break: break-word;
+        }
+
+        .mobile-mode .yt-video-title {
+            font-size: 1.05rem;
+            padding: 0 12px;
+            margin-bottom: 6px;
+        }
+
+        .yt-channel-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .mobile-mode .yt-channel-row {
+            padding: 0 12px;
+            margin-bottom: 10px;
+        }
+
+        .yt-channel-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .yt-channel-pfp {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #2a2a2a;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .yt-channel-pfp img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .yt-channel-names {
+            line-height: 1.3;
+        }
+
+        .yt-channel-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            transition: color 0.15s ease;
+        }
+
+        .yt-channel-names:hover .yt-channel-name {
+            color: #ff5a0a;
+            text-decoration: none !important;
+        }
+
+        .yt-channel-subs {
+            font-size: 0.75rem;
+            color: #aaaaaa;
+        }
+
+        .yt-subscribe-btn {
+            background: #f1f1f1;
+            color: #0f0f0f;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 18px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-left: 8px;
+        }
+
+        .yt-subscribe-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Action Buttons bar (Like/Share/Download) */
+        .yt-actions-bar {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .yt-action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 18px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: default;
+        }
+
+        .yt-action-btn.split {
+            padding-right: 12px;
+            border-right: 1px solid rgba(255, 255, 255, 0.15);
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .yt-action-btn.split-end {
+            padding-left: 12px;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            margin-left: -2px;
+        }
+
+        /* Description Box */
+        .yt-description-box {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin-top: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .yt-description-box:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .mobile-mode .yt-description-box {
+            margin: 10px 12px;
+            font-size: 0.8rem;
+        }
+
+        .yt-desc-meta {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #fff;
+            display: flex;
+            gap: 8px;
+        }
+
+        .yt-desc-text {
+            color: #f1f1f1;
+            word-break: break-word;
+            white-space: pre-wrap;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .yt-desc-text.expanded {
+            display: block;
+            overflow: visible;
+        }
+
+        .yt-desc-more {
+            font-weight: 600;
+            color: #aaa;
+            margin-top: 6px;
+            display: inline-block;
+        }
+
+        /* Comments Simulator Section */
+        .yt-comments-section {
+            margin-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 18px;
+        }
+
+        .mobile-mode .yt-comments-section {
+            margin: 14px 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 12px;
+        }
+
+        .yt-comments-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .yt-comments-title span {
+            color: #aaa;
+            font-size: 0.88rem;
+            font-weight: 400;
+        }
+
+        .yt-comment-input-row {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .yt-comment-input-box {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .yt-comment-field {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 0.88rem;
+            padding: 4px 0;
+            outline: none;
+        }
+
+        .yt-comment-field:focus {
+            border-bottom: 2px solid #fff;
+        }
+
+        .yt-comment-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .yt-comment-btn {
+            background: transparent;
+            border: none;
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 14px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .yt-comment-btn.submit {
+            background: #ff0000;
+            color: #fff;
+        }
+
+        .yt-comment-btn.submit:hover {
+            background: #cc0000;
+        }
+
+        .yt-comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .yt-comment-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            animation: commentFadeIn 0.3s ease-out;
+        }
+
+        @keyframes commentFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .yt-comment-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #333;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .yt-comment-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .yt-comment-content {
+            flex-grow: 1;
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+
+        .yt-comment-author-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 3px;
+        }
+
+        .yt-comment-author {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .yt-comment-time {
+            font-size: 0.72rem;
+            color: #aaaaaa;
+        }
+
+        .yt-comment-text {
+            color: #f1f1f1;
+            word-break: break-word;
+        }
+
+        /* Recommended Sidebar / Up Next column */
+        .yt-sidebar-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .mobile-mode .yt-sidebar-section {
+            padding: 16px 12px;
+            border-top: 4px solid #1c1c1c;
+        }
+
+        .yt-sidebar-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sidebar-item-card {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 10px;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .mobile-mode .sidebar-item-card {
+            grid-template-columns: 120px 1fr;
+        }
+
+        .sidebar-thumb-wrap {
+            aspect-ratio: 16/9;
+            background: #1c1c1c;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .sidebar-thumb-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .sidebar-ctr-badge {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            background: #ff5a0a;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 1px 4px;
+            border-radius: 3px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+
+        .sidebar-duration-badge {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        .sidebar-item-info {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.3;
+        }
+
+        .sidebar-item-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 4px;
+            word-break: break-word;
+        }
+
+        .sidebar-item-channel {
+            font-size: 0.72rem;
+            color: #aaaaaa;
+            margin-bottom: 2px;
+        }
+
+        .sidebar-item-views {
+            font-size: 0.72rem;
+            color: #aaaaaa;
+        }
+
+        /* Interactive filters */
+        .device-simulator.blur-active {
+            filter: blur(4px);
+        }
+
+        .device-simulator.grayscale-active {
+            filter: grayscale(1);
+        }
+
+        /* Highlight classes for visible title vs truncated */
+        .title-visible {
+            color: #fff;
+        }
+
+        .title-truncated {
+            color: rgba(255, 255, 255, 0.35);
+            position: relative;
+        }
+
+        .title-truncated::after {
+            content: '...';
+            color: rgba(255, 100, 50, 0.85);
+            font-weight: 800;
+        }
+
+        /* ── SPECS & TIPS ── */
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .spec-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            transition: all 0.3s ease;
+        }
+
+        .spec-device {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .spec-size {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 8px;
+        }
+
+        .spec-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        @media (max-width: 900px) {
+            .tool-body {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-sidebar {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                max-height: none;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-hero {
+                padding: 110px 20px 40px;
+            }
+        }
+    </style>
+</head>
+
+<body style="background-color: #030303;">
+    <div
+        style="position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(circle at center, rgba(255, 77, 0, 0.12) 0%, transparent 70%);">
+    </div>
+
+    <!-- ── NAV ── -->
+    <nav id="main-nav">
+        <a class="nav-logo" href="/">
+            <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 32px; width: auto;">
+        </a>
+        <div class="nav-links" id="nav-links">
+            <a href="/youtube-banner-preview">Banner Preview</a>
+            <a href="/youtube-thumbnail-preview">Thumbnails</a>
+            <a href="/youtube-profile-picture-preview">Profile Picture</a>
+            <a href="/youtube-title-preview">Title Preview</a>
+            <a href="/youtube-video-detail-preview">Watch Page</a>
+            <a href="/blog">Blogs</a>
+            <a href="/editor" class="btn-nav-start mobile-only-btn">
+                Try Free
+                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon" style="width: 20px; height: 20px;">
+                    <path clip-rule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                        fill-rule="evenodd"></path>
+                </svg>
+            </a>
+        </div>
+        <div class="nav-cta">
+            <a href="/editor" class="btn desktop-only-btn"
+                style="padding:9px 20px;border-radius:100px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;text-decoration:none;">
+                Try Free →
+            </a>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+    <script>
+        // Scroll: add .scrolled class
+        const mainNav = document.getElementById('main-nav');
+        if (mainNav) {
+            window.addEventListener('scroll', () => {
+                mainNav.classList.toggle('scrolled', window.scrollY > 80);
+            }, { passive: true });
+        }
+
+        // Hamburger toggle
+        const hamburger = document.getElementById('nav-hamburger');
+        const navLinks = document.getElementById('nav-links');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navLinks.classList.toggle('open');
+            });
+
+            // Close menu when a link is clicked
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
+                });
+            });
+        }
+
+        // Highlight active link based on pathname
+        const currentPath = window.location.pathname;
+        const navAnchorLinks = document.querySelectorAll('.nav-links a');
+        navAnchorLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath || (href === '/' && currentPath === '') || (currentPath === '/' && href === '/')) {
+                link.classList.add('active');
+            } else if (href && href !== '/' && currentPath.startsWith(href)) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <div class="page-hero-bg"></div>
+        <div class="breadcrumb"><a href="/">Home</a><span>›</span><span>YouTube Watch Page Preview</span></div>
+        <h1 class="page-h1">YouTube Video<br><span class="accent-text">Watch Page Tester</span></h1>
+        <p class="page-subtitle">
+            Preview your entire video upload ecosystem. Simulate video play streams, thumbnails, title truncation,
+            description crops, and sidebar recommendations to maximize CTR.
+        </p>
+    </section>
+
+    <!-- TOOL SECTION -->
+    <section class="tool-section">
+        <div class="tool-container">
+            <div class="tool-wrap">
+                <div class="tool-body">
+                    <!-- Controls Sidebar -->
+                    <div class="controls-sidebar" id="controls-sidebar">
+                        <!-- Sidebar Header with Collapse Button -->
+                        <div
+                            style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                            <div class="ctrl-section-label"
+                                style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">Configuration</div>
+                            <button id="toggle-sidebar-btn"
+                                style="background: none; border: none; color: var(--accent); cursor: pointer; font-size: 0.82rem; font-weight: 600; display: flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 6px; background: rgba(255, 77, 0, 0.05);"
+                                onclick="toggleSidebar()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+                                    class="sidebar-toggle-icon">
+                                    <polyline points="15 18 9 12 15 6"></polyline>
+                                </svg>
+                                <span>Collapse</span>
+                            </button>
+                        </div>
+
+                        <!-- Uploads -->
+                        <div>
+                            <div class="ctrl-section-label">Upload Assets</div>
+                            <div class="ctrl-label">Video Stream File</div>
+                            <label class="upload-btn" for="video-file-input">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                                    <line x1="12" y1="2" x2="12" y2="22"></line>
+                                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                                </svg>
+                                Upload MP4 Video
+                            </label>
+                            <input type="file" id="video-file-input" accept="video/mp4, video/*" style="display:none;">
+
+                            <div class="ctrl-label" style="margin-top: 10px;">Thumbnail Cover</div>
+                            <label class="upload-btn" for="thumb-file-input">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                Upload JPG/PNG
+                            </label>
+                            <input type="file" id="thumb-file-input" accept="image/*" style="display:none;">
+
+                            <div class="ctrl-label" style="margin-top: 10px;">Channel Logo (PFP)</div>
+                            <label class="upload-btn" onclick="triggerPFPUpload()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                Upload Avatar PFP
+                            </label>
+                            <input type="file" id="pfp-file-input" accept="image/*" style="display:none;">
+                        </div>
+
+                        <!-- Video Info -->
+                        <div>
+                            <div class="ctrl-section-label">Video Details</div>
+                            <div class="ctrl-label">Video Title</div>
+                            <textarea class="ctrl-textarea" id="input-title" maxlength="100"
+                                placeholder="E.g., How to Make a Viral YouTube Video in 2026...">How I Grew My YouTube Channel to 100K Subscribers in 6 Months</textarea>
+                            <div class="char-counter"><span id="title-char-cnt">62 / 100</span></div>
+
+                            <div class="ctrl-label">Channel Name</div>
+                            <input class="ctrl-input" type="text" id="input-channel" value="Channel Preview"
+                                maxlength="40">
+
+                            <div class="ctrl-label">Subscriber Count</div>
+                            <input class="ctrl-input" type="text" id="input-subs" value="42.5K" maxlength="20">
+
+                            <div class="ctrl-label">View Count</div>
+                            <input class="ctrl-input" type="text" id="input-views" value="342K" maxlength="20">
+
+                            <div class="ctrl-label">Description Area</div>
+                            <textarea class="ctrl-textarea" id="input-desc"
+                                placeholder="Add video description tags, timestamps..." style="min-height: 100px;">Learn the exact step-by-step strategy for growing your YouTube channel from 0 to 100K subscribers. In this tutorial, we analyze viral thumbnail CTR, banner crop safe zones, and SEO title tricks.
+
+Timestamps:
+0:00 Intro
+1:24 Thumbnail CTR Test
+4:15 Title Truncation
+8:00 Summary</textarea>
+                        </div>
+
+                        <!-- Simulator Options -->
+                        <div>
+                            <div class="ctrl-section-label">Device Mode</div>
+                            <div class="option-group" style="grid-template-columns: 1fr; gap: 6px;">
+                                <div class="option-tab active" data-mode="desktop" onclick="setDeviceMode('desktop')"
+                                    style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        width="16" height="16">
+                                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                                        <line x1="8" y1="21" x2="16" y2="21" />
+                                        <line x1="12" y1="17" x2="12" y2="21" />
+                                    </svg>
+                                    <span>Desktop</span>
+                                </div>
+                                <div class="option-tab" data-mode="mobile" onclick="setDeviceMode('mobile')"
+                                    style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        width="16" height="16">
+                                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                                        <line x1="12" y1="18" x2="12.01" y2="18" />
+                                    </svg>
+                                    <span>Mobile</span>
+                                </div>
+                                <div class="option-tab" data-mode="tablet" onclick="setDeviceMode('tablet')"
+                                    style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                        width="16" height="16">
+                                        <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
+                                        <line x1="12" y1="18" x2="12.01" y2="18" />
+                                    </svg>
+                                    <span>Tablet</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Visual checks -->
+                        <div>
+                            <div class="ctrl-section-label">Visual Test Toggles</div>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="check-blur" onchange="toggleFilter('blur')">
+                                <span>CTR Blur Test (Readability check)</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="check-gray" onchange="toggleFilter('gray')">
+                                <span>Contrast Grayscale Test</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="check-safe" onchange="toggleSafeZone()">
+                                <span>Safe Area Annotations</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Preview Panel Board -->
+                    <div class="preview-board" id="preview-board-panel">
+                        <!-- Floating Expand Sidebar button (visible when collapsed) -->
+                        <button id="expand-sidebar-btn"
+                            style="display: none; position: absolute; left: 16px; top: 16px; z-index: 1010; background: rgba(15, 15, 15, 0.95); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; width: 42px; height: 42px; justify-content: center; align-items: center; cursor: pointer; color: var(--accent); box-shadow: 0 4px 16px rgba(0,0,0,0.6); transition: all 0.2s ease;"
+                            onclick="toggleSidebar()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+
+                        <!-- Device Container Frame -->
+                        <div class="device-simulator desktop-mode" id="device-sim-frame">
+                            <!-- Live watch page -->
+                            <div class="yt-watch-layout">
+                                <div class="yt-watch-grid">
+
+                                    <!-- Main column (Player & Details) -->
+                                    <div class="main-column-wrap">
+                                        <!-- Player container -->
+                                        <div class="yt-player-container" id="player-container">
+                                            <!-- Video tag (initially hidden/mocked unless file is uploaded) -->
+                                            <video class="yt-mock-video" id="live-player" loop
+                                                style="display:none;"></video>
+
+                                            <!-- Dynamic canvas backdrop fallback -->
+                                            <div class="yt-mock-canvas-bg" id="mock-canvas-bg">
+                                                <div
+                                                    style="font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.5rem; color: #fff; letter-spacing: -0.02em;">
+                                                    VIDEO PREVIEW</div>
+                                                <div style="font-size: 0.8rem; color: var(--text-muted);">Simulated
+                                                    player stream</div>
+                                            </div>
+
+                                            <!-- Safe Area annotations layers -->
+                                            <div class="watch-safe-overlay" id="overlay-safe-zones">
+                                                <div class="safe-banner-annotations">Card Overlay Safe boundary (15%
+                                                    top)</div>
+                                                <div class="safe-player-controls-line">Player controls overlay (48px
+                                                    bottom limit)</div>
+                                            </div>
+
+                                            <!-- Custom video controls (YouTube watch style) -->
+                                            <div class="yt-player-controls">
+                                                <div class="yt-progress-bar" id="player-progress-bar">
+                                                    <div class="yt-progress-filled" id="player-progress-filled"
+                                                        style="width: 0%;"></div>
+                                                </div>
+                                                <div class="yt-controls-row">
+                                                    <div class="yt-ctrl-left">
+                                                        <span class="yt-ctrl-icon" id="play-pause-btn"
+                                                            onclick="togglePlayPause()">
+                                                            <svg id="play-icon-svg" viewBox="0 0 24 24"
+                                                                fill="currentColor" width="18" height="18">
+                                                                <polygon points="5 3 19 12 5 21 5 3" />
+                                                            </svg>
+                                                            <svg id="pause-icon-svg" viewBox="0 0 24 24"
+                                                                fill="currentColor" width="18" height="18"
+                                                                style="display: none;">
+                                                                <rect x="6" y="4" width="4" height="16" />
+                                                                <rect x="14" y="4" width="4" height="16" />
+                                                            </svg>
+                                                        </span>
+                                                        <span class="yt-ctrl-icon" id="volume-mute-btn"
+                                                            onclick="toggleMute()">
+                                                            <svg id="vol-high-svg" viewBox="0 0 24 24"
+                                                                fill="currentColor" width="18" height="18">
+                                                                <path
+                                                                    d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" />
+                                                            </svg>
+                                                            <svg id="vol-mute-svg" viewBox="0 0 24 24"
+                                                                fill="currentColor" width="18" height="18"
+                                                                style="display:none;">
+                                                                <path
+                                                                    d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" />
+                                                            </svg>
+                                                        </span>
+                                                        <span id="video-time-display"
+                                                            style="font-size: 0.78rem; user-select: none;">0:00 /
+                                                            10:24</span>
+                                                    </div>
+                                                    <div class="yt-ctrl-right" style="position: relative;">
+                                                        <span class="yt-ctrl-icon" onclick="toggleSettingsMenu()">
+                                                            <svg viewBox="0 0 24 24" fill="currentColor" width="18"
+                                                                height="18">
+                                                                <path
+                                                                    d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+                                                            </svg>
+                                                        </span>
+
+                                                        <!-- Settings Dropdown Speed Menu -->
+                                                        <div id="settings-menu-popup"
+                                                            style="display: none; position: absolute; bottom: 32px; right: 0; background: rgba(15, 15, 15, 0.95); border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 0; width: 130px; z-index: 100; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
+                                                            <div
+                                                                style="font-size: 0.65rem; font-weight: 700; color: var(--accent); padding: 4px 12px 6px; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 4px;">
+                                                                Speed</div>
+                                                            <div class="speed-opt" onclick="setPlaybackSpeed(0.5, this)"
+                                                                style="padding: 6px 12px; font-size: 0.8rem; cursor: pointer; color: #fff; transition: background 0.2s;">
+                                                                0.5x</div>
+                                                            <div class="speed-opt active-speed"
+                                                                onclick="setPlaybackSpeed(1.0, this)"
+                                                                style="padding: 6px 12px; font-size: 0.8rem; cursor: pointer; color: var(--accent); font-weight: 600; transition: background 0.2s; display: flex; justify-content: space-between; align-items: center;">
+                                                                <span>Normal</span><span>✓</span></div>
+                                                            <div class="speed-opt" onclick="setPlaybackSpeed(1.5, this)"
+                                                                style="padding: 6px 12px; font-size: 0.8rem; cursor: pointer; color: #fff; transition: background 0.2s;">
+                                                                1.5x</div>
+                                                            <div class="speed-opt" onclick="setPlaybackSpeed(2.0, this)"
+                                                                style="padding: 6px 12px; font-size: 0.8rem; cursor: pointer; color: #fff; transition: background 0.2s;">
+                                                                2.0x</div>
+                                                        </div>
+
+                                                        <span class="yt-ctrl-icon" onclick="toggleTheaterMode()">
+                                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                stroke-width="2" width="18" height="18"
+                                                                style="vertical-align: middle;">
+                                                                <rect x="3" y="5" width="18" height="14" rx="2"
+                                                                    ry="2" />
+                                                                <line x1="3" y1="15" x2="21" y2="15" />
+                                                            </svg>
+                                                        </span>
+                                                        <span class="yt-ctrl-icon" onclick="toggleFullscreen()">
+                                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                                stroke-width="2.5" width="18" height="18"
+                                                                style="vertical-align: middle;">
+                                                                <path
+                                                                    d="M8 3H5a2 2 0 0 0-2 2v3m0 8v3a2 2 0 0 0 2 2h3m8-16h3a2 2 0 0 1 2 2v3m0 8v3a2 2 0 0 1-2 2h-3" />
+                                                            </svg>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Video info details (watch metadata) -->
+                                        <div class="yt-video-details">
+                                            <!-- Title watch page -->
+                                            <h2 class="yt-video-title" id="mock-title">How I Grew My YouTube Channel to
+                                                100K Subscribers in 6 Months</h2>
+
+                                            <!-- Channel Row -->
+                                            <div class="yt-channel-row">
+                                                <div class="yt-channel-left">
+                                                    <div class="yt-channel-pfp yt-user-avatar" id="channel-logo-wrap"
+                                                        onclick="window.location.href='/youtube-profile-picture-preview'"
+                                                        title="Preview Channel Profile Picture"
+                                                        style="cursor: pointer; position: relative;">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2"
+                                                            style="width: 50%; height: 50%; color: #888;">
+                                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                            <circle cx="12" cy="7" r="4"></circle>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="yt-channel-names"
+                                                        onclick="window.location.href='/youtube-profile-picture-preview'"
+                                                        title="Preview Channel Profile Picture"
+                                                        style="cursor: pointer;">
+                                                        <div class="yt-channel-name" id="mock-channel">Channel Preview
+                                                        </div>
+                                                        <div class="yt-channel-subs" id="mock-subs">42.5K subscribers
+                                                        </div>
+                                                    </div>
+                                                    <button class="yt-subscribe-btn">Subscribe</button>
+                                                </div>
+
+                                                <!-- Action Buttons split row -->
+                                                <div class="yt-actions-bar">
+                                                    <button class="yt-action-btn split"
+                                                        style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                                                        <svg viewBox="0 0 24 24" fill="currentColor" width="16"
+                                                            height="16">
+                                                            <path
+                                                                d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z" />
+                                                        </svg>
+                                                        <span>12K</span>
+                                                    </button>
+                                                    <button class="yt-action-btn split-end"
+                                                        style="display: flex; align-items: center; cursor: pointer;">
+                                                        <svg viewBox="0 0 24 24" fill="currentColor" width="16"
+                                                            height="16">
+                                                            <path
+                                                                d="M19 15h4V3h-4v12zm-4 4c0 1.1-.9 2-2 2H6.69l-.95-4.57-.03-.32c0-.41.17-.79.44-1.06L10.17 23l6.58-6.59c.37-.36.59-.86.59-1.41V5c0-1.1-.9-2-2-2H6.28c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2z" />
+                                                        </svg>
+                                                    </button>
+                                                    <button class="yt-action-btn"
+                                                        style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                                                        <svg viewBox="0 0 24 24" fill="currentColor" width="16"
+                                                            height="16">
+                                                            <path
+                                                                d="M14 9V5l7 7-7 7v-4.1c-5 0-8.5 1.6-11 5.1 1-5 4-10 11-11z" />
+                                                        </svg>
+                                                        <span>Share</span>
+                                                    </button>
+                                                    <button class="yt-action-btn"
+                                                        style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+                                                        <svg viewBox="0 0 24 24" fill="currentColor" width="16"
+                                                            height="16">
+                                                            <path
+                                                                d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
+                                                        </svg>
+                                                        <span>Download</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <!-- Description Segment (collapsible) -->
+                                            <div class="yt-description-box" onclick="toggleDescExpansion()">
+                                                <div class="yt-desc-meta">
+                                                    <span id="desc-views-span">342K views</span>
+                                                    <span>• 3 days ago</span>
+                                                </div>
+                                                <div class="yt-desc-text" id="mock-desc">Learn the exact step-by-step
+                                                    strategy for growing your YouTube channel from 0 to 100K
+                                                    subscribers. In this tutorial, we analyze viral thumbnail CTR,
+                                                    banner crop safe zones, and SEO title tricks.</div>
+                                                <div class="yt-desc-more" id="desc-more-toggle">Show more</div>
+                                            </div>
+
+                                            <!-- Comment simulator layout -->
+                                            <div class="yt-comments-section">
+                                                <div class="yt-comments-title">Comments <span>1,248</span></div>
+
+                                                <div class="yt-comment-input-row">
+                                                    <div class="yt-comment-avatar yt-user-avatar"
+                                                        id="comment-avatar-wrap" style="position: relative;">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="2"
+                                                            style="width: 50%; height: 50%; color: #888;">
+                                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                            <circle cx="12" cy="7" r="4"></circle>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="yt-comment-input-box">
+                                                        <input class="yt-comment-field" type="text"
+                                                            id="comment-add-field"
+                                                            placeholder="Add a public comment...">
+                                                        <div class="yt-comment-actions">
+                                                            <button class="yt-comment-btn"
+                                                                onclick="clearCommentField()">Cancel</button>
+                                                            <button class="yt-comment-btn submit"
+                                                                onclick="submitMockComment()">Comment</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- List of mock comments -->
+                                                <div class="yt-comment-list" id="mock-comment-list">
+                                                    <div class="yt-comment-item">
+                                                        <div class="yt-comment-avatar">
+                                                            <div
+                                                                style="font-weight: 700; color: #ff5a0a; font-size: 0.85rem;">
+                                                                JD</div>
+                                                        </div>
+                                                        <div class="yt-comment-content">
+                                                            <div class="yt-comment-author-row">
+                                                                <span class="yt-comment-author">John Doe</span>
+                                                                <span class="yt-comment-time">2 hours ago</span>
+                                                            </div>
+                                                            <div class="yt-comment-text">This visual tool is amazing!
+                                                                Solves all banner crop safe boundary confusion easily.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Sidebar column (Recommendations list) -->
+                                    <div class="yt-sidebar-section">
+                                        <div class="yt-sidebar-title">Recommended Videos</div>
+
+                                        <!-- Main upload simulated card (mirrors user settings in list) -->
+                                        <div class="sidebar-item-card">
+                                            <div class="sidebar-thumb-wrap" id="sidebar-rec-thumb-box">
+                                                <!-- Mock visual content inside preview -->
+                                                <div
+                                                    style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--accent), #ff7300); opacity: 0.7;">
+                                                </div>
+                                                <span class="sidebar-duration-badge">10:24</span>
+                                            </div>
+                                            <div class="sidebar-item-info">
+                                                <div class="ctr-badge-out">Tested CTR</div>
+                                                <h4 class="sidebar-item-title" id="rec-mock-title">How I Grew My YouTube
+                                                    Channel to 100K Subscribers in 6 Months</h4>
+                                                <span class="sidebar-item-channel" id="rec-mock-channel">Channel
+                                                    Preview</span>
+                                                <span class="sidebar-item-views" id="rec-mock-views">342K views • 3 days
+                                                    ago</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Competitor Card 1 -->
+                                        <div class="sidebar-item-card" style="opacity: 0.65;">
+                                            <div class="sidebar-thumb-wrap">
+                                                <div style="width:100%; height:100%; background: #18182b;"></div>
+                                                <span class="sidebar-duration-badge">12:34</span>
+                                            </div>
+                                            <div class="sidebar-item-info">
+                                                <h4 class="sidebar-item-title">Mastering the Art of YouTube Thumbnails
+                                                    (Double CTR)</h4>
+                                                <span class="sidebar-item-channel">Design Expert</span>
+                                                <span class="sidebar-item-views">840K views • 1 week ago</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Competitor Card 2 -->
+                                        <div class="sidebar-item-card" style="opacity: 0.45;">
+                                            <div class="sidebar-thumb-wrap">
+                                                <div style="width:100%; height:100%; background: #111;"></div>
+                                                <span class="sidebar-duration-badge">8:15</span>
+                                            </div>
+                                            <div class="sidebar-item-info">
+                                                <h4 class="sidebar-item-title">YouTube SEO Blueprint — Rank #1 in Search
+                                                </h4>
+                                                <span class="sidebar-item-channel">SEO Masters</span>
+                                                <span class="sidebar-item-views">1.2M views • 1 month ago</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQS -->
+    <section class="faq-section" id="faq">
+        <div class="faq-header">
+            <div class="section-eyebrow">FAQ</div>
+            <h2 style="font-size:2.2rem;letter-spacing:-0.03em;color:#fff;">Watch Page & Truncation<br><span
+                    class="accent-text">FAQs</span></h2>
+        </div>
+        <div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Where do YouTube video titles truncate on watch
+                    pages?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span></button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">On the desktop watch page, video titles display fully up to 100
+                        characters below the player. However, in sidebar recommendation grids and mobile overlays,
+                        titles truncate around **50 characters**. Always front-load your primary keywords.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">What is the "Show More" limit for video
+                    descriptions?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span></button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">On desktop, the first **140–160 characters** of the description box
+                        are visible before the "Show More" cut-off. Timestamps, hooks, and call-to-actions should be
+                        placed in these initial lines to guarantee visibility.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">Does this watch page tool support custom video
+                    playback?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span></button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">Yes. You can upload any standard MP4 video stream from your local
+                        drive. It processes entirely inside your browser (100% private), allowing you to review
+                        overlays, overlays overlays contrast, and annotation alignment.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // FAQ Accordion toggles
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+                btn.setAttribute('aria-expanded', !isExpanded);
+                item.classList.toggle('active');
+
+                const answer = item.querySelector('.faq-answer');
+                if (item.classList.contains('active')) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                } else {
+                    answer.style.maxHeight = '0px';
+                }
+            });
+        });
+    </script>
+
+    <!-- RELATED TOOLS -->
+    <section class="internal-links">
+        <div class="section-eyebrow">Related Tools</div>
+        <h2 style="font-size: 2rem; letter-spacing: -0.02em; color: #fff; margin-bottom: 8px;">Explore More Preview
+            Tools</h2>
+        <div class="links-grid">
+            <a href="/youtube-banner-preview" class="link-card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"
+                    style="color: var(--accent); margin-bottom: 12px;">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <polyline points="21 15 16 10 5 21" />
+                </svg>
+                <h4>Banner Preview</h4>
+                <p>Test how your YouTube banner crops on Desktop, Mobile, and TV views.</p>
+            </a>
+            <a href="/youtube-thumbnail-preview" class="link-card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"
+                    style="color: var(--accent); margin-bottom: 12px;">
+                    <polygon points="23 7 16 12 23 17 23 7" />
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                </svg>
+                <h4>Thumbnail Preview</h4>
+                <p>Preview thumbnails inside desktop searches, mobile feeds, and home lists.</p>
+            </a>
+            <a href="/youtube-profile-picture-preview" class="link-card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"
+                    style="color: var(--accent); margin-bottom: 12px;">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+                <h4>Profile Crop tester</h4>
+                <p>Ensure your profile picture logo crops correctly inside standard circles.</p>
+            </a>
+            <a href="/youtube-title-preview" class="link-card">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="32" height="32"
+                    style="color: var(--accent); margin-bottom: 12px;">
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                </svg>
+                <h4>Title Truncation</h4>
+                <p>Test where YouTube cuts off long titles on recommendation columns.</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer-redesign">
+        <div class="footer-cta-card">
+            <div class="footer-cta-content">
+                <h2 class="footer-cta-title">Preview Before You Publish</h2>
+                <p class="footer-cta-desc">Test your YouTube banners, thumbnails, profile pictures, and watch page
+                    assets before uploading.</p>
+            </div>
+            <div class="footer-cta-actions">
+                <a href="/editor" class="footer-cta-btn primary">Start Preview</a>
+                <a href="/#features" class="footer-cta-btn secondary">Explore Tools</a>
+            </div>
+        </div>
+
+        <div class="footer-grid-container">
+            <div class="footer-col brand-col">
+                <a class="footer-brand" href="/">
+                    <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 28px; width: auto;">
+                </a>
+                <p class="footer-brand-desc">Creator-focused tools that help you preview YouTube assets before going
+                    live.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Tools</h3>
+                <ul class="footer-links">
+                    <li><a href="/youtube-banner-preview">Banner Preview</a></li>
+                    <li><a href="/youtube-thumbnail-preview">Thumbnail Preview</a></li>
+                    <li><a href="/youtube-profile-picture-preview">PFP Preview</a></li>
+                    <li><a href="/youtube-title-preview">Title Preview</a></li>
+                    <li><a href="/youtube-video-detail-preview" style="color: var(--accent);">Watch Page Preview</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="/about">About</a></li>
+                    <li><a href="mailto:hello@ChannelPreview.com">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-bar">
+            <div class="footer-copyright">
+                © 2026 Channel Preview. All Rights Reserved.
+            </div>
+            <div class="footer-legal-links">
+                <a href="/privacy-policy">Privacy</a>
+                <a href="/privacy-policy#terms">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PFP CROP MODAL -->
+    <div id="pfp-crop-modal">
+        <div class="crop-modal-content">
+            <div class="crop-modal-header">
+                <h3 class="crop-modal-title">Customise picture</h3>
+            </div>
+            <div class="crop-modal-body">
+                <div class="crop-workspace" id="pfp-crop-workspace">
+                    <img id="crop-image-preview" src="" alt="PFP preview">
+                    <div id="crop-overlay" class="crop-overlay">
+                        <div id="crop-box" class="crop-box">
+                            <div class="crop-circle-guide"></div>
+                            <div class="crop-handle handle-tl" data-handle="tl"></div>
+                            <div class="crop-handle handle-tr" data-handle="tr"></div>
+                            <div class="crop-handle handle-bl" data-handle="bl"></div>
+                            <div class="crop-handle handle-br" data-handle="br"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="crop-modal-footer">
+                <button class="crop-btn cancel" onclick="closeCropModal()">Cancel</button>
+                <button class="crop-btn apply" onclick="applyPFPCrop()">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- INTERACTION LOGICS -->
+    <script>
+        // State
+        let deviceMode = 'desktop';
+        let customVideoUrl = null;
+        let customThumbUrl = null;
+        let customPfpUrl = null;
+
+        let isVideoLoaded = false;
+        let isPlaying = false;
+        let playbackSpeed = 1.0;
+        let isMuted = false;
+        let theaterMode = false;
+
+        // Simulated video properties (used when no file is loaded)
+        let simCurrentTime = 0;
+        const simDuration = 624; // 10:24
+        let simInterval = null;
+
+        // PFP Crop State
+        let rawPfpImageSrc = null;
+        let pfpAspectRatio = 1.0;
+        let cropX = 0;
+        let cropY = 0;
+        let cropScale = 1.0;
+        let isDragging = false;
+        let startX = 0;
+        let startY = 0;
+
+        // Input Bindings
+        const inputTitle = document.getElementById('input-title');
+        const inputChannel = document.getElementById('input-channel');
+        const inputSubs = document.getElementById('input-subs');
+        const inputViews = document.getElementById('input-views');
+        const inputDesc = document.getElementById('input-desc');
+
+        const mockTitle = document.getElementById('mock-title');
+        const mockChannel = document.getElementById('mock-channel');
+        const mockSubs = document.getElementById('mock-subs');
+        const mockDesc = document.getElementById('mock-desc');
+        const descViewsSpan = document.getElementById('desc-views-span');
+
+        const recMockTitle = document.getElementById('rec-mock-title');
+        const recMockChannel = document.getElementById('rec-mock-channel');
+        const recMockViews = document.getElementById('rec-mock-views');
+
+        // Character count
+        function updateTitleCount() {
+            const val = inputTitle.value;
+            document.getElementById('title-char-cnt').innerText = `${val.length} / 100`;
+
+            // Truncation highlights
+            mockTitle.innerText = val;
+            recMockTitle.innerText = val;
+        }
+
+        inputTitle.addEventListener('input', updateTitleCount);
+        updateTitleCount();
+
+        // Other bindings
+        inputChannel.addEventListener('input', () => {
+            const val = inputChannel.value;
+            mockChannel.innerText = val;
+            recMockChannel.innerText = val;
+        });
+
+        inputSubs.addEventListener('input', () => {
+            mockSubs.innerText = `${inputSubs.value} subscribers`;
+        });
+
+        inputViews.addEventListener('input', () => {
+            const val = inputViews.value;
+            descViewsSpan.innerText = `${val} views`;
+            recMockViews.innerText = `${val} views • 3 days ago`;
+        });
+
+        inputDesc.addEventListener('input', () => {
+            mockDesc.innerText = inputDesc.value;
+        });
+
+        // Sidebar collapsible controls
+        function toggleSidebar() {
+            const body = document.querySelector('.tool-body');
+            const expandBtn = document.getElementById('expand-sidebar-btn');
+            const isCollapsed = body.classList.toggle('collapsed-sidebar');
+
+            if (isCollapsed) {
+                expandBtn.style.display = 'flex';
+            } else {
+                expandBtn.style.display = 'none';
+            }
+        }
+
+        // Device toggle
+        function setDeviceMode(mode) {
+            deviceMode = mode;
+            document.querySelectorAll('.option-tab[data-mode]').forEach(tab => {
+                tab.classList.toggle('active', tab.getAttribute('data-mode') === mode);
+            });
+
+            const frame = document.getElementById('device-sim-frame');
+            frame.className = `device-simulator ${mode}-mode`;
+
+            // reset theater mode if changing to non-desktop
+            if (mode !== 'desktop' && theaterMode) {
+                toggleTheaterMode();
+            }
+        }
+
+        // Filters toggles
+        function toggleFilter(filter) {
+            const frame = document.getElementById('device-sim-frame');
+            if (filter === 'blur') {
+                frame.classList.toggle('blur-active', document.getElementById('check-blur').checked);
+            } else if (filter === 'gray') {
+                frame.classList.toggle('grayscale-active', document.getElementById('check-gray').checked);
+            }
+        }
+
+        // Safe zone toggle
+        function toggleSafeZone() {
+            const overlay = document.getElementById('overlay-safe-zones');
+            overlay.classList.toggle('active', document.getElementById('check-safe').checked);
+        }
+
+        // Collapsible description
+        let descExpanded = false;
+        function toggleDescExpansion() {
+            descExpanded = !descExpanded;
+            const text = document.getElementById('mock-desc');
+            const btn = document.getElementById('desc-more-toggle');
+            if (descExpanded) {
+                text.classList.add('expanded');
+                btn.innerText = 'Show less';
+            } else {
+                text.classList.remove('expanded');
+                btn.innerText = 'Show more';
+            }
+        }
+
+        // ── Real Video Player Controls ──
+
+        function togglePlayPause() {
+            const video = document.getElementById('live-player');
+            if (isVideoLoaded) {
+                if (video.paused) {
+                    video.play();
+                } else {
+                    video.pause();
+                }
+            } else {
+                isPlaying = !isPlaying;
+                updatePlayPauseUI();
+                if (isPlaying) {
+                    startSimLoop();
+                } else {
+                    stopSimLoop();
+                }
+            }
+        }
+
+        function updatePlayPauseUI() {
+            const playIcon = document.getElementById('play-icon-svg');
+            const pauseIcon = document.getElementById('pause-icon-svg');
+            const activePlay = isVideoLoaded ? !document.getElementById('live-player').paused : isPlaying;
+
+            if (activePlay) {
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+            } else {
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+            }
+        }
+
+        function toggleMute() {
+            const video = document.getElementById('live-player');
+            isMuted = !isMuted;
+            if (isVideoLoaded) {
+                video.muted = isMuted;
+            }
+            updateMuteUI();
+        }
+
+        function updateMuteUI() {
+            const volHigh = document.getElementById('vol-high-svg');
+            const volMute = document.getElementById('vol-mute-svg');
+            if (isMuted) {
+                volHigh.style.display = 'none';
+                volMute.style.display = 'block';
+            } else {
+                volHigh.style.display = 'block';
+                volMute.style.display = 'none';
+            }
+        }
+
+        function toggleSettingsMenu() {
+            const menu = document.getElementById('settings-menu-popup');
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Close settings if clicked outside
+        window.addEventListener('click', (e) => {
+            const menu = document.getElementById('settings-menu-popup');
+            if (menu && menu.style.display === 'block') {
+                const btn = document.querySelector('[onclick="toggleSettingsMenu()"]');
+                if (btn && !menu.contains(e.target) && !btn.contains(e.target)) {
+                    menu.style.display = 'none';
+                }
+            }
+        });
+
+        function setPlaybackSpeed(speed, element) {
+            playbackSpeed = speed;
+            const video = document.getElementById('live-player');
+            if (isVideoLoaded) {
+                video.playbackRate = speed;
+            }
+
+            document.querySelectorAll('.speed-opt').forEach(opt => {
+                let text = opt.querySelector('span') ? opt.querySelector('span').innerText : opt.innerText;
+                text = text.replace('✓', '').trim();
+
+                if (opt === element) {
+                    opt.className = 'speed-opt active-speed';
+                    opt.style.color = 'var(--accent)';
+                    opt.style.fontWeight = '600';
+                    opt.innerHTML = `<span>${text}</span><span>✓</span>`;
+                } else {
+                    opt.className = 'speed-opt';
+                    opt.style.color = '#fff';
+                    opt.style.fontWeight = '500';
+                    opt.innerHTML = text;
+                }
+            });
+
+            document.getElementById('settings-menu-popup').style.display = 'none';
+        }
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Timeline click-to-seek scrubbing
+        const progressBar = document.getElementById('player-progress-bar');
+        let isScrubbing = false;
+
+        function scrubVideo(e) {
+            const rect = progressBar.getBoundingClientRect();
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clickX = clientX - rect.left;
+            const percentage = Math.max(0, Math.min(1, clickX / rect.width));
+
+            const video = document.getElementById('live-player');
+            if (isVideoLoaded) {
+                video.currentTime = percentage * video.duration;
+            } else {
+                simCurrentTime = percentage * simDuration;
+                updatePlayerProgress(simCurrentTime, simDuration);
+            }
+        }
+
+        progressBar.addEventListener('click', scrubVideo);
+        progressBar.addEventListener('mousedown', (e) => {
+            isScrubbing = true;
+            scrubVideo(e);
+        });
+        window.addEventListener('mousemove', (e) => {
+            if (isScrubbing) scrubVideo(e);
+        });
+        window.addEventListener('mouseup', () => {
+            isScrubbing = false;
+        });
+
+        // Video tag events listeners
+        const livePlayer = document.getElementById('live-player');
+
+        livePlayer.addEventListener('play', () => {
+            isPlaying = true;
+            updatePlayPauseUI();
+        });
+        livePlayer.addEventListener('pause', () => {
+            isPlaying = false;
+            updatePlayPauseUI();
+        });
+        livePlayer.addEventListener('timeupdate', () => {
+            if (isVideoLoaded) {
+                updatePlayerProgress(livePlayer.currentTime, livePlayer.duration || simDuration);
+            }
+        });
+        livePlayer.addEventListener('durationchange', () => {
+            if (isVideoLoaded) {
+                updatePlayerProgress(livePlayer.currentTime, livePlayer.duration || simDuration);
+            }
+        });
+
+        function toggleTheaterMode() {
+            theaterMode = !theaterMode;
+            const frame = document.getElementById('device-sim-frame');
+            frame.classList.toggle('theater-active', theaterMode);
+        }
+
+        function toggleFullscreen() {
+            const playerContainer = document.getElementById('player-container');
+            if (!document.fullscreenElement) {
+                playerContainer.requestFullscreen().catch(err => {
+                    console.error(`Error enabling fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // File upload bindings
+        document.getElementById('video-file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (customVideoUrl) {
+                    URL.revokeObjectURL(customVideoUrl);
+                }
+                customVideoUrl = URL.createObjectURL(file);
+
+                const canvasBg = document.getElementById('mock-canvas-bg');
+
+                livePlayer.src = customVideoUrl;
+                livePlayer.style.display = 'block';
+                canvasBg.style.display = 'none';
+
+                isVideoLoaded = true;
+                isPlaying = true;
+                livePlayer.playbackRate = playbackSpeed;
+                livePlayer.muted = isMuted;
+
+                // Stop the simulation
+                stopSimLoop();
+
+                livePlayer.play().catch(err => {
+                    console.log("Auto-play blocked or failed", err);
+                });
+                updatePlayPauseUI();
+            }
+        });
+
+        document.getElementById('thumb-file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    customThumbUrl = event.target.result;
+
+                    // Set as player background fallback if video not playing
+                    const canvasBg = document.getElementById('mock-canvas-bg');
+                    canvasBg.style.backgroundImage = `url(${customThumbUrl})`;
+                    canvasBg.style.backgroundSize = 'cover';
+                    canvasBg.style.backgroundPosition = 'center';
+
+                    // Set sidebar recommendation thumbnail
+                    const recBox = document.getElementById('sidebar-rec-thumb-box');
+                    recBox.innerHTML = `<img src="${customThumbUrl}" style="width:100%; height:100%; object-fit:cover;">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // ── PFP Circular Crop Adjuster Logic ──
+
+        function triggerPFPUpload() {
+            document.getElementById('pfp-file-input').click();
+        }
+
+        document.getElementById('pfp-file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    rawPfpImageSrc = event.target.result;
+
+                    const img = document.getElementById('crop-image-preview');
+                    img.src = rawPfpImageSrc;
+
+                    // Show crop modal
+                    document.getElementById('pfp-crop-modal').style.display = 'flex';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // PFP Crop State variables
+        let cropBoxX = 0;
+        let cropBoxY = 0;
+        let cropBoxSize = 0;
+        let imgRenderedWidth = 0;
+        let imgRenderedHeight = 0;
+
+        document.getElementById('crop-image-preview').addEventListener('load', function () {
+            const img = this;
+            const W_max = 480;
+            const H_max = 360;
+            const W_nat = img.naturalWidth;
+            const H_nat = img.naturalHeight;
+            pfpAspectRatio = W_nat / H_nat;
+
+            if (pfpAspectRatio > W_max / H_max) {
+                imgRenderedWidth = W_max;
+                imgRenderedHeight = W_max / pfpAspectRatio;
+            } else {
+                imgRenderedHeight = H_max;
+                imgRenderedWidth = H_max * pfpAspectRatio;
+            }
+
+            img.style.width = imgRenderedWidth + 'px';
+            img.style.height = imgRenderedHeight + 'px';
+
+            const workspace = document.getElementById('pfp-crop-workspace');
+            workspace.style.width = imgRenderedWidth + 'px';
+            workspace.style.height = imgRenderedHeight + 'px';
+
+            // Crop box size: 80% of minimum dimension
+            cropBoxSize = Math.floor(Math.min(imgRenderedWidth, imgRenderedHeight) * 0.8);
+            if (cropBoxSize < 40) {
+                cropBoxSize = Math.min(imgRenderedWidth, imgRenderedHeight);
+            }
+
+            // Center the crop box
+            cropBoxX = Math.floor((imgRenderedWidth - cropBoxSize) / 2);
+            cropBoxY = Math.floor((imgRenderedHeight - cropBoxSize) / 2);
+
+            updateCropBoxUI();
+        });
+
+        function updateCropBoxUI() {
+            const cropBox = document.getElementById('crop-box');
+            cropBox.style.left = cropBoxX + 'px';
+            cropBox.style.top = cropBoxY + 'px';
+            cropBox.style.width = cropBoxSize + 'px';
+            cropBox.style.height = cropBoxSize + 'px';
+        }
+
+        let activeAction = null; // 'drag' or 'resize'
+        let activeHandle = null; // 'tl', 'tr', 'bl', 'br'
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let initialBoxX = 0;
+        let initialBoxY = 0;
+        let initialBoxSize = 0;
+
+        const cropBox = document.getElementById('crop-box');
+        cropBox.addEventListener('mousedown', onPointerDown);
+        cropBox.addEventListener('touchstart', onPointerDown, { passive: false });
+
+        function onPointerDown(e) {
+            if (e.cancelable) {
+                e.preventDefault();
+            }
+
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+
+            const handle = e.target.closest('.crop-handle');
+            if (handle) {
+                activeAction = 'resize';
+                activeHandle = handle.getAttribute('data-handle');
+            } else {
+                activeAction = 'drag';
+                activeHandle = null;
+            }
+
+            dragStartX = clientX;
+            dragStartY = clientY;
+            initialBoxX = cropBoxX;
+            initialBoxY = cropBoxY;
+            initialBoxSize = cropBoxSize;
+
+            window.addEventListener('mousemove', onPointerMove);
+            window.addEventListener('touchmove', onPointerMove, { passive: false });
+            window.addEventListener('mouseup', onPointerUp);
+            window.addEventListener('touchend', onPointerUp);
+        }
+
+        function onPointerMove(e) {
+            if (!activeAction) return;
+
+            if (e.cancelable) {
+                e.preventDefault();
+            }
+
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+
+            if (activeAction === 'drag') {
+                const dx = clientX - dragStartX;
+                const dy = clientY - dragStartY;
+
+                let newX = initialBoxX + dx;
+                let newY = initialBoxY + dy;
+
+                newX = Math.max(0, Math.min(imgRenderedWidth - cropBoxSize, newX));
+                newY = Math.max(0, Math.min(imgRenderedHeight - cropBoxSize, newY));
+
+                cropBoxX = newX;
+                cropBoxY = newY;
+            } else if (activeAction === 'resize') {
+                const rect = document.getElementById('crop-overlay').getBoundingClientRect();
+                const curX = clientX - rect.left;
+                const curY = clientY - rect.top;
+
+                if (activeHandle === 'br') {
+                    const xFixed = initialBoxX;
+                    const yFixed = initialBoxY;
+                    let newS = ((curX - xFixed) + (curY - yFixed)) / 2;
+                    const maxS = Math.min(imgRenderedWidth - xFixed, imgRenderedHeight - yFixed);
+                    newS = Math.max(40, Math.min(maxS, newS));
+                    cropBoxX = xFixed;
+                    cropBoxY = yFixed;
+                    cropBoxSize = newS;
+                } else if (activeHandle === 'tl') {
+                    const xFixed = initialBoxX + initialBoxSize;
+                    const yFixed = initialBoxY + initialBoxSize;
+                    let newS = ((xFixed - curX) + (yFixed - curY)) / 2;
+                    const maxS = Math.min(xFixed, yFixed);
+                    newS = Math.max(40, Math.min(maxS, newS));
+                    cropBoxX = xFixed - newS;
+                    cropBoxY = yFixed - newS;
+                    cropBoxSize = newS;
+                } else if (activeHandle === 'tr') {
+                    const xFixed = initialBoxX;
+                    const yFixed = initialBoxY + initialBoxSize;
+                    let newS = ((curX - xFixed) + (yFixed - curY)) / 2;
+                    const maxS = Math.min(imgRenderedWidth - xFixed, yFixed);
+                    newS = Math.max(40, Math.min(maxS, newS));
+                    cropBoxX = xFixed;
+                    cropBoxY = yFixed - newS;
+                    cropBoxSize = newS;
+                } else if (activeHandle === 'bl') {
+                    const xFixed = initialBoxX + initialBoxSize;
+                    const yFixed = initialBoxY;
+                    let newS = ((xFixed - curX) + (curY - yFixed)) / 2;
+                    const maxS = Math.min(xFixed, imgRenderedHeight - yFixed);
+                    newS = Math.max(40, Math.min(maxS, newS));
+                    cropBoxX = xFixed - newS;
+                    cropBoxY = yFixed;
+                    cropBoxSize = newS;
+                }
+            }
+
+            updateCropBoxUI();
+        }
+
+        function onPointerUp(e) {
+            activeAction = null;
+            activeHandle = null;
+            window.removeEventListener('mousemove', onPointerMove);
+            window.removeEventListener('touchmove', onPointerMove);
+            window.removeEventListener('mouseup', onPointerUp);
+            window.removeEventListener('touchend', onPointerUp);
+        }
+
+        function closeCropModal() {
+            document.getElementById('pfp-crop-modal').style.display = 'none';
+            document.getElementById('pfp-file-input').value = '';
+        }
+
+        function getPfpImgHtml(size) {
+            if (!customPfpUrl) {
+                return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 50%; height: 50%; color: #888;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`;
+            }
+            const scale = size / cropBoxSize;
+            const tx = -cropBoxX;
+            const ty = -cropBoxY;
+
+            return `<img src="${customPfpUrl}" style="position: absolute; top: 0; left: 0; width: ${imgRenderedWidth}px; height: ${imgRenderedHeight}px; transform-origin: 0 0; transform: scale(${scale}) translate(${tx}px, ${ty}px); max-width: none !important; max-height: none !important; object-fit: fill !important; border-radius: 0;">`;
+        }
+
+        function applyPFPCrop() {
+            customPfpUrl = rawPfpImageSrc;
+
+            // Update all user avatars in page
+            document.querySelectorAll('.yt-user-avatar').forEach(container => {
+                const size = container.classList.contains('yt-channel-pfp') ? 40 : 36;
+                container.innerHTML = getPfpImgHtml(size);
+            });
+
+            closeCropModal();
+        }
+
+        // Simulated Dummy Playback loop
+        function startSimLoop() {
+            if (simInterval) clearInterval(simInterval);
+            const intervalMs = 100;
+            simInterval = setInterval(() => {
+                if (!isPlaying) return;
+                simCurrentTime += (intervalMs / 1000) * playbackSpeed;
+                if (simCurrentTime >= simDuration) {
+                    simCurrentTime = 0; // Loop
+                }
+                updatePlayerProgress(simCurrentTime, simDuration);
+            }, intervalMs);
+        }
+
+        function stopSimLoop() {
+            if (simInterval) {
+                clearInterval(simInterval);
+                simInterval = null;
+            }
+        }
+
+        function updatePlayerProgress(currentTime, duration) {
+            const percentage = duration > 0 ? (currentTime / duration) * 100 : 0;
+            document.getElementById('player-progress-filled').style.width = percentage + '%';
+            document.getElementById('video-time-display').innerText = `${formatTime(currentTime)} / ${formatTime(duration)}`;
+        }
+
+        // Comments Submissions
+        function clearCommentField() {
+            document.getElementById('comment-add-field').value = '';
+        }
+
+        function submitMockComment() {
+            const input = document.getElementById('comment-add-field');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const list = document.getElementById('mock-comment-list');
+            const avatarHtml = getPfpImgHtml(36);
+
+            const item = document.createElement('div');
+            item.className = 'yt-comment-item';
+            item.innerHTML = `
+                <div class="yt-comment-avatar yt-user-avatar" style="position: relative;">
+                    ${avatarHtml}
+                </div>
+                <div class="yt-comment-content">
+                    <div class="yt-comment-author-row">
+                        <span class="yt-comment-author">You</span>
+                        <span class="yt-comment-time">Just now</span>
+                    </div>
+                    <div class="yt-comment-text">${text}</div>
+                </div>
+            `;
+
+            list.insertBefore(item, list.firstChild);
+            input.value = '';
+        }
+    </script>
+</body>
+
+</html>

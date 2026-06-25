@@ -44,178 +44,6 @@
     </script>
 
     <style>
-        /* ── NAV ── */
-        nav {
-            position: fixed;
-            top: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 48px);
-            max-width: 1200px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 24px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 100px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-            transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, top 0.5s ease;
-        }
-
-        nav.scrolled { top: 12px; }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .nav-links a {
-            font-size: 0.88rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.7);
-            padding: 8px 14px;
-            border-radius: 100px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            white-space: nowrap;
-        }
-
-        @media (min-width: 769px) and (max-width: 1100px) {
-            .nav-links {
-                position: static;
-                transform: none;
-                margin: 0 auto;
-                gap: 12px;
-            }
-            .nav-links a {
-                padding: 6px 10px;
-                font-size: 0.82rem;
-            }
-            .nav-logo img {
-                height: 26px !important;
-            }
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .nav-cta {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-shrink: 0;
-        }
-
-        .nav-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 8px;
-            background: none;
-            border: none;
-            outline: none;
-            transition: background 0.25s;
-            flex-shrink: 0;
-            z-index: 10;
-        }
-
-        .nav-hamburger:hover { background: rgba(255, 255, 255, 0.1); }
-
-        .nav-hamburger span {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 4px;
-            transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-            transform-origin: center;
-        }
-
-        .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-        .mobile-only-btn { display: none !important; }
-
-        @media (max-width: 768px) {
-            nav {
-                top: 12px;
-                width: calc(100% - 32px);
-                padding: 12px 18px;
-                border-radius: 20px;
-            }
-
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 80px;
-                left: 16px;
-                right: 16px;
-                flex-direction: column;
-                gap: 0;
-                background: rgba(15, 15, 15, 0.95);
-                backdrop-filter: blur(32px) saturate(180%);
-                -webkit-backdrop-filter: blur(32px) saturate(180%);
-                border: 1px solid rgba(255, 255, 255, 0.12);
-                border-radius: 20px;
-                padding: 12px 8px;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-                z-index: 999;
-                transform: translateY(-10px);
-                opacity: 0;
-                transition: opacity 0.3s ease, transform 0.3s ease;
-            }
-
-            .nav-links.open {
-                display: flex;
-                transform: translateY(0);
-                opacity: 1;
-            }
-
-            .nav-links a {
-                padding: 14px 16px;
-                border-radius: 12px;
-                font-size: 1rem;
-                color: rgba(255, 255, 255, 0.85);
-            }
-
-            .nav-links a:hover {
-                background: rgba(255, 255, 255, 0.06);
-                color: #fff;
-            }
-
-            .nav-cta .desktop-only-btn { display: none !important; }
-
-            .mobile-only-btn {
-                display: flex !important;
-                margin-top: 12px;
-                margin-inline: 8px;
-                width: calc(100% - 16px);
-                justify-content: center;
-            }
-
-            .nav-hamburger { display: flex; }
-        }
-
         /* ── PAGE HERO ── */
         .page-hero {
             padding: 160px 32px 80px;
@@ -231,7 +59,10 @@
             background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(249, 115, 22, 0.15), transparent 70%);
         }
 
-        .page-hero > * { position: relative; z-index: 1; }
+        .page-hero>* {
+            position: relative;
+            z-index: 1;
+        }
 
         .page-hero-eyebrow {
             display: inline-flex;
@@ -267,7 +98,7 @@
             margin-bottom: 24px;
         }
 
-        .page-hero > .intro-text {
+        .page-hero>.intro-text {
             font-size: 1.1rem;
             color: var(--text-secondary);
             max-width: 600px;
@@ -295,7 +126,9 @@
         }
 
         @media (max-width: 600px) {
-            .privacy-layout { padding: 40px 16px 60px; }
+            .privacy-layout {
+                padding: 40px 16px 60px;
+            }
         }
 
         /* Table of Contents sidebar */
@@ -376,7 +209,9 @@
             scroll-margin-top: 100px;
         }
 
-        .privacy-section:last-child { margin-bottom: 0; }
+        .privacy-section:last-child {
+            margin-bottom: 0;
+        }
 
         .privacy-section-header {
             display: flex;
@@ -418,7 +253,9 @@
             margin-bottom: 16px;
         }
 
-        .privacy-section p:last-child { margin-bottom: 0; }
+        .privacy-section p:last-child {
+            margin-bottom: 0;
+        }
 
         .privacy-list {
             list-style: none;
@@ -486,7 +323,9 @@
         }
 
         @media (max-width: 600px) {
-            .third-party-grid { grid-template-columns: 1fr; }
+            .third-party-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .third-party-card {
@@ -564,7 +403,9 @@
         }
 
         @media (max-width: 600px) {
-            .page-hero { padding: 140px 20px 60px; }
+            .page-hero {
+                padding: 140px 20px 60px;
+            }
         }
     </style>
 </head>
@@ -579,20 +420,27 @@
     <!-- ── NAV ── -->
     <nav id="main-nav">
         <a class="nav-logo" href="/">
-            <img src="../assets/logo-full.png" alt="Channel Preview" style="height: 32px; width: auto;">
+            <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 32px; width: auto;">
         </a>
         <div class="nav-links" id="nav-links">
             <a href="/youtube-banner-preview">Banner Preview</a>
             <a href="/youtube-thumbnail-preview">Thumbnails</a>
             <a href="/youtube-profile-picture-preview">Profile Picture</a>
             <a href="/youtube-title-preview">Title Preview</a>
+            <a href="/youtube-video-detail-preview">Watch Page</a>
             <a href="/blog">Blogs</a>
-            <a href="/editor" class="mobile-only-btn" style="display:none;padding:12px 20px;background:linear-gradient(135deg,#ff4d00,#ff7300);color:#fff;border-radius:100px;font-weight:700;font-size:0.95rem;text-align:center;">
-                Try Free →
+            <a href="/editor" class="btn-nav-start mobile-only-btn">
+                Try Free
+                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon" style="width: 20px; height: 20px;">
+                    <path clip-rule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                        fill-rule="evenodd"></path>
+                </svg>
             </a>
         </div>
         <div class="nav-cta">
-            <a href="/editor" class="desktop-only-btn" style="padding:9px 20px;border-radius:100px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;">
+            <a href="/editor" class="btn desktop-only-btn"
+                style="padding:9px 20px;border-radius:100px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;text-decoration:none;">
                 Try Free →
             </a>
             <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
@@ -603,23 +451,42 @@
         </div>
     </nav>
     <script>
+        // Scroll: add .scrolled class
         const mainNav = document.getElementById('main-nav');
-        window.addEventListener('scroll', () => {
-            mainNav.classList.toggle('scrolled', window.scrollY > 80);
-        }, { passive: true });
+        if (mainNav) {
+            window.addEventListener('scroll', () => {
+                mainNav.classList.toggle('scrolled', window.scrollY > 80);
+            }, { passive: true });
+        }
 
+        // Hamburger toggle
         const hamburger = document.getElementById('nav-hamburger');
         const navLinks = document.getElementById('nav-links');
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('open');
-            navLinks.classList.toggle('open');
-        });
-
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('open');
-                navLinks.classList.remove('open');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navLinks.classList.toggle('open');
             });
+
+            // Close menu when a link is clicked
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
+                });
+            });
+        }
+
+        // Highlight active link based on pathname
+        const currentPath = window.location.pathname;
+        const navAnchorLinks = document.querySelectorAll('.nav-links a');
+        navAnchorLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath || (href === '/' && currentPath === '') || (currentPath === '/' && href === '/')) {
+                link.classList.add('active');
+            } else if (href && href !== '/' && currentPath.startsWith(href)) {
+                link.classList.add('active');
+            }
         });
     </script>
 
@@ -637,7 +504,8 @@
             </svg>
             Last Updated: June 6, 2026
         </div>
-        <p class="intro-text">Your privacy matters. Channel Preview is designed to be privacy-friendly and transparent about how information is handled. In short: we handle almost none of it.</p>
+        <p class="intro-text">Your privacy matters. Channel Preview is designed to be privacy-friendly and transparent
+            about how information is handled. In short: we handle almost none of it.</p>
     </section>
 
     <!-- ── PRIVACY LAYOUT ── -->
@@ -692,12 +560,18 @@
                     <div class="privacy-section-num">1</div>
                     <h2>Information We Collect</h2>
                 </div>
-                <p>Channel Preview does not require user accounts and does not intentionally collect personal information through its core tools.</p>
-                <p>When you use Channel Preview's preview tools (Banner Preview, Thumbnail Preview, Profile Picture Preview, Title Preview), you interact directly with your local browser. No data from these interactions is transmitted to our servers.</p>
+                <p>Channel Preview does not require user accounts and does not intentionally collect personal
+                    information through its core tools.</p>
+                <p>When you use Channel Preview's preview tools (Banner Preview, Thumbnail Preview, Profile Picture
+                    Preview, Title Preview), you interact directly with your local browser. No data from these
+                    interactions is transmitted to our servers.</p>
                 <div class="privacy-highlight-card">
-                    <p>💡 <strong>The short version:</strong> We don't collect your name, email, images, or any files you use in our tools. We have no user accounts, no login, and no profile system.</p>
+                    <p>💡 <strong>The short version:</strong> We don't collect your name, email, images, or any files
+                        you use in our tools. We have no user accounts, no login, and no profile system.</p>
                 </div>
-                <p>We may collect non-personal technical information through analytics services (see Section 3) such as page views, browser type, and general geographic region — but never your personal identity or the content you preview.</p>
+                <p>We may collect non-personal technical information through analytics services (see Section 3) such as
+                    page views, browser type, and general geographic region — but never your personal identity or the
+                    content you preview.</p>
             </section>
 
             <!-- 2. Local Processing -->
@@ -706,15 +580,19 @@
                     <div class="privacy-section-num">2</div>
                     <h2>Local Processing</h2>
                 </div>
-                <p>All images and files you interact with in Channel Preview are processed entirely within your own browser using the browser's built-in APIs (Canvas API, FileReader API). This means:</p>
+                <p>All images and files you interact with in Channel Preview are processed entirely within your own
+                    browser using the browser's built-in APIs (Canvas API, FileReader API). This means:</p>
                 <ul class="privacy-list">
                     <li>Images are <strong>not uploaded</strong> to our servers at any point</li>
                     <li>Images are <strong>not stored</strong> beyond your current browser session</li>
                     <li>Images are <strong>not shared</strong> with any third party</li>
                 </ul>
-                <p>When you close the tab or navigate away, all image data in the tool is automatically discarded. We physically cannot access what you upload because it never leaves your device.</p>
+                <p>When you close the tab or navigate away, all image data in the tool is automatically discarded. We
+                    physically cannot access what you upload because it never leaves your device.</p>
                 <div class="privacy-highlight-card">
-                    <p>🔒 <strong>Technical note:</strong> Channel Preview uses the HTML5 File API and Canvas API. Image rendering happens in your browser's memory only. No network request is made for your image files.</p>
+                    <p>🔒 <strong>Technical note:</strong> Channel Preview uses the HTML5 File API and Canvas API. Image
+                        rendering happens in your browser's memory only. No network request is made for your image
+                        files.</p>
                 </div>
             </section>
 
@@ -724,7 +602,9 @@
                     <div class="privacy-section-num">3</div>
                     <h2>Analytics</h2>
                 </div>
-                <p>Channel Preview uses <strong>Google Analytics</strong> to understand general usage patterns — such as which pages are visited most, where visitors come from geographically, and what devices they use. This helps us improve the tools we build.</p>
+                <p>Channel Preview uses <strong>Google Analytics</strong> to understand general usage patterns — such as
+                    which pages are visited most, where visitors come from geographically, and what devices they use.
+                    This helps us improve the tools we build.</p>
                 <p>Google Analytics collects:</p>
                 <ul class="privacy-list">
                     <li>Pages visited and time spent on each page</li>
@@ -732,8 +612,12 @@
                     <li>Browser type, operating system, and screen size</li>
                     <li>Country or region (not precise location)</li>
                 </ul>
-                <p>Google Analytics does <strong>not</strong> receive any images, files, or content you interact with in our tools. You can opt out of Google Analytics tracking at any time using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Google Analytics Opt-out Browser Add-on</a>.</p>
-                <p>We also use <strong>Google Search Console</strong> to monitor search performance. This service does not collect any personal data from visitors.</p>
+                <p>Google Analytics does <strong>not</strong> receive any images, files, or content you interact with in
+                    our tools. You can opt out of Google Analytics tracking at any time using the <a
+                        href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer"
+                        style="color:var(--accent);">Google Analytics Opt-out Browser Add-on</a>.</p>
+                <p>We also use <strong>Google Search Console</strong> to monitor search performance. This service does
+                    not collect any personal data from visitors.</p>
             </section>
 
             <!-- 4. Cookies -->
@@ -742,15 +626,19 @@
                     <div class="privacy-section-num">4</div>
                     <h2>Cookies</h2>
                 </div>
-                <p>Channel Preview uses minimal cookies. The only cookies set on our site come from Google Analytics, which uses first-party cookies to differentiate between sessions and users for statistical purposes.</p>
+                <p>Channel Preview uses minimal cookies. The only cookies set on our site come from Google Analytics,
+                    which uses first-party cookies to differentiate between sessions and users for statistical purposes.
+                </p>
                 <p>These analytics cookies:</p>
                 <ul class="privacy-list">
                     <li>Do not identify you personally</li>
                     <li>Are not used for advertising or remarketing</li>
                     <li>Expire automatically (typically within 2 years)</li>
                 </ul>
-                <p>Channel Preview itself does not set any additional cookies, session tokens, or tracking identifiers. We do not use advertising cookies or cross-site tracking.</p>
-                <p>You can manage or delete cookies at any time through your browser's settings. Note that disabling analytics cookies will not affect any core functionality of Channel Preview's tools.</p>
+                <p>Channel Preview itself does not set any additional cookies, session tokens, or tracking identifiers.
+                    We do not use advertising cookies or cross-site tracking.</p>
+                <p>You can manage or delete cookies at any time through your browser's settings. Note that disabling
+                    analytics cookies will not affect any core functionality of Channel Preview's tools.</p>
             </section>
 
             <!-- 5. Third-Party Services -->
@@ -771,10 +659,12 @@
                     </div>
                     <div class="third-party-card">
                         <h4>Vercel</h4>
-                        <p>Our hosting provider. Vercel may log basic server access data (IP address, request time) as part of standard server logs.</p>
+                        <p>Our hosting provider. Vercel may log basic server access data (IP address, request time) as
+                            part of standard server logs.</p>
                     </div>
                 </div>
-                <p>None of these services receive the images or content you use within Channel Preview's preview tools. Each third-party service is governed by their own privacy policy.</p>
+                <p>None of these services receive the images or content you use within Channel Preview's preview tools.
+                    Each third-party service is governed by their own privacy policy.</p>
             </section>
 
             <!-- 6. Data Security -->
@@ -783,11 +673,16 @@
                     <div class="privacy-section-num">6</div>
                     <h2>Data Security</h2>
                 </div>
-                <p>We take a privacy-by-design approach to Channel Preview. By processing images locally in the browser and avoiding server-side data collection, we minimize the attack surface entirely for the most sensitive data: your creative assets.</p>
-                <p>For the limited non-personal data we do collect (analytics), we rely on industry-standard services (Google) that implement robust security practices.</p>
-                <p>Our website is served over HTTPS, ensuring all data transmitted between your browser and our servers is encrypted in transit.</p>
+                <p>We take a privacy-by-design approach to Channel Preview. By processing images locally in the browser
+                    and avoiding server-side data collection, we minimize the attack surface entirely for the most
+                    sensitive data: your creative assets.</p>
+                <p>For the limited non-personal data we do collect (analytics), we rely on industry-standard services
+                    (Google) that implement robust security practices.</p>
+                <p>Our website is served over HTTPS, ensuring all data transmitted between your browser and our servers
+                    is encrypted in transit.</p>
                 <div class="privacy-highlight-card">
-                    <p>🛡️ <strong>Our philosophy:</strong> The best way to protect your data is to never collect it in the first place. This is why Channel Preview's core functionality works 100% client-side.</p>
+                    <p>🛡️ <strong>Our philosophy:</strong> The best way to protect your data is to never collect it in
+                        the first place. This is why Channel Preview's core functionality works 100% client-side.</p>
                 </div>
             </section>
 
@@ -797,9 +692,13 @@
                     <div class="privacy-section-num">7</div>
                     <h2>Children's Privacy</h2>
                 </div>
-                <p>Channel Preview is not directed at children under the age of 13, and we do not knowingly collect personal information from children under 13.</p>
-                <p>Because Channel Preview does not require account creation or any personal data submission, children are not at greater risk of data exposure while using our tools. However, children under 13 should use the internet under parental guidance.</p>
-                <p>If you believe a child has provided personal information to us in any way (such as through a contact form), please contact us and we will take appropriate steps to remove that information.</p>
+                <p>Channel Preview is not directed at children under the age of 13, and we do not knowingly collect
+                    personal information from children under 13.</p>
+                <p>Because Channel Preview does not require account creation or any personal data submission, children
+                    are not at greater risk of data exposure while using our tools. However, children under 13 should
+                    use the internet under parental guidance.</p>
+                <p>If you believe a child has provided personal information to us in any way (such as through a contact
+                    form), please contact us and we will take appropriate steps to remove that information.</p>
             </section>
 
             <!-- 8. Changes to This Policy -->
@@ -808,9 +707,12 @@
                     <div class="privacy-section-num">8</div>
                     <h2>Changes to This Policy</h2>
                 </div>
-                <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last Updated" date at the top of this page.</p>
-                <p>We encourage you to review this Privacy Policy periodically. Continued use of Channel Preview after any changes constitutes your acceptance of the updated policy.</p>
-                <p>If we make significant changes that materially affect how we handle your data, we will make a reasonable effort to notify users through a notice on the website.</p>
+                <p>We may update this Privacy Policy from time to time. When we do, we will update the "Last Updated"
+                    date at the top of this page.</p>
+                <p>We encourage you to review this Privacy Policy periodically. Continued use of Channel Preview after
+                    any changes constitutes your acceptance of the updated policy.</p>
+                <p>If we make significant changes that materially affect how we handle your data, we will make a
+                    reasonable effort to notify users through a notice on the website.</p>
             </section>
 
             <!-- 9. Contact -->
@@ -819,12 +721,15 @@
                     <div class="privacy-section-num">9</div>
                     <h2>Contact</h2>
                 </div>
-                <p>If you have any questions about this Privacy Policy, how we handle data, or want to request information about any data we may hold, please reach out:</p>
+                <p>If you have any questions about this Privacy Policy, how we handle data, or want to request
+                    information about any data we may hold, please reach out:</p>
                 <div class="contact-card">
                     <p>We're happy to answer any privacy questions.</p>
                     <a href="mailto:hello@channelpreview.com" class="contact-email-link">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                            </path>
                             <polyline points="22,6 12,13 2,6"></polyline>
                         </svg>
                         hello@channelpreview.com
@@ -841,7 +746,8 @@
         <div class="footer-cta-card">
             <div class="footer-cta-content">
                 <h2 class="footer-cta-title">Preview Before You Publish</h2>
-                <p class="footer-cta-desc">Test your YouTube banners, thumbnails, profile pictures, and titles before uploading.</p>
+                <p class="footer-cta-desc">Test your YouTube banners, thumbnails, profile pictures, and titles before
+                    uploading.</p>
             </div>
             <div class="footer-cta-actions">
                 <a href="/editor" class="footer-cta-btn primary">Start Preview</a>
@@ -856,22 +762,26 @@
                 <a class="footer-brand" href="/">
                     <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 28px; width: auto;">
                 </a>
-                <p class="footer-brand-desc">Creator-focused tools that help you preview YouTube banners, thumbnails, profile pictures, and titles before publishing.</p>
+                <p class="footer-brand-desc">Creator-focused tools that help you preview YouTube banners, thumbnails,
+                    profile pictures, and titles before publishing.</p>
                 <div class="footer-trust-badges">
                     <div class="footer-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>No Sign-Up Required</span>
                     </div>
                     <div class="footer-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>Privacy Friendly</span>
                     </div>
                     <div class="footer-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>100% Browser Based</span>
@@ -920,15 +830,19 @@
         <!-- Trust Strip Section -->
         <div class="footer-trust-strip">
             <div class="trust-item">
-                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    <path
+                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                    </path>
                 </svg>
                 <span>Built for Creators Worldwide</span>
             </div>
             <div class="trust-item">
-                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
                     <line x1="8" y1="21" x2="16" y2="21"></line>
                     <line x1="12" y1="17" x2="12" y2="21"></line>
@@ -936,7 +850,8 @@
                 <span>100% Browser Based</span>
             </div>
             <div class="trust-item">
-                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
                 <span>Images Never Leave Your Device</span>
@@ -948,18 +863,19 @@
             <div class="footer-copyright">
                 © 2026 Channel Preview. All Rights Reserved.
             </div>
-            
+
             <!-- Social Buttons -->
             <div class="footer-socials">
-                <a href="https://www.youtube.com/@thegaganpratap" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener">
+                <a href="https://www.youtube.com/@thegaganpratap" class="social-btn" aria-label="YouTube"
+                    target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                         <path
                             d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z">
                         </path>
                     </svg>
                 </a>
-                <a href="https://www.instagram.com/thegaganpratap/" class="social-btn" aria-label="Instagram" target="_blank"
-                    rel="noopener">
+                <a href="https://www.instagram.com/thegaganpratap/" class="social-btn" aria-label="Instagram"
+                    target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" width="18" height="18">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -967,7 +883,8 @@
                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                     </svg>
                 </a>
-                <a href="https://www.linkedin.com/in/gagan-pratap/" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <a href="https://www.linkedin.com/in/gagan-pratap/" class="social-btn" aria-label="LinkedIn"
+                    target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" width="18" height="18">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
@@ -975,13 +892,16 @@
                         <circle cx="4" cy="4" r="2"></circle>
                     </svg>
                 </a>
-                <a href="https://twitter.com/thegaganpratap_" class="social-btn" aria-label="Twitter" target="_blank" rel="noopener">
+                <a href="https://twitter.com/thegaganpratap_" class="social-btn" aria-label="Twitter" target="_blank"
+                    rel="noopener">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                        </path>
                     </svg>
                 </a>
             </div>
-            
+
             <div class="footer-legal-links">
                 <a href="/privacy-policy">Privacy</a>
                 <a href="/privacy-policy#terms">Terms</a>

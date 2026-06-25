@@ -7,7 +7,7 @@
     <title>About Channel Preview – Built for Creators, By a Creator</title>
     <meta name="description"
         content="Learn about Channel Preview, the creator-focused tool that helps YouTube creators preview banners, thumbnails, profile pictures, and channel branding before publishing." />
-     <link rel="canonical" href="https://channelpreview.vercel.app/about" />
+    <link rel="canonical" href="https://channelpreview.vercel.app/about" />
     <link rel="stylesheet" href="../index.css" />
     <link rel="icon" type="image/png" href="../assets/logo-icon.png">
 
@@ -44,181 +44,7 @@
     </script>
 
     <style>
-        /* ── NAV ── */
-        nav {
-            position: fixed;
-            top: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 48px);
-            max-width: 1200px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 14px 24px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 100px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-            transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, top 0.5s ease;
-        }
 
-        nav.scrolled {
-            top: 12px;
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            text-decoration: none;
-            flex-shrink: 0;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 24px;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .nav-links a {
-            font-size: 0.88rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.7);
-            padding: 8px 14px;
-            border-radius: 100px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            white-space: nowrap;
-        }
-
-        @media (min-width: 769px) and (max-width: 1100px) {
-            .nav-links {
-                position: static;
-                transform: none;
-                margin: 0 auto;
-                gap: 12px;
-            }
-            .nav-links a {
-                padding: 6px 10px;
-                font-size: 0.82rem;
-            }
-            .nav-logo img {
-                height: 26px !important;
-            }
-        }
-
-        .nav-links a:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .nav-cta {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-shrink: 0;
-        }
-
-        .nav-hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            padding: 6px;
-            border-radius: 8px;
-            background: none;
-            border: none;
-            outline: none;
-            transition: background 0.25s;
-            flex-shrink: 0;
-            z-index: 10;
-        }
-
-        .nav-hamburger:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-hamburger span {
-            display: block;
-            width: 22px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.85);
-            border-radius: 4px;
-            transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-            transform-origin: center;
-        }
-
-        .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-        .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-        .mobile-only-btn { display: none !important; }
-
-        @media (max-width: 768px) {
-            nav {
-                top: 12px;
-                width: calc(100% - 32px);
-                padding: 12px 18px;
-                border-radius: 20px;
-            }
-
-            .nav-links {
-                display: none;
-                position: fixed;
-                top: 80px;
-                left: 16px;
-                right: 16px;
-                flex-direction: column;
-                gap: 0;
-                background: rgba(15, 15, 15, 0.95);
-                backdrop-filter: blur(32px) saturate(180%);
-                -webkit-backdrop-filter: blur(32px) saturate(180%);
-                border: 1px solid rgba(255, 255, 255, 0.12);
-                border-radius: 20px;
-                padding: 12px 8px;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-                z-index: 999;
-                transform: translateY(-10px);
-                opacity: 0;
-                transition: opacity 0.3s ease, transform 0.3s ease;
-            }
-
-            .nav-links.open {
-                display: flex;
-                transform: translateY(0);
-                opacity: 1;
-            }
-
-            .nav-links a {
-                padding: 14px 16px;
-                border-radius: 12px;
-                font-size: 1rem;
-                color: rgba(255, 255, 255, 0.85);
-            }
-
-            .nav-links a:hover {
-                background: rgba(255, 255, 255, 0.06);
-                color: #fff;
-            }
-
-            .nav-cta .desktop-only-btn { display: none !important; }
-
-            .mobile-only-btn {
-                display: flex !important;
-                margin-top: 12px;
-                margin-inline: 8px;
-                width: calc(100% - 16px);
-                justify-content: center;
-            }
-
-            .nav-hamburger { display: flex; }
-        }
 
         /* ── PAGE HERO ── */
         .page-hero {
@@ -235,7 +61,10 @@
             background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(249, 115, 22, 0.2), transparent 70%);
         }
 
-        .page-hero > * { position: relative; z-index: 1; }
+        .page-hero>* {
+            position: relative;
+            z-index: 1;
+        }
 
         .page-hero-eyebrow {
             display: inline-flex;
@@ -287,8 +116,13 @@
         }
 
         @media (max-width: 600px) {
-            .about-inner { padding: 0 16px; }
-            .page-hero { padding: 140px 20px 80px; }
+            .about-inner {
+                padding: 0 16px;
+            }
+
+            .page-hero {
+                padding: 140px 20px 80px;
+            }
         }
 
         /* ── MISSION SECTION ── */
@@ -324,7 +158,9 @@
         }
 
         @media (max-width: 768px) {
-            .why-grid { grid-template-columns: 1fr; }
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .why-card {
@@ -356,7 +192,9 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        .why-card:hover::before { opacity: 1; }
+        .why-card:hover::before {
+            opacity: 1;
+        }
 
         .why-icon {
             width: 52px;
@@ -399,11 +237,15 @@
         }
 
         @media (max-width: 1024px) {
-            .offer-grid { grid-template-columns: repeat(2, 1fr); }
+            .offer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         @media (max-width: 600px) {
-            .offer-grid { grid-template-columns: 1fr; }
+            .offer-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .offer-card {
@@ -469,7 +311,9 @@
             transition: gap 0.2s;
         }
 
-        .offer-card:hover .offer-card-cta { gap: 8px; }
+        .offer-card:hover .offer-card-cta {
+            gap: 8px;
+        }
 
         /* ── PRIVACY HIGHLIGHT ── */
         .privacy-highlight {
@@ -578,11 +422,11 @@
             border-radius: 24px;
             background: rgba(20, 20, 20, 0.8);
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.12);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             box-shadow:
                 0 0 0 3px rgba(255, 90, 10, 0.4),
                 0 0 30px rgba(255, 90, 10, 0.25),
-                0 20px 40px rgba(0,0,0,0.5);
+                0 20px 40px rgba(0, 0, 0, 0.5);
             flex-shrink: 0;
             position: relative;
             transition: box-shadow 0.4s ease;
@@ -592,7 +436,7 @@
             box-shadow:
                 0 0 0 3px rgba(255, 90, 10, 0.7),
                 0 0 50px rgba(255, 90, 10, 0.4),
-                0 24px 50px rgba(0,0,0,0.6);
+                0 24px 50px rgba(0, 0, 0, 0.6);
         }
 
         .founder-avatar img {
@@ -609,7 +453,9 @@
         }
 
         @media (max-width: 768px) {
-            .founder-avatar { margin: 0 auto; }
+            .founder-avatar {
+                margin: 0 auto;
+            }
         }
 
         .founder-role {
@@ -645,7 +491,9 @@
         }
 
         @media (max-width: 768px) {
-            .founder-card p { margin-inline: auto; }
+            .founder-card p {
+                margin-inline: auto;
+            }
         }
 
         /* ── CTA SECTION ── */
@@ -793,27 +641,35 @@
 <body style="background-color: #000000;">
 
     <!-- Background Glow -->
-    <div style="position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    <div
+        style="position: fixed; inset: 0; z-index: 0; pointer-events: none;
         background: radial-gradient(circle at center, rgba(255, 77, 0, 0.12) 0%, rgba(255, 77, 0, 0.06) 50%, transparent 100%);">
     </div>
 
     <!-- ── NAV ── -->
     <nav id="main-nav">
         <a class="nav-logo" href="/">
-            <img src="../assets/logo-full.png" alt="Channel Preview" style="height: 32px; width: auto;">
+            <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 32px; width: auto;">
         </a>
         <div class="nav-links" id="nav-links">
             <a href="/youtube-banner-preview">Banner Preview</a>
             <a href="/youtube-thumbnail-preview">Thumbnails</a>
             <a href="/youtube-profile-picture-preview">Profile Picture</a>
             <a href="/youtube-title-preview">Title Preview</a>
+            <a href="/youtube-video-detail-preview">Watch Page</a>
             <a href="/blog">Blogs</a>
-            <a href="/editor" class="mobile-only-btn" style="display:none;padding:12px 20px;background:linear-gradient(135deg,#ff4d00,#ff7300);color:#fff;border-radius:100px;font-weight:700;font-size:0.95rem;text-align:center;">
-                Try Free →
+            <a href="/editor" class="btn-nav-start mobile-only-btn">
+                Try Free
+                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon" style="width: 20px; height: 20px;">
+                    <path clip-rule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                        fill-rule="evenodd"></path>
+                </svg>
             </a>
         </div>
         <div class="nav-cta">
-            <a href="/editor" class="desktop-only-btn" style="padding:9px 20px;border-radius:100px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;">
+            <a href="/editor" class="btn desktop-only-btn"
+                style="padding:9px 20px;border-radius:100px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;text-decoration:none;">
                 Try Free →
             </a>
             <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
@@ -824,23 +680,42 @@
         </div>
     </nav>
     <script>
+        // Scroll: add .scrolled class
         const mainNav = document.getElementById('main-nav');
-        window.addEventListener('scroll', () => {
-            mainNav.classList.toggle('scrolled', window.scrollY > 80);
-        }, { passive: true });
+        if (mainNav) {
+            window.addEventListener('scroll', () => {
+                mainNav.classList.toggle('scrolled', window.scrollY > 80);
+            }, { passive: true });
+        }
 
+        // Hamburger toggle
         const hamburger = document.getElementById('nav-hamburger');
         const navLinks = document.getElementById('nav-links');
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('open');
-            navLinks.classList.toggle('open');
-        });
-
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('open');
-                navLinks.classList.remove('open');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navLinks.classList.toggle('open');
             });
+
+            // Close menu when a link is clicked
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
+                });
+            });
+        }
+
+        // Highlight active link based on pathname
+        const currentPath = window.location.pathname;
+        const navAnchorLinks = document.querySelectorAll('.nav-links a');
+        navAnchorLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath || (href === '/' && currentPath === '') || (currentPath === '/' && href === '/')) {
+                link.classList.add('active');
+            } else if (href && href !== '/' && currentPath.startsWith(href)) {
+                link.classList.add('active');
+            }
         });
     </script>
 
@@ -848,13 +723,17 @@
     <section class="page-hero">
         <div class="page-hero-bg"></div>
         <div class="page-hero-eyebrow">About Channel Preview</div>
-        <h1>Built for Creators,<br><span style="background:var(--orange-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">By a Creator</span></h1>
-        <p>Channel Preview helps YouTube creators preview how their channel assets will appear before publishing. From banners and profile pictures to thumbnails and titles, our tools help creators make confident design decisions.</p>
+        <h1>Built for Creators,<br><span
+                style="background:var(--orange-grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">By
+                a Creator</span></h1>
+        <p>Channel Preview helps YouTube creators preview how their channel assets will appear before publishing. From
+            banners and profile pictures to thumbnails and titles, our tools help creators make confident design
+            decisions.</p>
         <div class="btn-group">
             <a href="/editor" class="hero-cta-btn">
                 Start Preview
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                    <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
             </a>
         </div>
@@ -865,7 +744,8 @@
         <div class="about-inner">
             <div class="page-hero-eyebrow fade-up" style="margin-bottom:20px;">Our Mission</div>
             <p class="mission-text fade-up">
-                Our mission is to simplify the creator workflow by providing accurate previews of YouTube channel assets across
+                Our mission is to simplify the creator workflow by providing accurate previews of YouTube channel assets
+                across
                 <span>desktop, mobile, and TV devices.</span>
             </p>
 
@@ -903,22 +783,28 @@
                 <div class="why-card fade-up">
                     <div class="why-icon">🖼️</div>
                     <h3>Banner Cropping Issues</h3>
-                    <p>YouTube crops your 2560×1440 banner differently on every device — TV shows the full image, mobile shows a narrow strip. Creators often upload banners with logos near the edge, only to see them cut off on mobile.</p>
+                    <p>YouTube crops your 2560×1440 banner differently on every device — TV shows the full image, mobile
+                        shows a narrow strip. Creators often upload banners with logos near the edge, only to see them
+                        cut off on mobile.</p>
                 </div>
                 <div class="why-card fade-up" style="transition-delay:0.1s">
                     <div class="why-icon">🎬</div>
                     <h3>Thumbnail Readability Issues</h3>
-                    <p>A thumbnail that looks great at full size can become impossible to read when shown as a small preview in search results or the sidebar. Channel Preview shows you exactly how your thumbnail appears at every size.</p>
+                    <p>A thumbnail that looks great at full size can become impossible to read when shown as a small
+                        preview in search results or the sidebar. Channel Preview shows you exactly how your thumbnail
+                        appears at every size.</p>
                 </div>
                 <div class="why-card fade-up" style="transition-delay:0.15s">
                     <div class="why-icon">📱</div>
                     <h3>Mobile Preview Challenges</h3>
-                    <p>Most creators design on desktop but the majority of YouTube viewers watch on mobile. Without a mobile preview tool, you're designing blind for your largest audience.</p>
+                    <p>Most creators design on desktop but the majority of YouTube viewers watch on mobile. Without a
+                        mobile preview tool, you're designing blind for your largest audience.</p>
                 </div>
                 <div class="why-card fade-up" style="transition-delay:0.2s">
                     <div class="why-icon">🎯</div>
                     <h3>Need for Accurate Creator Tools</h3>
-                    <p>Generic image viewers don't replicate YouTube's exact crop zones, safe areas, or rendering rules. Channel Preview uses pixel-accurate simulations built from YouTube's actual specifications.</p>
+                    <p>Generic image viewers don't replicate YouTube's exact crop zones, safe areas, or rendering rules.
+                        Channel Preview uses pixel-accurate simulations built from YouTube's actual specifications.</p>
                 </div>
             </div>
         </div>
@@ -937,13 +823,15 @@
                 <a href="/youtube-banner-preview" class="offer-card fade-up">
                     <div class="offer-icon">🖼️</div>
                     <h3>YouTube Banner Preview</h3>
-                    <p>See exactly how your banner looks on desktop, mobile, tablet, and TV — with safe area overlays.</p>
+                    <p>See exactly how your banner looks on desktop, mobile, tablet, and TV — with safe area overlays.
+                    </p>
                     <span class="offer-card-cta">Preview Banner →</span>
                 </a>
                 <a href="/youtube-thumbnail-preview" class="offer-card fade-up" style="transition-delay:0.08s">
                     <div class="offer-icon">🎬</div>
                     <h3>Thumbnail Preview</h3>
-                    <p>Check CTR potential by previewing your thumbnail across search results, sidebar, and mobile feed.</p>
+                    <p>Check CTR potential by previewing your thumbnail across search results, sidebar, and mobile feed.
+                    </p>
                     <span class="offer-card-cta">Preview Thumbnail →</span>
                 </a>
                 <a href="/youtube-profile-picture-preview" class="offer-card fade-up" style="transition-delay:0.16s">
@@ -969,8 +857,11 @@
                 <div>
                     <div class="page-hero-eyebrow" style="margin-bottom:16px;">Privacy First</div>
                     <h2>Your Images Never Leave Your Browser</h2>
-                    <p style="margin-top:16px;">Channel Preview runs entirely locally in your browser. Your images are never uploaded to our servers, never stored, and never shared. We see nothing — because we receive nothing.</p>
-                    <p style="margin-top:12px;">No account required. No upload fees. No data collection. Just instant, private previews.</p>
+                    <p style="margin-top:16px;">Channel Preview runs entirely locally in your browser. Your images are
+                        never uploaded to our servers, never stored, and never shared. We see nothing — because we
+                        receive nothing.</p>
+                    <p style="margin-top:12px;">No account required. No upload fees. No data collection. Just instant,
+                        private previews.</p>
                 </div>
                 <div class="privacy-badges">
                     <div class="privacy-badge-item">
@@ -1016,20 +907,20 @@
 
             <div class="founder-card fade-up">
                 <div class="founder-avatar">
-                    <img
-                        src="../assets/Gagan.png"
-                        alt="Gagan Pratap — Founder of Channel Preview"
-                        onerror="this.parentElement.style.background='linear-gradient(135deg,#ff4d00,#ff7300)'; this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<span style=\'font-size:2.8rem;font-weight:900;color:#fff;font-family:Outfit,sans-serif;display:flex;align-items:center;justify-content:center;height:100%\'>GP</span>')"
-                    >
+                    <img src="../assets/Gagan.png" alt="Gagan Pratap — Founder of Channel Preview"
+                        onerror="this.parentElement.style.background='linear-gradient(135deg,#ff4d00,#ff7300)'; this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<span style=\'font-size:2.8rem;font-weight:900;color:#fff;font-family:Outfit,sans-serif;display:flex;align-items:center;justify-content:center;height:100%\'>GP</span>')">
                 </div>
                 <div>
                     <div class="founder-role">Founder & Creator</div>
                     <h3>Gagan Pratap</h3>
-                    <p>Designer, creator, and developer focused on building tools that help content creators work smarter and publish with confidence. Channel Preview was born from firsthand frustration with banner crops and thumbnail guesswork — and a belief that creators deserve better tools.</p>
+                    <p>Designer, creator, and developer focused on building tools that help content creators work
+                        smarter and publish with confidence. Channel Preview was born from firsthand frustration with
+                        banner crops and thumbnail guesswork — and a belief that creators deserve better tools.</p>
                     <a href="/founder" class="secondary-btn">
                         Learn More
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
                         </svg>
                     </a>
                 </div>
@@ -1042,12 +933,14 @@
         <div class="about-inner">
             <div class="page-hero-eyebrow fade-up" style="margin-bottom:20px;">Get Started</div>
             <h2 class="fade-up">Ready to Preview Your Channel?</h2>
-            <p class="fade-up">Join thousands of creators who preview before they publish. Free, instant, and private.</p>
+            <p class="fade-up">Join thousands of creators who preview before they publish. Free, instant, and private.
+            </p>
             <div class="btn-group fade-up">
                 <a href="/editor" class="hero-cta-btn">
                     Start Preview — It's Free
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
                     </svg>
                 </a>
                 <a href="/youtube-banner-preview" class="secondary-btn">Banner Preview →</a>
@@ -1061,7 +954,8 @@
         <div class="footer-cta-card">
             <div class="footer-cta-content">
                 <h2 class="footer-cta-title">Preview Before You Publish</h2>
-                <p class="footer-cta-desc">Test your YouTube banners, thumbnails, profile pictures, and titles before uploading.</p>
+                <p class="footer-cta-desc">Test your YouTube banners, thumbnails, profile pictures, and titles before
+                    uploading.</p>
             </div>
             <div class="footer-cta-actions">
                 <a href="/editor" class="footer-cta-btn primary">Start Preview</a>
@@ -1076,22 +970,26 @@
                 <a class="footer-brand" href="/">
                     <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 28px; width: auto;">
                 </a>
-                <p class="footer-brand-desc">Creator-focused tools that help you preview YouTube banners, thumbnails, profile pictures, and titles before publishing.</p>
+                <p class="footer-brand-desc">Creator-focused tools that help you preview YouTube banners, thumbnails,
+                    profile pictures, and titles before publishing.</p>
                 <div class="footer-trust-badges">
                     <div class="footer-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>No Sign-Up Required</span>
                     </div>
                     <div class="footer-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>Privacy Friendly</span>
                     </div>
                     <div class="footer-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>100% Browser Based</span>
@@ -1140,15 +1038,19 @@
         <!-- Trust Strip Section -->
         <div class="footer-trust-strip">
             <div class="trust-item">
-                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    <path
+                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                    </path>
                 </svg>
                 <span>Built for Creators Worldwide</span>
             </div>
             <div class="trust-item">
-                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
                     <line x1="8" y1="21" x2="16" y2="21"></line>
                     <line x1="12" y1="17" x2="12" y2="21"></line>
@@ -1156,7 +1058,8 @@
                 <span>100% Browser Based</span>
             </div>
             <div class="trust-item">
-                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
                 <span>Images Never Leave Your Device</span>
@@ -1168,18 +1071,19 @@
             <div class="footer-copyright">
                 © 2026 Channel Preview. All Rights Reserved.
             </div>
-            
+
             <!-- Social Buttons -->
             <div class="footer-socials">
-                <a href="https://www.youtube.com/@thegaganpratap" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener">
+                <a href="https://www.youtube.com/@thegaganpratap" class="social-btn" aria-label="YouTube"
+                    target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                         <path
                             d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z">
                         </path>
                     </svg>
                 </a>
-                <a href="https://www.instagram.com/thegaganpratap/" class="social-btn" aria-label="Instagram" target="_blank"
-                    rel="noopener">
+                <a href="https://www.instagram.com/thegaganpratap/" class="social-btn" aria-label="Instagram"
+                    target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" width="18" height="18">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -1187,7 +1091,8 @@
                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                     </svg>
                 </a>
-                <a href="https://www.linkedin.com/in/gagan-pratap/" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <a href="https://www.linkedin.com/in/gagan-pratap/" class="social-btn" aria-label="LinkedIn"
+                    target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" width="18" height="18">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
@@ -1195,13 +1100,16 @@
                         <circle cx="4" cy="4" r="2"></circle>
                     </svg>
                 </a>
-                <a href="https://twitter.com/thegaganpratap_" class="social-btn" aria-label="Twitter" target="_blank" rel="noopener">
+                <a href="https://twitter.com/thegaganpratap_" class="social-btn" aria-label="Twitter" target="_blank"
+                    rel="noopener">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                        </path>
                     </svg>
                 </a>
             </div>
-            
+
             <div class="footer-legal-links">
                 <a href="/privacy-policy">Privacy</a>
                 <a href="/privacy-policy#terms">Terms</a>

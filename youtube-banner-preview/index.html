@@ -5,14 +5,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>YouTube Banner Preview Tool – Test Banner Safe Area Free | Channel Preview</title>
-    <meta name="description" content="Free YouTube banner preview tool. Upload your banner and instantly see how it crops on Desktop (2560×1440), Mobile (1546×423), and TV. Toggle safe area overlay, export PNG. No sign-up needed." />
+    <meta name="description"
+        content="Free YouTube banner preview tool. Upload your banner and instantly see how it crops on Desktop (2560×1440), Mobile (1546×423), and TV. Toggle safe area overlay, export PNG. No sign-up needed." />
     <link rel="canonical" href="https://channelpreview.vercel.app/youtube-banner-preview" />
     <link rel="stylesheet" href="/index.css" />
     <link rel="icon" type="image/png" href="/assets/logo-icon.png">
 
     <!-- Open Graph -->
     <meta property="og:title" content="YouTube Banner Preview Tool – Test Banner Safe Area" />
-    <meta property="og:description" content="Preview your YouTube banner across Desktop, Mobile & TV before uploading. Toggle safe area. Free, instant, no sign-up." />
+    <meta property="og:description"
+        content="Preview your YouTube banner across Desktop, Mobile & TV before uploading. Toggle safe area. Free, instant, no sign-up." />
     <meta property="og:url" content="https://channelpreview.vercel.app/youtube-banner-preview" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://channelpreview.vercel.app/assets/og-image.png" />
@@ -88,55 +90,77 @@
     </script>
 
     <style>
-        /* ── NAV ── */
-        nav {
-            position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
-            width: calc(100% - 48px); max-width: 1200px; z-index: 1000;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 14px 24px; background: transparent; backdrop-filter: none;
-            border: 1px solid transparent; border-radius: 100px; box-shadow: none;
-            transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, top 0.5s ease;
-        }
-        nav.scrolled {
-            background: rgba(255,255,255,0.07); backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%); border-color: rgba(255,255,255,0.12);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3); top: 12px;
-        }
-        .nav-logo { display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0; }
-        .nav-cta a {
-            display:inline-flex;align-items:center;gap:8px;padding:9px 20px;
-            background:var(--accent);color:#fff;border-radius:100px;font-size:0.88rem;
-            font-weight:600;text-decoration:none;transition:all 0.3s ease;
-            box-shadow:0 4px 16px rgba(255,77,0,0.3);
-        }
-        .nav-cta a:hover { background:#ff6520;box-shadow:0 6px 24px rgba(255,77,0,0.4);transform:translateY(-1px); }
-
         /* ── HERO ── */
         .page-hero {
-            min-height: 52vh; display:flex; flex-direction:column; align-items:center;
-            justify-content:center; text-align:center; padding:130px 32px 60px; position:relative; overflow:hidden;
+            min-height: 52vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 130px 32px 60px;
+            position: relative;
+            overflow: hidden;
         }
+
         .page-hero-bg {
-            position:absolute;inset:0;
-            background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(249,115,22,0.18), transparent 70%);
-            pointer-events:none;
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(249, 115, 22, 0.18), transparent 70%);
+            pointer-events: none;
         }
-        .breadcrumb { display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--text-muted);margin-bottom:24px; }
-        .breadcrumb a { color:var(--text-muted);transition:color 0.2s; }
-        .breadcrumb a:hover { color:var(--accent); }
-        .breadcrumb span { color: var(--text-muted); }
-        .page-h1 { font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;color:#fff;letter-spacing:-0.04em;line-height:1.05;margin-bottom:20px;font-family:'Outfit',sans-serif; }
-        .page-subtitle { font-size:1.1rem;color:rgba(255,255,255,0.6);max-width:580px;margin:0 auto 40px;line-height:1.6; }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--accent);
+        }
+
+        .breadcrumb span {
+            color: var(--text-muted);
+        }
+
+        .page-h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            max-width: 580px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
 
         /* ── TOOL SECTION ── */
-        .tool-section { padding: 0 0 80px; }
+        .tool-section {
+            padding: 0 0 80px;
+        }
 
         .tool-wrap {
-            background: rgba(255,255,255,0.02);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border);
             border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
         }
 
         /* Controls panel */
@@ -150,35 +174,89 @@
             gap: 16px;
         }
 
-        .controls-left { display:flex;align-items:center;gap:12px;flex-wrap:wrap; }
-        .controls-right { display:flex;align-items:center;gap:10px;flex-wrap:wrap; }
+        .controls-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .controls-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
 
         /* Upload button */
         .upload-btn {
-            display:inline-flex;align-items:center;gap:8px;padding:10px 18px;
-            background:var(--accent);color:#fff;border-radius:12px;font-size:0.88rem;
-            font-weight:600;cursor:pointer;border:none;transition:all 0.3s ease;
-            box-shadow:0 4px 16px rgba(255,77,0,0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(255, 77, 0, 0.3);
         }
-        .upload-btn:hover { background:#ff6520;transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,77,0,0.4); }
+
+        .upload-btn:hover {
+            background: #ff6520;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(255, 77, 0, 0.4);
+        }
 
         /* Toggle chip */
         .toggle-chip {
-            display:inline-flex;align-items:center;gap:6px;padding:8px 14px;
-            background:rgba(255,255,255,0.06);border:1px solid var(--border);
-            border-radius:10px;font-size:0.82rem;color:var(--text-secondary);
-            cursor:pointer;transition:all 0.2s ease;font-weight:500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
         }
-        .toggle-chip:hover { background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.2); }
-        .toggle-chip.active { background:rgba(255,77,0,0.15);border-color:rgba(255,77,0,0.4);color:var(--accent); }
+
+        .toggle-chip:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .toggle-chip.active {
+            background: rgba(255, 77, 0, 0.15);
+            border-color: rgba(255, 77, 0, 0.4);
+            color: var(--accent);
+        }
 
         .icon-btn {
-            display:inline-flex;align-items:center;gap:6px;padding:8px 14px;
-            background:rgba(255,255,255,0.06);border:1px solid var(--border);
-            border-radius:10px;font-size:0.82rem;color:var(--text-secondary);
-            cursor:pointer;transition:all 0.2s ease;font-weight:500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-weight: 500;
         }
-        .icon-btn:hover { background:rgba(255,255,255,0.1);color:#fff; }
+
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
 
         /* Device tabs */
         .device-tabs-row {
@@ -191,16 +269,39 @@
             gap: 12px;
         }
 
-        .device-tabs { display:flex;gap:4px; }
-        .device-tab {
-            padding: 8px 16px; border-radius: 8px 8px 0 0; font-size:0.85rem;
-            font-weight:500; color:var(--text-muted); cursor:pointer; border:none;
-            background:transparent; transition:all 0.2s ease; border-bottom: 2px solid transparent;
+        .device-tabs {
+            display: flex;
+            gap: 4px;
         }
-        .device-tab:hover { color:#fff; }
-        .device-tab.active { color:var(--accent); border-bottom-color:var(--accent); font-weight:600; }
 
-        .device-info { font-size:0.78rem;color:var(--text-muted);padding-bottom:16px; }
+        .device-tab {
+            padding: 8px 16px;
+            border-radius: 8px 8px 0 0;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            transition: all 0.2s ease;
+            border-bottom: 2px solid transparent;
+        }
+
+        .device-tab:hover {
+            color: #fff;
+        }
+
+        .device-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            font-weight: 600;
+        }
+
+        .device-info {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            padding-bottom: 16px;
+        }
 
         /* Preview area */
         .preview-area {
@@ -219,7 +320,7 @@
             width: 100%;
             max-width: 700px;
             aspect-ratio: 6/1;
-            border: 2px dashed rgba(255,255,255,0.15);
+            border: 2px dashed rgba(255, 255, 255, 0.15);
             border-radius: 16px;
             display: flex;
             flex-direction: column;
@@ -230,10 +331,26 @@
             cursor: pointer;
             position: relative;
         }
-        .drop-zone.dragover { border-color: var(--accent); background: rgba(255,77,0,0.05); }
-        .drop-zone-icon { font-size: 2.5rem; }
-        .drop-zone-text { font-size: 1rem; color: var(--text-secondary); font-weight: 500; }
-        .drop-zone-sub { font-size: 0.82rem; color: var(--text-muted); }
+
+        .drop-zone.dragover {
+            border-color: var(--accent);
+            background: rgba(255, 77, 0, 0.05);
+        }
+
+        .drop-zone-icon {
+            font-size: 2.5rem;
+        }
+
+        .drop-zone-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .drop-zone-sub {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
 
         /* Banner preview wrapper */
         .banner-preview-wrap {
@@ -243,7 +360,10 @@
             align-items: center;
             gap: 24px;
         }
-        .banner-preview-wrap.visible { display: flex; }
+
+        .banner-preview-wrap.visible {
+            display: flex;
+        }
 
         /* YT Channel header mockup */
         .yt-header-mock {
@@ -252,7 +372,7 @@
             background: #0f0f0f;
             border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .banner-strip-container {
@@ -275,27 +395,34 @@
             pointer-events: none;
             display: none;
         }
-        .safe-overlay.visible { display: block; }
 
-        .safe-dimmer-left, .safe-dimmer-right {
+        .safe-overlay.visible {
+            display: block;
+        }
+
+        .safe-dimmer-left,
+        .safe-dimmer-right {
             position: absolute;
-            top: 0; bottom: 0;
-            background: rgba(0,0,0,0.55);
+            top: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.55);
         }
 
         .safe-box {
             position: absolute;
-            top: 0; bottom: 0;
-            border: 2px solid rgba(255,77,0,0.85);
+            top: 0;
+            bottom: 0;
+            border: 2px solid rgba(255, 77, 0, 0.85);
             border-radius: 2px;
         }
 
         .safe-label-box {
             position: absolute;
-            top: 50%; transform: translateY(-50%);
+            top: 50%;
+            transform: translateY(-50%);
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(255,77,0,0.9);
+            background: rgba(255, 77, 0, 0.9);
             color: #fff;
             font-size: 0.62rem;
             font-weight: 700;
@@ -312,12 +439,15 @@
             inset: 0;
             pointer-events: none;
             display: none;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
             background-size: 60px 60px;
         }
-        .grid-overlay.visible { display: block; }
+
+        .grid-overlay.visible {
+            display: block;
+        }
 
         /* Channel header info */
         .mock-channel-header {
@@ -327,19 +457,46 @@
             gap: 16px;
             background: #0f0f0f;
         }
+
         .mock-pfp-sm {
-            width: 60px; height: 60px; border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
             background: linear-gradient(135deg, var(--accent), #ff7300);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.4rem; flex-shrink: 0; margin-top: -30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+            margin-top: -30px;
             border: 3px solid #0f0f0f;
         }
-        .mock-ch-info { flex: 1; }
-        .mock-ch-name { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 2px; font-family:'Outfit',sans-serif; }
-        .mock-ch-meta { font-size: 0.75rem; color: var(--text-muted); }
+
+        .mock-ch-info {
+            flex: 1;
+        }
+
+        .mock-ch-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 2px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .mock-ch-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
         .mock-subscribe-btn {
-            padding: 8px 16px; background: #fff; color: #000; border-radius: 20px;
-            font-size: 0.82rem; font-weight: 600; white-space: nowrap;
+            padding: 8px 16px;
+            background: #fff;
+            color: #000;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            white-space: nowrap;
         }
 
         /* TV view full banner */
@@ -348,35 +505,147 @@
             width: 100%;
             max-width: 960px;
         }
-        .tv-view-wrap.visible { display: block; }
+
+        .tv-view-wrap.visible {
+            display: block;
+        }
 
         /* Specs section */
-        .specs-section { padding: 80px 0; border-top: 1px solid var(--border); }
-        .specs-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:48px; }
-        .spec-card { background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;transition:all 0.3s ease; }
-        .spec-card:hover { border-color:rgba(255,77,0,0.3);transform:translateY(-4px); }
-        .spec-device { font-size:0.78rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:12px; }
-        .spec-size { font-size:1.5rem;font-weight:800;color:#fff;font-family:'Outfit',sans-serif;margin-bottom:8px;letter-spacing:-0.02em; }
-        .spec-note { font-size:0.85rem;color:var(--text-muted);line-height:1.4; }
+        .specs-section {
+            padding: 80px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .spec-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            transition: all 0.3s ease;
+        }
+
+        .spec-card:hover {
+            border-color: rgba(255, 77, 0, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .spec-device {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        .spec-size {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .spec-note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
 
         /* Quick tips */
-        .tips-section { padding: 80px 0; }
-        .tips-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px; }
-        .tip-card {
-            background:var(--bg-card);border:1px solid var(--border);border-radius:20px;
-            padding:28px 24px;position:relative;transition:all 0.3s ease;
+        .tips-section {
+            padding: 80px 0;
         }
-        .tip-card:hover { border-color:rgba(255,77,0,0.2);transform:translateY(-4px); }
-        .tip-icon { font-size:1.8rem;margin-bottom:16px; }
-        .tip-card h3 { font-size:1rem;font-weight:700;color:#fff;margin-bottom:10px; }
-        .tip-card p { font-size:0.88rem;color:var(--text-secondary);line-height:1.6; }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .tip-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px 24px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tip-card:hover {
+            border-color: rgba(255, 77, 0, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .tip-icon {
+            font-size: 1.8rem;
+            margin-bottom: 16px;
+        }
+
+        .tip-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .tip-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
 
         /* How it works */
-        .how-steps { display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px; }
-        .how-step { background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:32px 28px; }
-        .step-number { width:44px;height:44px;background:rgba(255,77,0,0.1);border:1px solid rgba(255,77,0,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.1rem;color:var(--accent);font-family:'Outfit',sans-serif;margin-bottom:20px; }
-        .how-step h3 { font-size:1.15rem;color:#fff;margin-bottom:12px; }
-        .how-step p { font-size:0.95rem;color:var(--text-secondary);line-height:1.6; }
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .how-step {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px 28px;
+        }
+
+        .step-number {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 77, 0, 0.1);
+            border: 1px solid rgba(255, 77, 0, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-family: 'Outfit', sans-serif;
+            margin-bottom: 20px;
+        }
+
+        .how-step h3 {
+            font-size: 1.15rem;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .how-step p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
 
         /* CTA section */
         .cta-section {
@@ -387,34 +656,353 @@
 
         /* Responsive */
         @media (max-width:900px) {
-            .tips-grid { grid-template-columns:1fr 1fr; }
-            .how-steps { grid-template-columns:1fr; }
+            .tips-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .how-steps {
+                grid-template-columns: 1fr;
+            }
         }
+
         @media (max-width:640px) {
-            .tips-grid { grid-template-columns:1fr; }
-            .specs-grid { grid-template-columns:1fr 1fr; }
-            .page-hero { padding:110px 20px 50px; }
-            .tool-controls { padding:16px 16px; }
-            .device-tabs-row { padding:12px 16px 0; }
-            .preview-area { padding:20px 16px; }
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .specs-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .page-hero {
+                padding: 110px 20px 50px;
+            }
+
+            .tool-controls {
+                padding: 16px 16px;
+            }
+
+            .device-tabs-row {
+                padding: 12px 16px 0;
+            }
+
+            .preview-area {
+                padding: 20px 16px;
+            }
         }
+
         @media (max-width:480px) {
-            .specs-grid { grid-template-columns:1fr; }
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Banner crop modal styles */
+        #banner-crop-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            background: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+            padding: 16px;
+        }
+
+        .crop-modal-content {
+            background: #212121;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 540px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.9);
+            position: relative;
+            overflow: hidden;
+            font-family: "Roboto", Arial, sans-serif;
+        }
+
+        .crop-modal-header {
+            padding: 24px 24px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .crop-modal-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #fff;
+            margin: 0;
+        }
+
+        .crop-modal-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #181818;
+            min-height: 380px;
+        }
+
+        .crop-workspace {
+            position: relative;
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #crop-image-preview {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .crop-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .crop-box {
+            position: absolute;
+            border: 2px solid #3ea6ff;
+            box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6);
+            cursor: move;
+            pointer-events: auto;
+            box-sizing: border-box;
+            touch-action: none;
+        }
+
+        .banner-desktop-guide {
+            position: absolute;
+            top: 35.3125%;
+            left: 0;
+            right: 0;
+            height: 29.375%;
+            border-top: 1px solid rgba(62, 166, 255, 0.8);
+            border-bottom: 1px solid rgba(62, 166, 255, 0.8);
+            background: rgba(62, 166, 255, 0.05);
+            pointer-events: none;
+            box-sizing: border-box;
+        }
+
+        .banner-devices-guide {
+            position: absolute;
+            top: 35.3125%;
+            left: 19.805%;
+            width: 60.39%;
+            height: 29.375%;
+            border: 1px solid rgba(62, 166, 255, 0.85);
+            background: rgba(62, 166, 255, 0.1);
+            pointer-events: none;
+            box-sizing: border-box;
+        }
+
+        .crop-guide-label {
+            position: absolute;
+            font-size: 8px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 2px 6px;
+            border-radius: 8px;
+            pointer-events: none;
+            white-space: nowrap;
+            font-family: Roboto, Arial, sans-serif;
+            z-index: 5;
+        }
+
+        .label-tv {
+            top: 6px;
+            left: 6px;
+        }
+
+        .label-desktop {
+            top: calc(35.3125% + 4px);
+            left: 6px;
+        }
+
+        .label-devices {
+            top: calc(35.3125% + 4px);
+            left: calc(19.805% + 6px);
+        }
+
+        .crop-handle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #fff;
+            border: 1px solid #000;
+            pointer-events: auto;
+            box-sizing: border-box;
+            touch-action: none;
+        }
+
+        .crop-handle::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+        }
+
+        .handle-tl {
+            top: -5px;
+            left: -5px;
+            cursor: nwse-resize;
+        }
+
+        .handle-tr {
+            top: -5px;
+            right: -5px;
+            cursor: nesw-resize;
+        }
+
+        .handle-bl {
+            bottom: -5px;
+            left: -5px;
+            cursor: nesw-resize;
+        }
+
+        .handle-br {
+            bottom: -5px;
+            right: -5px;
+            cursor: nwse-resize;
+        }
+
+        .crop-modal-footer {
+            padding: 12px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            background: #212121;
+        }
+
+        .crop-btn {
+            padding: 0 16px;
+            height: 36px;
+            border-radius: 18px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s, color 0.2s;
+            font-family: inherit;
+        }
+
+        .crop-btn.cancel {
+            background: transparent;
+            color: #3ea6ff;
+        }
+
+        .crop-btn.cancel:hover {
+            background: rgba(62, 166, 255, 0.15);
+        }
+
+        .crop-btn.apply {
+            background: #f1f1f1;
+            color: #0f0f0f;
+        }
+
+        .crop-btn.apply:hover {
+            background: #d9d9d9;
         }
     </style>
 </head>
 
 <body style="background-color:#030303;">
-    <div style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at center,rgba(255,77,0,0.1) 0%,transparent 70%);"></div>
+    <div
+        style="position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at center,rgba(255,77,0,0.1) 0%,transparent 70%);">
+    </div>
 
-    <!-- NAV -->
+    <!-- ── NAV ── -->
     <nav id="main-nav">
-        <a class="nav-logo" href="/"><img src="/assets/logo-full.png" alt="Channel Preview" style="height:30px;width:auto;"></a>
-        <div class="nav-cta"><a href="/editor">Full Editor →</a></div>
+        <a class="nav-logo" href="/">
+            <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 32px; width: auto;">
+        </a>
+        <div class="nav-links" id="nav-links">
+            <a href="/youtube-banner-preview">Banner Preview</a>
+            <a href="/youtube-thumbnail-preview">Thumbnails</a>
+            <a href="/youtube-profile-picture-preview">Profile Picture</a>
+            <a href="/youtube-title-preview">Title Preview</a>
+            <a href="/youtube-video-detail-preview">Watch Page</a>
+            <a href="/blog">Blogs</a>
+            <a href="/editor" class="btn-nav-start mobile-only-btn">
+                Try Free
+                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon" style="width: 20px; height: 20px;">
+                    <path clip-rule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
+                        fill-rule="evenodd"></path>
+                </svg>
+            </a>
+        </div>
+        <div class="nav-cta">
+            <a href="/editor" class="btn desktop-only-btn"
+                style="padding:9px 20px;border-radius:100px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;text-decoration:none;">
+                Try Free →
+            </a>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </nav>
     <script>
-        const nav = document.getElementById('main-nav');
-        window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), { passive: true });
+        // Scroll: add .scrolled class
+        const mainNav = document.getElementById('main-nav');
+        if (mainNav) {
+            window.addEventListener('scroll', () => {
+                mainNav.classList.toggle('scrolled', window.scrollY > 80);
+            }, { passive: true });
+        }
+
+        // Hamburger toggle
+        const hamburger = document.getElementById('nav-hamburger');
+        const navLinks = document.getElementById('nav-links');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navLinks.classList.toggle('open');
+            });
+
+            // Close menu when a link is clicked
+            navLinks.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
+                });
+            });
+        }
+
+        // Highlight active link based on pathname
+        const currentPath = window.location.pathname;
+        const navAnchorLinks = document.querySelectorAll('.nav-links a');
+        navAnchorLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === currentPath || (href === '/' && currentPath === '') || (currentPath === '/' && href === '/')) {
+                link.classList.add('active');
+            } else if (href && href !== '/' && currentPath.startsWith(href)) {
+                link.classList.add('active');
+            }
+        });
     </script>
 
     <!-- HERO -->
@@ -439,24 +1027,45 @@
                 <div class="tool-controls">
                     <div class="controls-left">
                         <label class="upload-btn" for="banner-file-input" id="upload-label">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="17 8 12 3 7 8" />
+                                <line x1="12" y1="3" x2="12" y2="15" />
+                            </svg>
                             Upload Banner
                         </label>
                         <input type="file" id="banner-file-input" accept="image/*" style="display:none;">
 
                         <button class="toggle-chip" id="safe-toggle" onclick="toggleSafe()">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/></svg>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <line x1="9" y1="3" x2="9" y2="21" />
+                                <line x1="15" y1="3" x2="15" y2="21" />
+                                <line x1="3" y1="9" x2="21" y2="9" />
+                                <line x1="3" y1="15" x2="21" y2="15" />
+                            </svg>
                             Safe Area
                         </button>
 
                         <button class="toggle-chip" id="grid-toggle" onclick="toggleGrid()">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <line x1="3" y1="12" x2="21" y2="12" />
+                                <line x1="12" y1="3" x2="12" y2="21" />
+                            </svg>
                             Grid
                         </button>
                     </div>
                     <div class="controls-right">
                         <button class="icon-btn" id="export-btn" onclick="exportBanner()" title="Export Preview as PNG">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
                             Export PNG
                         </button>
                     </div>
@@ -465,7 +1074,8 @@
                 <!-- Device tabs -->
                 <div class="device-tabs-row">
                     <div class="device-tabs" role="tablist">
-                        <button class="device-tab active" data-device="desktop" onclick="switchDevice(this)">🖥️ Desktop</button>
+                        <button class="device-tab active" data-device="desktop" onclick="switchDevice(this)">🖥️
+                            Desktop</button>
                         <button class="device-tab" data-device="mobile" onclick="switchDevice(this)">📱 Mobile</button>
                         <button class="device-tab" data-device="tv" onclick="switchDevice(this)">📺 TV</button>
                     </div>
@@ -475,7 +1085,8 @@
                 <!-- Preview area -->
                 <div class="preview-area" id="preview-area">
                     <!-- Drop zone (before upload) -->
-                    <div class="drop-zone" id="drop-zone" onclick="document.getElementById('banner-file-input').click()">
+                    <div class="drop-zone" id="drop-zone"
+                        onclick="document.getElementById('banner-file-input').click()">
                         <div class="drop-zone-icon">🖼️</div>
                         <div class="drop-zone-text">Click or drag & drop your banner image</div>
                         <div class="drop-zone-sub">Recommended: 2560 × 1440 px · Max 6MB · JPG, PNG, GIF, BMP</div>
@@ -486,7 +1097,8 @@
                         <!-- Desktop / Mobile mockup -->
                         <div class="yt-header-mock" id="yt-header-mock">
                             <div class="banner-strip-container" id="banner-strip-container">
-                                <img id="banner-img" class="banner-img" src="" alt="Your YouTube banner preview" style="height:160px;">
+                                <img id="banner-img" class="banner-img" src="" alt="Your YouTube banner preview"
+                                    style="height:160px;">
                                 <!-- Safe area overlay -->
                                 <div class="safe-overlay" id="safe-overlay">
                                     <div class="safe-dimmer-left" id="safe-left"></div>
@@ -510,9 +1122,13 @@
 
                         <!-- TV view (full aspect ratio) -->
                         <div class="tv-view-wrap" id="tv-view-wrap">
-                            <div style="position:relative;width:100%;max-width:960px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);">
-                                <img id="banner-img-tv" class="banner-img" src="" alt="YouTube banner TV view" style="display:block;width:100%;aspect-ratio:16/9;object-fit:cover;">
-                                <div style="position:absolute;top:12px;left:12px;background:rgba(0,0,0,0.7);color:#fff;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:0.08em;">📺 TV: Full 2560×1440</div>
+                            <div id="tv-container"
+                                style="position:relative;width:100%;max-width:960px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);">
+                                <img id="banner-img-tv" class="banner-img" src="" alt="YouTube banner TV view"
+                                    style="display:block;width:100%;aspect-ratio:16/9;object-fit:cover;">
+                                <div
+                                    style="position:absolute;top:12px;left:12px;background:rgba(0,0,0,0.7);color:#fff;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:0.08em;">
+                                    📺 TV: Full 2560×1440</div>
                                 <div class="safe-overlay" id="tv-safe-overlay">
                                     <div class="safe-dimmer-left" id="tv-safe-left"></div>
                                     <div class="safe-dimmer-right" id="tv-safe-right"></div>
@@ -525,11 +1141,17 @@
                         </div>
 
                         <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-                            <div style="font-size:0.82rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;">
-                                <span style="width:12px;height:12px;border-radius:2px;background:rgba(255,77,0,0.4);border:1px solid rgba(255,77,0,0.8);flex-shrink:0;"></span>Mobile Safe Zone (1546×423)
+                            <div
+                                style="font-size:0.82rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;">
+                                <span
+                                    style="width:12px;height:12px;border-radius:2px;background:rgba(255,77,0,0.4);border:1px solid rgba(255,77,0,0.8);flex-shrink:0;"></span>Mobile
+                                Safe Zone (1546×423)
                             </div>
-                            <div style="font-size:0.82rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;">
-                                <span style="width:12px;height:12px;border-radius:2px;background:rgba(255,165,0,0.3);border:1px solid rgba(255,165,0,0.7);flex-shrink:0;"></span>Desktop Strip (2560×423)
+                            <div
+                                style="font-size:0.82rem;color:var(--text-muted);display:flex;align-items:center;gap:6px;">
+                                <span
+                                    style="width:12px;height:12px;border-radius:2px;background:rgba(255,165,0,0.3);border:1px solid rgba(255,165,0,0.7);flex-shrink:0;"></span>Desktop
+                                Strip (2560×423)
                             </div>
                         </div>
                     </div>
@@ -544,24 +1166,29 @@
         <div class="container">
             <div style="text-align:center;">
                 <div class="section-eyebrow">YouTube Banner Dimensions</div>
-                <h2 class="section-title" style="font-size:2.4rem;letter-spacing:-0.03em;">How Your Banner Displays<br><span class="accent-text">On Every Device</span></h2>
-                <p class="section-subtitle" style="margin:0 auto;opacity:0.6;">YouTube crops your 2560×1440 banner differently depending on the viewer's device.</p>
+                <h2 class="section-title" style="font-size:2.4rem;letter-spacing:-0.03em;">How Your Banner
+                    Displays<br><span class="accent-text">On Every Device</span></h2>
+                <p class="section-subtitle" style="margin:0 auto;opacity:0.6;">YouTube crops your 2560×1440 banner
+                    differently depending on the viewer's device.</p>
             </div>
             <div class="specs-grid">
                 <div class="spec-card">
                     <div class="spec-device">📺 TV / Connected</div>
                     <div class="spec-size">2560 × 1440</div>
-                    <div class="spec-note">Full image displayed. Use the entire canvas — great for rich backgrounds and gradients.</div>
+                    <div class="spec-note">Full image displayed. Use the entire canvas — great for rich backgrounds and
+                        gradients.</div>
                 </div>
                 <div class="spec-card">
                     <div class="spec-device">🖥️ Desktop Browser</div>
                     <div class="spec-size">2560 × 423</div>
-                    <div class="spec-note">Wide letterbox crop. Only the center strip is shown. Keep key content in the center.</div>
+                    <div class="spec-note">Wide letterbox crop. Only the center strip is shown. Keep key content in the
+                        center.</div>
                 </div>
                 <div class="spec-card">
                     <div class="spec-device">📱 Mobile Safe Zone</div>
                     <div class="spec-size">1546 × 423</div>
-                    <div class="spec-note">The safe zone. Smallest visible area — everything inside shows on all devices.</div>
+                    <div class="spec-note">The safe zone. Smallest visible area — everything inside shows on all
+                        devices.</div>
                 </div>
                 <div class="spec-card">
                     <div class="spec-device">📁 Upload Requirements</div>
@@ -577,38 +1204,45 @@
         <div class="container">
             <div style="text-align:center;margin-bottom:0;">
                 <div class="section-eyebrow">Quick Tips</div>
-                <h2 class="section-title" style="font-size:2.2rem;letter-spacing:-0.03em;">Banner Design<br><span class="accent-text">Best Practices</span></h2>
+                <h2 class="section-title" style="font-size:2.2rem;letter-spacing:-0.03em;">Banner Design<br><span
+                        class="accent-text">Best Practices</span></h2>
             </div>
             <div class="tips-grid" style="margin-top:48px;">
                 <div class="tip-card">
                     <div class="tip-icon">🎯</div>
                     <h3>Keep Text in the Safe Zone</h3>
-                    <p>Place all logos, channel names, and critical text inside the 1546×423 center box. Content outside may be cropped on mobile.</p>
+                    <p>Place all logos, channel names, and critical text inside the 1546×423 center box. Content outside
+                        may be cropped on mobile.</p>
                 </div>
                 <div class="tip-card">
                     <div class="tip-icon">📐</div>
                     <h3>Design at Full Resolution</h3>
-                    <p>Always start at 2560×1440. Scaling up from smaller sizes results in pixelated, blurry banners especially on TVs.</p>
+                    <p>Always start at 2560×1440. Scaling up from smaller sizes results in pixelated, blurry banners
+                        especially on TVs.</p>
                 </div>
                 <div class="tip-card">
                     <div class="tip-icon">🎨</div>
                     <h3>Use Background for TV</h3>
-                    <p>The space outside the safe zone still shows on TV screens. Use it for backgrounds, patterns, or decorative elements.</p>
+                    <p>The space outside the safe zone still shows on TV screens. Use it for backgrounds, patterns, or
+                        decorative elements.</p>
                 </div>
                 <div class="tip-card">
                     <div class="tip-icon">📝</div>
                     <h3>Bold & Readable Text</h3>
-                    <p>Your channel tagline text should be at least 80–100px tall in the original 2560×1440 file to remain readable when cropped.</p>
+                    <p>Your channel tagline text should be at least 80–100px tall in the original 2560×1440 file to
+                        remain readable when cropped.</p>
                 </div>
                 <div class="tip-card">
                     <div class="tip-icon">🔄</div>
                     <h3>Preview All Views</h3>
-                    <p>Switch between Desktop, Mobile, and TV tabs above before uploading to YouTube. Each shows a different crop.</p>
+                    <p>Switch between Desktop, Mobile, and TV tabs above before uploading to YouTube. Each shows a
+                        different crop.</p>
                 </div>
                 <div class="tip-card">
                     <div class="tip-icon">🎬</div>
                     <h3>Match Your Brand</h3>
-                    <p>Your banner should share colors and visual style with your thumbnails and profile picture for a cohesive channel look.</p>
+                    <p>Your banner should share colors and visual style with your thumbnails and profile picture for a
+                        cohesive channel look.</p>
                 </div>
             </div>
         </div>
@@ -619,23 +1253,27 @@
         <div class="container">
             <div style="text-align:center;margin-bottom:60px;">
                 <div class="section-eyebrow">3 Steps</div>
-                <h2 class="section-title" style="font-size:2.4rem;letter-spacing:-0.03em;">How to Preview Your<br><span class="accent-text">YouTube Banner</span></h2>
+                <h2 class="section-title" style="font-size:2.4rem;letter-spacing:-0.03em;">How to Preview Your<br><span
+                        class="accent-text">YouTube Banner</span></h2>
             </div>
             <div class="how-steps">
                 <div class="how-step">
                     <div class="step-number">1</div>
                     <h3>Upload Your Banner</h3>
-                    <p>Click "Upload Banner" or drag & drop your 2560×1440 image. No sign-up, no server uploads — everything stays in your browser.</p>
+                    <p>Click "Upload Banner" or drag & drop your 2560×1440 image. No sign-up, no server uploads —
+                        everything stays in your browser.</p>
                 </div>
                 <div class="how-step">
                     <div class="step-number">2</div>
                     <h3>Switch Device Views</h3>
-                    <p>Toggle between Desktop, Mobile, and TV tabs to see exactly how your banner crops on each screen. Enable safe area to check alignment.</p>
+                    <p>Toggle between Desktop, Mobile, and TV tabs to see exactly how your banner crops on each screen.
+                        Enable safe area to check alignment.</p>
                 </div>
                 <div class="how-step">
                     <div class="step-number">3</div>
                     <h3>Upload with Confidence</h3>
-                    <p>When your banner looks perfect across all devices, export the preview or head to YouTube Studio and upload — no guessing required.</p>
+                    <p>When your banner looks perfect across all devices, export the preview or head to YouTube Studio
+                        and upload — no guessing required.</p>
                 </div>
             </div>
         </div>
@@ -645,8 +1283,14 @@
     <section class="seo-content">
         <div class="prose">
             <h2>What Is a YouTube Banner and Why Does It Matter?</h2>
-            <p>Your YouTube banner — also called channel art or the channel header — is the large image at the top of your YouTube channel page. It's the first visual element visitors see when they land on your channel, making it one of the most important branding assets you have as a creator.</p>
-            <p>A well-designed YouTube banner communicates your channel's identity instantly. But here's the problem most creators run into: <strong>YouTube displays your banner differently depending on the device.</strong> A banner that looks stunning on your desktop might have your logo completely hidden on mobile, or your text awkwardly cut off on a TV. This is why previewing your banner before uploading is non-negotiable.</p>
+            <p>Your YouTube banner — also called channel art or the channel header — is the large image at the top of
+                your YouTube channel page. It's the first visual element visitors see when they land on your channel,
+                making it one of the most important branding assets you have as a creator.</p>
+            <p>A well-designed YouTube banner communicates your channel's identity instantly. But here's the problem
+                most creators run into: <strong>YouTube displays your banner differently depending on the
+                    device.</strong> A banner that looks stunning on your desktop might have your logo completely hidden
+                on mobile, or your text awkwardly cut off on a TV. This is why previewing your banner before uploading
+                is non-negotiable.</p>
 
             <h2>YouTube Banner Size: The Complete 2026 Guide</h2>
             <ul>
@@ -656,15 +1300,20 @@
                 <li><strong>Tablet:</strong> 1855 × 423 px — narrower horizontal strip, still from center.</li>
                 <li><strong>Mobile:</strong> 1546 × 423 px — the narrowest view, the hardest to design for.</li>
             </ul>
-            <p>The <strong>safe area</strong> is the 1546 × 423 pixel zone at the center of your 2560 × 1440 canvas. Any element inside this box is guaranteed visible on all devices.</p>
+            <p>The <strong>safe area</strong> is the 1546 × 423 pixel zone at the center of your 2560 × 1440 canvas. Any
+                element inside this box is guaranteed visible on all devices.</p>
 
             <h2>Common YouTube Banner Mistakes (And How to Avoid Them)</h2>
             <h3>1. Placing text outside the safe zone</h3>
-            <p>This is the #1 mistake. If your channel name is positioned in the top-left or bottom-right corner of your 2560×1440 canvas, mobile viewers will never see it. Always keep text inside the 1546×423 safe area.</p>
+            <p>This is the #1 mistake. If your channel name is positioned in the top-left or bottom-right corner of your
+                2560×1440 canvas, mobile viewers will never see it. Always keep text inside the 1546×423 safe area.</p>
             <h3>2. Designing at the wrong resolution</h3>
-            <p>Many creators design their banner at 1280×720 and then stretch it to 2560×1440. This results in pixelated, blurry banners especially on high-DPI screens and TVs.</p>
+            <p>Many creators design their banner at 1280×720 and then stretch it to 2560×1440. This results in
+                pixelated, blurry banners especially on high-DPI screens and TVs.</p>
             <h3>3. Not previewing before uploading</h3>
-            <p>Many creators design in Photoshop or Canva, export, upload, check YouTube, realize something is wrong, fix it, re-export, re-upload — wasting time. Previewing first with this tool eliminates all of this friction.</p>
+            <p>Many creators design in Photoshop or Canva, export, upload, check YouTube, realize something is wrong,
+                fix it, re-export, re-upload — wasting time. Previewing first with this tool eliminates all of this
+                friction.</p>
         </div>
     </section>
 
@@ -672,61 +1321,93 @@
     <section class="faq-section">
         <div class="faq-header">
             <div class="section-eyebrow">FAQ</div>
-            <h2 style="font-size:2.2rem;letter-spacing:-0.03em;color:#fff;">Frequently Asked<br><span class="accent-text">Questions</span></h2>
+            <h2 style="font-size:2.2rem;letter-spacing:-0.03em;color:#fff;">Frequently Asked<br><span
+                    class="accent-text">Questions</span></h2>
         </div>
         <div id="faq-list">
             <div class="faq-item">
                 <button class="faq-question" aria-expanded="false" id="faq-q1" aria-controls="faq-a1">
                     What size is a YouTube banner?
-                    <span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                    <span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span>
                 </button>
                 <div class="faq-answer" id="faq-a1" role="region" aria-labelledby="faq-q1">
-                    <div class="faq-answer-content">The recommended YouTube banner size is <strong>2560 × 1440 pixels</strong>. The minimum upload size is 2048 × 1152 pixels, and the maximum file size is 6MB. Formats accepted: JPG, PNG, GIF, BMP.</div>
+                    <div class="faq-answer-content">The recommended YouTube banner size is <strong>2560 × 1440
+                            pixels</strong>. The minimum upload size is 2048 × 1152 pixels, and the maximum file size is
+                        6MB. Formats accepted: JPG, PNG, GIF, BMP.</div>
                 </div>
             </div>
             <div class="faq-item">
                 <button class="faq-question" aria-expanded="false" id="faq-q2" aria-controls="faq-a2">
                     What is the YouTube banner safe area?
-                    <span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                    <span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span>
                 </button>
                 <div class="faq-answer" id="faq-a2" role="region" aria-labelledby="faq-q2">
-                    <div class="faq-answer-content">The YouTube banner safe area is the central <strong>1546 × 423 pixel zone</strong> of your 2560×1440 banner. Logos, channel names, taglines, and text must stay within this zone to avoid being cropped on mobile screens.</div>
+                    <div class="faq-answer-content">The YouTube banner safe area is the central <strong>1546 × 423 pixel
+                            zone</strong> of your 2560×1440 banner. Logos, channel names, taglines, and text must stay
+                        within this zone to avoid being cropped on mobile screens.</div>
                 </div>
             </div>
             <div class="faq-item">
                 <button class="faq-question" aria-expanded="false" id="faq-q3" aria-controls="faq-a3">
                     How do I preview my YouTube banner before uploading?
-                    <span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                    <span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span>
                 </button>
                 <div class="faq-answer" id="faq-a3" role="region" aria-labelledby="faq-q3">
-                    <div class="faq-answer-content">Use the tool above — drag and drop your banner image, and instantly see how it crops on Desktop, Mobile, and TV. Toggle the safe area overlay to verify your key content is visible everywhere. No sign-up required.</div>
+                    <div class="faq-answer-content">Use the tool above — drag and drop your banner image, and instantly
+                        see how it crops on Desktop, Mobile, and TV. Toggle the safe area overlay to verify your key
+                        content is visible everywhere. No sign-up required.</div>
                 </div>
             </div>
             <div class="faq-item">
                 <button class="faq-question" aria-expanded="false" id="faq-q4" aria-controls="faq-a4">
                     What is the YouTube banner size for desktop vs. mobile?
-                    <span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                    <span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span>
                 </button>
                 <div class="faq-answer" id="faq-a4" role="region" aria-labelledby="faq-q4">
-                    <div class="faq-answer-content">On <strong>desktop</strong>, YouTube shows your banner at 2560 × 423 pixels — a wide horizontal strip cropped from the center. On <strong>mobile</strong>, this shrinks to 1546 × 423 pixels — the safe zone. TV displays the full 2560 × 1440 image without any cropping.</div>
+                    <div class="faq-answer-content">On <strong>desktop</strong>, YouTube shows your banner at 2560 × 423
+                        pixels — a wide horizontal strip cropped from the center. On <strong>mobile</strong>, this
+                        shrinks to 1546 × 423 pixels — the safe zone. TV displays the full 2560 × 1440 image without any
+                        cropping.</div>
                 </div>
             </div>
             <div class="faq-item">
                 <button class="faq-question" aria-expanded="false" id="faq-q5" aria-controls="faq-a5">
                     Does Channel Preview store or upload my banner?
-                    <span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                    <span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span>
                 </button>
                 <div class="faq-answer" id="faq-a5" role="region" aria-labelledby="faq-q5">
-                    <div class="faq-answer-content">No. Everything runs entirely in your browser using JavaScript. Your banner image is never sent to any server — your unreleased channel art stays completely private.</div>
+                    <div class="faq-answer-content">No. Everything runs entirely in your browser using JavaScript. Your
+                        banner image is never sent to any server — your unreleased channel art stays completely private.
+                    </div>
                 </div>
             </div>
             <div class="faq-item">
                 <button class="faq-question" aria-expanded="false" id="faq-q6" aria-controls="faq-a6">
                     What file format should my YouTube banner be?
-                    <span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+                    <span class="faq-icon" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg></span>
                 </button>
                 <div class="faq-answer" id="faq-a6" role="region" aria-labelledby="faq-q6">
-                    <div class="faq-answer-content">YouTube accepts <strong>JPG, PNG, GIF, and BMP</strong>. PNG is best for designs with sharp text, logos, or transparent elements. JPG works well for photographic banners. Keep the file under 6MB.</div>
+                    <div class="faq-answer-content">YouTube accepts <strong>JPG, PNG, GIF, and BMP</strong>. PNG is best
+                        for designs with sharp text, logos, or transparent elements. JPG works well for photographic
+                        banners. Keep the file under 6MB.</div>
                 </div>
             </div>
         </div>
@@ -736,7 +1417,8 @@
     <section class="internal-links">
         <div class="section-eyebrow">Related Tools</div>
         <h2 style="font-size:2rem;letter-spacing:-0.02em;color:#fff;margin-bottom:8px;">More YouTube Preview Tools</h2>
-        <p style="color:var(--text-muted);font-size:0.95rem;">Everything you need to review your channel before going live.</p>
+        <p style="color:var(--text-muted);font-size:0.95rem;">Everything you need to review your channel before going
+            live.</p>
         <div class="links-grid">
             <a href="/youtube-thumbnail-preview" class="link-card">
                 <div style="font-size:2rem;margin-bottom:12px;">🎬</div>
@@ -762,8 +1444,18 @@
         <div style="margin-top:40px;">
             <a href="/editor" class="btn-creative" style="--clr: var(--accent)">
                 <span class="btn-creative__icon-wrapper">
-                    <svg viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="btn-creative__icon-svg" width="10"><path d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z" fill="currentColor"></path></svg>
-                    <svg viewBox="0 0 14 15" fill="none" width="10" xmlns="http://www.w3.org/2000/svg" class="btn-creative__icon-svg btn-creative__icon-svg--copy"><path d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z" fill="currentColor"></path></svg>
+                    <svg viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        class="btn-creative__icon-svg" width="10">
+                        <path
+                            d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
+                            fill="currentColor"></path>
+                    </svg>
+                    <svg viewBox="0 0 14 15" fill="none" width="10" xmlns="http://www.w3.org/2000/svg"
+                        class="btn-creative__icon-svg btn-creative__icon-svg--copy">
+                        <path
+                            d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
+                            fill="currentColor"></path>
+                    </svg>
                 </span>
                 Open Full Channel Preview Editor
             </a>
@@ -774,12 +1466,24 @@
     <section class="cta-section">
         <div class="container" style="text-align:center;">
             <div class="section-eyebrow">Ready to Upload?</div>
-            <h2 class="section-title" style="font-size:2.4rem;letter-spacing:-0.03em;">Preview All Your Channel Assets<br><span class="accent-text">In One Place</span></h2>
-            <p class="section-subtitle" style="margin:0 auto 40px;">Banner, thumbnail, profile picture, and title — all in our free full-channel preview editor.</p>
+            <h2 class="section-title" style="font-size:2.4rem;letter-spacing:-0.03em;">Preview All Your Channel
+                Assets<br><span class="accent-text">In One Place</span></h2>
+            <p class="section-subtitle" style="margin:0 auto 40px;">Banner, thumbnail, profile picture, and title — all
+                in our free full-channel preview editor.</p>
             <a href="/editor" class="btn-creative" style="--clr: var(--accent)">
                 <span class="btn-creative__icon-wrapper">
-                    <svg viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="btn-creative__icon-svg" width="10"><path d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z" fill="currentColor"></path></svg>
-                    <svg viewBox="0 0 14 15" fill="none" width="10" xmlns="http://www.w3.org/2000/svg" class="btn-creative__icon-svg btn-creative__icon-svg--copy"><path d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z" fill="currentColor"></path></svg>
+                    <svg viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg"
+                        class="btn-creative__icon-svg" width="10">
+                        <path
+                            d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
+                            fill="currentColor"></path>
+                    </svg>
+                    <svg viewBox="0 0 14 15" fill="none" width="10" xmlns="http://www.w3.org/2000/svg"
+                        class="btn-creative__icon-svg btn-creative__icon-svg--copy">
+                        <path
+                            d="M13.376 11.552l-.264-10.44-10.44-.24.024 2.28 6.96-.048L.2 12.56l1.488 1.488 9.432-9.432-.048 6.912 2.304.024z"
+                            fill="currentColor"></path>
+                    </svg>
                 </span>
                 Try the Full Editor — Free
             </a>
@@ -792,7 +1496,8 @@
         <div class="footer-cta-card">
             <div class="footer-cta-content">
                 <h2 class="footer-cta-title">Preview Before You Publish</h2>
-                <p class="footer-cta-desc">Test your YouTube banners, thumbnails, profile pictures, and titles before uploading.</p>
+                <p class="footer-cta-desc">Test your YouTube banners, thumbnails, profile pictures, and titles before
+                    uploading.</p>
             </div>
             <div class="footer-cta-actions">
                 <a href="/editor" class="footer-cta-btn primary">Start Preview</a>
@@ -807,22 +1512,26 @@
                 <a class="footer-brand" href="/">
                     <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 28px; width: auto;">
                 </a>
-                <p class="footer-brand-desc">Creator-focused tools that help you preview YouTube banners, thumbnails, profile pictures, and titles before publishing.</p>
+                <p class="footer-brand-desc">Creator-focused tools that help you preview YouTube banners, thumbnails,
+                    profile pictures, and titles before publishing.</p>
                 <div class="footer-trust-badges">
                     <div class="footer-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>No Sign-Up Required</span>
                     </div>
                     <div class="footer-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>Privacy Friendly</span>
                     </div>
                     <div class="footer-badge">
-                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg class="badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                         <span>100% Browser Based</span>
@@ -871,15 +1580,19 @@
         <!-- Trust Strip Section -->
         <div class="footer-trust-strip">
             <div class="trust-item">
-                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    <path
+                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                    </path>
                 </svg>
                 <span>Built for Creators Worldwide</span>
             </div>
             <div class="trust-item">
-                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
                     <line x1="8" y1="21" x2="16" y2="21"></line>
                     <line x1="12" y1="17" x2="12" y2="21"></line>
@@ -887,7 +1600,8 @@
                 <span>100% Browser Based</span>
             </div>
             <div class="trust-item">
-                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                 </svg>
                 <span>Images Never Leave Your Device</span>
@@ -899,35 +1613,45 @@
             <div class="footer-copyright">
                 © 2026 Channel Preview. All Rights Reserved.
             </div>
-            
+
             <!-- Social Buttons -->
             <div class="footer-socials">
-                <a href="https://www.youtube.com/@thegaganpratap" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener">
+                <a href="https://www.youtube.com/@thegaganpratap" class="social-btn" aria-label="YouTube"
+                    target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                        <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
+                        <path
+                            d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z">
+                        </path>
                     </svg>
                 </a>
-                <a href="https://www.instagram.com/thegaganpratap/" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <a href="https://www.instagram.com/thegaganpratap/" class="social-btn" aria-label="Instagram"
+                    target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" width="18" height="18">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                     </svg>
                 </a>
-                <a href="https://www.linkedin.com/in/gagan-pratap/" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                <a href="https://www.linkedin.com/in/gagan-pratap/" class="social-btn" aria-label="LinkedIn"
+                    target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" width="18" height="18">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                         <rect x="2" y="9" width="4" height="12"></rect>
                         <circle cx="4" cy="4" r="2"></circle>
                     </svg>
                 </a>
-                <a href="https://twitter.com/thegaganpratap_" class="social-btn" aria-label="Twitter" target="_blank" rel="noopener">
+                <a href="https://twitter.com/thegaganpratap_" class="social-btn" aria-label="Twitter" target="_blank"
+                    rel="noopener">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                        </path>
                     </svg>
                 </a>
             </div>
-            
+
             <div class="footer-legal-links">
                 <a href="/privacy-policy">Privacy</a>
                 <a href="/privacy-policy#terms">Terms</a>
@@ -935,6 +1659,37 @@
             </div>
         </div>
     </footer>
+
+    <!-- BANNER CROP MODAL -->
+    <div id="banner-crop-modal">
+        <div class="crop-modal-content">
+            <div class="crop-modal-header">
+                <h3 class="crop-modal-title">Customise banner art</h3>
+            </div>
+            <div class="crop-modal-body">
+                <div class="crop-workspace" id="banner-crop-workspace">
+                    <img id="crop-image-preview" src="" alt="Banner preview">
+                    <div id="crop-overlay" class="crop-overlay">
+                        <div id="crop-box" class="crop-box">
+                            <div class="banner-desktop-guide"></div>
+                            <div class="banner-devices-guide"></div>
+                            <div class="crop-guide-label label-tv">Viewable on TV</div>
+                            <div class="crop-guide-label label-desktop">Viewable on desktop</div>
+                            <div class="crop-guide-label label-devices">Viewable on all devices</div>
+                            <div class="crop-handle handle-tl" data-handle="tl"></div>
+                            <div class="crop-handle handle-tr" data-handle="tr"></div>
+                            <div class="crop-handle handle-bl" data-handle="bl"></div>
+                            <div class="crop-handle handle-br" data-handle="br"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="crop-modal-footer">
+                <button class="crop-btn cancel" onclick="closeCropModal()">Cancel</button>
+                <button class="crop-btn apply" onclick="applyBannerCrop()">Done</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // ── STATE ──
@@ -945,14 +1700,21 @@
 
         const deviceMeta = {
             desktop: { label: 'Desktop: 2560 × 423 px visible', bannerHeight: 160, showTV: false },
-            mobile:  { label: 'Mobile: 1546 × 423 px (Safe Zone)', bannerHeight: 110, showTV: false },
-            tv:      { label: 'TV: Full 2560 × 1440 px — No Crop', bannerHeight: null, showTV: true },
+            mobile: { label: 'Mobile: 1546 × 423 px (Safe Zone)', bannerHeight: 110, showTV: false },
+            tv: { label: 'TV: Full 2560 × 1440 px — No Crop', bannerHeight: null, showTV: true },
         };
 
-        // Safe area proportions relative to 2560×1440:
-        // Mobile safe zone: 1546/2560 = 60.39% width, centered
-        // So dimmer sides = (1 - 0.6039) / 2 = ~19.8% each side
-        const SAFE_SIDE_PCT = ((2560 - 1546) / 2560 / 2) * 100; // ~19.8%
+        const SAFE_SIDE_PCT = ((2560 - 1546) / 2560 / 2) * 100;
+
+        // Crop State variables
+        let rawBannerImageSrc = null;
+        let bannerAspectRatio = 1.0;
+        let cropBoxX = 0;
+        let cropBoxY = 0;
+        let cropBoxWidth = 0;
+        let cropBoxHeight = 0;
+        let imgRenderedWidth = 0;
+        let imgRenderedHeight = 0;
 
         // ── FILE UPLOAD ──
         const fileInput = document.getElementById('banner-file-input');
@@ -961,7 +1723,6 @@
             if (file) loadBanner(file);
         });
 
-        // Drag & drop
         const dropZone = document.getElementById('drop-zone');
         dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
         dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
@@ -975,15 +1736,274 @@
         function loadBanner(file) {
             const reader = new FileReader();
             reader.onload = (e) => {
-                bannerDataUrl = e.target.result;
-                document.getElementById('banner-img').src = bannerDataUrl;
-                document.getElementById('banner-img-tv').src = bannerDataUrl;
-                document.getElementById('drop-zone').style.display = 'none';
-                document.getElementById('banner-preview-wrap').classList.add('visible');
-                applyDevice(currentDevice);
-                updateSafeOverlay();
+                rawBannerImageSrc = e.target.result;
+                const img = document.getElementById('crop-image-preview');
+                img.src = rawBannerImageSrc;
+                document.getElementById('banner-crop-modal').style.display = 'flex';
             };
             reader.readAsDataURL(file);
+        }
+
+        document.getElementById('crop-image-preview').addEventListener('load', function () {
+            const img = this;
+            const W_max = 480;
+            const H_max = 360;
+            const W_nat = img.naturalWidth;
+            const H_nat = img.naturalHeight;
+            bannerAspectRatio = W_nat / H_nat;
+
+            if (bannerAspectRatio > W_max / H_max) {
+                imgRenderedWidth = W_max;
+                imgRenderedHeight = W_max / bannerAspectRatio;
+            } else {
+                imgRenderedHeight = H_max;
+                imgRenderedWidth = H_max * bannerAspectRatio;
+            }
+
+            img.style.width = imgRenderedWidth + 'px';
+            img.style.height = imgRenderedHeight + 'px';
+
+            const workspace = document.getElementById('banner-crop-workspace');
+            workspace.style.width = imgRenderedWidth + 'px';
+            workspace.style.height = imgRenderedHeight + 'px';
+
+            const R = 2560 / 1440;
+            if (imgRenderedWidth / imgRenderedHeight > R) {
+                cropBoxHeight = Math.floor(imgRenderedHeight * 0.8);
+                cropBoxWidth = Math.floor(cropBoxHeight * R);
+            } else {
+                cropBoxWidth = Math.floor(imgRenderedWidth * 0.8);
+                cropBoxHeight = Math.floor(cropBoxWidth / R);
+            }
+
+            if (cropBoxWidth < 80) {
+                cropBoxWidth = imgRenderedWidth;
+                cropBoxHeight = imgRenderedWidth / R;
+            }
+
+            cropBoxX = Math.floor((imgRenderedWidth - cropBoxWidth) / 2);
+            cropBoxY = Math.floor((imgRenderedHeight - cropBoxHeight) / 2);
+
+            updateCropBoxUI();
+        });
+
+        function updateCropBoxUI() {
+            const cropBox = document.getElementById('crop-box');
+            cropBox.style.left = cropBoxX + 'px';
+            cropBox.style.top = cropBoxY + 'px';
+            cropBox.style.width = cropBoxWidth + 'px';
+            cropBox.style.height = cropBoxHeight + 'px';
+        }
+
+        let activeAction = null;
+        let activeHandle = null;
+        let dragStartX = 0;
+        let dragStartY = 0;
+        let initialBoxX = 0;
+        let initialBoxY = 0;
+        let initialBoxWidth = 0;
+        let initialBoxHeight = 0;
+
+        const cropBox = document.getElementById('crop-box');
+        cropBox.addEventListener('mousedown', onPointerDown);
+        cropBox.addEventListener('touchstart', onPointerDown, { passive: false });
+
+        function onPointerDown(e) {
+            if (e.cancelable) {
+                e.preventDefault();
+            }
+
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+
+            const handle = e.target.closest('.crop-handle');
+            if (handle) {
+                activeAction = 'resize';
+                activeHandle = handle.getAttribute('data-handle');
+            } else {
+                activeAction = 'drag';
+                activeHandle = null;
+            }
+
+            dragStartX = clientX;
+            dragStartY = clientY;
+            initialBoxX = cropBoxX;
+            initialBoxY = cropBoxY;
+            initialBoxWidth = cropBoxWidth;
+            initialBoxHeight = cropBoxHeight;
+
+            window.addEventListener('mousemove', onPointerMove);
+            window.addEventListener('touchmove', onPointerMove, { passive: false });
+            window.addEventListener('mouseup', onPointerUp);
+            window.addEventListener('touchend', onPointerUp);
+        }
+
+        function onPointerMove(e) {
+            if (!activeAction) return;
+
+            if (e.cancelable) {
+                e.preventDefault();
+            }
+
+            const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+            const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+
+            const R = 2560 / 1440;
+
+            if (activeAction === 'drag') {
+                const dx = clientX - dragStartX;
+                const dy = clientY - dragStartY;
+
+                let newX = initialBoxX + dx;
+                let newY = initialBoxY + dy;
+
+                newX = Math.max(0, Math.min(imgRenderedWidth - cropBoxWidth, newX));
+                newY = Math.max(0, Math.min(imgRenderedHeight - cropBoxHeight, newY));
+
+                cropBoxX = newX;
+                cropBoxY = newY;
+            } else if (activeAction === 'resize') {
+                const rect = document.getElementById('crop-overlay').getBoundingClientRect();
+                const curX = clientX - rect.left;
+                const curY = clientY - rect.top;
+
+                if (activeHandle === 'br') {
+                    const xFixed = initialBoxX;
+                    const yFixed = initialBoxY;
+                    let newW = ((curX - xFixed) + (curY - yFixed) * R) / 2;
+                    const maxW = Math.min(imgRenderedWidth - xFixed, (imgRenderedHeight - yFixed) * R);
+                    newW = Math.max(80, Math.min(maxW, newW));
+                    cropBoxWidth = newW;
+                    cropBoxHeight = newW / R;
+                    cropBoxX = xFixed;
+                    cropBoxY = yFixed;
+                } else if (activeHandle === 'tl') {
+                    const xFixed = initialBoxX + initialBoxWidth;
+                    const yFixed = initialBoxY + initialBoxHeight;
+                    let newW = ((xFixed - curX) + (yFixed - curY) * R) / 2;
+                    const maxW = Math.min(xFixed, yFixed * R);
+                    newW = Math.max(80, Math.min(maxW, newW));
+                    cropBoxWidth = newW;
+                    cropBoxHeight = newW / R;
+                    cropBoxX = xFixed - newW;
+                    cropBoxY = yFixed - (newW / R);
+                } else if (activeHandle === 'tr') {
+                    const xFixed = initialBoxX;
+                    const yFixed = initialBoxY + initialBoxHeight;
+                    let newW = ((curX - xFixed) + (yFixed - curY) * R) / 2;
+                    const maxW = Math.min(imgRenderedWidth - xFixed, yFixed * R);
+                    newW = Math.max(80, Math.min(maxW, newW));
+                    cropBoxWidth = newW;
+                    cropBoxHeight = newW / R;
+                    cropBoxX = xFixed;
+                    cropBoxY = yFixed - (newW / R);
+                } else if (activeHandle === 'bl') {
+                    const xFixed = initialBoxX + initialBoxWidth;
+                    const yFixed = initialBoxY;
+                    let newW = ((xFixed - curX) + (curY - yFixed) * R) / 2;
+                    const maxW = Math.min(xFixed, (imgRenderedHeight - yFixed) * R);
+                    newW = Math.max(80, Math.min(maxW, newW));
+                    cropBoxWidth = newW;
+                    cropBoxHeight = newW / R;
+                    cropBoxX = xFixed - newW;
+                    cropBoxY = yFixed;
+                }
+            }
+
+            updateCropBoxUI();
+        }
+
+        function onPointerUp(e) {
+            activeAction = null;
+            activeHandle = null;
+            window.removeEventListener('mousemove', onPointerMove);
+            window.removeEventListener('touchmove', onPointerMove);
+            window.removeEventListener('mouseup', onPointerUp);
+            window.removeEventListener('touchend', onPointerUp);
+        }
+
+        function closeCropModal() {
+            document.getElementById('banner-crop-modal').style.display = 'none';
+            document.getElementById('banner-file-input').value = '';
+        }
+
+        function getBannerImgHtml(containerWidth, containerHeight, isMobile, isTV) {
+            if (!bannerDataUrl) return '';
+
+            let scale, tx, ty;
+            if (isTV) {
+                scale = containerWidth / cropBoxWidth;
+                tx = -cropBoxX;
+                ty = -cropBoxY;
+            } else if (isMobile) {
+                scale = containerHeight / (cropBoxHeight * 423 / 1440);
+                tx = -(cropBoxX + cropBoxWidth * ((2560 - 1546) / 2 / 2560));
+                ty = -(cropBoxY + cropBoxHeight * ((1440 - 423) / 2 / 1440));
+            } else {
+                scale = containerWidth / cropBoxWidth;
+                tx = -cropBoxX;
+                ty = -(cropBoxY + cropBoxHeight * ((1440 - 423) / 2 / 1440));
+            }
+
+            return `<img src="${bannerDataUrl}" style="position: absolute; top: 0; left: 0; width: ${imgRenderedWidth}px; height: ${imgRenderedHeight}px; transform-origin: 0 0; transform: scale(${scale}) translate(${tx}px, ${ty}px); max-width: none !important; max-height: none !important; object-fit: fill !important; border-radius: 0;">`;
+        }
+
+        function applyBannerCropUI() {
+            if (!bannerDataUrl) return;
+
+            const stripContainer = document.getElementById('banner-strip-container');
+            const tvContainer = document.getElementById('tv-container');
+
+            const isMobile = (currentDevice === 'mobile');
+
+            stripContainer.style.position = 'relative';
+            stripContainer.style.overflow = 'hidden';
+
+            const wrapWidth = stripContainer.clientWidth || 960;
+            const wrapHeight = (currentDevice === 'mobile') ? 110 : 160;
+            // CRITICAL: set explicit height so position:absolute images are visible
+            stripContainer.style.height = wrapHeight + 'px';
+
+            const tvWrapWidth = tvContainer.clientWidth || 960;
+            const tvWrapHeight = tvWrapWidth * (9 / 16);
+            // CRITICAL: set explicit height on tv container too
+            tvContainer.style.height = tvWrapHeight + 'px';
+
+            stripContainer.innerHTML = getBannerImgHtml(wrapWidth, wrapHeight, isMobile, false) + `
+                <div class="safe-overlay" id="safe-overlay">
+                    <div class="safe-dimmer-left" id="safe-left"></div>
+                    <div class="safe-dimmer-right" id="safe-right"></div>
+                    <div class="safe-box" id="safe-box">
+                        <div class="safe-label-box" id="safe-label">Safe Zone 1546×423</div>
+                    </div>
+                </div>
+                <div class="grid-overlay" id="grid-overlay"></div>
+            `;
+
+            tvContainer.innerHTML = getBannerImgHtml(tvWrapWidth, tvWrapHeight, false, true) + `
+                <div style="position:absolute;top:12px;left:12px;background:rgba(0,0,0,0.7);color:#fff;font-size:0.72rem;font-weight:700;padding:4px 10px;border-radius:6px;text-transform:uppercase;letter-spacing:0.08em;z-index:15;">📺 TV: Full 2560×1440</div>
+                <div class="safe-overlay" id="tv-safe-overlay">
+                    <div class="safe-dimmer-left" id="tv-safe-left"></div>
+                    <div class="safe-dimmer-right" id="tv-safe-right"></div>
+                    <div class="safe-box" id="tv-safe-box">
+                        <div class="safe-label-box">Safe Zone</div>
+                    </div>
+                </div>
+                <div class="grid-overlay" id="tv-grid-overlay"></div>
+            `;
+
+            document.getElementById('grid-overlay').classList.toggle('visible', gridOn);
+            document.getElementById('tv-grid-overlay').classList.toggle('visible', gridOn);
+        }
+
+        window.addEventListener('resize', () => { if (bannerDataUrl) applyBannerCropUI(); });
+
+        function applyBannerCrop() {
+            bannerDataUrl = rawBannerImageSrc;
+            document.getElementById('drop-zone').style.display = 'none';
+            document.getElementById('banner-preview-wrap').classList.add('visible');
+            applyDevice(currentDevice);
+            closeCropModal();
         }
 
         // ── DEVICE SWITCHING ──
@@ -997,20 +2017,20 @@
         function applyDevice(device) {
             const meta = deviceMeta[device];
             document.getElementById('device-info').textContent = meta.label;
-            const bannerImg = document.getElementById('banner-img');
             const headerMock = document.getElementById('yt-header-mock');
             const tvWrap = document.getElementById('tv-view-wrap');
 
             if (meta.showTV) {
                 headerMock.style.display = 'none';
                 tvWrap.classList.add('visible');
-                updateSafeOverlayTV();
             } else {
                 headerMock.style.display = 'block';
                 tvWrap.classList.remove('visible');
-                if (meta.bannerHeight) bannerImg.style.height = meta.bannerHeight + 'px';
-                updateSafeOverlay();
             }
+
+            applyBannerCropUI();
+            updateSafeOverlay();
+            updateSafeOverlayTV();
         }
 
         // ── SAFE AREA OVERLAY ──
@@ -1061,31 +2081,48 @@
 
         // ── EXPORT PNG ──
         function exportBanner() {
-            if (!bannerDataUrl) { alert('Please upload a banner first.'); return; }
+            if (!rawBannerImageSrc) { alert('Please upload a banner first.'); return; }
             const img = new Image();
             img.onload = () => {
+                const W_nat = img.naturalWidth;
+                const H_nat = img.naturalHeight;
+
+                const scaleX = W_nat / imgRenderedWidth;
+                const xNat = cropBoxX * scaleX;
+                const yNat = cropBoxY * scaleX;
+                const wNat = cropBoxWidth * scaleX;
+                const hNat = cropBoxHeight * scaleX;
+
                 const canvas = document.createElement('canvas');
-                canvas.width = img.naturalWidth;
-                canvas.height = img.naturalHeight;
+                canvas.width = 2560;
+                canvas.height = 1440;
                 const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0);
+
+                ctx.drawImage(img, xNat, yNat, wNat, hNat, 0, 0, 2560, 1440);
+
                 if (safeOn) {
-                    // Draw safe area overlay on export
-                    const safeW = (1546 / 2560) * img.naturalWidth;
-                    const safeX = (img.naturalWidth - safeW) / 2;
+                    const safeW = 1546;
+                    const safeH = 423;
+                    const safeX = (2560 - safeW) / 2;
+                    const safeY = (1440 - safeH) / 2;
+
                     ctx.strokeStyle = 'rgba(255,77,0,0.9)';
-                    ctx.lineWidth = 4;
-                    ctx.strokeRect(safeX, 0, safeW, img.naturalHeight);
-                    ctx.fillStyle = 'rgba(0,0,0,0.35)';
-                    ctx.fillRect(0, 0, safeX, img.naturalHeight);
-                    ctx.fillRect(safeX + safeW, 0, img.naturalWidth - safeX - safeW, img.naturalHeight);
+                    ctx.lineWidth = 6;
+                    ctx.strokeRect(safeX, safeY, safeW, safeH);
+
+                    ctx.fillStyle = 'rgba(0,0,0,0.55)';
+                    ctx.fillRect(0, safeY, safeX, safeH);
+                    ctx.fillRect(safeX + safeW, safeY, 2560 - safeX - safeW, safeH);
+                    ctx.fillRect(0, 0, 2560, safeY);
+                    ctx.fillRect(0, safeY + safeH, 2560, 1440 - safeY - safeH);
                 }
+
                 const link = document.createElement('a');
                 link.download = 'youtube-banner-preview.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             };
-            img.src = bannerDataUrl;
+            img.src = rawBannerImageSrc;
         }
 
         // ── FAQ ACCORDION ──
@@ -1110,7 +2147,7 @@
         // ── SCROLL ANIMATIONS ──
         const observer = new IntersectionObserver(entries => {
             entries.forEach(e => {
-                if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; observer.unobserve(e.target); }
+                if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; observer.unobserve(e.target); }
             });
         }, { threshold: 0.08 });
         document.querySelectorAll('.spec-card, .how-step, .tip-card, .link-card, .faq-item').forEach((el, i) => {
@@ -1120,4 +2157,5 @@
         });
     </script>
 </body>
+
 </html>
