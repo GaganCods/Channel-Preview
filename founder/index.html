@@ -14,9 +14,48 @@
         content="Discover the story behind Channel Preview. Built by a creator, for creators, to solve thumbnail and banner design problems." />
     <meta property="og:url" content="https://channelpreview.vercel.app/founder" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://channelpreview.vercel.app/assets/og-image.png" />
+    <meta property="og:image" content="https://channelpreview.vercel.app/assets/og%20images/founder.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://channelpreview.vercel.app/founder" />
+    <meta name="twitter:title" content="Founder Story | Channel Preview" />
+    <meta name="twitter:description"
+        content="Discover the story behind Channel Preview. Built by a creator, for creators, to solve thumbnail and banner design problems." />
+    <meta name="twitter:image" content="https://channelpreview.vercel.app/assets/og%20images/founder.png" />
     <link rel="icon" type="image/png" href="/assets/logo-icon.png">
     <link rel="stylesheet" href="/index.css">
+
+    <!-- Structured Data: Person + ImageObject for Google Image Indexing -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Gagan Pratap",
+      "url": "https://channelpreview.vercel.app/founder",
+      "sameAs": [
+        "https://www.youtube.com/@thegaganpratap",
+        "https://www.instagram.com/thegaganpratap/",
+        "https://www.linkedin.com/in/gagan-pratap/",
+        "https://twitter.com/thegaganpratap_"
+      ],
+      "jobTitle": "Founder & CEO",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Channel Preview",
+        "url": "https://channelpreview.vercel.app"
+      },
+      "description": "Gagan Pratap is a designer, creator, and developer. He is the founder of Channel Preview, a YouTube creator tool for previewing banners, thumbnails, and profile pictures.",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://channelpreview.vercel.app/assets/Gagan.png",
+        "name": "Gagan Pratap – Founder of Channel Preview",
+        "description": "Photo of Gagan Pratap, founder of Channel Preview. Designer, creator, and developer of YouTube creator tools.",
+        "width": 500,
+        "height": 500
+      }
+    }
+    </script>
 
     <style>
         /* ==========================================================================
@@ -2363,7 +2402,10 @@
                     <div class="founder-img-wrapper">
                         <div class="founder-img-glow"></div>
                         <div class="founder-img-card">
-                            <img src="/assets/Gagan.png" alt="Gagan Pratap — Founder of Channel Preview"
+                            <img src="/assets/Gagan.png"
+                                alt="Gagan Pratap – Founder of Channel Preview, YouTube creator tools developer and UI/UX designer"
+                                title="Gagan Pratap, Founder of Channel Preview"
+                                loading="eager"
                                 onerror="this.src='https://ui-avatars.com/api/?name=Gagan+Pratap&background=1a1a1a&color=fff&size=500'">
                             <div class="founder-img-badge">
                                 <span class="badge-dot"></span>
@@ -2484,7 +2526,10 @@
                 <div class="solution-visual">
                     <div class="mockup-container">
                         <!-- We will use the generated image here -->
-                        <img src="/assets/solution_mockup.png" alt="Channel Preview UI Mockup"
+                        <img src="/assets/solution_mockup.png"
+                            alt="Channel Preview tool UI – YouTube banner, thumbnail, and profile picture preview interface built by Gagan Pratap"
+                            title="Channel Preview – YouTube creator tool UI mockup"
+                            loading="lazy"
                             onerror="this.src='https://images.unsplash.com/photo-1618761714954-0b8cd0026356?auto=format&fit=crop&w=800&q=80'">
                     </div>
                 </div>
