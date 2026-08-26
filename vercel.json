@@ -10,64 +10,6 @@
             "source": "/index.html",
             "destination": "/",
             "permanent": true
-        },
-        {
-            "source": "/youtube-banner-preview.html",
-            "destination": "/youtube-banner-preview",
-            "permanent": true
-        },
-        {
-            "source": "/youtube-thumbnail-preview.html",
-            "destination": "/youtube-thumbnail-preview",
-            "permanent": true
-        },
-        {
-            "source": "/youtube-profile-picture-preview.html",
-            "destination": "/youtube-profile-picture-preview",
-            "permanent": true
-        },
-        {
-            "source": "/youtube-banner-safe-area.html",
-            "destination": "/youtube-banner-safe-area",
-            "permanent": true
-        },
-        {
-            "source": "/youtube-title-preview.html",
-            "destination": "/youtube-title-preview",
-            "permanent": true
-        },
-        {
-            "source": "/youtube-video-detail-preview.html",
-            "destination": "/youtube-video-detail-preview",
-            "permanent": true
-        }
-    ],
-    "headers": [
-        {
-            "source": "/sitemap.xml",
-            "headers": [
-                {
-                    "key": "Content-Type",
-                    "value": "application/xml; charset=utf-8"
-                },
-                {
-                    "key": "X-Robots-Tag",
-                    "value": "index, follow"
-                }
-            ]
-        },
-        {
-            "source": "/robots.txt",
-            "headers": [
-                {
-                    "key": "Content-Type",
-                    "value": "text/plain; charset=utf-8"
-                },
-                {
-                    "key": "X-Robots-Tag",
-                    "value": "index, follow"
-                }
-            ]
         }
     ]
 }
