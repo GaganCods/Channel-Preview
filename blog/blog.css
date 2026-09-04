@@ -903,3 +903,22 @@
   transition: transform 0.3s ease-in-out 0.1s;
   transform: translate(0);
 }
+
+/* Monetization Ad Units (Clean & Unboxed) */
+.sidebar-widget.sidebar-ad-widget,
+.sidebar-ad-container {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 24px auto !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cp-ad-label {
+  display: none !important;
+}

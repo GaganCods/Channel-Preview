@@ -5,15 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChannelKit Preview — Editor Workspace</title>
     <meta name="description" content="Design, preview, and test your YouTube channel assets in real time. Crop, scale, apply overlays, and check safe zones." />
-    <link rel="icon" type="image/png" href="../assets/logo-icon.png">
+    <link rel="canonical" href="https://channelpreview.vercel.app/editor" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://channelpreview.vercel.app/editor" />
+    <meta property="og:title" content="ChannelKit Preview — Editor Workspace" />
+    <meta property="og:description" content="Design, preview, and test your YouTube channel assets in real time. Crop, scale, apply overlays, and check safe zones." />
+    <meta property="og:image" content="https://channelpreview.vercel.app/assets/og%20images/home.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://channelpreview.vercel.app/editor" />
+    <meta name="twitter:title" content="ChannelKit Preview — Editor Workspace" />
+    <meta name="twitter:description" content="Design, preview, and test your YouTube channel assets in real time. Crop, scale, apply overlays, and check safe zones." />
+    <meta name="twitter:image" content="https://channelpreview.vercel.app/assets/og%20images/home.png" />
+    <link rel="icon" type="image/png" href="/assets/logo-icon.png">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- External CSS (Shared tokens + Editor styles) -->
-    <link rel="stylesheet" href="../index.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/editor/style.css">
     
     <!-- Icons (Lucide icons for clean, modern look) -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -1234,7 +1249,36 @@
                 </button>
             </div>
         </aside>
+    </div>
 
+    <!-- ── MONETIZATION AD: EDITOR POST-WORKSPACE ── -->
+    <div style="width: 100%; padding: 0 20px;">
+        <div class="cp-ad-wrapper" style="margin: 24px auto;">
+            <div class="cp-ad-content cp-ad-desktop-only">
+                <script>
+                  atOptions = {
+                    'key' : '7fa4b97bd50009f526253290f2decb94',
+                    'format' : 'iframe',
+                    'height' : 90,
+                    'width' : 728,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://www.highrevenueformat.com/7fa4b97bd50009f526253290f2decb94/invoke.js"></script>
+            </div>
+            <div class="cp-ad-content cp-ad-mobile-only">
+                <script>
+                  atOptions = {
+                    'key' : 'a054f74c22dcf02560f024ca780ad4e6',
+                    'format' : 'iframe',
+                    'height' : 50,
+                    'width' : 320,
+                    'params' : {}
+                  };
+                </script>
+                <script src="https://www.highrevenueformat.com/a054f74c22dcf02560f024ca780ad4e6/invoke.js"></script>
+            </div>
+        </div>
     </div>
 
     <!-- Banner Crop Modal (YouTube style dialog overlay) -->
@@ -1315,6 +1359,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     
     <!-- Core JS Logic -->
-    <script src="app.js"></script>
+    <script src="/editor/app.js"></script>
 </body>
 </html>
