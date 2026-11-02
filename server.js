@@ -28,6 +28,9 @@ const MIME_TYPES = {
 const cleanUrlMap = {
     '/editor': path.join(ROOT, 'editor', 'index.html'),
     '/blog': path.join(ROOT, 'blog', 'index.html'),
+    '/about': path.join(ROOT, 'about', 'index.html'),
+    '/founder': path.join(ROOT, 'founder', 'index.html'),
+    '/privacy-policy': path.join(ROOT, 'privacy-policy', 'index.html'),
     '/youtube-banner-preview': path.join(ROOT, 'youtube-banner-preview', 'index.html'),
     '/youtube-thumbnail-preview': path.join(ROOT, 'youtube-thumbnail-preview', 'index.html'),
     '/youtube-profile-picture-preview': path.join(ROOT, 'youtube-profile-picture-preview', 'index.html'),
@@ -41,20 +44,13 @@ const server = http.createServer((req, res) => {
     let url = req.url.split('?')[0];
 
     // ── 301 Redirects: .html URLs → clean URLs ──
-    if (url === '/editor.html') {
-        res.writeHead(301, { 'Location': '/editor' });
-        return res.end();
-    }
     if (url === '/index.html') {
         res.writeHead(301, { 'Location': '/' });
         return res.end();
     }
-    if (url === '/youtube-banner-preview.html') {
-        res.writeHead(301, { 'Location': '/youtube-banner-preview' });
-        return res.end();
-    }
-    if (url === '/youtube-thumbnail-preview.html') {
-        res.writeHead(301, { 'Location': '/youtube-thumbnail-preview' });
+    if (url.endsWith('.html')) {
+        const cleanPath = url.slice(0, -5);
+        res.writeHead(301, { 'Location': cleanPath });
         return res.end();
     }
 
@@ -98,18 +94,17 @@ const server = http.createServer((req, res) => {
             const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
             res.writeHead(200, { 'Content-Type': contentType });
-            const stream = fs.createReadStream(filePath);
-            stream.on('error', () => {
-                res.writeHead(500, { 'Content-Type': 'text/plain' });
-                res.end('500 — Internal Server Error');
-            });
-            stream.pipe(res);
+            fs.createReadStream(filePath).pipe(res);
         });
     });
 });
 
-server.listen(PORT, () => {
-    console.log(`\n✅ Preview Channel running at http://localhost:${PORT}`);
-    console.log(`   Home   → http://localhost:${PORT}/`);
-    console.log(`   Editor → http://localhost:${PORT}/editor\n`);
-});
+if (require.main === module) {
+    server.listen(PORT, () => {
+        console.log(`\n✅ Channel Preview running at http://localhost:${PORT}`);
+        console.log(`   Home   → http://localhost:${PORT}/`);
+        console.log(`   Editor → http://localhost:${PORT}/editor\n`);
+    });
+}
+
+module.exports = server;

@@ -7,26 +7,29 @@
     <title>YouTube Channel Preview Tool – Banner, Thumbnail & Title Tester | Free</title>
     <meta name="description"
         content="Free YouTube channel preview tool. Test your banner safe area, thumbnail CTR, profile picture crop, and title truncation across Desktop, Mobile, Tablet & TV before uploading. No sign-up needed." />
-    <link rel="canonical" href="https://channelpreview.vercel.app/" />
+    <link rel="canonical" href="https://www.channelpreview.com" />
 
     <!-- Open Graph -->
     <meta property="og:title" content="YouTube Channel Preview Tool – Banner, Thumbnail & Title Tester | Free" />
-    <meta property="og:description" content="Free YouTube channel preview tool. Test your banner safe area, thumbnail CTR, profile picture crop, and title truncation across Desktop, Mobile, Tablet & TV before uploading. No sign-up needed." />
-    <meta property="og:url" content="https://channelpreview.vercel.app/" />
+    <meta property="og:description"
+        content="Free YouTube channel preview tool. Test your banner safe area, thumbnail CTR, profile picture crop, and title truncation across Desktop, Mobile, Tablet & TV before uploading. No sign-up needed." />
+    <meta property="og:url" content="https://www.channelpreview.com" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://channelpreview.vercel.app/assets/og%20images/home.png" />
+    <meta property="og:image" content="https://www.channelpreview.com/assets/og-image.png" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://channelpreview.vercel.app/" />
+    <meta name="twitter:url" content="https://www.channelpreview.com" />
     <meta name="twitter:title" content="YouTube Channel Preview Tool – Banner, Thumbnail & Title Tester | Free" />
-    <meta name="twitter:description" content="Free YouTube channel preview tool. Test your banner safe area, thumbnail CTR, profile picture crop, and title truncation across Desktop, Mobile, Tablet & TV before uploading. No sign-up needed." />
-    <meta name="twitter:image" content="https://channelpreview.vercel.app/assets/og%20images/home.png" />
+    <meta name="twitter:description"
+        content="Free YouTube channel preview tool. Test your banner safe area, thumbnail CTR, profile picture crop, and title truncation across Desktop, Mobile, Tablet & TV before uploading. No sign-up needed." />
+    <meta name="twitter:image" content="https://www.channelpreview.com/assets/og-image.png" />
     <link rel="stylesheet" href="index.css" />
     <link rel="icon" type="image/png" href="assets/logo-icon.png">
 
     <style>
-        html, body {
+        html,
+        body {
             overflow-x: hidden;
             max-width: 100%;
         }
@@ -896,7 +899,7 @@
             border-radius: 36px;
             padding: 80px 60px;
             overflow: hidden;
-            box-shadow: 
+            box-shadow:
                 0 30px 70px rgba(0, 0, 0, 0.6),
                 inset 0 1px 0 rgba(255, 255, 255, 0.06);
             transition: border-color 0.4s ease, box-shadow 0.4s ease;
@@ -904,7 +907,7 @@
 
         .premium-cta-card:hover {
             border-color: rgba(255, 90, 10, 0.25);
-            box-shadow: 
+            box-shadow:
                 0 40px 90px rgba(0, 0, 0, 0.8),
                 0 0 50px rgba(255, 90, 10, 0.12),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -1074,8 +1077,13 @@
         }
 
         @keyframes btn-sweep {
-            0% { left: -100px; }
-            100% { left: 250px; }
+            0% {
+                left: -100px;
+            }
+
+            100% {
+                left: 250px;
+            }
         }
 
         .btn-premium-cta-primary:hover {
@@ -1162,9 +1170,17 @@
             border-radius: 50%;
         }
 
-        .dot-red { background: #ff5f56; }
-        .dot-yellow { background: #ffbd2e; }
-        .dot-green { background: #27c93f; }
+        .dot-red {
+            background: #ff5f56;
+        }
+
+        .dot-yellow {
+            background: #ffbd2e;
+        }
+
+        .dot-green {
+            background: #27c93f;
+        }
 
         .header-address {
             font-size: 0.65rem;
@@ -1247,7 +1263,7 @@
         }
 
         .mock-hotspot:hover .hotspot-tooltip,
-        .mock-hotspot:hover + .hotspot-tooltip {
+        .mock-hotspot:hover+.hotspot-tooltip {
             opacity: 1;
             transform: translateY(0);
         }
@@ -1258,11 +1274,13 @@
             left: 50%;
             margin-left: -8px;
         }
+
         .banner-hotspot .hotspot-tooltip {
             bottom: calc(100% + 10px);
             left: 50%;
             transform: translateX(-50%) translateY(10px);
         }
+
         .banner-hotspot:hover .hotspot-tooltip {
             transform: translateX(-50%) translateY(0);
         }
@@ -1272,14 +1290,17 @@
             left: 50%;
             transform: translate(-50%, -50%) scale(0.8);
         }
+
         .pfp-hotspot:hover .hotspot-pulse {
             transform: translate(-50%, -50%) scale(1);
         }
+
         .pfp-hotspot .hotspot-tooltip {
             bottom: calc(100% + 10px);
             left: 0;
             transform: translateY(10px);
         }
+
         .pfp-hotspot:hover .hotspot-tooltip {
             transform: translateY(0);
         }
@@ -1289,15 +1310,18 @@
             left: 50%;
             transform: translate(-50%, -50%) scale(0.8);
         }
+
         .thumb-hotspot:hover .hotspot-pulse {
             transform: translate(-50%, -50%) scale(1);
         }
-        .thumb-hotspot + .hotspot-tooltip {
+
+        .thumb-hotspot+.hotspot-tooltip {
             bottom: calc(100% + 10px);
             left: 0;
             transform: translateY(10px);
         }
-        .thumb-hotspot:hover + .hotspot-tooltip {
+
+        .thumb-hotspot:hover+.hotspot-tooltip {
             transform: translateY(0);
         }
 
@@ -1306,15 +1330,18 @@
             top: 50%;
             transform: translateY(-50%) scale(0.8);
         }
+
         .title-hotspot:hover .hotspot-pulse {
             transform: translateY(-50%) scale(1);
         }
+
         .title-hotspot .hotspot-tooltip {
             top: calc(100% + 10px);
             right: 0;
             left: auto;
             transform: translateY(-10px);
         }
+
         .title-hotspot:hover .hotspot-tooltip {
             transform: translateY(0);
         }
@@ -1538,9 +1565,11 @@
             0% {
                 box-shadow: 0 0 0 0 rgba(255, 90, 10, 0.7);
             }
+
             70% {
                 box-shadow: 0 0 0 10px rgba(255, 90, 10, 0);
             }
+
             100% {
                 box-shadow: 0 0 0 0 rgba(255, 90, 10, 0);
             }
@@ -1576,7 +1605,7 @@
 
         /* Show tooltips during cycle */
         .mock-hotspot.active-cycle .hotspot-tooltip,
-        .mock-hotspot.active-cycle + .hotspot-tooltip {
+        .mock-hotspot.active-cycle+.hotspot-tooltip {
             opacity: 1;
         }
 
@@ -1585,7 +1614,7 @@
         }
 
         .mock-hotspot.active-cycle.pfp-hotspot .hotspot-tooltip,
-        .mock-hotspot.active-cycle.thumb-hotspot + .hotspot-tooltip {
+        .mock-hotspot.active-cycle.thumb-hotspot+.hotspot-tooltip {
             transform: translateY(0);
         }
 
@@ -1604,22 +1633,25 @@
             background: rgba(255, 90, 10, 0.03);
             transform: scale(1);
         }
+
         .yt-channel-mock .banner-hotspot:hover .mobile-safe-outline,
         .yt-channel-mock .banner-hotspot.active-cycle .mobile-safe-outline {
             opacity: 1;
             transform: scale(1);
         }
-        
+
         .yt-channel-mock .pfp-hotspot:hover,
         .yt-channel-mock .pfp-hotspot.active-cycle {
             border-color: #ff5a0a;
         }
+
         .yt-channel-mock .pfp-hotspot svg {
             width: 50%;
             height: 50%;
             color: var(--accent);
             transition: color 0.3s ease;
         }
+
         .yt-channel-mock .pfp-hotspot:hover svg,
         .yt-channel-mock .pfp-hotspot.active-cycle svg {
             color: #ff5a0a !important;
@@ -1629,7 +1661,7 @@
         .yt-channel-mock .thumb-hotspot.active-cycle {
             border-color: rgba(255, 90, 10, 0.6);
         }
-        
+
         .yt-channel-mock .mock-thumb .play-btn-overlay {
             position: absolute;
             top: 50%;
@@ -1640,6 +1672,7 @@
             transition: all 0.3s ease;
             pointer-events: none;
         }
+
         .yt-channel-mock .thumb-hotspot:hover .play-btn-overlay,
         .yt-channel-mock .thumb-hotspot.active-cycle .play-btn-overlay {
             color: #ff5a0a !important;
@@ -1661,6 +1694,7 @@
             transform: translateY(5px);
             transition: all 0.3s ease;
         }
+
         .yt-channel-mock .thumb-hotspot:hover .ctr-badge,
         .yt-channel-mock .thumb-hotspot.active-cycle .ctr-badge {
             opacity: 1;
@@ -1687,27 +1721,34 @@
             .premium-cta-card {
                 padding: 60px 40px;
             }
+
             .premium-cta-inner {
                 grid-template-columns: 1fr;
                 gap: 50px;
                 text-align: center;
             }
+
             .premium-cta-content {
                 align-items: center;
                 text-align: center;
             }
+
             .premium-cta-desc {
                 margin-inline: auto;
             }
+
             .premium-cta-bullets {
                 align-items: flex-start;
                 margin-inline: auto;
             }
+
             .premium-cta-actions {
                 justify-content: center;
             }
+
             .premium-cta-mockup-wrapper {
-                order: -1; /* Show mock first on mobile for visual engagement */
+                order: -1;
+                /* Show mock first on mobile for visual engagement */
             }
         }
 
@@ -1716,19 +1757,23 @@
                 padding: 40px 20px;
                 border-radius: 28px;
             }
+
             .premium-cta-bullets {
                 font-size: 0.85rem;
             }
+
             .premium-cta-actions {
                 flex-direction: column;
                 width: 100%;
                 gap: 12px;
             }
+
             .btn-premium-cta-primary,
             .btn-premium-cta-secondary {
                 width: 100%;
                 justify-content: center;
             }
+
             .mini-channel-mock {
                 max-width: 100%;
             }
@@ -1763,7 +1808,7 @@
 
         .about-preview-card:hover {
             border-color: rgba(255, 90, 10, 0.25);
-            box-shadow: 
+            box-shadow:
                 0 40px 90px rgba(0, 0, 0, 0.7),
                 0 0 50px rgba(255, 90, 10, 0.1),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -1839,7 +1884,7 @@
 
         .founder-card:hover {
             border-color: rgba(255, 90, 10, 0.3);
-            box-shadow: 
+            box-shadow:
                 0 40px 100px rgba(0, 0, 0, 0.8),
                 0 0 60px rgba(255, 90, 10, 0.15),
                 inset 0 1px 0 rgba(255, 255, 255, 0.1);
@@ -1988,8 +2033,8 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 15px rgba(255, 77, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
             transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
-                        background-position 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+                box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                background-position 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
             cursor: pointer;
             text-decoration: none !important;
             position: relative;
@@ -2043,7 +2088,8 @@
             <a href="/blog">Blogs</a>
             <a href="/editor" class="btn-nav-start mobile-only-btn">
                 Try Free
-                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon" style="width: 20px; height: 20px;">
+                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon"
+                    style="width: 20px; height: 20px;">
                     <path clip-rule="evenodd"
                         d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
                         fill-rule="evenodd"></path>
@@ -2086,6 +2132,14 @@
                     hamburger.classList.remove('open');
                     navLinks.classList.remove('open');
                 });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (mainNav && !mainNav.contains(e.target) && navLinks.classList.contains('open')) {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
+                }
             });
         }
 
@@ -2151,7 +2205,12 @@
         <div class="animate-fade-up delay-4" style="width:100%;max-width:720px;margin-top:40px;">
             <div class="upload-state-wrapper" id="hero-upload-state" onclick="window.location.href='/editor'">
                 <span class="upload-state-icon" id="upload-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:2.5rem;height:2.5rem;color:var(--accent);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round" style="width:2.5rem;height:2.5rem;color:var(--accent);">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                    </svg>
                 </span>
                 <div class="upload-state-title" id="upload-title">Drop your banner here</div>
                 <ul class="upload-checklist">
@@ -2167,7 +2226,8 @@
         <div class="hero-mockup animate-fade-up delay-4">
             <div class="yt-channel-mock">
                 <!-- Banner Hotspot -->
-                <div class="mock-banner mock-hotspot banner-hotspot" data-tool="banner" onclick="window.location.href='/youtube-banner-preview'">
+                <div class="mock-banner mock-hotspot banner-hotspot" data-tool="banner"
+                    onclick="window.location.href='/youtube-banner-preview'">
                     <div class="hotspot-pulse"></div>
                     <div
                         style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: auto; max-width: 90%; text-align: center; padding: 12px 28px; background: rgba(0,0,0,0.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 8px 32px rgba(0,0,0,0.35);">
@@ -2186,7 +2246,8 @@
                 </div>
                 <div class="mock-header">
                     <!-- Profile Picture Hotspot -->
-                    <div class="mock-pfp mock-hotspot pfp-hotspot" data-tool="pfp" onclick="window.location.href='/youtube-profile-picture-preview'">
+                    <div class="mock-pfp mock-hotspot pfp-hotspot" data-tool="pfp"
+                        onclick="window.location.href='/youtube-profile-picture-preview'">
                         <div class="hotspot-pulse"></div>
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -2198,7 +2259,8 @@
                             <span>Preview circular crop guidelines</span>
                         </div>
                     </div>
-                    <div class="mock-info" onclick="window.location.href='/youtube-profile-picture-preview'" style="cursor: pointer;">
+                    <div class="mock-info" onclick="window.location.href='/youtube-profile-picture-preview'"
+                        style="cursor: pointer;">
                         <div class="mock-name">Channel Preview</div>
                         <div class="mock-meta">
                             <span>@ChannelPreview</span>
@@ -2230,7 +2292,8 @@
                     <div class="mock-video-grid">
                         <div class="mock-video-card" style="position: relative;">
                             <!-- Thumbnail Hotspot -->
-                            <div class="mock-thumb mock-hotspot thumb-hotspot" data-tool="thumbnail" onclick="window.location.href='/youtube-thumbnail-preview'">
+                            <div class="mock-thumb mock-hotspot thumb-hotspot" data-tool="thumbnail"
+                                onclick="window.location.href='/youtube-thumbnail-preview'">
                                 <div class="hotspot-pulse"></div>
                                 <div
                                     style="position:absolute; bottom:8px; right:8px; background:rgba(0,0,0,0.8); padding:2px 4px; border-radius:4px; font-size:0.7rem; z-index: 1;">
@@ -2245,7 +2308,8 @@
                             </div>
                             <div class="mock-v-info">
                                 <!-- Title Hotspot -->
-                                <div class="mock-hotspot title-hotspot" data-tool="title" onclick="window.location.href='/youtube-title-preview'">
+                                <div class="mock-hotspot title-hotspot" data-tool="title"
+                                    onclick="window.location.href='/youtube-title-preview'">
                                     <div class="hotspot-pulse"></div>
                                     <div class="mock-v-title">How to Preview Your YouTube Channel Like a Pro</div>
                                     <div class="hotspot-tooltip">
@@ -2285,42 +2349,17 @@
             <!-- Active hotspot label indicator -->
             <div class="mockup-indicator hero-mockup-indicator" style="margin: 20px auto 0; width: fit-content;">
                 <span class="indicator-icon" style="display:inline-flex;align-items:center;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="width:14px;height:14px;color:var(--accent);">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
                 </span>
                 <span class="indicator-text">Hover elements to see what you can test</span>
             </div>
         </div>
     </section>
 
-    <!-- ── MONETIZATION AD: HERO BREAK (Placement 1) ── -->
-    <div class="container">
-        <div class="cp-ad-wrapper">
-            <div class="cp-ad-content cp-ad-desktop-only">
-                <script>
-                  atOptions = {
-                    'key' : '7fa4b97bd50009f526253290f2decb94',
-                    'format' : 'iframe',
-                    'height' : 90,
-                    'width' : 728,
-                    'params' : {}
-                  };
-                </script>
-                <script src="https://www.highrevenueformat.com/7fa4b97bd50009f526253290f2decb94/invoke.js"></script>
-            </div>
-            <div class="cp-ad-content cp-ad-mobile-only">
-                <script>
-                  atOptions = {
-                    'key' : 'a054f74c22dcf02560f024ca780ad4e6',
-                    'format' : 'iframe',
-                    'height' : 50,
-                    'width' : 320,
-                    'params' : {}
-                  };
-                </script>
-                <script src="https://www.highrevenueformat.com/a054f74c22dcf02560f024ca780ad4e6/invoke.js"></script>
-            </div>
-        </div>
-    </div>
 
     <!-- ── TRUSTED BY ── -->
     <section class="trusted-by">
@@ -2328,19 +2367,39 @@
             <div class="trusted-text">Trusted by 40,000+ creators to scale content</div>
             <div class="trusted-logos">
                 <div class="trusted-logo">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="width:16px;height:16px;">
+                        <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
+                    </svg>
                     Genixus
                 </div>
                 <div class="trusted-logo">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><circle cx="12" cy="12" r="10"/><line x1="14.31" y1="8" x2="20.05" y2="17.94"/><line x1="9.69" y1="8" x2="21.17" y2="8"/><line x1="7.38" y1="12" x2="13.12" y2="2.06"/><line x1="9.69" y1="16" x2="3.95" y2="6.06"/><line x1="14.31" y1="16" x2="2.83" y2="16"/><line x1="16.62" y1="12" x2="10.88" y2="21.94"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="width:16px;height:16px;">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="14.31" y1="8" x2="20.05" y2="17.94" />
+                        <line x1="9.69" y1="8" x2="21.17" y2="8" />
+                        <line x1="7.38" y1="12" x2="13.12" y2="2.06" />
+                        <line x1="9.69" y1="16" x2="3.95" y2="6.06" />
+                        <line x1="14.31" y1="16" x2="2.83" y2="16" />
+                        <line x1="16.62" y1="12" x2="10.88" y2="21.94" />
+                    </svg>
                     Outriva
                 </div>
                 <div class="trusted-logo">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="width:16px;height:16px;">
+                        <path
+                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                    </svg>
                     Marbello
                 </div>
                 <div class="trusted-logo">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="width:16px;height:16px;">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
                     Starly
                 </div>
             </div>
@@ -2364,7 +2423,10 @@
             </div>
             <div class="stat-item">
                 <div class="stat-number" style="display:flex;align-items:center;justify-content:center;">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:2.5rem;height:2.5rem;color:var(--accent);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" style="width:2.5rem;height:2.5rem;color:var(--accent);">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                    </svg>
                 </div>
                 <div class="stat-label">Zero Uploads</div>
             </div>
@@ -2383,7 +2445,8 @@
             <div class="tools-header">
                 <span class="tools-badge">Creator Tools</span>
                 <h2 class="tools-main-title">Everything You Need to Preview Before You Publish</h2>
-                <p class="tools-sub-title">Preview banners, thumbnails, profile pictures, and titles exactly how viewers will see them on YouTube.</p>
+                <p class="tools-sub-title">Preview banners, thumbnails, profile pictures, and titles exactly how viewers
+                    will see them on YouTube.</p>
             </div>
 
             <!-- Card Grid -->
@@ -2393,10 +2456,11 @@
                     <div class="tool-card-top">
                         <div class="tool-icon-wrapper">
                             <!-- Image Icon (Lucide) -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tool-svg-icon">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                                <circle cx="8.5" cy="8.5" r="1.5"/>
-                                <polyline points="21 15 16 10 5 21"/>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="tool-svg-icon">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <polyline points="21 15 16 10 5 21" />
                             </svg>
                         </div>
                         <h3 class="tool-card-title">Banner Preview</h3>
@@ -2420,23 +2484,36 @@
                         </div>
                     </div>
 
-                    <p class="tool-card-desc">Preview your YouTube banner across desktop, mobile, and TV while ensuring important content stays inside the safe area.</p>
-                    
+                    <p class="tool-card-desc">Preview your YouTube banner across desktop, mobile, and TV while ensuring
+                        important content stays inside the safe area.</p>
+
                     <ul class="tool-features-list">
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Desktop Preview</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Mobile Preview</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>TV Preview</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Safe Area Overlay</span>
                         </li>
                     </ul>
@@ -2449,11 +2526,12 @@
                     <div class="tool-card-top">
                         <div class="tool-icon-wrapper">
                             <!-- Layout Grid Icon (Lucide) -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tool-svg-icon">
-                                <rect x="3" y="3" width="7" height="7"/>
-                                <rect x="14" y="3" width="7" height="7"/>
-                                <rect x="14" y="14" width="7" height="7"/>
-                                <rect x="3" y="14" width="7" height="7"/>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="tool-svg-icon">
+                                <rect x="3" y="3" width="7" height="7" />
+                                <rect x="14" y="3" width="7" height="7" />
+                                <rect x="14" y="14" width="7" height="7" />
+                                <rect x="3" y="14" width="7" height="7" />
                             </svg>
                         </div>
                         <h3 class="tool-card-title">Thumbnail Preview</h3>
@@ -2476,23 +2554,36 @@
                         </div>
                     </div>
 
-                    <p class="tool-card-desc">See exactly how your thumbnails appear in YouTube feeds, recommendations, and mobile layouts before publishing.</p>
-                    
+                    <p class="tool-card-desc">See exactly how your thumbnails appear in YouTube feeds, recommendations,
+                        and mobile layouts before publishing.</p>
+
                     <ul class="tool-features-list">
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Feed Preview</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Mobile Preview</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Duration Badge</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Title Simulation</span>
                         </li>
                     </ul>
@@ -2505,9 +2596,10 @@
                     <div class="tool-card-top">
                         <div class="tool-icon-wrapper">
                             <!-- User Circle Icon (Lucide) -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tool-svg-icon">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                                <circle cx="12" cy="7" r="4"/>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="tool-svg-icon">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
                             </svg>
                         </div>
                         <h3 class="tool-card-title">Profile Picture Preview</h3>
@@ -2531,23 +2623,36 @@
                         </div>
                     </div>
 
-                    <p class="tool-card-desc">Test how your channel logo and profile picture appear across YouTube surfaces and circular crops.</p>
-                    
+                    <p class="tool-card-desc">Test how your channel logo and profile picture appear across YouTube
+                        surfaces and circular crops.</p>
+
                     <ul class="tool-features-list">
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Channel Header</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Comments Preview</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Subscriptions View</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Circular Crop Test</span>
                         </li>
                     </ul>
@@ -2560,10 +2665,11 @@
                     <div class="tool-card-top">
                         <div class="tool-icon-wrapper">
                             <!-- Type Icon (Lucide) -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tool-svg-icon">
-                                <polyline points="4 7 4 4 20 4 20 7"/>
-                                <line x1="9" y1="20" x2="15" y2="20"/>
-                                <line x1="12" y1="4" x2="12" y2="20"/>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="tool-svg-icon">
+                                <polyline points="4 7 4 4 20 4 20 7" />
+                                <line x1="9" y1="20" x2="15" y2="20" />
+                                <line x1="12" y1="4" x2="12" y2="20" />
                             </svg>
                         </div>
                         <h3 class="tool-card-title">Title Preview</h3>
@@ -2582,23 +2688,36 @@
                         </div>
                     </div>
 
-                    <p class="tool-card-desc">Check title visibility, character limits, and truncation across desktop and mobile devices.</p>
-                    
+                    <p class="tool-card-desc">Check title visibility, character limits, and truncation across desktop
+                        and mobile devices.</p>
+
                     <ul class="tool-features-list">
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Desktop View</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Mobile View</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Search Preview</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Truncation Check</span>
                         </li>
                     </ul>
@@ -2611,44 +2730,65 @@
                     <div class="tool-card-top">
                         <div class="tool-icon-wrapper">
                             <!-- Play Screen Icon -->
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="tool-svg-icon">
-                                <polygon points="23 7 16 12 23 17 23 7"/>
-                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" class="tool-svg-icon">
+                                <polygon points="23 7 16 12 23 17 23 7" />
+                                <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
                             </svg>
                         </div>
                         <h3 class="tool-card-title">Watch Page Tester</h3>
                     </div>
 
                     <!-- CSS/SVG Visual Mockup for Watch Page Tester -->
-                    <div class="tool-card-visual watch-visual" style="padding: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 14px; height: 100px;">
-                        <div class="mini-watch-frame" style="width: 110px; background: #0f0f0f; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; padding: 4px; display: flex; flex-direction: column; gap: 4px;">
-                            <div class="mini-player-bar" style="aspect-ratio: 16/9; width: 100%; background: linear-gradient(135deg, #ff4d00, #ff7300); border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                    <div class="tool-card-visual watch-visual"
+                        style="padding: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.04); border-radius: 14px; height: 100px;">
+                        <div class="mini-watch-frame"
+                            style="width: 110px; background: #0f0f0f; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.08); overflow: hidden; padding: 4px; display: flex; flex-direction: column; gap: 4px;">
+                            <div class="mini-player-bar"
+                                style="aspect-ratio: 16/9; width: 100%; background: linear-gradient(135deg, #ff4d00, #ff7300); border-radius: 4px; display: flex; align-items: center; justify-content: center;">
                                 <span style="font-size: 0.6rem; color: #fff;">▶</span>
                             </div>
                             <div class="mini-details-bar" style="display: flex; flex-direction: column; gap: 2px;">
-                                <div style="height: 3px; width: 90%; background: rgba(255, 255, 255, 0.3); border-radius: 1px;"></div>
-                                <div style="height: 2px; width: 60%; background: rgba(255, 255, 255, 0.15); border-radius: 1px;"></div>
+                                <div
+                                    style="height: 3px; width: 90%; background: rgba(255, 255, 255, 0.3); border-radius: 1px;">
+                                </div>
+                                <div
+                                    style="height: 2px; width: 60%; background: rgba(255, 255, 255, 0.15); border-radius: 1px;">
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <p class="tool-card-desc">Simulate a full YouTube watch page environment. Test video overlays, comments, descriptions, and recommendation grids.</p>
-                    
+                    <p class="tool-card-desc">Simulate a full YouTube watch page environment. Test video overlays,
+                        comments, descriptions, and recommendation grids.</p>
+
                     <ul class="tool-features-list">
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Video Player Mock</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Sidebar Recommendations</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Comment Simulation</span>
                         </li>
                         <li>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon"><polyline points="20 6 9 17 4 12"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" class="feature-check-icon">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
                             <span>Visual Blur & Safe Zone Tests</span>
                         </li>
                     </ul>
@@ -2661,24 +2801,21 @@
             <div class="tools-bottom-cta">
                 <div class="tools-bottom-cta-glow"></div>
                 <h3 class="tools-bottom-title">Not Sure Where to Start?</h3>
-                <p class="tools-bottom-desc">Open the complete editor and preview all your YouTube assets in one place.</p>
+                <p class="tools-bottom-desc">Open the complete editor and preview all your YouTube assets in one place.
+                </p>
                 <a href="/editor" class="btn-creative-primary">
                     Launch Full Editor
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="editor-arrow-icon"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round" class="editor-arrow-icon">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- ── MONETIZATION AD: MID-PAGE NATIVE (Placement 2) ── -->
-    <div class="container">
-        <div class="cp-ad-wrapper">
-            <div class="cp-ad-content">
-                <script async="async" data-cfasync="false" src="https://pl31124140.profitableratecpmnetwork.com/c7f9cd06c6dfa2b59257c3a08b5b22ef/invoke.js"></script>
-                <div id="container-c7f9cd06c6dfa2b59257c3a08b5b22ef" style="width: 100%; min-height: 100px;"></div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- ── FEATURES ── -->
     <section id="features" class="section">
@@ -2885,27 +3022,45 @@
             <div class="examples-grid">
                 <!-- Gaming Banner -->
                 <a href="/youtube-banner-preview" class="example-card" style="text-decoration:none;">
-                    <div class="example-banner-preview" style="background:linear-gradient(135deg,#0d0d1a 0%,#1a0533 40%,#2d0a4f 70%,#1a0d2e 100%);">
+                    <div class="example-banner-preview"
+                        style="background:linear-gradient(135deg,#0d0d1a 0%,#1a0533 40%,#2d0a4f 70%,#1a0d2e 100%);">
                         <!-- Animated grid lines background -->
-                        <div style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(147,51,234,0.05) 60px,rgba(147,51,234,0.05) 61px);pointer-events:none;"></div>
+                        <div
+                            style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(147,51,234,0.05) 60px,rgba(147,51,234,0.05) 61px);pointer-events:none;">
+                        </div>
                         <!-- Glowing orb -->
-                        <div style="position:absolute;right:-20px;top:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(147,51,234,0.3),transparent 70%);filter:blur(20px);pointer-events:none;"></div>
+                        <div
+                            style="position:absolute;right:-20px;top:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(147,51,234,0.3),transparent 70%);filter:blur(20px);pointer-events:none;">
+                        </div>
                         <!-- Banner content -->
-                        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+                        <div
+                            style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
                             <div style="display:flex;align-items:center;gap:8px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(147,51,234,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                                <div style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(0.9rem,3vw,1.4rem);color:#fff;letter-spacing:-0.02em;text-shadow:0 0 20px rgba(147,51,234,0.6);">NEXUS GAMING</div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(147,51,234,0.9)" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;">
+                                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                                </svg>
+                                <div
+                                    style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(0.9rem,3vw,1.4rem);color:#fff;letter-spacing:-0.02em;text-shadow:0 0 20px rgba(147,51,234,0.6);">
+                                    NEXUS GAMING</div>
                             </div>
                             <div style="display:flex;align-items:center;gap:6px;">
-                                <span style="width:5px;height:5px;background:#9333ea;border-radius:50%;display:inline-block;box-shadow:0 0 6px #9333ea;"></span>
-                                <div style="font-size:0.6rem;color:rgba(167,101,255,0.9);font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">LIVE EVERY FRIDAY</div>
+                                <span
+                                    style="width:5px;height:5px;background:#9333ea;border-radius:50%;display:inline-block;box-shadow:0 0 6px #9333ea;"></span>
+                                <div
+                                    style="font-size:0.6rem;color:rgba(167,101,255,0.9);font-weight:700;letter-spacing:0.18em;text-transform:uppercase;">
+                                    LIVE EVERY FRIDAY</div>
                             </div>
                         </div>
                         <div class="safe-zone-overlay"></div>
                     </div>
                     <div class="example-card-body">
                         <span class="example-tag" style="display:inline-flex;align-items:center;gap:6px;">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><polygon points="10 9 10 15 15 12 10 9" fill="currentColor" stroke="none"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                                <polygon points="10 9 10 15 15 12 10 9" fill="currentColor" stroke="none" />
+                            </svg>
                             Gaming Channel
                         </span>
                         <h4>Dark Gradient Gaming Banner</h4>
@@ -2915,61 +3070,104 @@
                 </a>
                 <!-- Podcast Banner -->
                 <a href="/youtube-banner-preview" class="example-card" style="text-decoration:none;">
-                    <div class="example-banner-preview" style="background:linear-gradient(135deg,#0a1628 0%,#1e3a5f 50%,#0f2340 100%);">
+                    <div class="example-banner-preview"
+                        style="background:linear-gradient(135deg,#0a1628 0%,#1e3a5f 50%,#0f2340 100%);">
                         <!-- Subtle horizontal lines -->
-                        <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 20px,rgba(59,130,246,0.04) 20px,rgba(59,130,246,0.04) 21px);pointer-events:none;"></div>
+                        <div
+                            style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 20px,rgba(59,130,246,0.04) 20px,rgba(59,130,246,0.04) 21px);pointer-events:none;">
+                        </div>
                         <!-- Blue glow -->
-                        <div style="position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);width:160px;height:80px;background:radial-gradient(circle,rgba(59,130,246,0.2),transparent 70%);filter:blur(20px);pointer-events:none;"></div>
+                        <div
+                            style="position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);width:160px;height:80px;background:radial-gradient(circle,rgba(59,130,246,0.2),transparent 70%);filter:blur(20px);pointer-events:none;">
+                        </div>
                         <!-- Banner content -->
-                        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+                        <div
+                            style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
                             <div style="display:flex;align-items:center;gap:8px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(96,165,250,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-                                <div style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(0.85rem,2.8vw,1.3rem);color:#fff;letter-spacing:-0.02em;">THE DAILY BRIEF</div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(96,165,250,0.9)" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">
+                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                                    <line x1="12" y1="19" x2="12" y2="23" />
+                                    <line x1="8" y1="23" x2="16" y2="23" />
+                                </svg>
+                                <div
+                                    style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(0.85rem,2.8vw,1.3rem);color:#fff;letter-spacing:-0.02em;">
+                                    THE DAILY BRIEF</div>
                             </div>
                             <div style="display:flex;align-items:center;gap:6px;">
-                                <span style="width:5px;height:5px;background:#60a5fa;border-radius:50%;display:inline-block;"></span>
-                                <div style="font-size:0.58rem;color:rgba(96,165,250,0.9);font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">EVERY WEEKDAY · 20 MIN</div>
+                                <span
+                                    style="width:5px;height:5px;background:#60a5fa;border-radius:50%;display:inline-block;"></span>
+                                <div
+                                    style="font-size:0.58rem;color:rgba(96,165,250,0.9);font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">
+                                    EVERY WEEKDAY · 20 MIN</div>
                             </div>
                         </div>
                         <div class="safe-zone-overlay"></div>
                     </div>
                     <div class="example-card-body">
                         <span class="example-tag" style="display:inline-flex;align-items:center;gap:6px;">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+                                <line x1="12" y1="19" x2="12" y2="23" />
+                            </svg>
                             Podcast Channel
                         </span>
                         <h4>Minimal Blue Podcast Banner</h4>
-                        <p>Clean minimalist design — schedule information visible in the center safe area on all screens.</p>
+                        <p>Clean minimalist design — schedule information visible in the center safe area on all
+                            screens.</p>
                         <span class="example-cta">Preview this style →</span>
                     </div>
                 </a>
                 <!-- Education Banner -->
                 <a href="/youtube-banner-preview" class="example-card" style="text-decoration:none;">
-                    <div class="example-banner-preview" style="background:linear-gradient(135deg,#0a1a0a 0%,#0d2b0d 50%,#1a3d1a 100%);">
+                    <div class="example-banner-preview"
+                        style="background:linear-gradient(135deg,#0a1a0a 0%,#0d2b0d 50%,#1a3d1a 100%);">
                         <!-- Circuit-like dot grid -->
-                        <div style="position:absolute;inset:0;background:radial-gradient(rgba(34,197,94,0.08) 1px,transparent 1px);background-size:18px 18px;pointer-events:none;"></div>
+                        <div
+                            style="position:absolute;inset:0;background:radial-gradient(rgba(34,197,94,0.08) 1px,transparent 1px);background-size:18px 18px;pointer-events:none;">
+                        </div>
                         <!-- Green glow -->
-                        <div style="position:absolute;right:-10px;top:50%;transform:translateY(-50%);width:140px;height:140px;background:radial-gradient(circle,rgba(34,197,94,0.15),transparent 70%);filter:blur(20px);pointer-events:none;"></div>
+                        <div
+                            style="position:absolute;right:-10px;top:50%;transform:translateY(-50%);width:140px;height:140px;background:radial-gradient(circle,rgba(34,197,94,0.15),transparent 70%);filter:blur(20px);pointer-events:none;">
+                        </div>
                         <!-- Banner content -->
-                        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
+                        <div
+                            style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
                             <div style="display:flex;align-items:center;gap:8px;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(34,197,94,0.9)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-                                <div style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(0.85rem,2.8vw,1.25rem);color:#fff;letter-spacing:-0.02em;">CODE WITH MAYA</div>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="rgba(34,197,94,0.9)" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px;">
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                                </svg>
+                                <div
+                                    style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(0.85rem,2.8vw,1.25rem);color:#fff;letter-spacing:-0.02em;">
+                                    CODE WITH MAYA</div>
                             </div>
                             <div style="display:flex;align-items:center;gap:6px;">
-                                <span style="width:5px;height:5px;background:#22c55e;border-radius:50%;display:inline-block;box-shadow:0 0 6px #22c55e;"></span>
-                                <div style="font-size:0.58rem;color:rgba(34,197,94,0.9);font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">TUTORIALS · EVERY TUESDAY</div>
+                                <span
+                                    style="width:5px;height:5px;background:#22c55e;border-radius:50%;display:inline-block;box-shadow:0 0 6px #22c55e;"></span>
+                                <div
+                                    style="font-size:0.58rem;color:rgba(34,197,94,0.9);font-weight:700;letter-spacing:0.16em;text-transform:uppercase;">
+                                    TUTORIALS · EVERY TUESDAY</div>
                             </div>
                         </div>
                         <div class="safe-zone-overlay"></div>
                     </div>
                     <div class="example-card-body">
                         <span class="example-tag" style="display:inline-flex;align-items:center;gap:6px;">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                            </svg>
                             Education Channel
                         </span>
                         <h4>Dark Green Education Banner</h4>
-                        <p>Subject matter identity with upload schedule — both elements fit neatly in the mobile safe zone.</p>
+                        <p>Subject matter identity with upload schedule — both elements fit neatly in the mobile safe
+                            zone.</p>
                         <span class="example-cta">Preview this style →</span>
                     </div>
                 </a>
@@ -3054,21 +3252,34 @@
     </section>
 
     <!-- ── ABOUT PREVIEW SECTION ── -->
-    <section id="about-preview" class="section scroll-reveal" style="padding: 100px 0; background: transparent; position: relative;">
+    <section id="about-preview" class="section scroll-reveal"
+        style="padding: 100px 0; background: transparent; position: relative;">
         <div class="container" style="max-width: 900px;">
             <div class="about-preview-card">
                 <!-- Decorative Radial Glow -->
-                <div style="position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 400px; height: 400px; background: radial-gradient(circle, rgba(255, 77, 0, 0.12) 0%, transparent 70%); pointer-events: none; filter: blur(40px); z-index: 0;"></div>
-                
+                <div
+                    style="position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 400px; height: 400px; background: radial-gradient(circle, rgba(255, 77, 0, 0.12) 0%, transparent 70%); pointer-events: none; filter: blur(40px); z-index: 0;">
+                </div>
+
                 <div style="position: relative; z-index: 1;">
                     <span class="section-eyebrow" style="margin-bottom: 24px;">About Channel Preview</span>
-                    <h2 class="section-title" style="font-size: 2.5rem; font-weight: 800; color: #fff; margin-bottom: 20px; letter-spacing: -0.02em; line-height: 1.2;">Built for YouTube Creators</h2>
-                    <p style="font-size: 1.1rem; line-height: 1.7; color: var(--text-secondary); max-width: 680px; margin: 0 auto 36px;">
-                        Channel Preview helps YouTube creators preview banners, thumbnails, profile pictures, and titles before publishing. Our goal is to make creator workflows simpler and help you publish with confidence.
+                    <h2 class="section-title"
+                        style="font-size: 2.5rem; font-weight: 800; color: #fff; margin-bottom: 20px; letter-spacing: -0.02em; line-height: 1.2;">
+                        Built for YouTube Creators</h2>
+                    <p
+                        style="font-size: 1.1rem; line-height: 1.7; color: var(--text-secondary); max-width: 680px; margin: 0 auto 36px;">
+                        Channel Preview helps YouTube creators preview banners, thumbnails, profile pictures, and titles
+                        before publishing. Our goal is to make creator workflows simpler and help you publish with
+                        confidence.
                     </p>
                     <a href="/about" class="btn-premium-cta-secondary">
                         <span>Learn More</span>
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon" style="width: 18px; height: 18px; margin-left: 8px; transition: transform 0.3s ease;"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round" class="arrow-icon"
+                            style="width: 18px; height: 18px; margin-left: 8px; transition: transform 0.3s ease;">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
                     </a>
                 </div>
             </div>
@@ -3076,10 +3287,13 @@
     </section>
 
     <!-- ── FOUNDER (THE PERSON BEHIND IT) ── -->
-    <section id="founder-preview" class="section scroll-reveal" style="border-top: 1px solid var(--border); padding: 100px 0; background: transparent; position: relative;">
+    <section id="founder-preview" class="section scroll-reveal"
+        style="border-top: 1px solid var(--border); padding: 100px 0; background: transparent; position: relative;">
         <!-- Decorative Ambient Radial Glow behind the founder card -->
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(255, 77, 0, 0.07) 0%, transparent 70%); pointer-events: none; filter: blur(60px); z-index: 0;"></div>
-        
+        <div
+            style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(255, 77, 0, 0.07) 0%, transparent 70%); pointer-events: none; filter: blur(60px); z-index: 0;">
+        </div>
+
         <div class="container" style="max-width: 1100px; position: relative; z-index: 1;">
             <div style="text-align: center; margin-bottom: 56px;">
                 <span class="section-eyebrow" style="margin-bottom: 16px;">The Person Behind It</span>
@@ -3088,7 +3302,7 @@
 
             <div class="founder-card">
                 <div class="founder-avatar">
-                    <img src="assets/Gagan.png" alt="Gagan Pratap — Founder of Channel Preview"
+                    <img src="/assets/Gagan.png" alt="Gagan Pratap — Founder of Channel Preview"
                         onerror="this.parentElement.style.backgroundImage='linear-gradient(135deg,#ff4d00,#ff7300)'; this.style.display='none'; this.parentElement.insertAdjacentHTML('beforeend', '<span style=\'font-size:3.5rem;font-weight:900;color:#fff;font-family:Outfit,sans-serif;display:flex;align-items:center;justify-content:center;height:100%\'>GP</span>')">
                 </div>
                 <div>
@@ -3105,23 +3319,7 @@
         </div>
     </section>
 
-    <!-- ── MONETIZATION AD: PRE-RESOURCES (Placement 3) ── -->
-    <div class="container">
-        <div class="cp-ad-wrapper">
-            <div class="cp-ad-content">
-                <script>
-                  atOptions = {
-                    'key' : '30d8f3b01652f52206b563e56964d9df',
-                    'format' : 'iframe',
-                    'height' : 250,
-                    'width' : 300,
-                    'params' : {}
-                  };
-                </script>
-                <script src="https://www.highrevenueformat.com/30d8f3b01652f52206b563e56964d9df/invoke.js"></script>
-            </div>
-        </div>
-    </div>
+
 
     <!-- ── LATEST CREATOR RESOURCES ── -->
     <section class="section" style="border-top: 1px solid var(--border); background: transparent; position: relative;">
@@ -3137,8 +3335,14 @@
                 <!-- Article Card 1 -->
                 <div class="card"
                     style="display: flex; flex-direction: column; height: 100%; border-radius: var(--radius-lg);">
-                    <div style="width:52px;height:52px;background:rgba(255,77,0,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--accent);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                    <div
+                        style="width:52px;height:52px;background:rgba(255,77,0,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--accent);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <line x1="3" y1="9" x2="21" y2="9" />
+                            <line x1="9" y1="21" x2="9" y2="9" />
+                        </svg>
                     </div>
                     <div
                         style="font-size: 0.78rem; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">
@@ -3157,8 +3361,13 @@
                 <!-- Article Card 2 -->
                 <div class="card"
                     style="display: flex; flex-direction: column; height: 100%; border-radius: var(--radius-lg);">
-                    <div style="width:52px;height:52px;background:rgba(255,77,0,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--accent);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    <div
+                        style="width:52px;height:52px;background:rgba(255,77,0,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--accent);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                            <line x1="12" y1="18" x2="12.01" y2="18" />
+                        </svg>
                     </div>
                     <div
                         style="font-size: 0.78rem; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">
@@ -3176,8 +3385,14 @@
                 <!-- Article Card 3 -->
                 <div class="card"
                     style="display: flex; flex-direction: column; height: 100%; border-radius: var(--radius-lg);">
-                    <div style="width:52px;height:52px;background:rgba(255,77,0,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--accent);">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    <div
+                        style="width:52px;height:52px;background:rgba(255,77,0,0.1);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--accent);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="width:24px;height:24px;">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                            <circle cx="8.5" cy="8.5" r="1.5" />
+                            <polyline points="21 15 16 10 5 21" />
+                        </svg>
                     </div>
                     <div
                         style="font-size: 0.78rem; color: var(--accent); font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">
@@ -3216,13 +3431,91 @@
         </div>
     </section>
 
+    
+    <!-- ── FREQUENTLY ASKED QUESTIONS (FAQ) ── -->
+    <section class="faq-section" id="faq">
+        <div class="faq-header">
+            <div class="section-eyebrow">Got Questions?</div>
+            <h2 class="section-title">Frequently Asked <span class="accent-text">Questions</span></h2>
+            <p class="section-subtitle" style="margin: 0 auto;">Everything you need to know about previewing your YouTube channel assets and safe zones.</p>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    What is Channel Preview and how does it work?
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Channel Preview is a 100% free web-based simulation toolkit built for YouTube creators. It allows you to preview how your banners, thumbnails, profile pictures, titles, and video watch pages look across Desktop, Mobile, Tablet, and TV before publishing them to YouTube.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    Is Channel Preview completely free? Do I need an account?
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Yes, Channel Preview is 100% free with no account required, no subscription, no credit card, and no watermarks. You can start testing your graphics immediately right in your browser.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    Are my uploaded images or drafts private and secure?
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Absolutely. All image processing, cropping, safe area calculations, and rendering happen strictly client-side inside your own web browser. Your private graphics and unreleased thumbnails never leave your device.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    What are the ideal YouTube banner dimensions and safe zones in 2026?
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        YouTube recommends a banner upload size of <strong>2560 × 1440 pixels</strong> (16:9 ratio) under 6MB. The central safe area is <strong>1546 × 423 pixels</strong>. Keeping your channel name, logo, social handles, and text within this safe zone guarantees they won't get cropped on mobile screens.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    Why do thumbnails look different on mobile vs desktop?
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        Mobile feeds display thumbnails at a much smaller size and place a persistent video duration timestamp badge in the bottom-right corner. Our Thumbnail Preview tool lets you test contrast, test the blur test for mobile squinting, and ensure important text isn't obscured by the timestamp.
+                    </div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    Where does YouTube truncate video titles?
+                    <span class="faq-icon">▼</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        While YouTube allows up to 100 characters in titles, mobile feeds and sidebar recommendations truncate titles around <strong>50–60 characters</strong> (or 2 lines). Testing with our Title Preview tool helps you front-load your curiosity hooks and target keywords before the ellipsis cut-off.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ── PREMIUM HOMEPAGE CTA ── -->
     <section class="premium-cta-section container scroll-reveal">
         <div class="premium-cta-card">
             <!-- Decorative background elements -->
             <div class="premium-cta-glow"></div>
             <div class="premium-cta-grid-bg"></div>
-            
+
             <div class="premium-cta-inner">
                 <!-- Left: Content & Action -->
                 <div class="premium-cta-content">
@@ -3235,25 +3528,35 @@
                         <span class="accent-gradient-text">Your Channel?</span>
                     </h2>
                     <p class="premium-cta-desc">
-                        Don't guess how your brand looks on different screens. Test your banners, thumbnails, titles, and profile picture in real-time before you hit publish.
+                        Don't guess how your brand looks on different screens. Test your banners, thumbnails, titles,
+                        and profile picture in real-time before you hit publish.
                     </p>
-                    
+
                     <div class="premium-cta-bullets">
                         <div class="bullet-item">
                             <span class="bullet-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
                             </span>
                             <span>No sign-up or accounts required</span>
                         </div>
                         <div class="bullet-item">
                             <span class="bullet-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
                             </span>
                             <span>100% private, browser-based processing</span>
                         </div>
                         <div class="bullet-item">
                             <span class="bullet-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
                             </span>
                             <span>Test on Desktop, Mobile, Tablet, & TV views</span>
                         </div>
@@ -3262,7 +3565,11 @@
                     <div class="premium-cta-actions">
                         <a href="/editor" class="btn-premium-cta-primary">
                             <span>Start Previewing Free</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="arrow-icon"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                                stroke-linecap="round" stroke-linejoin="round" class="arrow-icon">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
                         </a>
                         <a href="/#features" class="btn-premium-cta-secondary">
                             <span>Explore Features</span>
@@ -3280,13 +3587,13 @@
                                 <span class="dot-yellow"></span>
                                 <span class="dot-green"></span>
                             </div>
-                            <div class="header-address">channelpreview.vercel.app/editor</div>
+                            <div class="header-address">www.channelpreview.com/editor</div>
                         </div>
-                        
+
                         <!-- Inside the mockup: Mini YouTube Channel -->
                         <div class="mini-mock-body">
                             <!-- Banner Hotspot -->
-                            <div class="mock-hotspot banner-hotspot" data-tool="banner">
+                            <div class="mock-hotspot banner-hotspot" data-tool="banner" onclick="window.location.href='/youtube-banner-preview'" style="cursor: pointer;">
                                 <div class="hotspot-pulse"></div>
                                 <div class="banner-strip">
                                     <!-- Mobile Safe Area guide lines in the center -->
@@ -3303,10 +3610,13 @@
                             <div class="mock-main-content">
                                 <div class="mock-user-row">
                                     <!-- PFP Hotspot -->
-                                    <div class="mock-hotspot pfp-hotspot" data-tool="pfp">
+                                    <div class="mock-hotspot pfp-hotspot" data-tool="pfp" onclick="window.location.href='/youtube-profile-picture-preview'" style="cursor: pointer;">
                                         <div class="hotspot-pulse"></div>
                                         <div class="mock-pfp-avatar">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                <circle cx="12" cy="7" r="4"></circle>
+                                            </svg>
                                         </div>
                                         <div class="hotspot-tooltip">
                                             <strong>Profile Picture</strong>
@@ -3322,11 +3632,11 @@
 
                                 <!-- Video Section -->
                                 <div class="mock-videos-title">Latest Videos</div>
-                                
+
                                 <div class="mock-videos-list">
                                     <div class="mock-video-item">
                                         <!-- Thumbnail Hotspot -->
-                                        <div class="mock-hotspot thumb-hotspot" data-tool="thumbnail">
+                                        <div class="mock-hotspot thumb-hotspot" data-tool="thumbnail" onclick="window.location.href='/youtube-thumbnail-preview'" style="cursor: pointer;">
                                             <div class="hotspot-pulse"></div>
                                             <div class="mock-video-thumbnail">
                                                 <span class="play-btn-overlay">▶</span>
@@ -3338,9 +3648,9 @@
                                                 <span>Compare CTR potential & do Blur/Grid tests</span>
                                             </div>
                                         </div>
-                                        
+
                                         <!-- Title Hotspot -->
-                                        <div class="mock-hotspot title-hotspot" data-tool="title">
+                                        <div class="mock-hotspot title-hotspot" data-tool="title" onclick="window.location.href='/youtube-title-preview'" style="cursor: pointer;">
                                             <div class="hotspot-pulse"></div>
                                             <div class="mock-video-title">
                                                 How to Design Thumbnails That Get Clicked...
@@ -3493,15 +3803,16 @@
 
             <!-- Social Buttons -->
             <div class="footer-socials">
-                <a href="https://www.youtube.com/@thegaganpratap" class="social-btn" aria-label="YouTube" target="_blank" rel="noopener">
+                <a href="https://www.youtube.com/@thegaganpratap" class="social-btn" aria-label="YouTube"
+                    target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                         <path
                             d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.002 3.002 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z">
                         </path>
                     </svg>
                 </a>
-                <a href="https://www.instagram.com/thegaganpratap/" class="social-btn" aria-label="Instagram" target="_blank"
-                    rel="noopener">
+                <a href="https://www.instagram.com/thegaganpratap/" class="social-btn" aria-label="Instagram"
+                    target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" width="18" height="18">
                         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -3509,7 +3820,8 @@
                         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                     </svg>
                 </a>
-                <a href="https://www.linkedin.com/in/gagan-pratap/" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <a href="https://www.linkedin.com/in/gagan-pratap/" class="social-btn" aria-label="LinkedIn"
+                    target="_blank" rel="noopener">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" width="18" height="18">
                         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
@@ -3517,9 +3829,12 @@
                         <circle cx="4" cy="4" r="2"></circle>
                     </svg>
                 </a>
-                <a href="https://twitter.com/thegaganpratap_" class="social-btn" aria-label="Twitter" target="_blank" rel="noopener">
+                <a href="https://twitter.com/thegaganpratap_" class="social-btn" aria-label="Twitter" target="_blank"
+                    rel="noopener">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                        <path
+                            d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z">
+                        </path>
                     </svg>
                 </a>
             </div>
@@ -3551,9 +3866,35 @@
             fadeObserver.observe(el);
         });
 
-        // Animate delayed elements on load
-        document.querySelectorAll('.delay-1,.delay-2,.delay-3,.delay-4').forEach(el => {
-            el.style.opacity = '0';
+
+
+        
+        // FAQ Accordion toggles
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.closest('.faq-item');
+                const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+                document.querySelectorAll('.faq-item').forEach(other => {
+                    if (other !== item) {
+                        other.classList.remove('active');
+                        const otherBtn = other.querySelector('.faq-question');
+                        const otherAns = other.querySelector('.faq-answer');
+                        if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+                        if (otherAns) otherAns.style.maxHeight = '0px';
+                    }
+                });
+
+                btn.setAttribute('aria-expanded', !isExpanded);
+                item.classList.toggle('active');
+
+                const answer = item.querySelector('.faq-answer');
+                if (item.classList.contains('active')) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                } else {
+                    answer.style.maxHeight = '0px';
+                }
+            });
         });
 
         // Device chip interaction
@@ -3626,7 +3967,7 @@
         });
 
         // ── Interactive CTA Mockup cycle ──
-        (function() {
+        (function () {
             const wrapper = document.querySelector('.premium-cta-mockup-wrapper');
             if (!wrapper) return;
             const hotspots = wrapper.querySelectorAll('.mock-hotspot');
@@ -3681,7 +4022,7 @@
                 hotspot.addEventListener('mouseenter', () => {
                     isUserHovering = true;
                     stopCycle();
-                    
+
                     // Show current hovered tool description in the indicator
                     const tool = hotspot.getAttribute('data-tool');
                     if (toolDescriptions[tool]) {
@@ -3699,7 +4040,7 @@
         })();
 
         // ── Interactive Hero Mockup cycle ──
-        (function() {
+        (function () {
             const wrapper = document.querySelector('.hero-mockup');
             if (!wrapper) return;
             const hotspots = wrapper.querySelectorAll('.mock-hotspot');
@@ -3758,7 +4099,7 @@
                 hotspot.addEventListener('mouseenter', () => {
                     isUserHovering = true;
                     stopCycle();
-                    
+
                     // Show current hovered tool description in the indicator
                     const tool = hotspot.getAttribute('data-tool');
                     if (toolDescriptions[tool]) {
