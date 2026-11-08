@@ -15,3 +15,5 @@
 /privacy-policy.html               /privacy-policy               301
 /blog.html                         /blog                         301
 /store.html                        /store                        301
+# Store: add trailing slash to prevent relative asset path issues
+/store                            /store/                            301
