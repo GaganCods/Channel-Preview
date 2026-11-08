@@ -60,6 +60,11 @@
             "source": "/blog.html",
             "destination": "/blog",
             "permanent": true
+        },
+        {
+            "source": "/store.html",
+            "destination": "/store",
+            "permanent": true
         }
     ],
     "headers": [

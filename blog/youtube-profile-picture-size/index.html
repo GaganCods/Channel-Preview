@@ -7,26 +7,26 @@
     <title>YouTube Profile Picture Size Guide: circular crop | Channel Preview</title>
     <meta name="description"
         content="What is the recommended YouTube profile picture size? Learn the 800 × 800 px dimensions, file rules, circular crop safety, and design tips.">
-    <link rel="canonical" href="https://www.channelpreview.com/blog/youtube-profile-picture-size" />
+    <link rel="canonical" href="https://channelpreview.vercel.app/blog/youtube-profile-picture-size" />
     <link rel="stylesheet" href="/index.css" />
     <link rel="stylesheet" href="/blog/blog.css" />
     <link rel="icon" type="image/png" href="/assets/logo-icon.png">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://www.channelpreview.com/blog/youtube-profile-picture-size">
+    <meta property="og:url" content="https://channelpreview.vercel.app/blog/youtube-profile-picture-size">
     <meta property="og:title" content="YouTube Profile Picture Size Guide: Avoid Circle Crop Issues">
     <meta property="og:description"
         content="Learn the ideal dimensions for your YouTube profile picture and how to ensure your logo or face doesn't get clipped by the circular crop.">
-    <meta property="og:image" content="https://www.channelpreview.com/assets/og-image.png">
+    <meta property="og:image" content="https://channelpreview.vercel.app/assets/og-image.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.channelpreview.com/blog/youtube-profile-picture-size">
+    <meta property="twitter:url" content="https://channelpreview.vercel.app/blog/youtube-profile-picture-size">
     <meta property="twitter:title" content="YouTube Profile Picture Size Guide: Avoid Circle Crop Issues">
     <meta property="twitter:description"
         content="Learn the ideal dimensions for your YouTube profile picture and how to ensure your logo or face doesn't get clipped by the circular crop.">
-    <meta property="twitter:image" content="https://www.channelpreview.com/assets/og-image.png">
+    <meta property="twitter:image" content="https://channelpreview.vercel.app/assets/og-image.png">
 
     <!-- JSON-LD Article Schema -->
     <script type="application/ld+json">
@@ -34,18 +34,18 @@
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": "YouTube Profile Picture Size Guide: Avoid Circle Crop Issues",
-        "image": "https://www.channelpreview.com/assets/og-image.png",
+        "image": "https://channelpreview.vercel.app/assets/og-image.png",
         "author": {
             "@type": "Person",
             "name": "Gagan Pratap",
-            "url": "https://www.channelpreview.com/author/gagan-pratap"
+            "url": "https://channelpreview.vercel.app/author/gagan-pratap"
         },
         "publisher": {
             "@type": "Organization",
             "name": "Channel Preview",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://www.channelpreview.com/assets/logo-icon.png"
+                "url": "https://channelpreview.vercel.app/assets/logo-icon.png"
             }
         },
         "datePublished": "2026-06-02",
@@ -64,36 +64,190 @@
 
     <!-- ── NAV ── -->
     <nav id="main-nav">
-        <a class="nav-logo" href="/">
-            <img src="/assets/logo-full.png" alt="Channel Preview" style="height: 32px; width: auto;">
+        <a class="nav-logo" href="/" aria-label="ChannelPreview Home">
+            <img src="/assets/logo-full.png" alt="ChannelPreview" style="height: 30px; width: auto; display: block;">
         </a>
+
         <div class="nav-links" id="nav-links">
-            <a href="/youtube-banner-preview">Banner Preview</a>
-            <a href="/youtube-thumbnail-preview">Thumbnails</a>
-            <a href="/youtube-profile-picture-preview">Profile Picture</a>
-            <a href="/youtube-title-preview">Title Preview</a>
-            <a href="/youtube-video-detail-preview">Watch Page</a>
-            <a href="/blog">Blogs</a>
-            <a href="/editor" class="btn-nav-start mobile-only-btn">
-                Try Free
-                <svg fill="currentColor" viewBox="0 0 24 24" class="btn-nav-start-icon" style="width: 20px; height: 20px;">
-                    <path clip-rule="evenodd"
-                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z"
-                        fill-rule="evenodd"></path>
+            <!-- Tools Dropdown -->
+            <div class="nav-dropdown-wrapper" id="nav-tools-dropdown">
+                <button type="button" class="nav-dropdown-btn" id="nav-tools-toggle" aria-expanded="false" aria-haspopup="true">
+                    <span class="nav-item-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                    </span>
+                    <span>Tools</span>
+                    <svg class="chevron-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+
+                <!-- Tools Dropdown Card -->
+                <div class="nav-dropdown-menu" id="nav-tools-menu" role="menu" aria-label="YouTube Preview Tools">
+                    <div class="nav-dropdown-beak" aria-hidden="true"></div>
+
+                    <div class="nav-dropdown-header">
+                        <div class="nav-dropdown-title">
+                            <span class="nav-dropdown-header-icon">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff5500" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                                    <polyline points="2 17 12 22 22 17"></polyline>
+                                    <polyline points="2 12 12 17 22 12"></polyline>
+                                </svg>
+                            </span>
+                            <span>YouTube Preview Tools</span>
+                        </div>
+                        <span class="nav-dropdown-badge">4 Tools</span>
+                    </div>
+
+                    <div class="nav-dropdown-grid">
+                        <!-- Banner Preview -->
+                        <a href="/youtube-banner-preview" class="nav-tool-card" role="menuitem">
+                            <div class="nav-tool-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                            </div>
+                            <div class="nav-tool-info">
+                                <div class="nav-tool-name">Banner Preview</div>
+                                <div class="nav-tool-desc">Preview your channel banner</div>
+                            </div>
+                            <svg class="nav-tool-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </a>
+
+                        <!-- Thumbnail Preview -->
+                        <a href="/youtube-thumbnail-preview" class="nav-tool-card" role="menuitem">
+                            <div class="nav-tool-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+                                    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                    <polyline points="21 15 16 10 5 21"></polyline>
+                                </svg>
+                            </div>
+                            <div class="nav-tool-info">
+                                <div class="nav-tool-name">Thumbnail Preview</div>
+                                <div class="nav-tool-desc">Check thumbnail in YouTube layout</div>
+                            </div>
+                            <svg class="nav-tool-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </a>
+
+                        <!-- Profile Picture Preview -->
+                        <a href="/youtube-profile-picture-preview" class="nav-tool-card" role="menuitem">
+                            <div class="nav-tool-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                            </div>
+                            <div class="nav-tool-info">
+                                <div class="nav-tool-name">Profile Picture Preview</div>
+                                <div class="nav-tool-desc">See how your channel icon looks</div>
+                            </div>
+                            <svg class="nav-tool-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </a>
+
+                        <!-- Title Preview -->
+                        <a href="/youtube-title-preview" class="nav-tool-card" role="menuitem">
+                            <div class="nav-tool-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="4 7 4 4 20 4 20 7"></polyline>
+                                    <line x1="12" y1="4" x2="12" y2="20"></line>
+                                    <polyline points="9 20 15 20"></polyline>
+                                </svg>
+                            </div>
+                            <div class="nav-tool-info">
+                                <div class="nav-tool-name">Title Preview</div>
+                                <div class="nav-tool-desc">Check your video title appearance</div>
+                            </div>
+                            <svg class="nav-tool-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Watch Page -->
+            <a href="/youtube-video-detail-preview" class="nav-item">
+                <span class="nav-item-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                        <polygon points="10 7.5 15.5 10 10 12.5 10 7.5" fill="currentColor"></polygon>
+                    </svg>
+                </span>
+                <span>Watch Page</span>
+            </a>
+
+            <!-- Store (with distinctive NEW ✨ badge & glowing highlight) -->
+            <a href="/store" class="nav-item nav-item-store">
+                <span class="store-badge-wrapper">
+                    <span class="store-badge">
+                        NEW ✨
+                    </span>
+                </span>
+                <span class="nav-item-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="4" y="7" width="16" height="14" rx="3"></rect>
+                        <path d="M9 7V5a3 3 0 0 1 6 0v2"></path>
+                    </svg>
+                </span>
+                <span>Store</span>
+            </a>
+
+            <!-- Blogs -->
+            <a href="/blog" class="nav-item">
+                <span class="nav-item-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <line x1="10" y1="9" x2="8" y2="9"></line>
+                    </svg>
+                </span>
+                <span>Blogs</span>
+            </a>
+
+            <!-- Divider -->
+            <div class="nav-divider" aria-hidden="true"></div>
+
+            <!-- Try Free CTA Button -->
+            <a href="/editor" class="nav-btn-try">
+                <span class="nav-btn-icon">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+                        <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+                        <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+                        <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+                    </svg>
+                </span>
+                <span>Try Free</span>
+                <svg class="nav-btn-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
             </a>
         </div>
-        <div class="nav-cta">
-            <a href="/editor" class="btn desktop-only-btn"
-                style="padding:9px 20px;border-radius:100px;font-size:0.85rem;font-weight:600;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.2);transition:all 0.3s ease;text-decoration:none;">
-                Try Free →
-            </a>
-            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
+
+        <!-- Hamburger toggle (mobile) -->
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
 
     <!-- ARTICLE WRAPPER -->
@@ -335,45 +489,118 @@
         </div>
     </footer>
 
-    <script>
-        // Scroll: add .scrolled class
-        const mainNav = document.getElementById('main-nav');
-        if (mainNav) {
-            window.addEventListener('scroll', () => {
-                mainNav.classList.toggle('scrolled', window.scrollY > 60);
-            }, { passive: true });
-        }
+        <script>
+        // ── NAVBAR INTERACTIONS ──
+        (function() {
+            const mainNav = document.getElementById('main-nav');
+            const hamburger = document.getElementById('nav-hamburger');
+            const navLinks = document.getElementById('nav-links');
+            const toolsDropdown = document.getElementById('nav-tools-dropdown');
+            const toolsToggle = document.getElementById('nav-tools-toggle');
 
-        // Hamburger toggle
-        const hamburger = document.getElementById('nav-hamburger');
-        const navLinks = document.getElementById('nav-links');
-        if (hamburger && navLinks) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('open');
-                navLinks.classList.toggle('open');
-            });
-
-            // Close menu when a link is clicked
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('open');
-                    navLinks.classList.remove('open');
-                });
-            });
-        }
-
-        // Highlight active link based on pathname
-        const currentPath = window.location.pathname;
-        const navAnchorLinks = document.querySelectorAll('.nav-links a');
-        navAnchorLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === currentPath || (href === '/' && currentPath === '') || (currentPath === '/' && href === '/')) {
-                link.classList.add('active');
-            } else if (href && href !== '/' && currentPath.startsWith(href)) {
-                link.classList.add('active');
+            // Scroll effect
+            if (mainNav) {
+                const handleScroll = () => {
+                    mainNav.classList.toggle('scrolled', window.scrollY > 40);
+                };
+                window.addEventListener('scroll', handleScroll, { passive: true });
+                handleScroll();
             }
-        });
 
+            // Mobile Hamburger toggle
+            if (hamburger && navLinks) {
+                hamburger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isOpen = navLinks.classList.toggle('open');
+                    hamburger.classList.toggle('open', isOpen);
+                    hamburger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
+            }
+
+            // Tools dropdown click/tap toggle (both desktop click and mobile accordion)
+            if (toolsToggle && toolsDropdown) {
+                toolsToggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isMobile = window.innerWidth <= 880;
+                    if (isMobile) {
+                        toolsDropdown.classList.toggle('open-mobile');
+                    } else {
+                        toolsDropdown.classList.toggle('active');
+                    }
+                    const expanded = toolsDropdown.classList.contains('active') || toolsDropdown.classList.contains('open-mobile');
+                    toolsToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+                });
+            }
+
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (toolsDropdown && !toolsDropdown.contains(e.target)) {
+                    toolsDropdown.classList.remove('active');
+                    if (toolsToggle) toolsToggle.setAttribute('aria-expanded', 'false');
+                }
+                if (mainNav && !mainNav.contains(e.target) && navLinks && navLinks.classList.contains('open')) {
+                    navLinks.classList.remove('open');
+                    if (hamburger) {
+                        hamburger.classList.remove('open');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            });
+
+            // Close on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (toolsDropdown) {
+                        toolsDropdown.classList.remove('active');
+                        if (toolsToggle) toolsToggle.setAttribute('aria-expanded', 'false');
+                    }
+                    if (navLinks && navLinks.classList.contains('open')) {
+                        navLinks.classList.remove('open');
+                        if (hamburger) {
+                            hamburger.classList.remove('open');
+                            hamburger.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                }
+            });
+
+            // Close mobile menu when a navigation item or tool card is clicked
+            if (navLinks) {
+                navLinks.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (navLinks.classList.contains('open')) {
+                            navLinks.classList.remove('open');
+                            if (hamburger) {
+                                hamburger.classList.remove('open');
+                                hamburger.setAttribute('aria-expanded', 'false');
+                            }
+                        }
+                        if (toolsDropdown) {
+                            toolsDropdown.classList.remove('active');
+                        }
+                    });
+                });
+            }
+
+            // Active path highlighting
+            const currentPath = window.location.pathname;
+            if (navLinks) {
+                navLinks.querySelectorAll('a').forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href && href !== '#' && href !== '/') {
+                        if (currentPath === href || currentPath.startsWith(href)) {
+                            link.classList.add('active');
+                            if (link.closest('#nav-tools-menu')) {
+                                toolsDropdown.classList.add('has-active-child');
+                            }
+                        }
+                    }
+                });
+            }
+        })();
+    </script>
+
+    <script>
         // FAQ accordion toggle
         const faqItems = document.querySelectorAll('.faq-item');
         faqItems.forEach(item => {

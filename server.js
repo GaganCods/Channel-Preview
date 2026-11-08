@@ -27,6 +27,7 @@ const MIME_TYPES = {
 
 const cleanUrlMap = {
     '/editor': path.join(ROOT, 'editor', 'index.html'),
+    '/store': path.join(ROOT, 'store', 'index.html'),
     '/blog': path.join(ROOT, 'blog', 'index.html'),
     '/about': path.join(ROOT, 'about', 'index.html'),
     '/founder': path.join(ROOT, 'founder', 'index.html'),
