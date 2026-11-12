@@ -1610,6 +1610,30 @@ section[id] {
     }
 }
 
+@media (max-width: 640px) {
+    .footer-cta-card {
+        padding: 32px 20px;
+    }
+
+    .footer-cta-title {
+        font-size: 1.75rem;
+    }
+
+    .footer-cta-desc {
+        font-size: 0.95rem;
+    }
+
+    .footer-cta-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+    }
+
+    .footer-cta-btn {
+        width: 100%;
+    }
+}
+
 @media (max-width: 600px) {
     .footer-grid-container {
         grid-template-columns: 1fr;
