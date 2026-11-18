@@ -713,6 +713,109 @@
     filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
 }
 
+/* ── Article Social Share Box ── */
+.article-share-box {
+    margin: 40px 0 32px;
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 77, 0, 0.03) 100%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.article-share-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.article-share-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 14px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: inherit;
+    text-decoration: none;
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    user-select: none;
+}
+
+.share-btn svg {
+    flex-shrink: 0;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.share-btn.whatsapp:hover {
+    background: rgba(37, 211, 102, 0.12);
+    border-color: rgba(37, 211, 102, 0.5);
+    color: #25d366;
+}
+
+.share-btn.twitter:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.4);
+    color: #fff;
+}
+
+.share-btn.linkedin:hover {
+    background: rgba(10, 102, 194, 0.12);
+    border-color: rgba(10, 102, 194, 0.5);
+    color: #0a66c2;
+}
+
+.share-btn.copy:hover {
+    background: rgba(255, 77, 0, 0.12);
+    border-color: rgba(255, 77, 0, 0.5);
+    color: var(--accent);
+}
+
+@media (max-width: 600px) {
+    .article-share-box {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 18px;
+        gap: 14px;
+    }
+    .article-share-buttons {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    .share-btn {
+        justify-content: center;
+        padding: 8px 10px;
+    }
+}
+
 @media (max-width: 768px) {
     .article-featured-visual {
         aspect-ratio: 16/9;
