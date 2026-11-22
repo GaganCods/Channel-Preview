@@ -38,6 +38,7 @@ const cleanUrlMap = {
     '/youtube-banner-safe-area': path.join(ROOT, 'youtube-banner-safe-area', 'index.html'),
     '/youtube-title-preview': path.join(ROOT, 'youtube-title-preview', 'index.html'),
     '/youtube-video-detail-preview': path.join(ROOT, 'youtube-video-detail-preview', 'index.html'),
+    '/youtube-watch-page-preview': path.join(ROOT, 'youtube-video-detail-preview', 'index.html'),
     '/': path.join(ROOT, 'index.html')
 };
 

@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>YouTube Profile Picture Preview Tool – Check Circular Crop | Channel Preview</title>
+    <title>YouTube Profile Picture Preview – Check Circular Crop | Channel Preview</title>
     <meta name="description"
-        content="Free YouTube profile picture preview tool. Upload your channel icon and see how it looks on your channel page, in search results, video watch pages, and comments. Check circular crop before uploading." />
+        content="Free YouTube profile picture preview tool. Upload your channel icon to check circular crop, borders, and readability across channel headers, comments, and search." />
     <link rel="canonical" href="https://www.channelpreview.com/youtube-profile-picture-preview" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Channel Preview">
     <meta property="og:url" content="https://www.channelpreview.com/youtube-profile-picture-preview">
-    <meta property="og:title" content="YouTube Profile Picture Preview Tool – Check Circular Crop | Channel Preview">
-    <meta property="og:description" content="Free YouTube profile picture preview tool. Upload your channel icon and see how it looks on your channel page, in search results, video watch pages, and comments. Check circular crop before uploading.">
+    <meta property="og:title" content="YouTube Profile Picture Preview – Check Circular Crop | Channel Preview">
+    <meta property="og:description" content="Free YouTube profile picture preview tool. Upload your channel icon to check circular crop, borders, and readability across channel headers, comments, and search.">
     <meta property="og:image" content="https://www.channelpreview.com/assets/og-image.jpg">
     <meta property="og:image:secure_url" content="https://www.channelpreview.com/assets/og-image.jpg">
     <meta property="og:image:type" content="image/jpeg">
@@ -28,8 +28,8 @@
     <meta name="twitter:site" content="@ChannelPreview">
     <meta name="twitter:creator" content="@ChannelPreview">
     <meta name="twitter:url" content="https://www.channelpreview.com/youtube-profile-picture-preview">
-    <meta name="twitter:title" content="YouTube Profile Picture Preview Tool – Check Circular Crop | Channel Preview">
-    <meta name="twitter:description" content="Free YouTube profile picture preview tool. Upload your channel icon and see how it looks on your channel page, in search results, video watch pages, and comments. Check circular crop before uploading.">
+    <meta name="twitter:title" content="YouTube Profile Picture Preview – Check Circular Crop | Channel Preview">
+    <meta name="twitter:description" content="Free YouTube profile picture preview tool. Upload your channel icon to check circular crop, borders, and readability across channel headers, comments, and search.">
     <meta name="twitter:image" content="https://www.channelpreview.com/assets/og-image.jpg">
     <meta name="twitter:image:alt" content="YouTube Profile Picture Preview Tool – Check Circular Crop | Channel Preview">
 
@@ -934,6 +934,24 @@
             background: #d9d9d9;
         }
     </style>
+
+    <!-- SoftwareApplication Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "YouTube Profile Picture Preview Tool",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "All modern browsers (Web)",
+        "url": "https://www.channelpreview.com/youtube-profile-picture-preview",
+        "description": "Free tool to test your YouTube channel profile picture circular crop across channel headers, watch pages, comment sections, and mobile search.",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
 </head>
 
 <body style="background-color:#030303;">
@@ -1243,7 +1261,7 @@
     <section class="page-hero">
         <div class="page-hero-bg"></div>
         <div class="breadcrumb"><a href="/">Home</a><span>›</span><span>YouTube Profile Picture Preview</span></div>
-        <h1 class="page-h1">YouTube Profile Picture<br><span class="accent-text">Preview Tool</span></h1>
+        <h1 class="page-h1">YouTube Profile Picture <br><span class="accent-text">Preview Tool</span></h1>
         <p class="page-subtitle">
             Upload your channel icon and see exactly how it looks on your channel page,
             in search results, video pages, and comments. Check the circular crop before uploading.
@@ -1741,10 +1759,10 @@
                 <h4>Title Preview</h4>
                 <p>Test where YouTube truncates your video title on different devices.</p>
             </a>
-            <a href="/youtube-banner-safe-area" class="link-card">
-                <div style="font-size:2rem;margin-bottom:12px;">📐</div>
-                <h4>Safe Area Guide</h4>
-                <p>Learn the YouTube banner safe zone with diagrams and templates.</p>
+            <a href="/" class="link-card">
+                <div style="font-size:2rem;margin-bottom:12px;">🏠</div>
+                <h4>Channel Preview Home</h4>
+                <p>Preview all your channel art, thumbnails, and branding in one unified suite.</p>
             </a>
         </div>
         <div style="margin-top:40px;">
@@ -2176,7 +2194,7 @@
             const tx = -cropBoxX;
             const ty = -cropBoxY;
 
-            return `<img src="${pfpDataUrl}" style="position: absolute; top: 0; left: 0; width: ${imgRenderedWidth}px; height: ${imgRenderedHeight}px; transform-origin: 0 0; transform: scale(${scale}) translate(${tx}px, ${ty}px); max-width: none !important; max-height: none !important; object-fit: fill !important; border-radius: 0;">`;
+            return `<img src="${pfpDataUrl}" alt="YouTube profile picture preview" alt="YouTube profile picture preview" style="position: absolute; top: 0; left: 0; width: ${imgRenderedWidth}px; height: ${imgRenderedHeight}px; transform-origin: 0 0; transform: scale(${scale}) translate(${tx}px, ${ty}px); max-width: none !important; max-height: none !important; object-fit: fill !important; border-radius: 0;">`;
         }
 
         function getFallbackSize(id) {
