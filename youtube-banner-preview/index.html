@@ -4,17 +4,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>YouTube Banner Preview Tool – Test Banner Safe Area Free | Channel Preview</title>
+    <title>YouTube Banner Preview Tool – Check Mobile, Desktop & TV | Channel Preview</title>
     <meta name="description"
-        content="Free YouTube banner preview tool. Upload your banner and instantly see how it crops on Desktop (2560×1440), Mobile (1546×423), and TV. Toggle safe area overlay, export PNG. No sign-up needed." />
+        content="Free YouTube banner preview tool. Upload your banner to instantly check safe area cropping across mobile (1546×423), desktop, and TV before publishing. 100% free and in-browser." />
     <link rel="canonical" href="https://www.channelpreview.com/youtube-banner-preview" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Channel Preview">
     <meta property="og:url" content="https://www.channelpreview.com/youtube-banner-preview">
-    <meta property="og:title" content="YouTube Banner Preview Tool – Test Banner Safe Area Free | Channel Preview">
-    <meta property="og:description" content="Free YouTube banner preview tool. Upload your banner and instantly see how it crops on Desktop (2560×1440), Mobile (1546×423), and TV. Toggle safe area overlay, export PNG. No sign-up needed.">
+    <meta property="og:title" content="YouTube Banner Preview Tool – Check Mobile, Desktop & TV | Channel Preview">
+    <meta property="og:description" content="Free YouTube banner preview tool. Upload your banner to instantly check safe area cropping across mobile (1546×423), desktop, and TV before publishing. 100% free and in-browser.">
     <meta property="og:image" content="https://www.channelpreview.com/assets/og-image.jpg">
     <meta property="og:image:secure_url" content="https://www.channelpreview.com/assets/og-image.jpg">
     <meta property="og:image:type" content="image/jpeg">
@@ -28,8 +28,8 @@
     <meta name="twitter:site" content="@ChannelPreview">
     <meta name="twitter:creator" content="@ChannelPreview">
     <meta name="twitter:url" content="https://www.channelpreview.com/youtube-banner-preview">
-    <meta name="twitter:title" content="YouTube Banner Preview Tool – Test Banner Safe Area Free | Channel Preview">
-    <meta name="twitter:description" content="Free YouTube banner preview tool. Upload your banner and instantly see how it crops on Desktop (2560×1440), Mobile (1546×423), and TV. Toggle safe area overlay, export PNG. No sign-up needed.">
+    <meta name="twitter:title" content="YouTube Banner Preview Tool – Check Mobile, Desktop & TV | Channel Preview">
+    <meta name="twitter:description" content="Free YouTube banner preview tool. Upload your banner to instantly check safe area cropping across mobile (1546×423), desktop, and TV before publishing. 100% free and in-browser.">
     <meta name="twitter:image" content="https://www.channelpreview.com/assets/og-image.jpg">
     <meta name="twitter:image:alt" content="YouTube Banner Preview Tool – Test Banner Safe Area Free | Channel Preview">
 
@@ -942,6 +942,24 @@
             background: #d9d9d9;
         }
     </style>
+
+    <!-- SoftwareApplication Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "YouTube Banner Preview Tool",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "All modern browsers (Web)",
+        "url": "https://www.channelpreview.com/youtube-banner-preview",
+        "description": "Free in-browser tool to preview how your YouTube banner displays and crops on Desktop (2560x1440), Mobile (1546x423 safe zone), and TV.",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
 </head>
 
 <body style="background-color:#030303;">
@@ -1253,7 +1271,7 @@
         <div class="breadcrumb">
             <a href="/">Home</a><span>›</span><span>YouTube Banner Preview</span>
         </div>
-        <h1 class="page-h1">YouTube Banner<br><span class="accent-text">Preview Tool</span></h1>
+        <h1 class="page-h1">YouTube Banner <br><span class="accent-text">Preview Tool</span></h1>
         <p class="page-subtitle">
             Upload your banner and instantly see how it crops on Desktop, Mobile, and TV.
             Toggle safe area, check alignment — upload with confidence. Free & instant.
@@ -2187,7 +2205,7 @@
                 ty = -(cropBoxY + cropBoxHeight * ((1440 - 423) / 2 / 1440));
             }
 
-            return `<img src="${bannerDataUrl}" style="position: absolute; top: 0; left: 0; width: ${imgRenderedWidth}px; height: ${imgRenderedHeight}px; transform-origin: 0 0; transform: scale(${scale}) translate(${tx}px, ${ty}px); max-width: none !important; max-height: none !important; object-fit: fill !important; border-radius: 0;">`;
+            return `<img src="${bannerDataUrl}" alt="YouTube banner preview" alt="YouTube banner preview" style="position: absolute; top: 0; left: 0; width: ${imgRenderedWidth}px; height: ${imgRenderedHeight}px; transform-origin: 0 0; transform: scale(${scale}) translate(${tx}px, ${ty}px); max-width: none !important; max-height: none !important; object-fit: fill !important; border-radius: 0;">`;
         }
 
         function applyBannerCropUI() {

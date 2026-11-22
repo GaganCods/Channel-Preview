@@ -65,6 +65,16 @@
             "source": "/store.html",
             "destination": "/store",
             "permanent": true
+        },
+        {
+            "source": "/youtube-watch-page-preview",
+            "destination": "/youtube-video-detail-preview",
+            "permanent": true
+        },
+        {
+            "source": "/youtube-watch-page-preview.html",
+            "destination": "/youtube-video-detail-preview",
+            "permanent": true
         }
     ],
     "headers": [
